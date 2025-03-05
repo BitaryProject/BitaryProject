@@ -1,0 +1,1732 @@
+
+[
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5162617?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Purina ONE Indoor Turkey",
+    "description": "Premium indoor cat food made with real turkey, natural ingredients, and high protein content. Specially formulated to support indoor cats' health and maintain healthy weight.",
+    "quantity": "(407)",
+    "price": "$10.29",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5275530?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Friskies Seafood & Chicken",
+    "description": "Variety pack of wet cat food featuring seafood and chicken flavors. Contains 40 cans with a total of 220 oz. Perfect for cats who love both seafood and poultry.",
+    "quantity": "(574)",
+    "price": "$10.29",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5257820?$sclp-prd-main_large$",
+    "name": "Nulo Medal Turkey & Chicken",
+    "description": "Premium grain-free dry cat food combining turkey and chicken proteins. Made without corn, wheat, or soy for sensitive digestion. Supports overall health and vitality.",
+    "quantity": "(298)",
+    "price": "$19.99",
+    "category_id": 1,
+    "brand_id": 2
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5150230?$sclp-prd-main_large$",
+    "name": "Royal Canin Instinctive",
+    "description": "Premium wet cat food in 3oz cans. Formulated to match cats' natural nutritional needs. Contains optimal protein levels and essential nutrients for adult cats.",
+    "quantity": "(379)",
+    "price": "$2.19",
+    "category_id": 1,
+    "brand_id": 3
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266624?$sclp-prd-main_large$",
+    "name": "Cat Chow Naturals",
+    "description": "Natural dry cat food with real chicken. Made without artificial flavors. Suitable for all life stages with balanced nutrition for daily feeding.",
+    "quantity": "(125)",
+    "price": "$11.99",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5162618?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Purina ONE Tender Selects",
+    "description": "High-protein dry cat food made with real chicken. Features tender, meaty morsels and crunchy kibble for taste and texture cats love.",
+    "quantity": "(75)",
+    "price": "$10.29",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5087082?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Friskies 32-Count Pack",
+    "description": "Variety pack of Friskies wet cat food featuring multiple flavors. Provides complete and balanced nutrition for adult cats.",
+    "quantity": "(494)",
+    "price": "$23.99",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237488?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Friskies Chicken Lovers",
+    "description": "Premium variety pack of chicken-flavored wet cat food. Contains 32 cans with a total of 176 oz. Made with real chicken and essential nutrients for complete daily nutrition.",
+    "quantity": "(328)",
+    "price": "$23.99",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5246606?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Hill's Healthy Cuisine",
+    "description": "Science-based nutrition in a delicious chunks and gravy format. Contains high-quality protein and balanced nutrients. Supports digestive health and lean muscle maintenance.",
+    "quantity": "(676)",
+    "price": "$1.98",
+    "category_id": 1,
+    "brand_id": 4
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237490?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Fancy Feast Variety Pack",
+    "description": "Gourmet wet cat food variety pack suitable for cats of all ages. Features 30 cans with different flavors and textures. Made with premium ingredients for a taste cats love.",
+    "quantity": "(263)",
+    "price": "$42.99",
+    "category_id": 1,
+    "brand_id": 5
+     },
+
+
+  
+  
+    
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266915?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Savor Wet Cat Food - 5.5 Oz",
+      "description": "Premium wet cat food with antioxidants and high protein. Supports immune health and muscle maintenance.",
+      "quantity": "(704)",
+      "price": "$1.99",
+      "category_id": 1,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5068579?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Urinary Tract Health Wet Cat Food - 3 Oz",
+      "description": "Supports urinary tract health with balanced minerals. Helps maintain proper urinary pH levels.",
+      "quantity": "(552)",
+      "price": "$1.69",
+      "category_id": 1,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5092573?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Kitten Chow Dry Cat Food - Chicken",
+      "description": "Nutrient-rich dry food for kittens. Contains DHA for brain and vision development.",
+      "quantity": "(125)",
+      "price": "$9.99",
+      "category_id": 1,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279655?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "IAMS Proactive Health Dry Cat Food - Chicken",
+      "description": "Supports urinary tract health with real chicken. Balanced nutrition for adult cats.",
+      "quantity": "(304)",
+      "price": "$11.99",
+      "category_id": 1,
+      "brand_id": 6
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5263573?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Fancy Feast Wet Cat Food - Variety Pack, 90 Oz",
+      "description": "A delicious variety of wet food for all life stages. Packed with essential nutrients.",
+      "quantity": "(158)",
+      "price": "$17.69",
+      "category_id": 1,
+      "brand_id": 5
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5299096?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Sensitive Wet Cat Food - 3 Oz",
+      "description": "Formulated for sensitive stomachs. No artificial colors or corn, ensuring better digestion.",
+      "quantity": "(285)",
+      "price": "$1.69",
+      "category_id": 1,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266912?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Savor Wet Cat Food - 5.5 Oz",
+      "description": "Corn-free wet cat food enriched with antioxidants. Supports overall health and well-being.",
+      "quantity": "(376)",
+      "price": "$1.99",
+      "category_id": 1,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5145397?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Meow Mix Original Dry Cat Food - 3.15 Lbs",
+      "description": "Tasty blend of chicken, turkey, salmon, and ocean fish. Suitable for cats of all ages.",
+      "quantity": "(387)",
+      "price": "$8.49",
+      "category_id": 1,
+      "brand_id": 7
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139004?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Fancy Feast Wet Cat Food - Poultry & Beef, 72 Oz",
+      "description": "Premium variety pack of poultry and beef flavors. Perfect for all life stages.",
+      "quantity": "(233)",
+      "price": "$17.69",
+      "category_id": 1,
+      "brand_id": 5
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5308921?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Tiki Cat Pate Wet Cat Food - Variety Pack, 33.6 Oz",
+      "description": "Natural, fruit & veggie-free cat food. Made with high-quality ingredients for optimal nutrition.",
+      "quantity": "(101)",
+      "price": "$19.29",
+      "category_id": 1,
+      "brand_id": 8
+     },
+
+     
+      {
+     "name": "Purina Kitten Wet Food",
+     "description": "High-protein wet cat food with essential vitamins for kittens. Includes a variety pack of 12 cans.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5264930?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(498)",
+     "price": "$19.99",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Purina Urinary Care",
+     "description": "Specialized wet cat food supporting urinary tract health. Contains 5.5 oz per can.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266918?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(386)",
+     "price": "$2.12",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Purina Friskies Dry",
+     "description": "Nutritious dry cat food with antioxidants to support overall health.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139546?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(238)",
+     "price": "$15.99",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Fancy Feast Cheddar",
+     "description": "Wet cat food with cheddar cheese, suitable for all life stages. Variety pack of 24 cans.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5310575?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(136)",
+     "price": "$23.99",
+     "category_id": 1,
+     "brand_id": 5
+      },
+      {
+     "name": "Purina High-Protein",
+     "description": "Wet cat food rich in protein and antioxidants for adult cats. 5.5 oz per can.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252166?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(169)",
+     "price": "$1.99",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Friskies Pate Pack",
+     "description": "A variety pack of 24 pate-style wet cat food cans, totaling 132 oz.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5073308?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(467)",
+     "price": "$42.99",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Friskies Extra Gravy",
+     "description": "Wet cat food with extra gravy for enhanced flavor. Variety pack of 24 cans.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279435?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(251)",
+     "price": "$42.99",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Fancy Feast Variety",
+     "description": "A gourmet wet cat food variety pack, suitable for all life stages. 24 cans included.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5056526?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(103)",
+     "price": "$17.69",
+     "category_id": 1,
+     "brand_id": 5
+      },
+      {
+     "name": "Purina Cat Chow Naturals",
+     "description": "Natural dry cat food with chicken, free from artificial flavors.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237074?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(304)",
+     "price": "$11.99",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "name": "Nulo MedalSeries Grain-Free",
+     "description": "Grain-free wet cat food without corn, wheat, or soy. 5.5 oz per can.",
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252951?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "quantity": "(164)",
+     "price": "$1.99",
+     "category_id": 1,
+     "brand_id": 3
+      },
+
+    
+    
+      
+    {
+      "name": "Fancy Feast Gravy Lovers",
+      "description": "Delicious wet cat food with rich gravy, suitable for all life stages.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5152902?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(519)",
+      "price": "$17.69",
+      "category_id": 1,
+      "brand_id": 5
+    },
+    {
+      "name": "Purina Pro Plan Wet",
+      "description": "High-protein wet cat food with antioxidants for adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5230667?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(222)",
+      "price": "$1.49",
+      "category_id": 1,
+      "brand_id": 1
+    },
+    {
+      "name": "Friskies Real Meat",
+      "description": "Wet cat food with real meat, high in protein for adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5063014?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(375)",
+      "price": "$42.99",
+      "category_id": 1,
+      "brand_id": 1
+    },
+    {
+      "name": "Fancy Feast Chunky",
+      "description": "Wet cat food with chunky texture, suitable for all life stages.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221048?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(577)",
+      "price": "$23.99",
+      "category_id": 1,
+      "brand_id": 5
+    },
+    {
+      "name": "Fancy Feast Grilled",
+      "description": "Grilled wet cat food with a delicious texture, suitable for all life stages.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5035568?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(595)",
+      "price": "$0.72",
+      "category_id": 1,
+      "brand_id": 5
+    },
+    {
+      "name": "Friskies All Life",
+      "description": "Wet cat food for all life stages, packed with essential nutrients.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1222130?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(635)",
+      "price": "$0.72",
+      "category_id": 1,
+      "brand_id": 1
+    },
+    {
+      "name": "Fancy Feast Variety 30CT",
+      "description": "A variety pack of 30 wet cat food servings for adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5275858?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(419)",
+      "price": "$25.99",
+      "category_id": 1,
+      "brand_id": 5
+    },
+    {
+      "name": "Purina Pro Variety 24CT",
+      "description": "A variety pack of 24 wet cat food servings for adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5268233?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(225)",
+      "price": "$35.59",
+      "category_id": 1,
+      "brand_id": 1
+    },
+    {
+      "name": "Meow Mix Dry Food",
+      "description": "Dry cat food with chicken, turkey, salmon, and ocean fish flavors.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5335679?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(197)",
+      "price": "$5.59",
+      "category_id": 1,
+      "brand_id": 7
+    },
+    {
+      "name": "Friskies Variety 32CT",
+      "description": "A variety pack of 32 wet cat food servings for adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237486?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": "(58)",
+      "price": "$23.99",
+      "category_id": 1,
+      "brand_id": 1
+    },
+     
+     
+    
+     {
+    "name": "Fancy Feast Kitten Wet Food",
+    "description": "A variety pack of wet food for kittens, providing essential nutrients for growth.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5289807?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(90)",
+    "price": "$18.79",
+    "category_id": 1,
+    "brand_id": 5
+     },
+     {
+    "name": "Fancy Feast Seafood Pack",
+    "description": "Wet food variety pack for all life stages, featuring seafood flavors.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139003?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(61)",
+    "price": "$17.39",
+    "category_id": 1,
+    "brand_id": 5
+     },
+     {
+    "name": "Friskies Seafood Dry Food",
+    "description": "Adult dry cat food with seafood flavors and added vitamins for a balanced diet.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5267332?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(79)",
+    "price": "$15.99",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "name": "Fancy Feast Gravy Lovers",
+    "description": "Wet food variety pack with rich gravy for all life stages.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237489?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(52)",
+    "price": "$26.49",
+    "category_id": 1,
+    "brand_id": 5
+     },
+     {
+    "name": "Friskies Shreds Wet Food",
+    "description": "Large variety pack of shredded wet food for adult cats.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5281120?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(45)",
+    "price": "$31.29",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "name": "Cat Chow Complete",
+    "description": "Dry food for all life stages with real chicken and essential vitamins.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5289308?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(294)",
+    "price": "$18.59",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "name": "Fancy Feast Savory Centers",
+    "description": "Wet food variety pack for adult cats, featuring a savory center filling.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5303566?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(127)",
+    "price": "$15.99",
+    "category_id": 1,
+    "brand_id": 5
+     },
+     {
+    "name": "Pro Plan Essentials Wet Food",
+    "description": "High-protein wet food with antioxidants, in a delicious gravy.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5152972?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(159)",
+    "price": "$1.49",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     {
+    "name": "Fancy Feast Medleys Pack",
+    "description": "Wet food variety pack with gourmet-inspired flavors for adult cats.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5126503?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(102)",
+    "price": "$12.99",
+    "category_id": 1,
+    "brand_id": 5
+     },
+     {
+    "name": "Fancy Feast Classic Pate",
+    "description": "Classic pate-style wet food for adult cats, rich in flavor and nutrition.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221069?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(805)",
+    "price": "$0.88",
+    "category_id": 1,
+    "brand_id": 5
+     },
+     {
+    "name": "Science Diet Perfect Weight",
+    "description": "Dry cat food designed for weight management with real chicken.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5209028?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(104)",
+    "price": "$24.99",
+    "category_id": 1,
+    "brand_id": 4
+     },
+     {
+    "name": "Science Diet Sensitive Stomach",
+    "description": "Dry food with chicken, formulated for cats with sensitive stomachs and skin.",
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5154821?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "quantity": "(122)",
+    "price": "$23.99",
+    "category_id": 1,
+    "brand_id": 4
+     },
+
+
+    
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139242?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Purina Pro Plan Dry Cat Food - Chicken & Rice",
+     "description": "High-protein dry cat food with vitamins, probiotics, and real chicken for complete nutrition.",
+     "quantity": "(316)",
+     "price": "$16.89",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5298972?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Tiki Cat After Dark Wet Cat Food - Variety Pack",
+     "description": "Grain-free wet cat food with high-protein meats, non-GMO ingredients, and a variety of flavors.",
+     "quantity": "(137)",
+     "price": "$24.99",
+     "category_id": 1,
+     "brand_id": 8
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5268631?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Nulo MedalSeries Wet Cat Food - Grain Free",
+     "description": "High-moisture wet cat food with no corn, wheat, or soy for a healthy diet.",
+     "quantity": "(169)",
+     "price": "$3.19",
+     "category_id": 1,
+     "brand_id": 2
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5135861?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Purina ONE Sensitive Skin & Stomach Dry Cat Food",
+     "description": "Special formula with turkey and natural ingredients for cats with sensitive digestion.",
+     "quantity": "(100)",
+     "price": "$10.29",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5289307?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Purina Cat Chow Indoor Dry Cat Food",
+     "description": "Balanced nutrition with real chicken for indoor cats to maintain a healthy weight.",
+     "quantity": "(451)",
+     "price": "$18.59",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5296675?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Fancy Feast Petites Wet Cat Food - Variety Pack",
+     "description": "Gourmet wet cat food toppers in a variety pack to add extra flavor and nutrition.",
+     "quantity": "(1000)",
+     "price": "$19.99",
+     "category_id": 1,
+     "brand_id": 5
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5220055?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Purina Pro Plan Wet Cat Food - High-Protein",
+     "description": "Complete and balanced wet cat food with antioxidants and high protein for adult cats.",
+     "quantity": "(410)",
+     "price": "$17.79",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5260054?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Nulo MedalSeries Wet Cat Food - Grain Free, 3 Oz.",
+     "description": "A grain-free wet cat food with no artificial additives for a healthy diet.",
+     "quantity": "(237)",
+     "price": "$1.49",
+     "category_id": 1,
+     "brand_id": 2
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5164326?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Purina Pro Plan Wet Cat Food - Loaf, 3 Oz.",
+     "description": "Soft, protein-rich loaf-style wet cat food with essential nutrients.",
+     "quantity": "(86)",
+     "price": "$1.49",
+     "category_id": 1,
+     "brand_id": 1
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139021?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Fancy Feast Medleys Wet Cat Food - Primavera",
+     "description": "A gourmet variety pack with primavera-style recipes for delicious meals.",
+     "quantity": "(113)",
+     "price": "$13.29",
+     "category_id": 1,
+     "brand_id": 5
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221553?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Fancy Feast Flaked Wet Cat Food, 3 OZ",
+     "description": "Tender flaked wet cat food with a savory taste, suitable for all life stages.",
+     "quantity": "(116)",
+     "price": "$0.88",
+     "category_id": 1,
+     "brand_id": 5
+      },
+    
+      
+    {
+      "name": "Nulo MedalSeries Wet Cat Food",
+      "description": "Grain-free wet cat food suitable for all life stages, free from corn, wheat, and soy.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5260052?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 256,
+      "price": "$1.49",
+      "category_id": 1,
+      "brand_id": 2
+    },
+    {
+      "name": "Purina Friskies Pate Wet Cat Food",
+      "description": "Classic pate-style wet cat food with a smooth texture for easy eating.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221034?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 67,
+      "price": "$0.78",
+      "category_id": 1,
+      "brand_id": 1
+    },
+    {
+      "name": "Purina Pro Plan Savor Wet Cat Food",
+      "description": "High-protein wet cat food with antioxidants to support immune health.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5230717?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 102,
+      "price": "$1.49",
+      "category_id": 1,
+      "brand_id": 1
+    },
+    {
+      "name": "Royal Canin Indoor Adult Dry Cat Food",
+      "description": "Specially formulated dry cat food for indoor adult cats to support weight management.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5070602?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 195,
+      "price": "$23.99",
+      "category_id": 1,
+      "brand_id": 3
+    },
+    {
+      "name": "Hill's Science Diet Urinary Hairball Control",
+      "description": "Chicken-flavored dry cat food designed to support urinary health and reduce hairballs.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237395?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 86,
+      "price": "$24.99",
+      "category_id": 1,
+      "brand_id": 4
+    },
+    {
+      "name": "Hill's Science Diet Indoor Adult",
+      "description": "Chicken-flavored dry food tailored for indoor adult cats to maintain healthy digestion.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5154810?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 22,
+      "price": "$21.99",
+      "category_id": 1,
+      "brand_id": 4
+    },
+    {
+      "name": "Hill's Science Diet Adult Chicken",
+      "description": "Nutritionally balanced chicken-flavored dry cat food for adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5246501?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 51,
+      "price": "$60.99",
+      "category_id": 1,
+      "brand_id": 4
+    },
+    {
+      "name": "Authority Everyday Health Indoor Cat Food",
+      "description": "Chicken & rice formula with grains, designed for daily health in indoor cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279240?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 655,
+      "price": "$63.99",
+      "category_id": 1,
+      "brand_id": 9
+    },
+    {
+      "name": "IAMS Proactive Health Indoor Cat Food",
+      "description": "Weight & hairball control formula with chicken, designed for indoor adult cats.",
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5246512?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "quantity": 252,
+      "price": "$9.89",
+      "category_id": 1,
+      "brand_id": 6
+    },
+    
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287616?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Simply Nourish Cat Food - Chicken & Rice",
+    "description": "Natural dry cat food made with real chicken and brown rice for balanced nutrition.",
+    "quantity": 307,
+    "price": "$26.99",
+    "category_id": 1,
+    "brand_id": 10
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5253228?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Hill's Science Diet Urinary Hairball Control",
+    "description": "Minced wet cat food designed to support urinary health and reduce hairballs.",
+    "quantity": 353,
+    "price": "$2.69",
+    "category_id": 1,
+    "brand_id": 4
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5275529?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Purina Friskies Surfin' & Turfin' Variety Pack",
+    "description": "40-pack of wet cat food with mixed seafood and meat flavors for variety.",
+    "quantity": 232,
+    "price": "$31.29",
+    "category_id": 1,
+    "brand_id": 1
+     },
+     
+    
+      {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252900?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Sensitive Skin & Stomach",
+      "description": "Premium salmon & rice formula designed for dogs with sensitive digestion and skin issues. Contains omega fatty acids and easily digestible ingredients for optimal nutrition and coat health.",
+      "quantity": "(5441)",
+      "price": "$72.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5309276?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Authority Sensitive Stomach & Skin",
+      "description": "Salmon & rice recipe formulated for dogs with food sensitivities. Contains prebiotics, antioxidants, and omega-3 fatty acids to support digestive and immune health at all life stages.",
+      "quantity": "(1265)",
+      "price": "$17.99",
+      "category_id": 2,
+      "brand_id": 9
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364964?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Honest Kitchen Goat's Milk Topper",
+      "description": "Dehydrated goat's milk food topper rich in probiotics and enzymes. Supports digestion and provides added nutrition for dogs of all ages and sizes.",
+      "quantity": "(1450)",
+      "price": "$16.99",
+      "category_id": 2,
+      "brand_id": 11
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5272611?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Shredded Blend",
+      "description": "Chicken & rice formula with shredded pieces for texture variety. Complete and balanced nutrition with high-quality protein for muscle maintenance and overall health.",
+      "quantity": "(3296)",
+      "price": "$16.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5154856?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Science Diet Sensitive Stomach",
+      "description": "Chicken & barley recipe scientifically developed for dogs with sensitive stomachs. Contains prebiotic fiber for microbiome health and easy-to-digest ingredients.",
+      "quantity": "(1544)",
+      "price": "$23.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364577?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Lamb & Oat",
+      "description": "Specially formulated with lamb and oatmeal for dogs with skin sensitivities. Contains zinc and linoleic acid for skin and coat health while supporting digestive wellness.",
+      "quantity": "(2316)",
+      "price": "$7.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5309278?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Honest Kitchen Whole Grain",
+      "description": "Human-grade dehydrated dog food made with cage-free chicken and whole grains. Contains minimally processed ingredients with added vitamins and minerals.",
+      "quantity": "(806)",
+      "price": "$17.99",
+      "category_id": 2,
+      "brand_id": 11
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252903?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Lamb Formula",
+      "description": "Premium lamb and oatmeal recipe for adult dogs with skin sensitivities. Features real lamb as the first ingredient with oatmeal for gentle digestion.",
+      "quantity": "(1278)",
+      "price": "$89.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364580?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Authority Large Breed",
+      "description": "Chicken & rice formula specifically designed for large breed adult dogs. Contains glucosamine and chondroitin for joint health, with balanced protein for lean muscle maintenance.",
+      "quantity": "(8897)",
+      "price": "$1.49",
+      "category_id": 2,
+      "brand_id": 9
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5319719?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Honest Kitchen Beef Stew",
+      "description": "Human-grade wet dog food made with real roasted beef in a hearty stew. Contains whole foods with added vitamins and minerals in a convenient ready-to-serve package.",
+      "quantity": "(777)",
+      "price": "$14.99",
+      "category_id": 2,
+      "brand_id": 11
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279157?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Science Diet Wet Food",
+      "description": "Premium turkey & rice wet food for dogs with sensitive digestion. Easy-to-digest formula with prebiotic fiber for optimal nutrient absorption and stool quality.",
+      "quantity": "(814)",
+      "price": "$45.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364946?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Simply Nourish Wet Food Stew",
+      "description": "Nutritious stew recipe made with real meat and vegetables. High-moisture food option with balanced nutrition and no artificial preservatives, colors or flavors.",
+      "quantity": "(79)",
+      "price": "$4.29",
+      "category_id": 2,
+      "brand_id": 10
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5286296?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Science Diet Turkey Wet Food",
+      "description": "Veterinarian-recommended wet food with turkey and rice for dogs with sensitive stomachs. Contains high-quality protein and gentle fiber for healthy digestion.",
+      "quantity": "(677)",
+      "price": "$4.09",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5286374?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Large Breed",
+      "description": "Salmon & rice formula tailored for large breed dogs with sensitive skin and stomachs. Contains optimal protein-to-fat ratio and joint-supporting nutrients.",
+      "quantity": "(871)",
+      "price": "$3.09",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5345204?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Large Breed Salmon",
+      "description": "High-protein formula with salmon for large breed dogs with sensitivities. Contains EPA and glucosamine for joint health and mobility with omega fatty acids for skin and coat.",
+      "quantity": "(915)",
+      "price": "$89.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5339222?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Perfect Weight",
+      "description": "Weight management formula with chicken for adult dogs. Clinically proven nutrition to achieve and maintain a healthy weight with high-quality protein for lean muscle.",
+      "quantity": "(1017)",
+      "price": "$25.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5209172?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Salmon & Rice",
+      "description": "Shredded blend formula with salmon as the first ingredient. Contains rice for digestibility and balanced nutrition with omega fatty acids for skin and coat health.",
+      "quantity": "(1214)",
+      "price": "$89.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5348548?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Simply Nourish Limited Ingredient",
+      "description": "Salmon & sweet potato recipe with limited ingredients for dogs with food sensitivities. Contains no grains, corn, wheat, or soy with added vitamins and minerals.",
+      "quantity": "(981)",
+      "price": "$22.99",
+      "category_id": 2,
+      "brand_id": 10
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5173207?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Royal Canin Small Breed",
+      "description": "Specifically formulated for small breed adult dogs under 22 lbs. Contains precise nutrition for high energy needs with kibble designed for small jaws.",
+      "quantity": "(1072)",
+      "price": "$19.99",
+      "category_id": 2,
+      "brand_id": 3
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287507?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Simply Nourish Lamb & Oatmeal",
+      "description": "Natural dog food with real lamb and oatmeal. Contains superfoods, antioxidants, and omega fatty acids for complete nutrition and healthy skin and coat.",
+      "quantity": "(597)",
+      "price": "$14.99",
+      "category_id": 2,
+      "brand_id": 10
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5327624?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Pedigree Steak & Vegetables",
+      "description": "Complete nutrition formula with steak and vegetable flavors. Contains essential antioxidants, vitamins, and minerals to support a healthy immune system and digestion.",
+      "quantity": "(2861)",
+      "price": "$89.99",
+      "category_id": 2,
+      "brand_id": 12
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5271677?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina FortiFlora Probiotic",
+      "description": "Veterinary-recommended probiotic supplement for dogs. Contains live microorganisms to promote normal intestinal microflora and digestive health.",
+      "quantity": "(1272)",
+      "price": "$59.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5283755?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Large Breed Chicken",
+      "description": "Specialized nutrition for large breed adult dogs with chicken as the first ingredient. Contains EPA and glucosamine for joint health and mobility.",
+      "quantity": "(1594)",
+      "price": "$88.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5272612?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Sport",
+      "description": "High-protein formula with 30% protein and 20% fat for active dogs. Fuels metabolic needs and helps maintain lean muscle with optimal amino acid profile.",
+      "quantity": "(2810)",
+      "price": "$19.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5349022?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Simply Nourish Large Breed Salmon",
+      "description": "Salmon & sweet potato recipe specifically formulated for large breed dogs. Contains glucosamine and chondroitin for joint health with balanced nutrients for proper growth.",
+      "quantity": "(80)",
+      "price": "$68.99",
+      "category_id": 2,
+      "brand_id": 10
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266809?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Large Breed",
+      "description": "Chicken & barley formula designed for large breed adult dogs. Contains balanced minerals for heart health and glucosamine and chondroitin for joint support.",
+      "quantity": "(820)",
+      "price": "$48.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5283624?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Beef & Rice",
+      "description": "Shredded blend formula with beef as the first ingredient. Contains rice for easy digestion and complete nutrition with both hard kibble and tender shredded pieces.",
+      "quantity": "(1512)",
+      "price": "$16.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5153876?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Weight Management",
+      "description": "Weight control formula with chicken and reduced calories. Contains high protein to help maintain lean muscle during weight loss with natural fiber for satiety.",
+      "quantity": "(1311)",
+      "price":"$ 97.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266810?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Science Diet Adult",
+      "description": "Chicken & barley recipe for adult dogs 1-6 years. Contains high-quality protein for lean muscle maintenance and balanced nutrition for optimal health.",
+      "quantity": "(1099)",
+      "price": "$20.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279202?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Authority Chicken & Rice",
+      "description": "All life stages formula with chicken as the first ingredient. Contains omega-3 and omega-6 fatty acids for skin and coat health with antioxidants for immune support.",
+      "quantity": "(662)",
+      "price": "$16.99",
+      "category_id": 2,
+      "brand_id": 9
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5066968?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Blue Buffalo Life Protection",
+      "description": "Chicken & brown rice formula with LifeSource Bits. Contains a precise blend of antioxidants, vitamins, and minerals with real meat as the first ingredient.",
+      "quantity": "(1871)",
+      "price": "$14.99",
+      "category_id": 2,
+      "brand_id": 13
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5209167?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina Pro Plan Small Breed",
+      "description": "Specialized shredded blend formula for small breed adult dogs. Contains chicken as the first ingredient with smaller kibble size for smaller mouths.",
+      "quantity": "(1370)",
+      "price": "$72.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5206384?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Royal Canin HP",
+      "description": "Veterinary-exclusive hydrolyzed protein diet for dogs with food sensitivities. Features proteins broken down into smaller components to minimize allergic reactions.",
+      "quantity": "(1082)",
+      "price": "$56.",
+      "category_id": 2,
+      "brand_id": 3
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5150138?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Royal Canin Golden Retriever",
+      "description": "Breed-specific nutrition formulated exclusively for Golden Retrievers. Contains targeted nutrients for coat health, cardiac function, and ideal weight maintenance.",
+      "quantity": "(613)",
+      "price": "$109.99",
+      "category_id": 2,
+      "brand_id": 3
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5199233?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Royal Canin Medium Breed",
+      "description": "Tailored nutrition for medium-sized adult dogs between 23-55 lbs. Features exclusive kibble design and formulation to satisfy medium breed appetite and energy needs.",
+      "quantity": "(613)",
+      "price": "$61.99",
+      "category_id": 2,
+      "brand_id": 3
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5182583?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Large Breed Lamb",
+      "description": "Lamb & brown rice recipe designed for large breed adult dogs. Contains natural sources of glucosamine and chondroitin for joint health with balanced nutrition.",
+      "quantity": "(390)",
+      "price": "$83.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5255963?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Purina ONE SmartBlend Lamb",
+      "description": "High-protein formula with real lamb as the first ingredient. Contains dual-defense antioxidant blend for immune health with tender meaty morsels and crunchy kibble.",
+      "quantity": "(2993)",
+      "price": "$59.99",
+      "category_id": 2,
+      "brand_id": 1
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5333997?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Authority Large Breed Salmon",
+      "description": "Salmon & rice formula for large breed dogs with sensitive stomachs. Contains omega fatty acids for skin and coat health with prebiotics for digestive support.",
+      "quantity": "(182)",
+      "price": "$47.99",
+      "category_id": 2,
+      "brand_id": 9
+     },
+     {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266808?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Hill's Small Bites",
+      "description": "Chicken & barley recipe with smaller kibble size for adult dogs. Provides precise nutrition with high-quality ingredients for dogs who prefer a smaller bite size.",
+      "quantity": "(766)",
+      "price":"$ 20.99",
+      "category_id": 2,
+      "brand_id": 4
+     },
+
+     
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316220?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolution Plus Green",
+     "description": "A powerful flea and tick treatment for cats between 11.1-22 lbs.",
+     "quantity": "(14)",
+     "price": "91.09$",
+     "category_id": 3,
+     "brand_id": 14
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316218?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolution Plus Orange",
+     "description": "A reliable flea and tick solution for cats weighing 5.6-11 lbs.",
+     "quantity": "(9)",
+     "price": "85.79$",
+     "category_id": 3,
+     "brand_id": 14
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354086?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "NexGard COMBO Yellow",
+     "description": "A convenient topical solution for flea and tick prevention in cats.",
+     "quantity": "(3)",
+     "price": "33.49$",
+     "category_id": 3,
+     "brand_id": 15
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316181?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Bravecto Blue",
+     "description": "Provides up to 12 weeks of flea and tick protection for cats.",
+     "quantity": "(5)",
+     "price": "68.99$",
+     "category_id": 3,
+     "brand_id": 16
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316905?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Bravecto Plus",
+     "description": "Advanced flea and tick protection for cats with additional benefits.",
+     "quantity": "(12)",
+     "price": "48.99$",
+     "category_id": 3,
+     "brand_id": 16
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5315219?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolution Blue",
+     "description": "A proven flea and tick treatment for cats between 5.1-15 lbs.",
+     "quantity": "(1)",
+     "price": "104.49$",
+     "category_id": 3,
+     "brand_id": 14
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353984?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Credelio Teal",
+     "description": "Oral flea and tick treatment for cats weighing 4.1-17 lbs.",
+     "quantity": "(20)",
+     "price": "159.29$",
+     "category_id": 3,
+     "brand_id": 17
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317361?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolt Selamectin",
+     "description": "An effective topical flea and tick solution for cats.",
+     "quantity": "(3)",
+     "price": "54.99$",
+     "category_id": 3,
+     "brand_id": 18
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316182?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Bravecto Purple",
+     "description": "Long-lasting flea and tick protection for larger cats.",
+     "quantity": "(1)",
+     "price": "69.99$",
+     "category_id": 3,
+     "brand_id": 16
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316098?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Advantage Multi",
+     "description": "A broad-spectrum topical solution for flea, tick, and heartworm protection.",
+     "quantity": "(10)",
+     "price": "19.99$",
+     "category_id": 3,
+     "brand_id": 19
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354102?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Midamox Purple",
+     "description": "A strong flea and tick treatment for cats between 9.1-18 lbs.",
+     "quantity": "(10)",
+     "price": "54.99$",
+     "category_id": 3,
+     "brand_id": 20
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354101?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Midamox Orange",
+     "description": "An effective topical flea and tick solution for smaller cats.",
+     "quantity": "(10)",
+     "price": "239.69$",
+     "category_id": 3,
+     "brand_id": 20
+      },
+      
+    {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354100?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Midamox Teal",
+      "description": "A highly effective topical solution for flea and tick protection in small cats.",
+      "quantity": "(10)",
+      "price": "150.19$",
+      "category_id": 3,
+      "brand_id": 20
+    },
+    {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354075?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Credelio Purple",
+      "description": "Oral flea and tick treatment specifically designed for cats weighing 2-4 lbs.",
+      "quantity": "(10)",
+      "price": "135.79$",
+      "category_id": 3,
+      "brand_id": 17
+    },
+    {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354043?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "NexGard COMBO Purple",
+      "description": "A reliable topical solution providing flea and tick control for kittens and small cats.",
+      "quantity": "(10)",
+      "price": "6.69$",
+      "category_id": 3,
+      "brand_id": 15
+    },
+    {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353813?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Barrier Teal",
+      "description": "An advanced flea and tick treatment for cats weighing 2-5 lbs.",
+      "quantity": "(10)",
+      "price": "142.67$",
+      "category_id": 3,
+      "brand_id": 22
+    },
+    {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353573?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Barrier Orange",
+      "description": "Effective topical flea and tick solution for cats between 5.1-9 lbs.",
+      "quantity": "(10)",
+      "price": "54.99$",
+      "category_id": 3,
+      "brand_id": 22
+    },
+    {
+      "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317448?$sclp-prd-main_large$&fmt=webp&qlt=80",
+      "name": "Senergy Selamectin",
+      "description": "A potent topical treatment for flea and tick protection in large cats.",
+      "quantity": "(10)",
+      "price": "50.59$",
+      "category_id": 3,
+      "brand_id": 21
+    },
+
+
+
+    
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354100?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Midamox Cats 2-5 lbs",
+    "description": "Midamox topical treatment for small cats, providing flea and tick protection.",
+    "quantity": "(10)",
+    "price": "150.19$",
+    "category": "Flea & Tick",
+    "brand_id": 20
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354075?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Credelio Cats 2-4 lbs",
+    "description": "Oral flea and tick protection for small cats, easy to chew tablets.",
+    "quantity": "(10)",
+    "price": "135.79$",
+    "category": "Flea & Tick",
+    "brand_id": 17
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354043?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "NexGard Cats 1.8-5.5 lbs",
+    "description": "Topical solution for cats to prevent fleas, ticks, and internal parasites.",
+    "quantity": "(10)",
+    "price": "6.69$",
+    "category": "Flea & Tick",
+    "brand_id": 15
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353813?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Barrier Cats 2-5 lbs",
+    "description": "Long-lasting flea and tick protection for small cats.",
+    "quantity": "(10)",
+    "price": "142.67$",
+    "category": "Flea & Tick",
+    "brand_id": 22
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317448?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Senergy Cats 15.1-22 lbs",
+    "description": "Selamectin-based topical flea and tick treatment for large cats.",
+    "quantity": "(10)",
+    "price": "50.59$",
+    "category": "Flea & Tick",
+    "brand_id": 21
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317447?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Senergy Cats 5.1-15 lbs",
+    "description": "Effective flea and tick prevention for medium-sized cats.",
+    "quantity": "(1)",
+    "price": "49.39$",
+    "category": "Flea & Tick",
+    "brand_id": 21
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317363?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Revolt Cats 15.1-22 lbs",
+    "description": "Powerful flea and parasite control for large cats, available in 3 or 6-month packs.",
+    "quantity": "(1)",
+    "price": "285.33$",
+    "category": "Flea & Tick",
+    "brand_id": 18
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317359?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Revolt Kittens/Puppies",
+    "description": "Safe flea and tick protection for small kittens and puppies.",
+    "quantity": "(20)",
+    "price": "148.59$",
+    "category": "Flea & Tick",
+    "brand_id": 18
+     },
+     {
+    "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316888?$sclp-prd-main_large$&fmt=webp&qlt=80",
+    "name": "Selarid Cats 15.1-22 lbs",
+    "description": "Long-term flea and tick protection for large cats, 6-month supply.",
+    "quantity": "(30)",
+    "price": "237.3$",
+    "category": "Flea & Tick",
+    "brand_id": 21
+     },
+
+
+     
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316333?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Advantage Multi for Cats 5.1-9 lbs",
+     "quantity": "(2)",
+     "price": "$19.79",
+     "category": 3,
+     "brand_id": 19
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316266?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolution Topical for Cats 15.1-22 lbs Taupe",
+     "quantity": "(1)",
+     "price": "$112.79",
+     "category": 3,
+     "brand_id": 14
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316216?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolution Plus for Cats 2.8-5.5 lbs Gold - 3 or 6 Month Supply",
+     "quantity": "(0)",
+     "price": "$70.29",
+     "category": 3,
+     "brand_id": 14
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316180?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Bravecto Topical Solution for Cats, 2.6 - 6.2 lbs 112.5 mg Green",
+     "quantity": "(10)",
+     "price": "$67.99",
+     "category": 3,
+     "brand_id": 16
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316038?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Revolution Topical for Puppies and Kittens up to 5 lbs Pink - 3 Month or 6 Month Supply",
+     "quantity": "(20)",
+     "price": "$71.39",
+     "category": 3,
+     "brand_id": 14
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316676?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Lactated Ringers Solution - 500 mL, 1 Liter",
+     "quantity": "(4)",
+     "price": "$13.99",
+     "category": 3,
+     "brand_id": 23
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317366?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Vitamin K1 for Dogs and Cats 50 mg, 50 Capsules",
+     "quantity": "(23)",
+     "price": "$31.99",
+     "category": 3,
+     "brand_id": 23
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317280?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Vitamin C 250 mg/ml, 250 ml vial",
+     "quantity": "(14)",
+     "price": "$14.99",
+     "category": 3,
+     "brand_id": 23
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317213?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Cyanocobalamin Vitamin B-12 1000 mcg/ml, 100 ml",
+     "quantity": "(1)",
+     "price": "$9.99",
+     "category": 3,
+     "brand_id": 23
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316945?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Sodium Chloride 0.9% Injection Fluid, 1000 ml (Saline)",
+     "quantity": "(23)",
+     "price": "$10.99",
+     "category": 3,
+     "brand_id": 23
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316921?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Normosol-R Electrolyte Bag - 1000ml",
+     "quantity": "(14)",
+     "price": "$9.99",
+     "category": 3,
+     "brand_id": 23
+      },
+    
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5288351?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Pickle Cat Toy - Catnip, Plush",
+     "description": "Interactive plush cat toy with catnip filling for play and stimulation.",
+     "quantity": "(295)",
+     "price": "$2.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287659?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Ball Track & Scratcher Cat Toy",
+     "description": "Durable ball track with scratching surface for cats.",
+     "quantity": "(230)",
+     "price": "$19.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287899?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Spring Toys Cat Toys - 4 Pack",
+     "description": "Colorful spring toys for cats to chase and bat.",
+     "quantity": "(225)",
+     "price": "$4.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5351285?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Space Cat Double-Wide Basic Corrugate Cat Scratcher",
+     "description": "Double-wide corrugate scratcher for cats to sharpen claws.",
+     "quantity": "(8)",
+     "price": "$9.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337610?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Modular Track with Ball Corrugate Scratcher Cat Toy",
+     "description": "Modular track system with ball for interactive play.",
+     "quantity": "(172)",
+     "price": "$16.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266797?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Organic Catnip",
+     "description": "Natural organic catnip to entice playful behavior.",
+     "quantity": "(306)",
+     "price": "$14.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287660?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Scratcher Refills - 2 Pack",
+     "description": "Replaceable scratcher refills for cat furniture.",
+     "quantity": "(148)",
+     "price": "$9.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5360032?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Catnip Animal Cat Toy",
+     "description": "Plush animal toy infused with catnip for excitement.",
+     "quantity": "(12)",
+     "price": "$4.00",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287981?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Tinsel Balls Cat Toys - 4 Pack (COLOR VARIES)",
+     "description": "Sparkling tinsel balls to stimulate feline curiosity.",
+     "quantity": "(299)",
+     "price": "$4.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5360331?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Plush Bird Cat Toy",
+     "description": "Lightweight plush bird toy for batting and chasing.",
+     "quantity": "(8)",
+     "price": "$2.00",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5360004?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Lizard Cat Toy",
+     "description": "Realistic lizard-shaped toy to engage hunting instincts.",
+     "quantity": "(11)",
+     "price": "$2.00",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5338736?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Basic Black Teaser Wand Cat Toy",
+     "description": "Teaser wand with replaceable attachments (sold separately).",
+     "quantity": "(89)",
+     "price": "$1.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287984?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Crinkle Ball Cat Toy - (COLOR VARIES)",
+     "description": "Crinkly balls to stimulate auditory and tactile senses.",
+     "quantity": "(128)",
+     "price": "$1.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353243?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Cottage Corrugate Cat Scratcher",
+     "description": "Cottage-shaped scratcher for cats to scratch and lounge.",
+     "quantity": "(16)",
+     "price": "$19.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337516?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Whackamouse Corrugate Scratcher Cat Toy",
+     "description": "Interactive scratcher with mouse for batting and scratching.",
+     "quantity": "(90)",
+     "price": "$16.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5297252?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Cozy Pop-Open Play Tunnel Cat Toy",
+     "description": "Collapsible tunnel for hide-and-seek play sessions.",
+     "quantity": "(202)",
+     "price": "$14.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337546?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Natural Teaser Attachment Cat Toy - 3 Pack",
+     "description": "Natural feather attachments for teaser wands.",
+     "quantity": "(40)",
+     "price": "$10.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5325497?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Robotic Gray Mouse Cat Toy",
+     "description": "Self-moving robotic mouse to trigger chasing instincts.",
+     "quantity": "(299)",
+     "price": "$9.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266801?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Natural Catnip",
+     "description": "Premium natural catnip for enhanced playtime.",
+     "quantity": "(333)",
+     "price": "$2.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5319820?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Trailin' Off Trailer Corrugate Cat Scratcher",
+     "description": "Trailer-shaped scratcher with replaceable surfaces.",
+     "quantity": "(633)",
+     "price": "$22.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5065493?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Duck Plush Dog Toy with Squeaker",
+     "description": "Soft duck-shaped plush toy with squeaker for dogs.",
+     "quantity": "(623)",
+     "price": "$2.69",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5064438?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Teddy Bear Dog Toy - Plush, Squeaker",
+     "description": "Cuddly teddy bear plush with squeaker for play.",
+     "quantity": "(776)",
+     "price": "$1.49",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359295?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Floppy Knots Valentine's Day Fox Dog Toy",
+     "description": "Valentine-themed fox plush with knotted texture.",
+     "quantity": "(8)",
+     "price": "$10.97",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359301?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Valentine's Day Wubba Plush Dog Toy",
+     "description": "Heart-shaped Wubba toy with soft plush material.",
+     "quantity": "(0)",
+     "price": "$7.97",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359297?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Valentine's Day Scampers Panda Plush Dog Toy",
+     "description": "Festive panda plush with crinkle and squeaker.",
+     "quantity": "(2)",
+     "price": "$10.97",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359244?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Valentine's Day Wild Knots Bear Plush Dog Toy",
+     "description": "Knotty bear toy for chewing and tugging.",
+     "quantity": "(8)",
+     "price": "$8.77",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5261017?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Floppy Knots Fox Dog Toy - Squeaker & Rope Toy",
+     "description": "Fox-shaped toy with knots and rope for interactive play.",
+     "quantity": "(855)",
+     "price": "$10.97",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5100352?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "AirDog® Tennis Ball Set Squeaker Dog Toy - 3 Pack",
+     "description": "Durable tennis balls with squeakers for fetch games.",
+     "quantity": "(955)",
+     "price": "$14.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359300?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Valentine's Day Wubba Dog Toy",
+     "description": "Colorful Wubba toy with heart patterns for dogs.",
+     "quantity": "(4)",
+     "price": "$7.97",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5171155?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Ali The Alligator Plush Dog Toy with Squeaker",
+     "description": "Long alligator plush for tugging and squeaking.",
+     "quantity": "(405)",
+     "price": "$7.19",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5159689?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Easy Treat™ Bacon & Cheese Paste",
+     "description": "Paste for stuffing toys, bacon and cheese flavor.",
+     "quantity": "(160)",
+     "price": "$6.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5299685?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Lamb Chop Plush Dog Toy with Squeaker",
+     "description": "Classic lamb plush toy with gentle squeaker.",
+     "quantity": "(805)",
+     "price": "$4.49",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5123575?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Ziggies™Dog Treat",
+     "description": "Chewy dental treats for dogs.",
+     "quantity": "(133)",
+     "price": "$9.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5189089?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Easy Treat™ Peanut Butter Paste",
+     "description": "Peanut butter-flavored paste for treat-dispensing toys.",
+     "quantity": "(265)",
+     "price": "$13.99",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5350512?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Power Chew Donut Dog Toy, Bacon Glazed Flavor",
+     "description": "Durable donut-shaped chew toy with bacon flavor.",
+     "quantity": "(16)",
+     "price": "$9.09",
+     "category_id": 4,
+     "brand_id": 24
+      },
+      {
+     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337457?$sclp-prd-main_large$&fmt=webp&qlt=80",
+     "name": "Wubba™ Octopus Dog Toy (COLOR VARIES)",
+     "description": "Octopus-shaped Wubba toy with multiple tentacles.",
+     "quantity": "(86)",
+     "price": "$13.5",
+     "category_id": 4,
+     "brand_id": 24
+      }
+    ]
+    
+    
+      
+      
+    
+     
+     
+    
+    
+    
+  
+      
+      
+     
+      
