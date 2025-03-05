@@ -9,6 +9,7 @@ namespace BitaryProject.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
+            //77777777
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
