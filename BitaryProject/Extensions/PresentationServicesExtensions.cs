@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Talabat.Api.Factories;
 
 namespace BitaryProject.Extensions
 {
@@ -12,8 +13,13 @@ namespace BitaryProject.Extensions
             services.AddEndpointsApiExplorer();
 
             services.AddSwaggerGen();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = ApiResponseFactory.CustomValidationErrorResponse;
+            });
 
-       
+
+
             return services;
         }
     }

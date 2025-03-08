@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Domain.Entities.BasketEntities;
 using StackExchange.Redis;
 
 namespace Persistence.Repositories
 {
-   public class BasketRepository(IConnectionMultiplexer connectionMultiplexer) : IbasketRepository
+    public class BasketRepository(IConnectionMultiplexer connectionMultiplexer) : IbasketRepository
     {
         private readonly IDatabase _database = connectionMultiplexer.GetDatabase();
         public async Task<bool> DeleteBasketAsync(string id)

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Services.Specifications;
 using Shared;
+using Domain.Exceptions;
 
 
 
@@ -62,7 +63,7 @@ namespace Services
             var product = await UnitOFWork.GetRepository<Product, int>().GetAsync(
                 new ProductWithBrandAndTypeSpecifications(id));
 
-            return product is null ? throw new Exception($"Product with Id : {id} Not Found") : Mapper.Map<ProductResultDTO>(product);
+            return product is null ? throw new ProductNotFoundException(id) : Mapper.Map<ProductResultDTO>(product);
         }
     }
 }
