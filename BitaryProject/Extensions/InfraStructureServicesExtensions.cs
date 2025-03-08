@@ -3,6 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Persistence;
 global using Persistence.Data;
 using Persistence.Repositories;
+using StackExchange.Redis;
 
 namespace BitaryProject.Extensions
 {
@@ -12,14 +13,20 @@ namespace BitaryProject.Extensions
         {
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IUnitOFWork, UnitOfWork>();
-
+            services.AddScoped<IbasketRepository, BasketRepository>();
             services.AddDbContext<StoreContext>(
                options =>
                {
                    options.UseSqlServer(configuration.GetConnectionString("DefaultSQLConnection"));
                }
                );
+
+
+            services.AddSingleton<IConnectionMultiplexer>(
+                Service=> ConnectionMultiplexer.
+                Connect(configuration.GetConnectionString("Redis")!));
             return services;
+
         }
     }
 }
