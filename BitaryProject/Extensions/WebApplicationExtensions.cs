@@ -1,4 +1,6 @@
-﻿namespace BitaryProject.Extensions
+﻿using BitaryProject.Api.Middlewares;
+
+namespace BitaryProject.Extensions
 {
     public static class WebApplicationExtensions
     {
@@ -12,6 +14,12 @@
 
             return app;
 
+        }
+        public static WebApplication UseCustomExceptionMiddleware(this WebApplication app)
+        {
+            app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+
+            return app;
         }
     }
 }

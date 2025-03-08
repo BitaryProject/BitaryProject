@@ -22,9 +22,8 @@ namespace BitaryProject.Extensions
                );
 
 
-            services.AddSingleton<IConnectionMultiplexer>(
-                Service=> ConnectionMultiplexer.
-                Connect(configuration.GetConnectionString("Redis")!));
+            services.AddSingleton<IConnectionMultiplexer>
+                  (_ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
             return services;
 
         }

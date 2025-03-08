@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
 using Shared;
+using Shared.ErrorModels;
 using Shared.ProductModels;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,10 @@ namespace Presentation
         }
 
 
+
+        [ProducesResponseType(typeof(ErrorDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ErrorDetails), (int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ValidationErrorResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProductResultDTO), (int)HttpStatusCode.OK)]
 
         [HttpGet("Product{id}")]

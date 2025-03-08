@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Shared;
+﻿using Domain.Entities.BasketEntities;
+using Shared.BasketModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

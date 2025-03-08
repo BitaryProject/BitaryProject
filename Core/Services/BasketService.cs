@@ -1,10 +1,13 @@
-﻿using Domain.Entities;
-using Shared;
+﻿global using Domain.Entities;
+global using Domain.Exceptions;
+global using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.BasketEntities;
+using Shared.BasketModels;
 
 namespace Services
 {
