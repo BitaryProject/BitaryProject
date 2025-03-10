@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Domain.Entities.BasketEntites;
+
+using Domain.Entities.BasketEntities;
 using StackExchange.Redis;
 
 namespace Persistence.Repositories

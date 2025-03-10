@@ -2,7 +2,6 @@ namespace BitaryProject
 {
     public class WeatherForecast
     {
-        //asadadadas
         public DateOnly Date { get; set; }
 
         public int TemperatureC { get; set; }

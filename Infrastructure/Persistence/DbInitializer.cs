@@ -60,20 +60,20 @@ namespace Persistence
                 }
 
 
-                //if (!_storeContext.Products.Any())
-                //{
-                //    var productsData = await File.ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\Seeding\products.json");
+                if (!_storeContext.Products.Any())
+                {
+                    var productsData = await File.ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\Seeding\products.json");
 
-                //    var products = JsonSerializer.Deserialize<List<Product>>(productsData);
+                    var products = JsonSerializer.Deserialize<List<Product>>(productsData);
 
-                //    if (products is not null && products.Any())
-                //    {
-                //        await _storeContext.Products.AddRangeAsync(products);
-                //        await _storeContext.SaveChangesAsync();
-                //    }
-                //}
+                    if (products is not null && products.Any())
+                    {
+                        await _storeContext.Products.AddRangeAsync(products);
+                        await _storeContext.SaveChangesAsync();
+                    }
+                }
 
-                    
+
             }
 
 
