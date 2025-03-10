@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.BasketEntites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
