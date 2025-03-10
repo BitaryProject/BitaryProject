@@ -29,7 +29,7 @@ namespace Domain.Entities.OrderEntities
 
         public string UserEmail { get; set; } 
         public Address ShippingAddress { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public OrderPaymentStatus PaymentStatus { get; set; } = OrderPaymentStatus.Pending;
         public DeliveryMethod DeliveryMethod { get; set; }
