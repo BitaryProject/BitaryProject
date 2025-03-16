@@ -8,12 +8,23 @@ namespace Domain.Entities.OrderEntities
 {
     public class Order: BaseEntity<Guid>
     {
+        private Address shippingAddress;
+        private List<OrderItem> orderItems;
+        private DeliveryMethod deliveryMethod;
+
         public Order()
         {
             
         }
 
-      
+        public Order(string userEmail, Address shippingAddress, List<OrderItem> orderItems, DeliveryMethod deliveryMethod, decimal subtotal)
+        {
+            UserEmail = userEmail;
+            this.shippingAddress = shippingAddress;
+            this.orderItems = orderItems;
+            this.deliveryMethod = deliveryMethod;
+            Subtotal = subtotal;
+        }
 
         public Order(string userEmail,
             Address shippingAddress,
