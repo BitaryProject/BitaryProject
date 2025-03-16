@@ -1,4 +1,5 @@
-﻿global using Domain.Entities;
+
+global using Domain.Entities;
 global using Domain.Exceptions;
 global using Shared;
 using System;
