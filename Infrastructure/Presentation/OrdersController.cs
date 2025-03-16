@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-   [Authorize]
-    public class OrdersController(IServiceManager serviceManager) : ControllerBase
+    public class OrdersController(IServiceManager serviceManager) : ApiController
     {
         [HttpPost] 
         public async Task<ActionResult<OrderResult>> Create(OrderRequest request)

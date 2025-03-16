@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Identity;
 using Domain.Entities.OrderEntities;
 using Shared.OrderModels;
+using OrderAddress=Domain.Entities.OrderEntities.Address;
 
+using UserAddress = Domain.Entities.Identity.Address;
 namespace Services.MappingProfiles
 {
     class OrderProfile : Profile
     {
         public OrderProfile()
         {
-            CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<OrderAddress, AddressDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>()
 
                 .ForMember(d => d.ProductId,
@@ -40,6 +43,8 @@ namespace Services.MappingProfiles
 
 
             CreateMap<DeliveryMethod, DeliveryMethodResult>();
+
+            CreateMap<AddressDTO, UserAddress>().ReverseMap();
         }
     }
 }
