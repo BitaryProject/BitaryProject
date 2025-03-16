@@ -12,11 +12,15 @@ namespace Domain.Entities.OrderEntities
         {
             
         }
+
+      
+
         public Order(string userEmail,
             Address shippingAddress,
             ICollection<OrderItem> orderItems,
             DeliveryMethod deliveryMethod,
-            decimal subtotal
+            decimal subtotal,
+            string paymentIntentId
             )
         {
 
