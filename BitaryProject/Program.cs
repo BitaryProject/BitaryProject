@@ -10,6 +10,7 @@ namespace BitaryProject
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //sec
 
             #region Services
 
