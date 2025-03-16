@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.OrderEntities;
 using Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Domain.Entities.SecurityEntities;
+
 
 namespace Persistence
 {
@@ -83,6 +85,21 @@ namespace Persistence
                     if (products is not null && products.Any())
                     {
                         await _storeContext.Products.AddRangeAsync(products);
+                        await _storeContext.SaveChangesAsync();
+                    }
+                }
+
+
+            
+            if (!_storeContext.DeliveryMethods.Any())
+                {
+                    var data = await File.ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\Seeding\delivery.json");
+
+                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(data);
+
+                    if (methods is not null && methods.Any())
+                    {
+                        await _storeContext.DeliveryMethods.AddRangeAsync(methods);
                         await _storeContext.SaveChangesAsync();
                     }
                 }
