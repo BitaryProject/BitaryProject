@@ -11,6 +11,7 @@ namespace BitaryProject.Extensions
             var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();//inject IDbInitializer
 
             await dbInitializer.InitializeAsync();
+            await dbInitializer.InitializeIdentityAsync();
 
             return app;
 

@@ -10,9 +10,8 @@ using Shared.BasketModels;
 
 namespace Presentation
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BasketController(IServiceManager ServiceManager) : ControllerBase
+  
+    public class BasketController(IServiceManager ServiceManager) : ApiController
     {
         [HttpGet("{id}" )]
         public async Task<ActionResult<BasketDTO>> Get(string id)

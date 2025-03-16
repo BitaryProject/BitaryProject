@@ -10,12 +10,13 @@ namespace BitaryProject
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //sec
 
             #region Services
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddPresentationServices();
-            builder.Services.AddCoreServices();
+            builder.Services.AddCoreServices(builder.Configuration);
 
             #endregion
 
@@ -33,6 +34,8 @@ namespace BitaryProject
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

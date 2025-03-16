@@ -11,8 +11,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250304162715_InititalBitar")]
-    partial class InititalBitar
+    [Migration("20250315185035_InitialCreateBitaryStore")]
+    partial class InitialCreateBitaryStore
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
