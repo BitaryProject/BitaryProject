@@ -134,7 +134,7 @@ namespace Persistence
                 var adminUser = new User
                 {
                     DisplayName = "Abdelrhman Ali",
-                    Email = "abdelrhmanali22@gmail.com",
+                    Email = "abdelrhmanali2119@gmail.com",
                     UserName = "AbdelrhmanAli22",
                     PhoneNumber = "01142029061"
                 };
