@@ -2,8 +2,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5162617?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina ONE Indoor Turkey",
-    "Description ": "Premium indoor cat food made with real turkey, natural ingredients, and high protein content. Specially formulated to support indoor cats' health and maintain healthy weight.",
-    "Quantity ": 407,
+    "Description": "Premium indoor cat food made with real turkey, natural ingredients, and high protein content. Specially formulated to support indoor cats' health and maintain healthy weight.",
+    "Quantity": 407,
     "Price": 129,
     "CategoryId": 1,
     "BrandId": 1
@@ -11,8 +11,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5275530?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Friskies Seafood & Chicken",
-    "Description ": "Variety pack of wet cat food featuring seafood and chicken flavors. Contains 40 cans with a total of 220 oz. Perfect for cats who love both seafood and poultry.",
-    "Quantity ": 574,
+    "Description": "Variety pack of wet cat food featuring seafood and chicken flavors. Contains 40 cans with a total of 220 oz. Perfect for cats who love both seafood and poultry.",
+    "Quantity": 574,
     "Price": 129,
     "CategoryId": 1,
     "BrandId": 1
@@ -20,8 +20,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5257820?$sclp-prd-main_large$",
     "Name": "Nulo Medal Turkey & Chicken",
-    "Description ": "Premium grain-free dry cat food combining turkey and chicken proteins. Made without corn, wheat, or soy for sensitive digestion. Supports overall health and vitality.",
-    "Quantity ": 298,
+    "Description": "Premium grain-free dry cat food combining turkey and chicken proteins. Made without corn, wheat, or soy for sensitive digestion. Supports overall health and vitality.",
+    "Quantity": 298,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 2
@@ -29,8 +29,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5150230?$sclp-prd-main_large$",
     "Name": "Royal Canin Instinctive",
-    "Description ": "Premium wet cat food in 3oz cans. Formulated to match cats' natural nutritional needs. Contains optimal protein levels and essential nutrients for adult cats.",
-    "Quantity ": 379,
+    "Description": "Premium wet cat food in 3oz cans. Formulated to match cats' natural nutritional needs. Contains optimal protein levels and essential nutrients for adult cats.",
+    "Quantity": 379,
     "Price": 219,
     "CategoryId": 1,
     "BrandId": 3
@@ -38,8 +38,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266624?$sclp-prd-main_large$",
     "Name": "Cat Chow Naturals",
-    "Description ": "Natural dry cat food with real chicken. Made without artificial flavors. Suitable for all life stages with balanced nutrition for daily feeding.",
-    "Quantity ": 125,
+    "Description": "Natural dry cat food with real chicken. Made without artificial flavors. Suitable for all life stages with balanced nutrition for daily feeding.",
+    "Quantity": 125,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
@@ -47,8 +47,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5162618?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina ONE Tender Selects",
-    "Description ": "High-protein dry cat food made with real chicken. Features tender, meaty morsels and crunchy kibble for taste and texture cats love.",
-    "Quantity ": 75,
+    "Description": "High-protein dry cat food made with real chicken. Features tender, meaty morsels and crunchy kibble for taste and texture cats love.",
+    "Quantity": 75,
     "Price": 129,
     "CategoryId": 1,
     "BrandId": 1
@@ -56,8 +56,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5087082?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Friskies 32-Count Pack",
-    "Description ": "Variety pack of Friskies wet cat food featuring multiple flavors. Provides complete and balanced nutrition for adult cats.",
-    "Quantity ": 494,
+    "Description": "Variety pack of Friskies wet cat food featuring multiple flavors. Provides complete and balanced nutrition for adult cats.",
+    "Quantity": 494,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 1
@@ -65,8 +65,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237488?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Friskies Chicken Lovers",
-    "Description ": "Premium variety pack of chicken-flavored wet cat food. Contains 32 cans with a total of 176 oz. Made with real chicken and essential nutrients for complete daily nutrition.",
-    "Quantity ": 328,
+    "Description": "Premium variety pack of chicken-flavored wet cat food. Contains 32 cans with a total of 176 oz. Made with real chicken and essential nutrients for complete daily nutrition.",
+    "Quantity": 328,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 1
@@ -74,8 +74,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5246606?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Healthy Cuisine",
-    "Description ": "Science-based nutrition in a delicious chunks and gravy format. Contains high-quality protein and balanced nutrients. Supports digestive health and lean muscle maintenance.",
-    "Quantity ": 676,
+    "Description": "Science-based nutrition in a delicious chunks and gravy format. Contains high-quality protein and balanced nutrients. Supports digestive health and lean muscle maintenance.",
+    "Quantity": 676,
     "Price": 198,
     "CategoryId": 1,
     "BrandId": 4
@@ -83,8 +83,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237490?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Fancy Feast Variety Pack",
-    "Description ": "Gourmet wet cat food variety pack suitable for cats of all ages. Features 30 cans with different flavors and textures. Made with premium ingredients for a taste cats love.",
-    "Quantity ": 263,
+    "Description": "Gourmet wet cat food variety pack suitable for cats of all ages. Features 30 cans with different flavors and textures. Made with premium ingredients for a taste cats love.",
+    "Quantity": 263,
     "Price": 499,
     "CategoryId": 1,
     "BrandId": 5
@@ -97,8 +97,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266915?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Savor Wet Cat Food - 5.5 Oz",
-    "Description ": "Premium wet cat food with antioxidants and high protein. Supports immune health and muscle maintenance.",
-    "Quantity ": 704,
+    "Description": "Premium wet cat food with antioxidants and high protein. Supports immune health and muscle maintenance.",
+    "Quantity": 704,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
@@ -106,8 +106,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5068579?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Urinary Tract Health Wet Cat Food - 3 Oz",
-    "Description ": "Supports urinary tract health with balanced minerals. Helps maintain proper urinary pH levels.",
-    "Quantity ": 552,
+    "Description": "Supports urinary tract health with balanced minerals. Helps maintain proper urinary pH levels.",
+    "Quantity": 552,
     "Price": 169,
     "CategoryId": 1,
     "BrandId": 1
@@ -115,8 +115,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5092573?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Kitten Chow Dry Cat Food - Chicken",
-    "Description ": "Nutrient-rich dry food for kittens. Contains DHA for brain and vision development.",
-    "Quantity ": 125,
+    "Description": "Nutrient-rich dry food for kittens. Contains DHA for brain and vision development.",
+    "Quantity": 125,
     "Price": 99,
     "CategoryId": 1,
     "BrandId": 1
@@ -124,8 +124,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279655?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "IAMS Proactive Health Dry Cat Food - Chicken",
-    "Description ": "Supports urinary tract health with real chicken. Balanced nutrition for adult cats.",
-    "Quantity ": 304,
+    "Description": "Supports urinary tract health with real chicken. Balanced nutrition for adult cats.",
+    "Quantity": 304,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 6
@@ -133,8 +133,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5263573?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Fancy Feast Wet Cat Food - Variety Pack, 90 Oz",
-    "Description ": "A delicious variety of wet food for all life stages. Packed with essential nutrients.",
-    "Quantity ": 158,
+    "Description": "A delicious variety of wet food for all life stages. Packed with essential nutrients.",
+    "Quantity": 158,
     "Price": 169,
     "CategoryId": 1,
     "BrandId": 5
@@ -142,8 +142,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5299096?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Sensitive Wet Cat Food - 3 Oz",
-    "Description ": "Formulated for sensitive stomachs. No artificial colors or corn, ensuring better digestion.",
-    "Quantity ": 285,
+    "Description": "Formulated for sensitive stomachs. No artificial colors or corn, ensuring better digestion.",
+    "Quantity": 285,
     "Price": 169,
     "CategoryId": 1,
     "BrandId": 1
@@ -151,8 +151,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266912?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Savor Wet Cat Food - 5.5 Oz",
-    "Description ": "Corn-free wet cat food enriched with antioxidants. Supports overall health and well-being.",
-    "Quantity ": 376,
+    "Description": "Corn-free wet cat food enriched with antioxidants. Supports overall health and well-being.",
+    "Quantity": 376,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
@@ -160,8 +160,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5145397?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Meow Mix Original Dry Cat Food - 3.15 Lbs",
-    "Description ": "Tasty blend of chicken, turkey, salmon, and ocean fish. Suitable for cats of all ages.",
-    "Quantity ": 387,
+    "Description": "Tasty blend of chicken, turkey, salmon, and ocean fish. Suitable for cats of all ages.",
+    "Quantity": 387,
     "Price": 849,
     "CategoryId": 1,
     "BrandId": 7
@@ -169,8 +169,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139004?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Fancy Feast Wet Cat Food - Poultry & Beef, 72 Oz",
-    "Description ": "Premium variety pack of poultry and beef flavors. Perfect for all life stages.",
-    "Quantity ": 233,
+    "Description": "Premium variety pack of poultry and beef flavors. Perfect for all life stages.",
+    "Quantity": 233,
     "Price": 169,
     "CategoryId": 1,
     "BrandId": 5
@@ -178,8 +178,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5308921?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Tiki Cat Pate Wet Cat Food - Variety Pack, 33.6 Oz",
-    "Description ": "Natural, fruit & veggie-free cat food. Made with high-quality ingredients for optimal nutrition.",
-    "Quantity ": 101,
+    "Description": "Natural, fruit & veggie-free cat food. Made with high-quality ingredients for optimal nutrition.",
+    "Quantity": 101,
     "Price": 129,
     "CategoryId": 1,
     "BrandId": 8
@@ -188,90 +188,90 @@
 
   {
     "Name": "Purina Kitten Wet Food",
-    "Description ": "High-protein wet cat food with essential vitamins for kittens. Includes a variety pack of 12 cans.",
+    "Description": "High-protein wet cat food with essential vitamins for kittens. Includes a variety pack of 12 cans.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5264930?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 498,
+    "Quantity": 498,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Purina Urinary Care",
-    "Description ": "Specialized wet cat food supporting urinary tract health. Contains 5.5 oz per can.",
+    "Description": "Specialized wet cat food supporting urinary tract health. Contains 5.5 oz per can.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266918?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 386,
+    "Quantity": 386,
     "Price": 212,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Purina Friskies Dry",
-    "Description ": "Nutritious dry cat food with antioxidants to support overall health.",
+    "Description": "Nutritious dry cat food with antioxidants to support overall health.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139546?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 238,
+    "Quantity": 238,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Cheddar",
-    "Description ": "Wet cat food with cheddar cheese, suitable for all life stages. Variety pack of 24 cans.",
+    "Description": "Wet cat food with cheddar cheese, suitable for all life stages. Variety pack of 24 cans.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5310575?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 136,
+    "Quantity": 136,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Purina High-Protein",
-    "Description ": "Wet cat food rich in protein and antioxidants for adult cats. 5.5 oz per can.",
+    "Description": "Wet cat food rich in protein and antioxidants for adult cats. 5.5 oz per can.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252166?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 169,
+    "Quantity": 169,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Friskies Pate Pack",
-    "Description ": "A variety pack of 24 pate-style wet cat food cans, totaling 132 oz.",
+    "Description": "A variety pack of 24 pate-style wet cat food cans, totaling 132 oz.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5073308?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 467,
+    "Quantity": 467,
     "Price": 499,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Friskies Extra Gravy",
-    "Description ": "Wet cat food with extra gravy for enhanced flavor. Variety pack of 24 cans.",
+    "Description": "Wet cat food with extra gravy for enhanced flavor. Variety pack of 24 cans.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279435?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 251,
+    "Quantity": 251,
     "Price": 499,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Variety",
-    "Description ": "A gourmet wet cat food variety pack, suitable for all life stages. 24 cans included.",
+    "Description": "A gourmet wet cat food variety pack, suitable for all life stages. 24 cans included.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5056526?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 103,
+    "Quantity": 103,
     "Price": 169,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Purina Cat Chow Naturals",
-    "Description ": "Natural dry cat food with chicken, free from artificial flavors.",
+    "Description": "Natural dry cat food with chicken, free from artificial flavors.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237074?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 304,
+    "Quantity": 304,
     "Price": 114,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Nulo MedalSeries Grain-Free",
-    "Description ": "Grain-free wet cat food without corn, wheat, or soy. 5.5 oz per can.",
+    "Description": "Grain-free wet cat food without corn, wheat, or soy. 5.5 oz per can.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252951?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 164,
+    "Quantity": 164,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 3
@@ -282,90 +282,90 @@
 
   {
     "Name": "Fancy Feast Gravy Lovers",
-    "Description ": "Delicious wet cat food with rich gravy, suitable for all life stages.",
+    "Description": "Delicious wet cat food with rich gravy, suitable for all life stages.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5152902?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 519,
+    "Quantity": 519,
     "Price": 179,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Purina Pro Plan Wet",
-    "Description ": "High-protein wet cat food with antioxidants for adult cats.",
+    "Description": "High-protein wet cat food with antioxidants for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5230667?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 222,
+    "Quantity": 222,
     "Price": 149,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Friskies Real Meat",
-    "Description ": "Wet cat food with real meat, high in protein for adult cats.",
+    "Description": "Wet cat food with real meat, high in protein for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5063014?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 375,
+    "Quantity": 375,
     "Price": 499,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Chunky",
-    "Description ": "Wet cat food with chunky texture, suitable for all life stages.",
+    "Description": "Wet cat food with chunky texture, suitable for all life stages.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221048?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 577,
+    "Quantity": 577,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Fancy Feast Grilled",
-    "Description ": "Grilled wet cat food with a delicious texture, suitable for all life stages.",
+    "Description": "Grilled wet cat food with a delicious texture, suitable for all life stages.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5035568?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 595,
+    "Quantity": 595,
     "Price": 72,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Friskies All Life",
-    "Description ": "Wet cat food for all life stages, packed with essential nutrients.",
+    "Description": "Wet cat food for all life stages, packed with essential nutrients.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1222130?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 635,
+    "Quantity": 635,
     "Price": 72,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Variety 30CT",
-    "Description ": "A variety pack of 30 wet cat food servings for adult cats.",
+    "Description": "A variety pack of 30 wet cat food servings for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5275858?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 419,
+    "Quantity": 419,
     "Price": 259,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Purina Pro Variety 24CT",
-    "Description ": "A variety pack of 24 wet cat food servings for adult cats.",
+    "Description": "A variety pack of 24 wet cat food servings for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5268233?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 225,
+    "Quantity": 225,
     "Price": 359,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Meow Mix Dry Food",
-    "Description ": "Dry cat food with chicken, turkey, salmon, and ocean fish flavors.",
+    "Description": "Dry cat food with chicken, turkey, salmon, and ocean fish flavors.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5335679?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 197,
+    "Quantity": 197,
     "Price": 559,
     "CategoryId": 1,
     "BrandId": 7
   },
   {
     "Name": "Friskies Variety 32CT",
-    "Description ": "A variety pack of 32 wet cat food servings for adult cats.",
+    "Description": "A variety pack of 32 wet cat food servings for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237486?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 58,
+    "Quantity": 58,
     "Price": 239,
     "CategoryId": 1,
     "BrandId": 1
@@ -375,108 +375,108 @@
 
   {
     "Name": "Fancy Feast Kitten Wet Food",
-    "Description ": "A variety pack of wet food for kittens, providing essential nutrients for growth.",
+    "Description": "A variety pack of wet food for kittens, providing essential nutrients for growth.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5289807?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 90,
+    "Quantity": 90,
     "Price": 179,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Fancy Feast Seafood Pack",
-    "Description ": "Wet food variety pack for all life stages, featuring seafood flavors.",
+    "Description": "Wet food variety pack for all life stages, featuring seafood flavors.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139003?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 61,
+    "Quantity": 61,
     "Price": 139,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Friskies Seafood Dry Food",
-    "Description ": "Adult dry cat food with seafood flavors and added vitamins for a balanced diet.",
+    "Description": "Adult dry cat food with seafood flavors and added vitamins for a balanced diet.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5267332?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 79,
+    "Quantity": 79,
     "Price": 199,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Gravy Lovers",
-    "Description ": "Wet food variety pack with rich gravy for all life stages.",
+    "Description": "Wet food variety pack with rich gravy for all life stages.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237489?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 52,
+    "Quantity": 52,
     "Price": 269,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Friskies Shreds Wet Food",
-    "Description ": "Large variety pack of shredded wet food for adult cats.",
+    "Description": "Large variety pack of shredded wet food for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5281120?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 45,
+    "Quantity": 45,
     "Price": 319,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Cat Chow Complete",
-    "Description ": "Dry food for all life stages with real chicken and essential vitamins.",
+    "Description": "Dry food for all life stages with real chicken and essential vitamins.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5289308?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 294,
+    "Quantity": 294,
     "Price": 189,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Savory Centers",
-    "Description ": "Wet food variety pack for adult cats, featuring a savory center filling.",
+    "Description": "Wet food variety pack for adult cats, featuring a savory center filling.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5303566?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 127,
+    "Quantity": 127,
     "Price": 159,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Pro Plan Essentials Wet Food",
-    "Description ": "High-protein wet food with antioxidants, in a delicious gravy.",
+    "Description": "High-protein wet food with antioxidants, in a delicious gravy.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5152972?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 159,
+    "Quantity": 159,
     "Price": 149,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Fancy Feast Medleys Pack",
-    "Description ": "Wet food variety pack with gourmet-inspired flavors for adult cats.",
+    "Description": "Wet food variety pack with gourmet-inspired flavors for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5126503?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 102,
+    "Quantity": 102,
     "Price": 129,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Fancy Feast Classic Pate",
-    "Description ": "Classic pate-style wet food for adult cats, rich in flavor and nutrition.",
+    "Description": "Classic pate-style wet food for adult cats, rich in flavor and nutrition.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221069?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 805,
+    "Quantity": 805,
     "Price": 98,
     "CategoryId": 1,
     "BrandId": 5
   },
   {
     "Name": "Science Diet Perfect Weight",
-    "Description ": "Dry cat food designed for weight management with real chicken.",
+    "Description": "Dry cat food designed for weight management with real chicken.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5209028?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 104,
+    "Quantity": 104,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 4
   },
   {
     "Name": "Science Diet Sensitive Stomach",
-    "Description ": "Dry food with chicken, formulated for cats with sensitive stomachs and skin.",
+    "Description": "Dry food with chicken, formulated for cats with sensitive stomachs and skin.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5154821?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 122,
+    "Quantity": 122,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 4
@@ -487,8 +487,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139242?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Dry Cat Food - Chicken & Rice",
-    "Description ": "High-protein dry cat food with vitamins, probiotics, and real chicken for complete nutrition.",
-    "Quantity ": 316,
+    "Description": "High-protein dry cat food with vitamins, probiotics, and real chicken for complete nutrition.",
+    "Quantity": 316,
     "Price": 189,
     "CategoryId": 1,
     "BrandId": 1
@@ -496,8 +496,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5298972?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Tiki Cat After Dark Wet Cat Food - Variety Pack",
-    "Description ": "Grain-free wet cat food with high-protein meats, non-GMO ingredients, and a variety of flavors.",
-    "Quantity ": 137,
+    "Description": "Grain-free wet cat food with high-protein meats, non-GMO ingredients, and a variety of flavors.",
+    "Quantity": 137,
     "Price": 299,
     "CategoryId": 1,
     "BrandId": 8
@@ -505,8 +505,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5268631?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Nulo MedalSeries Wet Cat Food - Grain Free",
-    "Description ": "High-moisture wet cat food with no corn, wheat, or soy for a healthy diet.",
-    "Quantity ": 169,
+    "Description": "High-moisture wet cat food with no corn, wheat, or soy for a healthy diet.",
+    "Quantity": 169,
     "Price": 319,
     "CategoryId": 1,
     "BrandId": 2
@@ -514,8 +514,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5135861?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina ONE Sensitive Skin & Stomach Dry Cat Food",
-    "Description ": "Special formula with turkey and natural ingredients for cats with sensitive digestion.",
-    "Quantity ": 100,
+    "Description": "Special formula with turkey and natural ingredients for cats with sensitive digestion.",
+    "Quantity": 100,
     "Price": 129,
     "CategoryId": 1,
     "BrandId": 1
@@ -523,8 +523,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5289307?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Cat Chow Indoor Dry Cat Food",
-    "Description ": "Balanced nutrition with real chicken for indoor cats to maintain a healthy weight.",
-    "Quantity ": 451,
+    "Description": "Balanced nutrition with real chicken for indoor cats to maintain a healthy weight.",
+    "Quantity": 451,
     "Price": 159,
     "CategoryId": 1,
     "BrandId": 1
@@ -532,8 +532,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5296675?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Fancy Feast Petites Wet Cat Food - Variety Pack",
-    "Description ": "Gourmet wet cat food toppers in a variety pack to add extra flavor and nutrition.",
-    "Quantity ": 1000,
+    "Description": "Gourmet wet cat food toppers in a variety pack to add extra flavor and nutrition.",
+    "Quantity": 1000,
     "Price": 19,
     "CategoryId": 1,
     "BrandId": 5
@@ -541,8 +541,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5220055?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Wet Cat Food - High-Protein",
-    "Description ": "Complete and balanced wet cat food with antioxidants and high protein for adult cats.",
-    "Quantity ": 410,
+    "Description": "Complete and balanced wet cat food with antioxidants and high protein for adult cats.",
+    "Quantity": 410,
     "Price": 17,
     "CategoryId": 1,
     "BrandId": 1
@@ -550,8 +550,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5260054?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Nulo MedalSeries Wet Cat Food - Grain Free, 3 Oz.",
-    "Description ": "A grain-free wet cat food with no artificial additives for a healthy diet.",
-    "Quantity ": 237,
+    "Description": "A grain-free wet cat food with no artificial additives for a healthy diet.",
+    "Quantity": 237,
     "Price": 149,
     "CategoryId": 1,
     "BrandId": 2
@@ -559,8 +559,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5164326?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Wet Cat Food - Loaf, 3 Oz.",
-    "Description ": "Soft, protein-rich loaf-style wet cat food with essential nutrients.",
-    "Quantity ": 86,
+    "Description": "Soft, protein-rich loaf-style wet cat food with essential nutrients.",
+    "Quantity": 86,
     "Price": 2,
     "CategoryId": 1,
     "BrandId": 1
@@ -568,8 +568,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5139021?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Fancy Feast Medleys Wet Cat Food - Primavera",
-    "Description ": "A gourmet variety pack with primavera-style recipes for delicious meals.",
-    "Quantity ": 113,
+    "Description": "A gourmet variety pack with primavera-style recipes for delicious meals.",
+    "Quantity": 113,
     "Price": 13,
     "CategoryId": 1,
     "BrandId": 5
@@ -577,8 +577,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221553?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Fancy Feast Flaked Wet Cat Food, 3 OZ",
-    "Description ": "Tender flaked wet cat food with a savory taste, suitable for all life stages.",
-    "Quantity ": 1,
+    "Description": "Tender flaked wet cat food with a savory taste, suitable for all life stages.",
+    "Quantity": 1,
     "Price": 8,
     "CategoryId": 1,
     "BrandId": 5
@@ -587,81 +587,81 @@
 
   {
     "Name": "Nulo MedalSeries Wet Cat Food",
-    "Description ": "Grain-free wet cat food suitable for all life stages, free from corn, wheat, and soy.",
+    "Description": "Grain-free wet cat food suitable for all life stages, free from corn, wheat, and soy.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5260052?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 256,
+    "Quantity": 256,
     "Price": 14,
     "CategoryId": 1,
     "BrandId": 2
   },
   {
     "Name": "Purina Friskies Pate Wet Cat Food",
-    "Description ": "Classic pate-style wet cat food with a smooth texture for easy eating.",
+    "Description": "Classic pate-style wet cat food with a smooth texture for easy eating.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/1221034?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 67,
+    "Quantity": 67,
     "Price": 78,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Purina Pro Plan Savor Wet Cat Food",
-    "Description ": "High-protein wet cat food with antioxidants to support immune health.",
+    "Description": "High-protein wet cat food with antioxidants to support immune health.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5230717?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 102,
+    "Quantity": 102,
     "Price": 13,
     "CategoryId": 1,
     "BrandId": 1
   },
   {
     "Name": "Royal Canin Indoor Adult Dry Cat Food",
-    "Description ": "Specially formulated dry cat food for indoor adult cats to support weight management.",
+    "Description": "Specially formulated dry cat food for indoor adult cats to support weight management.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5070602?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 195,
+    "Quantity": 195,
     "Price": 23,
     "CategoryId": 1,
     "BrandId": 3
   },
   {
     "Name": "Hill's Science Diet Urinary Hairball Control",
-    "Description ": "Chicken-flavored dry cat food designed to support urinary health and reduce hairballs.",
+    "Description": "Chicken-flavored dry cat food designed to support urinary health and reduce hairballs.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5237395?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 86,
+    "Quantity": 86,
     "Price": 24,
     "CategoryId": 1,
     "BrandId": 4
   },
   {
     "Name": "Hill's Science Diet Indoor Adult",
-    "Description ": "Chicken-flavored dry food tailored for indoor adult cats to maintain healthy digestion.",
+    "Description": "Chicken-flavored dry food tailored for indoor adult cats to maintain healthy digestion.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5154810?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 22,
+    "Quantity": 22,
     "Price": 21,
     "CategoryId": 1,
     "BrandId": 4
   },
   {
     "Name": "Hill's Science Diet Adult Chicken",
-    "Description ": "Nutritionally balanced chicken-flavored dry cat food for adult cats.",
+    "Description": "Nutritionally balanced chicken-flavored dry cat food for adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5246501?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 51,
+    "Quantity": 51,
     "Price": 60,
     "CategoryId": 1,
     "BrandId": 4
   },
   {
     "Name": "Authority Everyday Health Indoor Cat Food",
-    "Description ": "Chicken & rice formula with grains, designed for daily health in indoor cats.",
+    "Description": "Chicken & rice formula with grains, designed for daily health in indoor cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279240?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 655,
+    "Quantity": 655,
     "Price": 63,
     "CategoryId": 1,
     "BrandId": 9
   },
   {
     "Name": "IAMS Proactive Health Indoor Cat Food",
-    "Description ": "Weight & hairball control formula with chicken, designed for indoor adult cats.",
+    "Description": "Weight & hairball control formula with chicken, designed for indoor adult cats.",
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5246512?$sclp-prd-main_large$&fmt=webp&qlt=80",
-    "Quantity ": 252,
+    "Quantity": 252,
     "Price": 9,
     "CategoryId": 1,
     "BrandId": 6
@@ -670,8 +670,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287616?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Simply Nourish Cat Food - Chicken & Rice",
-    "Description ": "Natural dry cat food made with real chicken and brown rice for balanced nutrition.",
-    "Quantity ": 307,
+    "Description": "Natural dry cat food made with real chicken and brown rice for balanced nutrition.",
+    "Quantity": 307,
     "Price": 26,
     "CategoryId": 1,
     "BrandId": 10
@@ -679,8 +679,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5253228?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Science Diet Urinary Hairball Control",
-    "Description ": "Minced wet cat food designed to support urinary health and reduce hairballs.",
-    "Quantity ": 353,
+    "Description": "Minced wet cat food designed to support urinary health and reduce hairballs.",
+    "Quantity": 353,
     "Price": 2,
     "CategoryId": 1,
     "BrandId": 4
@@ -688,8 +688,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5275529?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Friskies Surfin' & Turfin' Variety Pack",
-    "Description ": "40-pack of wet cat food with mixed seafood and meat flavors for variety.",
-    "Quantity ": 232,
+    "Description": "40-pack of wet cat food with mixed seafood and meat flavors for variety.",
+    "Quantity": 232,
     "Price": 31,
     "CategoryId": 1,
     "BrandId": 1
@@ -699,8 +699,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252900?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Sensitive Skin & Stomach",
-    "Description ": "Premium salmon & rice formula designed for dogs with sensitive digestion and skin issues. Contains omega fatty acids and easily digestible ingredients for optimal nutrition and coat health.",
-    "Quantity ": "(5441)",
+    "Description": "Premium salmon & rice formula designed for dogs with sensitive digestion and skin issues. Contains omega fatty acids and easily digestible ingredients for optimal nutrition and coat health.",
+    "Quantity": 5441,
     "Price": 297,
     "CategoryId": 2,
     "BrandId": 1
@@ -708,8 +708,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5309276?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Authority Sensitive Stomach & Skin",
-    "Description ": "Salmon & rice recipe formulated for dogs with food sensitivities. Contains prebiotics, antioxidants, and omega-3 fatty acids to support digestive and immune health at all life stages.",
-    "Quantity ": 1265,
+    "Description": "Salmon & rice recipe formulated for dogs with food sensitivities. Contains prebiotics, antioxidants, and omega-3 fatty acids to support digestive and immune health at all life stages.",
+    "Quantity": 1265,
     "Price": 7,
     "CategoryId": 2,
     "BrandId": 9
@@ -717,8 +717,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364964?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Honest Kitchen Goat's Milk Topper",
-    "Description ": "Dehydrated goat's milk food topper rich in probiotics and enzymes. Supports digestion and provides added nutrition for dogs of all ages and sizes.",
-    "Quantity ": 1450,
+    "Description": "Dehydrated goat's milk food topper rich in probiotics and enzymes. Supports digestion and provides added nutrition for dogs of all ages and sizes.",
+    "Quantity": 1450,
     "Price": 16,
     "CategoryId": 2,
     "BrandId": 11
@@ -726,8 +726,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5272611?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Shredded Blend",
-    "Description ": "Chicken & rice formula with shredded pieces for texture variety. Complete and balanced nutrition with high-quality protein for muscle maintenance and overall health.",
-    "Quantity ": 3296,
+    "Description": "Chicken & rice formula with shredded pieces for texture variety. Complete and balanced nutrition with high-quality protein for muscle maintenance and overall health.",
+    "Quantity": 3296,
     "Price": 16,
     "CategoryId": 2,
     "BrandId": 1
@@ -735,8 +735,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5154856?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Science Diet Sensitive Stomach",
-    "Description ": "Chicken & barley recipe scientifically developed for dogs with sensitive stomachs. Contains prebiotic fiber for microbiome health and easy-to-digest ingredients.",
-    "Quantity ": 1544,
+    "Description": "Chicken & barley recipe scientifically developed for dogs with sensitive stomachs. Contains prebiotic fiber for microbiome health and easy-to-digest ingredients.",
+    "Quantity": 1544,
     "Price": 23,
     "CategoryId": 2,
     "BrandId": 4
@@ -744,8 +744,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364577?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Lamb & Oat",
-    "Description ": "Specially formulated with lamb and oatmeal for dogs with skin sensitivities. Contains zinc and linoleic acid for skin and coat health while supporting digestive wellness.",
-    "Quantity ": 2316,
+    "Description": "Specially formulated with lamb and oatmeal for dogs with skin sensitivities. Contains zinc and linoleic acid for skin and coat health while supporting digestive wellness.",
+    "Quantity": 2316,
     "Price": 7,
     "CategoryId": 2,
     "BrandId": 1
@@ -753,8 +753,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5309278?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Honest Kitchen Whole Grain",
-    "Description ": "Human-grade dehydrated dog food made with cage-free chicken and whole grains. Contains minimally processed ingredients with added vitamins and minerals.",
-    "Quantity ": 806,
+    "Description": "Human-grade dehydrated dog food made with cage-free chicken and whole grains. Contains minimally processed ingredients with added vitamins and minerals.",
+    "Quantity": 806,
     "Price": 17,
     "CategoryId": 2,
     "BrandId": 11
@@ -762,8 +762,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5252903?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Lamb Formula",
-    "Description ": "Premium lamb and oatmeal recipe for adult dogs with skin sensitivities. Features real lamb as the first ingredient with oatmeal for gentle digestion.",
-    "Quantity ": 1278,
+    "Description": "Premium lamb and oatmeal recipe for adult dogs with skin sensitivities. Features real lamb as the first ingredient with oatmeal for gentle digestion.",
+    "Quantity": 1278,
     "Price": 89,
     "CategoryId": 2,
     "BrandId": 1
@@ -771,8 +771,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364580?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Authority Large Breed",
-    "Description ": "Chicken & rice formula specifically designed for large breed adult dogs. Contains glucosamine and chondroitin for joint health, with balanced protein for lean muscle maintenance.",
-    "Quantity ": 8897,
+    "Description": "Chicken & rice formula specifically designed for large breed adult dogs. Contains glucosamine and chondroitin for joint health, with balanced protein for lean muscle maintenance.",
+    "Quantity": 8897,
     "Price": 9,
     "CategoryId": 2,
     "BrandId": 9
@@ -780,8 +780,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5319719?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Honest Kitchen Beef Stew",
-    "Description ": "Human-grade wet dog food made with real roasted beef in a hearty stew. Contains whole foods with added vitamins and minerals in a convenient ready-to-serve package.",
-    "Quantity ": 777,
+    "Description": "Human-grade wet dog food made with real roasted beef in a hearty stew. Contains whole foods with added vitamins and minerals in a convenient ready-to-serve package.",
+    "Quantity": 777,
     "Price": 14,
     "CategoryId": 2,
     "BrandId": 11
@@ -789,8 +789,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279157?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Science Diet Wet Food",
-    "Description ": "Premium turkey & rice wet food for dogs with sensitive digestion. Easy-to-digest formula with prebiotic fiber for optimal nutrient absorption and stool quality.",
-    "Quantity ": 814,
+    "Description": "Premium turkey & rice wet food for dogs with sensitive digestion. Easy-to-digest formula with prebiotic fiber for optimal nutrient absorption and stool quality.",
+    "Quantity": 814,
     "Price": 45,
     "CategoryId": 2,
     "BrandId": 4
@@ -798,8 +798,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5364946?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Simply Nourish Wet Food Stew",
-    "Description ": "Nutritious stew recipe made with real meat and vegetables. High-moisture food option with balanced nutrition and no artificial preservatives, colors or flavors.",
-    "Quantity ": 79,
+    "Description": "Nutritious stew recipe made with real meat and vegetables. High-moisture food option with balanced nutrition and no artificial preservatives, colors or flavors.",
+    "Quantity": 79,
     "Price": 29,
     "CategoryId": 2,
     "BrandId": 10
@@ -807,8 +807,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5286296?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Science Diet Turkey Wet Food",
-    "Description ": "Veterinarian-recommended wet food with turkey and rice for dogs with sensitive stomachs. Contains high-quality protein and gentle fiber for healthy digestion.",
-    "Quantity ": 677,
+    "Description": "Veterinarian-recommended wet food with turkey and rice for dogs with sensitive stomachs. Contains high-quality protein and gentle fiber for healthy digestion.",
+    "Quantity": 677,
     "Price": 9,
     "CategoryId": 2,
     "BrandId": 4
@@ -816,8 +816,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5286374?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Large Breed",
-    "Description ": "Salmon & rice formula tailored for large breed dogs with sensitive skin and stomachs. Contains optimal protein-to-fat ratio and joint-supporting nutrients.",
-    "Quantity ": 871,
+    "Description": "Salmon & rice formula tailored for large breed dogs with sensitive skin and stomachs. Contains optimal protein-to-fat ratio and joint-supporting nutrients.",
+    "Quantity": 871,
     "Price": 9,
     "CategoryId": 2,
     "BrandId": 1
@@ -825,8 +825,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5345204?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Large Breed Salmon",
-    "Description ": "High-protein formula with salmon for large breed dogs with sensitivities. Contains EPA and glucosamine for joint health and mobility with omega fatty acids for skin and coat.",
-    "Quantity ": 915,
+    "Description": "High-protein formula with salmon for large breed dogs with sensitivities. Contains EPA and glucosamine for joint health and mobility with omega fatty acids for skin and coat.",
+    "Quantity": 915,
     "Price": 89,
     "CategoryId": 2,
     "BrandId": 1
@@ -834,8 +834,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5339222?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Perfect Weight",
-    "Description ": "Weight management formula with chicken for adult dogs. Clinically proven nutrition to achieve and maintain a healthy weight with high-quality protein for lean muscle.",
-    "Quantity ": 1017,
+    "Description": "Weight management formula with chicken for adult dogs. Clinically proven nutrition to achieve and maintain a healthy weight with high-quality protein for lean muscle.",
+    "Quantity": 1017,
     "Price": 299,
     "CategoryId": 2,
     "BrandId": 4
@@ -843,8 +843,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5209172?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Salmon & Rice",
-    "Description ": "Shredded blend formula with salmon as the first ingredient. Contains rice for digestibility and balanced nutrition with omega fatty acids for skin and coat health.",
-    "Quantity ": 214,
+    "Description": "Shredded blend formula with salmon as the first ingredient. Contains rice for digestibility and balanced nutrition with omega fatty acids for skin and coat health.",
+    "Quantity": 214,
     "Price": 89,
     "CategoryId": 2,
     "BrandId": 1
@@ -852,8 +852,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5348548?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Simply Nourish Limited Ingredient",
-    "Description ": "Salmon & sweet potato recipe with limited ingredients for dogs with food sensitivities. Contains no grains, corn, wheat, or soy with added vitamins and minerals.",
-    "Quantity ": 981,
+    "Description": "Salmon & sweet potato recipe with limited ingredients for dogs with food sensitivities. Contains no grains, corn, wheat, or soy with added vitamins and minerals.",
+    "Quantity": 981,
     "Price": 299,
     "CategoryId": 2,
     "BrandId": 10
@@ -861,8 +861,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5173207?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Royal Canin Small Breed",
-    "Description ": "Specifically formulated for small breed adult dogs under 22 lbs. Contains precise nutrition for high energy needs with kibble designed for small jaws.",
-    "Quantity ": 1072,
+    "Description": "Specifically formulated for small breed adult dogs under 22 lbs. Contains precise nutrition for high energy needs with kibble designed for small jaws.",
+    "Quantity": 1072,
     "Price": 199,
     "CategoryId": 2,
     "BrandId": 3
@@ -870,8 +870,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287507?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Simply Nourish Lamb & Oatmeal",
-    "Description ": "Natural dog food with real lamb and oatmeal. Contains superfoods, antioxidants, and omega fatty acids for complete nutrition and healthy skin and coat.",
-    "Quantity ": 597,
+    "Description": "Natural dog food with real lamb and oatmeal. Contains superfoods, antioxidants, and omega fatty acids for complete nutrition and healthy skin and coat.",
+    "Quantity": 597,
     "Price": 14,
     "CategoryId": 2,
     "BrandId": 10
@@ -879,8 +879,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5327624?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Pedigree Steak & Vegetables",
-    "Description ": "Complete nutrition formula with steak and vegetable flavors. Contains essential antioxidants, vitamins, and minerals to support a healthy immune system and digestion.",
-    "Quantity ": 2861,
+    "Description": "Complete nutrition formula with steak and vegetable flavors. Contains essential antioxidants, vitamins, and minerals to support a healthy immune system and digestion.",
+    "Quantity": 2861,
     "Price": 89,
     "CategoryId": 2,
     "BrandId": 12
@@ -888,8 +888,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5271677?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina FortiFlora Probiotic",
-    "Description ": "Veterinary-recommended probiotic supplement for dogs. Contains live microorganisms to promote normal intestinal microflora and digestive health.",
-    "Quantity ": 1272,
+    "Description": "Veterinary-recommended probiotic supplement for dogs. Contains live microorganisms to promote normal intestinal microflora and digestive health.",
+    "Quantity": 1272,
     "Price": 59,
     "CategoryId": 2,
     "BrandId": 1
@@ -897,8 +897,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5283755?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Large Breed Chicken",
-    "Description ": "Specialized nutrition for large breed adult dogs with chicken as the first ingredient. Contains EPA and glucosamine for joint health and mobility.",
-    "Quantity ": 1594,
+    "Description": "Specialized nutrition for large breed adult dogs with chicken as the first ingredient. Contains EPA and glucosamine for joint health and mobility.",
+    "Quantity": 1594,
     "Price": 899,
     "CategoryId": 2,
     "BrandId": 1
@@ -906,8 +906,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5272612?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Sport",
-    "Description ": "High-protein formula with 30% protein and 20% fat for active dogs. Fuels metabolic needs and helps maintain lean muscle with optimal amino acid profile.",
-    "Quantity ": 2810,
+    "Description": "High-protein formula with 30% protein and 20% fat for active dogs. Fuels metabolic needs and helps maintain lean muscle with optimal amino acid profile.",
+    "Quantity": 2810,
     "Price": 19,
     "CategoryId": 2,
     "BrandId": 1
@@ -915,8 +915,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5349022?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Simply Nourish Large Breed Salmon",
-    "Description ": "Salmon & sweet potato recipe specifically formulated for large breed dogs. Contains glucosamine and chondroitin for joint health with balanced nutrients for proper growth.",
-    "Quantity ": 80,
+    "Description": "Salmon & sweet potato recipe specifically formulated for large breed dogs. Contains glucosamine and chondroitin for joint health with balanced nutrients for proper growth.",
+    "Quantity": 80,
     "Price": 68,
     "CategoryId": 2,
     "BrandId": 10
@@ -924,8 +924,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266809?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Large Breed",
-    "Description ": "Chicken & barley formula designed for large breed adult dogs. Contains balanced minerals for heart health and glucosamine and chondroitin for joint support.",
-    "Quantity ": 820,
+    "Description": "Chicken & barley formula designed for large breed adult dogs. Contains balanced minerals for heart health and glucosamine and chondroitin for joint support.",
+    "Quantity": 820,
     "Price": 48,
     "CategoryId": 2,
     "BrandId": 4
@@ -933,8 +933,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5283624?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Beef & Rice",
-    "Description ": "Shredded blend formula with beef as the first ingredient. Contains rice for easy digestion and complete nutrition with both hard kibble and tender shredded pieces.",
-    "Quantity ": 1512,
+    "Description": "Shredded blend formula with beef as the first ingredient. Contains rice for easy digestion and complete nutrition with both hard kibble and tender shredded pieces.",
+    "Quantity": 1512,
     "Price": 16,
     "CategoryId": 2,
     "BrandId": 1
@@ -942,8 +942,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5153876?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Weight Management",
-    "Description ": "Weight control formula with chicken and reduced calories. Contains high protein to help maintain lean muscle during weight loss with natural fiber for satiety.",
-    "Quantity ": 1311,
+    "Description": "Weight control formula with chicken and reduced calories. Contains high protein to help maintain lean muscle during weight loss with natural fiber for satiety.",
+    "Quantity": 1311,
     "Price": 97,
     "CategoryId": 2,
     "BrandId": 1
@@ -951,8 +951,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266810?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Science Diet Adult",
-    "Description ": "Chicken & barley recipe for adult dogs 1-6 years. Contains high-quality protein for lean muscle maintenance and balanced nutrition for optimal health.",
-    "Quantity ": 99,
+    "Description": "Chicken & barley recipe for adult dogs 1-6 years. Contains high-quality protein for lean muscle maintenance and balanced nutrition for optimal health.",
+    "Quantity": 99,
     "Price": 20,
     "CategoryId": 2,
     "BrandId": 4
@@ -960,8 +960,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5279202?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Authority Chicken & Rice",
-    "Description ": "All life stages formula with chicken as the first ingredient. Contains omega-3 and omega-6 fatty acids for skin and coat health with antioxidants for immune support.",
-    "Quantity ": 662,
+    "Description": "All life stages formula with chicken as the first ingredient. Contains omega-3 and omega-6 fatty acids for skin and coat health with antioxidants for immune support.",
+    "Quantity": 662,
     "Price": 16,
     "CategoryId": 2,
     "BrandId": 9
@@ -969,8 +969,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5066968?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Blue Buffalo Life Protection",
-    "Description ": "Chicken & brown rice formula with LifeSource Bits. Contains a precise blend of antioxidants, vitamins, and minerals with real meat as the first ingredient.",
-    "Quantity ": 871,
+    "Description": "Chicken & brown rice formula with LifeSource Bits. Contains a precise blend of antioxidants, vitamins, and minerals with real meat as the first ingredient.",
+    "Quantity": 871,
     "Price": 14,
     "CategoryId": 2,
     "BrandId": 13
@@ -978,8 +978,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5209167?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina Pro Plan Small Breed",
-    "Description ": "Specialized shredded blend formula for small breed adult dogs. Contains chicken as the first ingredient with smaller kibble size for smaller mouths.",
-    "Quantity ": 1370,
+    "Description": "Specialized shredded blend formula for small breed adult dogs. Contains chicken as the first ingredient with smaller kibble size for smaller mouths.",
+    "Quantity": 1370,
     "Price": 72,
     "CategoryId": 2,
     "BrandId": 1
@@ -987,8 +987,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5206384?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Royal Canin HP",
-    "Description ": "Veterinary-exclusive hydrolyzed protein diet for dogs with food sensitivities. Features proteins broken down into smaller components to minimize allergic reactions.",
-    "Quantity ": 1082,
+    "Description": "Veterinary-exclusive hydrolyzed protein diet for dogs with food sensitivities. Features proteins broken down into smaller components to minimize allergic reactions.",
+    "Quantity": 1082,
     "Price": 56,
     "CategoryId": 2,
     "BrandId": 3
@@ -996,8 +996,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5150138?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Royal Canin Golden Retriever",
-    "Description ": "Breed-specific nutrition formulated exclusively for Golden Retrievers. Contains targeted nutrients for coat health, cardiac function, and ideal weight maintenance.",
-    "Quantity ": 613,
+    "Description": "Breed-specific nutrition formulated exclusively for Golden Retrievers. Contains targeted nutrients for coat health, cardiac function, and ideal weight maintenance.",
+    "Quantity": 613,
     "Price": 109,
     "CategoryId": 2,
     "BrandId": 3
@@ -1005,8 +1005,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5199233?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Royal Canin Medium Breed",
-    "Description ": "Tailored nutrition for medium-sized adult dogs between 23-55 lbs. Features exclusive kibble design and formulation to satisfy medium breed appetite and energy needs.",
-    "Quantity ": 613,
+    "Description": "Tailored nutrition for medium-sized adult dogs between 23-55 lbs. Features exclusive kibble design and formulation to satisfy medium breed appetite and energy needs.",
+    "Quantity": 613,
     "Price": 61,
     "CategoryId": 2,
     "BrandId": 3
@@ -1014,8 +1014,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5182583?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Large Breed Lamb",
-    "Description ": "Lamb & brown rice recipe designed for large breed adult dogs. Contains natural sources of glucosamine and chondroitin for joint health with balanced nutrition.",
-    "Quantity ": 390,
+    "Description": "Lamb & brown rice recipe designed for large breed adult dogs. Contains natural sources of glucosamine and chondroitin for joint health with balanced nutrition.",
+    "Quantity": 390,
     "Price": 83,
     "CategoryId": 2,
     "BrandId": 4
@@ -1023,8 +1023,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5255963?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Purina ONE SmartBlend Lamb",
-    "Description ": "High-protein formula with real lamb as the first ingredient. Contains dual-defense antioxidant blend for immune health with tender meaty morsels and crunchy kibble.",
-    "Quantity ": 993,
+    "Description": "High-protein formula with real lamb as the first ingredient. Contains dual-defense antioxidant blend for immune health with tender meaty morsels and crunchy kibble.",
+    "Quantity": 993,
     "Price": 59,
     "CategoryId": 2,
     "BrandId": 1
@@ -1032,8 +1032,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5333997?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Authority Large Breed Salmon",
-    "Description ": "Salmon & rice formula for large breed dogs with sensitive stomachs. Contains omega fatty acids for skin and coat health with prebiotics for digestive support.",
-    "Quantity ": 182,
+    "Description": "Salmon & rice formula for large breed dogs with sensitive stomachs. Contains omega fatty acids for skin and coat health with prebiotics for digestive support.",
+    "Quantity": 182,
     "Price": 47,
     "CategoryId": 2,
     "BrandId": 9
@@ -1041,8 +1041,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266808?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Hill's Small Bites",
-    "Description ": "Chicken & barley recipe with smaller kibble size for adult dogs. Provides precise nutrition with high-quality ingredients for dogs who prefer a smaller bite size.",
-    "Quantity ": 766,
+    "Description": "Chicken & barley recipe with smaller kibble size for adult dogs. Provides precise nutrition with high-quality ingredients for dogs who prefer a smaller bite size.",
+    "Quantity": 766,
     "Price": 20,
     "CategoryId": 2,
     "BrandId": 4
@@ -1052,8 +1052,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316220?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolution Plus Green",
-    "Description ": "A powerful flea and tick treatment for cats between 11.1-22 lbs.",
-    "Quantity ": 14,
+    "Description": "A powerful flea and tick treatment for cats between 11.1-22 lbs.",
+    "Quantity": 14,
     "Price": 91,
     "CategoryId": 3,
     "BrandId": 14
@@ -1061,8 +1061,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316218?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolution Plus Orange",
-    "Description ": "A reliable flea and tick solution for cats weighing 5.6-11 lbs.",
-    "Quantity ": 9,
+    "Description": "A reliable flea and tick solution for cats weighing 5.6-11 lbs.",
+    "Quantity": 9,
     "Price": 85,
     "CategoryId": 3,
     "BrandId": 14
@@ -1070,8 +1070,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354086?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "NexGard COMBO Yellow",
-    "Description ": "A convenient topical solution for flea and tick prevention in cats.",
-    "Quantity ": 3,
+    "Description": "A convenient topical solution for flea and tick prevention in cats.",
+    "Quantity": 3,
     "Price": 33,
     "CategoryId": 3,
     "BrandId": 15
@@ -1079,8 +1079,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316181?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Bravecto Blue",
-    "Description ": "Provides up to 12 weeks of flea and tick protection for cats.",
-    "Quantity ": 5,
+    "Description": "Provides up to 12 weeks of flea and tick protection for cats.",
+    "Quantity": 5,
     "Price": 68,
     "CategoryId": 3,
     "BrandId": 16
@@ -1088,8 +1088,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316905?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Bravecto Plus",
-    "Description ": "Advanced flea and tick protection for cats with additional benefits.",
-    "Quantity ": 12,
+    "Description": "Advanced flea and tick protection for cats with additional benefits.",
+    "Quantity": 12,
     "Price": 83,
     "CategoryId": 3,
     "BrandId": 16
@@ -1097,8 +1097,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5315219?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolution Blue",
-    "Description ": "A proven flea and tick treatment for cats between 5.1-15 lbs.",
-    "Quantity ": 1,
+    "Description": "A proven flea and tick treatment for cats between 5.1-15 lbs.",
+    "Quantity": 1,
     "Price": 104,
     "CategoryId": 3,
     "BrandId": 14
@@ -1106,8 +1106,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353984?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Credelio Teal",
-    "Description ": "Oral flea and tick treatment for cats weighing 4.1-17 lbs.",
-    "Quantity ": 20,
+    "Description": "Oral flea and tick treatment for cats weighing 4.1-17 lbs.",
+    "Quantity": 20,
     "Price": 159,
     "CategoryId": 3,
     "BrandId": 17
@@ -1115,8 +1115,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317361?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolt Selamectin",
-    "Description ": "An effective topical flea and tick solution for cats.",
-    "Quantity ": 3,
+    "Description": "An effective topical flea and tick solution for cats.",
+    "Quantity": 3,
     "Price": 54,
     "CategoryId": 3,
     "BrandId": 18
@@ -1124,8 +1124,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316182?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Bravecto Purple",
-    "Description ": "Long-lasting flea and tick protection for larger cats.",
-    "Quantity ": 34,
+    "Description": "Long-lasting flea and tick protection for larger cats.",
+    "Quantity": 34,
     "Price": 69,
     "CategoryId": 3,
     "BrandId": 16
@@ -1133,8 +1133,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316098?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Advantage Multi",
-    "Description ": "A broad-spectrum topical solution for flea, tick, and heartworm protection.",
-    "Quantity ": 10,
+    "Description": "A broad-spectrum topical solution for flea, tick, and heartworm protection.",
+    "Quantity": 10,
     "Price": 19,
     "CategoryId": 3,
     "BrandId": 19
@@ -1142,8 +1142,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354102?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Midamox Purple",
-    "Description ": "A strong flea and tick treatment for cats between 9.1-18 lbs.",
-    "Quantity ": 10,
+    "Description": "A strong flea and tick treatment for cats between 9.1-18 lbs.",
+    "Quantity": 10,
     "Price": 54,
     "CategoryId": 3,
     "BrandId": 20
@@ -1151,8 +1151,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354101?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Midamox Orange",
-    "Description ": "An effective topical flea and tick solution for smaller cats.",
-    "Quantity ": 30,
+    "Description": "An effective topical flea and tick solution for smaller cats.",
+    "Quantity": 30,
     "Price": 339,
     "CategoryId": 3,
     "BrandId": 20
@@ -1161,8 +1161,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354100?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Midamox Teal",
-    "Description ": "A highly effective topical solution for flea and tick protection in small cats.",
-    "Quantity ": 10,
+    "Description": "A highly effective topical solution for flea and tick protection in small cats.",
+    "Quantity": 10,
     "Price": 150,
     "CategoryId": 3,
     "BrandId": 20
@@ -1170,8 +1170,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354075?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Credelio Purple",
-    "Description ": "Oral flea and tick treatment specifically designed for cats weighing 2-4 lbs.",
-    "Quantity ": 10,
+    "Description": "Oral flea and tick treatment specifically designed for cats weighing 2-4 lbs.",
+    "Quantity": 10,
     "Price": 135,
     "CategoryId": 3,
     "BrandId": 17
@@ -1179,8 +1179,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354043?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "NexGard COMBO Purple",
-    "Description ": "A reliable topical solution providing flea and tick control for kittens and small cats.",
-    "Quantity ": 10,
+    "Description": "A reliable topical solution providing flea and tick control for kittens and small cats.",
+    "Quantity": 10,
     "Price": 6,
     "CategoryId": 3,
     "BrandId": 15
@@ -1188,8 +1188,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353813?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Barrier Teal",
-    "Description ": "An advanced flea and tick treatment for cats weighing 2-5 lbs.",
-    "Quantity ": 10,
+    "Description": "An advanced flea and tick treatment for cats weighing 2-5 lbs.",
+    "Quantity": 10,
     "Price": 342,
     "CategoryId": 3,
     "BrandId": 22
@@ -1197,8 +1197,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353573?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Barrier Orange",
-    "Description ": "Effective topical flea and tick solution for cats between 5.1-9 lbs.",
-    "Quantity ": 10,
+    "Description": "Effective topical flea and tick solution for cats between 5.1-9 lbs.",
+    "Quantity": 10,
     "Price": 54,
     "CategoryId": 3,
     "BrandId": 22
@@ -1206,8 +1206,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317448?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Senergy Selamectin",
-    "Description ": "A potent topical treatment for flea and tick protection in large cats.",
-    "Quantity ": 10,
+    "Description": "A potent topical treatment for flea and tick protection in large cats.",
+    "Quantity": 10,
     "Price": 50,
     "CategoryId": 3,
     "BrandId": 21
@@ -1219,8 +1219,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354100?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Midamox Cats 2-5 lbs",
-    "Description ": "Midamox topical treatment for small cats, providing flea and tick protection.",
-    "Quantity ": 10,
+    "Description": "Midamox topical treatment for small cats, providing flea and tick protection.",
+    "Quantity": 10,
     "Price": 150,
     "CategoryId": 3,
     "BrandId": 20
@@ -1228,8 +1228,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354075?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Credelio Cats 2-4 lbs",
-    "Description ": "Oral flea and tick protection for small cats, easy to chew tablets.",
-    "Quantity ": 10,
+    "Description": "Oral flea and tick protection for small cats, easy to chew tablets.",
+    "Quantity": 10,
     "Price": 35,
     "CategoryId": 3,
     "BrandId": 17
@@ -1237,8 +1237,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5354043?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "NexGard Cats 1.8-5.5 lbs",
-    "Description ": "Topical solution for cats to prevent fleas, ticks, and internal parasites.",
-    "Quantity ": 10,
+    "Description": "Topical solution for cats to prevent fleas, ticks, and internal parasites.",
+    "Quantity": 10,
     "Price": 6,
     "CategoryId": 3,
     "BrandId": 15
@@ -1246,8 +1246,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353813?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Barrier Cats 2-5 lbs",
-    "Description ": "Long-lasting flea and tick protection for small cats.",
-    "Quantity ": 10,
+    "Description": "Long-lasting flea and tick protection for small cats.",
+    "Quantity": 10,
     "Price": 142,
     "CategoryId":3,
     "BrandId": 22
@@ -1255,8 +1255,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317448?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Senergy Cats 15.1-22 lbs",
-    "Description ": "Selamectin-based topical flea and tick treatment for large cats.",
-    "Quantity ": 10,
+    "Description": "Selamectin-based topical flea and tick treatment for large cats.",
+    "Quantity": 10,
     "Price": 50,
     "CategoryId": 3,
     "BrandId": 21
@@ -1264,8 +1264,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317447?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Senergy Cats 5.1-15 lbs",
-    "Description ": "Effective flea and tick prevention for medium-sized cats.",
-    "Quantity ": 22,
+    "Description": "Effective flea and tick prevention for medium-sized cats.",
+    "Quantity": 22,
     "Price": 439,
     "CategoryId": 3,
     "BrandId": 21
@@ -1273,8 +1273,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317363?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolt Cats 15.1-22 lbs",
-    "Description ": "Powerful flea and parasite control for large cats, available in 3 or 6-month packs.",
-    "Quantity ": 1,
+    "Description": "Powerful flea and parasite control for large cats, available in 3 or 6-month packs.",
+    "Quantity": 1,
     "Price": 285,
     "CategoryId": 3,
     "BrandId": 18
@@ -1282,8 +1282,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317359?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolt Kittens/Puppies",
-    "Description ": "Safe flea and tick protection for small kittens and puppies.",
-    "Quantity ": 20,
+    "Description": "Safe flea and tick protection for small kittens and puppies.",
+    "Quantity": 20,
     "Price": 148,
     "CategoryId": 3,
     "BrandId": 18
@@ -1291,8 +1291,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316888?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Selarid Cats 15.1-22 lbs",
-    "Description ": "Long-term flea and tick protection for large cats, 6-month supply.",
-    "Quantity ": 30,
+    "Description": "Long-term flea and tick protection for large cats, 6-month supply.",
+    "Quantity": 30,
     "Price": 237,
     "CategoryId": 3,
     "BrandId": 21
@@ -1303,7 +1303,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316333?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Advantage Multi for Cats 5.1-9 lbs",
-    "Quantity ": 2,
+    "Quantity": 2,
     "Price": 9,
     "CategoryId": 3,
     "BrandId": 19
@@ -1311,7 +1311,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316266?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolution Topical for Cats 15.1-22 lbs Taupe",
-    "Quantity ": 1,
+    "Quantity": 1,
     "Price": 179,
     "CategoryId": 3,
     "BrandId": 14
@@ -1319,7 +1319,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316216?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolution Plus for Cats 2.8-5.5 lbs Gold - 3 or 6 Month Supply",
-    "Quantity ": 30,
+    "Quantity": 30,
     "Price": 729,
     "CategoryId": 3,
     "BrandId": 14
@@ -1327,7 +1327,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316180?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Bravecto Topical Solution for Cats, 2.6 - 6.2 lbs 112.5 mg Green",
-    "Quantity ": 10,
+    "Quantity": 10,
     "Price": 67,
     "CategoryId": 3,
     "BrandId": 16
@@ -1335,7 +1335,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316038?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Revolution Topical for Puppies and Kittens up to 5 lbs Pink - 3 Month or 6 Month Supply",
-    "Quantity ": 20,
+    "Quantity": 20,
     "Price": 71,
     "CategoryId": 3,
     "BrandId": 14
@@ -1343,7 +1343,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316676?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Lactated Ringers Solution - 500 mL, 1 Liter",
-    "Quantity ": 44,
+    "Quantity": 44,
     "Price": 13,
     "CategoryId": 3,
     "BrandId": 23
@@ -1351,7 +1351,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317366?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Vitamin K1 for Dogs and Cats 50 mg, 50 Capsules",
-    "Quantity ": 23,
+    "Quantity": 23,
     "Price": 31,
     "CategoryId": 3,
     "BrandId": 23
@@ -1359,7 +1359,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317280?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Vitamin C 250 mg/ml, 250 ml vial",
-    "Quantity ": 14,
+    "Quantity": 14,
     "Price": 14,
     "CategoryId": 3,
     "BrandId": 23
@@ -1367,7 +1367,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5317213?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Cyanocobalamin Vitamin B-12 1000 mcg/ml, 100 ml",
-    "Quantity ": 1,
+    "Quantity": 1,
     "Price": 9,
     "CategoryId": 3,
     "BrandId": 23
@@ -1375,7 +1375,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316945?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Sodium Chloride 0.9% Injection Fluid, 1000 ml (Saline)",
-    "Quantity ": 23,
+    "Quantity": 23,
     "Price": 10,
     "CategoryId": 3,
     "BrandId": 23
@@ -1383,7 +1383,7 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5316921?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Normosol-R Electrolyte Bag - 1000ml",
-    "Quantity ": 14,
+    "Quantity": 14,
     "Price": 9,
     "CategoryId": 3,
     "BrandId": 23
@@ -1392,8 +1392,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5288351?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Pickle Cat Toy - Catnip, Plush",
-    "Description ": "Interactive plush cat toy with catnip filling for play and stimulation.",
-    "Quantity ": 295,
+    "Description": "Interactive plush cat toy with catnip filling for play and stimulation.",
+    "Quantity": 295,
     "Price": 2,
     "CategoryId": 4,
     "BrandId": 24
@@ -1401,8 +1401,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287659?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Ball Track & Scratcher Cat Toy",
-    "Description ": "Durable ball track with scratching surface for cats.",
-    "Quantity ": 230,
+    "Description": "Durable ball track with scratching surface for cats.",
+    "Quantity": 230,
     "Price": 19,
     "CategoryId": 4,
     "BrandId": 24
@@ -1410,8 +1410,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287899?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Spring Toys Cat Toys - 4 Pack",
-    "Description ": "Colorful spring toys for cats to chase and bat.",
-    "Quantity ": 225,
+    "Description": "Colorful spring toys for cats to chase and bat.",
+    "Quantity": 225,
     "Price": 4,
     "CategoryId": 4,
     "BrandId": 24
@@ -1419,8 +1419,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5351285?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Space Cat Double-Wide Basic Corrugate Cat Scratcher",
-    "Description ": "Double-wide corrugate scratcher for cats to sharpen claws.",
-    "Quantity ": 8,
+    "Description": "Double-wide corrugate scratcher for cats to sharpen claws.",
+    "Quantity": 8,
     "Price": 9,
     "CategoryId": 4,
     "BrandId": 24
@@ -1428,8 +1428,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337610?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Modular Track with Ball Corrugate Scratcher Cat Toy",
-    "Description ": "Modular track system with ball for interactive play.",
-    "Quantity ": 172,
+    "Description": "Modular track system with ball for interactive play.",
+    "Quantity": 172,
     "Price": 16,
     "CategoryId": 4,
     "BrandId": 24
@@ -1437,8 +1437,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266797?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Organic Catnip",
-    "Description ": "Natural organic catnip to entice playful behavior.",
-    "Quantity ": 306,
+    "Description": "Natural organic catnip to entice playful behavior.",
+    "Quantity": 306,
     "Price": 14,
     "CategoryId": 4,
     "BrandId": 24
@@ -1446,8 +1446,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287660?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Scratcher Refills - 2 Pack",
-    "Description ": "Replaceable scratcher refills for cat furniture.",
-    "Quantity ": 148,
+    "Description": "Replaceable scratcher refills for cat furniture.",
+    "Quantity": 148,
     "Price": 9,
     "CategoryId": 4,
     "BrandId": 24
@@ -1455,8 +1455,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5360032?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Catnip Animal Cat Toy",
-    "Description ": "Plush animal toy infused with catnip for excitement.",
-    "Quantity ": 12,
+    "Description": "Plush animal toy infused with catnip for excitement.",
+    "Quantity": 12,
     "Price": 4,
     "CategoryId": 4,
     "BrandId": 24
@@ -1464,8 +1464,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287981?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Tinsel Balls Cat Toys - 4 Pack (COLOR VARIES)",
-    "Description ": "Sparkling tinsel balls to stimulate feline curiosity.",
-    "Quantity ": 299,
+    "Description": "Sparkling tinsel balls to stimulate feline curiosity.",
+    "Quantity": 299,
     "Price": 4,
     "CategoryId": 4,
     "BrandId": 24
@@ -1473,8 +1473,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5360331?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Plush Bird Cat Toy",
-    "Description ": "Lightweight plush bird toy for batting and chasing.",
-    "Quantity ": 8,
+    "Description": "Lightweight plush bird toy for batting and chasing.",
+    "Quantity": 8,
     "Price": 20,
     "CategoryId": 4,
     "BrandId": 24
@@ -1482,8 +1482,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5360004?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Lizard Cat Toy",
-    "Description ": "Realistic lizard-shaped toy to engage hunting instincts.",
-    "Quantity ": 1,
+    "Description": "Realistic lizard-shaped toy to engage hunting instincts.",
+    "Quantity": 1,
     "Price": 200,
     "CategoryId": 4,
     "BrandId": 24
@@ -1491,8 +1491,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5338736?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Basic Black Teaser Wand Cat Toy",
-    "Description ": "Teaser wand with replaceable attachments (sold separately).",
-    "Quantity ": 89,
+    "Description": "Teaser wand with replaceable attachments (sold separately).",
+    "Quantity": 89,
     "Price": 199,
     "CategoryId": 4,
     "BrandId": 24
@@ -1500,8 +1500,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5287984?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Crinkle Ball Cat Toy - (COLOR VARIES)",
-    "Description ": "Crinkly balls to stimulate auditory and tactile senses.",
-    "Quantity ": 128,
+    "Description": "Crinkly balls to stimulate auditory and tactile senses.",
+    "Quantity": 128,
     "Price": 199,
     "CategoryId": 4,
     "BrandId": 24
@@ -1509,8 +1509,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5353243?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Cottage Corrugate Cat Scratcher",
-    "Description ": "Cottage-shaped scratcher for cats to scratch and lounge.",
-    "Quantity ": 16,
+    "Description": "Cottage-shaped scratcher for cats to scratch and lounge.",
+    "Quantity": 16,
     "Price": 19,
     "CategoryId": 4,
     "BrandId": 24
@@ -1518,8 +1518,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337516?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Whackamouse Corrugate Scratcher Cat Toy",
-    "Description ": "Interactive scratcher with mouse for batting and scratching.",
-    "Quantity ": 90,
+    "Description": "Interactive scratcher with mouse for batting and scratching.",
+    "Quantity": 90,
     "Price": 16,
     "CategoryId": 4,
     "BrandId": 24
@@ -1527,8 +1527,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5297252?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Cozy Pop-Open Play Tunnel Cat Toy",
-    "Description ": "Collapsible tunnel for hide-and-seek play sessions.",
-    "Quantity ": 202,
+    "Description": "Collapsible tunnel for hide-and-seek play sessions.",
+    "Quantity": 202,
     "Price": 14,
     "CategoryId": 4,
     "BrandId": 24
@@ -1536,8 +1536,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337546?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Natural Teaser Attachment Cat Toy - 3 Pack",
-    "Description ": "Natural feather attachments for teaser wands.",
-    "Quantity ": 40,
+    "Description": "Natural feather attachments for teaser wands.",
+    "Quantity": 40,
     "Price": 10,
     "CategoryId": 4,
     "BrandId": 24
@@ -1545,8 +1545,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5325497?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Robotic Gray Mouse Cat Toy",
-    "Description ": "Self-moving robotic mouse to trigger chasing instincts.",
-    "Quantity ": 299,
+    "Description": "Self-moving robotic mouse to trigger chasing instincts.",
+    "Quantity": 299,
     "Price": 99,
     "CategoryId": 4,
     "BrandId": 24
@@ -1554,8 +1554,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5266801?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Natural Catnip",
-    "Description ": "Premium natural catnip for enhanced playtime.",
-    "Quantity ": 333,
+    "Description": "Premium natural catnip for enhanced playtime.",
+    "Quantity": 333,
     "Price": 299,
     "CategoryId": 4,
     "BrandId": 24
@@ -1563,8 +1563,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5319820?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Trailin' Off Trailer Corrugate Cat Scratcher",
-    "Description ": "Trailer-shaped scratcher with replaceable surfaces.",
-    "Quantity ": 633,
+    "Description": "Trailer-shaped scratcher with replaceable surfaces.",
+    "Quantity": 633,
     "Price": 299,
     "CategoryId": 4,
     "BrandId": 24
@@ -1572,8 +1572,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5065493?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Duck Plush Dog Toy with Squeaker",
-    "Description ": "Soft duck-shaped plush toy with squeaker for dogs.",
-    "Quantity ": 623,
+    "Description": "Soft duck-shaped plush toy with squeaker for dogs.",
+    "Quantity": 623,
     "Price": 269,
     "CategoryId": 4,
     "BrandId": 24
@@ -1581,8 +1581,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5064438?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Teddy Bear Dog Toy - Plush, Squeaker",
-    "Description ": "Cuddly teddy bear plush with squeaker for play.",
-    "Quantity ": 776,
+    "Description": "Cuddly teddy bear plush with squeaker for play.",
+    "Quantity": 776,
     "Price": 123,
     "CategoryId": 4,
     "BrandId": 24
@@ -1590,8 +1590,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359295?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Floppy Knots Valentine's Day Fox Dog Toy",
-    "Description ": "Valentine-themed fox plush with knotted texture.",
-    "Quantity ": 8,
+    "Description": "Valentine-themed fox plush with knotted texture.",
+    "Quantity": 8,
     "Price": 10,
     "CategoryId": 4,
     "BrandId": 24
@@ -1599,8 +1599,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359301?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Valentine's Day Wubba Plush Dog Toy",
-    "Description ": "Heart-shaped Wubba toy with soft plush material.",
-    "Quantity ": 10,
+    "Description": "Heart-shaped Wubba toy with soft plush material.",
+    "Quantity": 10,
     "Price": 79,
     "CategoryId": 4,
     "BrandId": 24
@@ -1608,8 +1608,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359297?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Valentine's Day Scampers Panda Plush Dog Toy",
-    "Description ": "Festive panda plush with crinkle and squeaker.",
-    "Quantity ": 2,
+    "Description": "Festive panda plush with crinkle and squeaker.",
+    "Quantity": 2,
     "Price": 10,
     "CategoryId": 4,
     "BrandId": 24
@@ -1617,8 +1617,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359244?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Valentine's Day Wild Knots Bear Plush Dog Toy",
-    "Description ": "Knotty bear toy for chewing and tugging.",
-    "Quantity ": 8,
+    "Description": "Knotty bear toy for chewing and tugging.",
+    "Quantity": 8,
     "Price": 87,
     "CategoryId": 4,
     "BrandId": 24
@@ -1626,8 +1626,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5261017?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Floppy Knots Fox Dog Toy - Squeaker & Rope Toy",
-    "Description ": "Fox-shaped toy with knots and rope for interactive play.",
-    "Quantity ": 855,
+    "Description": "Fox-shaped toy with knots and rope for interactive play.",
+    "Quantity": 855,
     "Price": 107,
     "CategoryId": 4,
     "BrandId": 24
@@ -1635,8 +1635,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5100352?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "AirDog® Tennis Ball Set Squeaker Dog Toy - 3 Pack",
-    "Description ": "Durable tennis balls with squeakers for fetch games.",
-    "Quantity ": 955,
+    "Description": "Durable tennis balls with squeakers for fetch games.",
+    "Quantity": 955,
     "Price": 199,
     "CategoryId": 4,
     "BrandId": 24
@@ -1644,8 +1644,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5359300?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Valentine's Day Wubba Dog Toy",
-    "Description ": "Colorful Wubba toy with heart patterns for dogs.",
-    "Quantity ": 4,
+    "Description": "Colorful Wubba toy with heart patterns for dogs.",
+    "Quantity": 4,
     "Price": 77,
     "CategoryId": 4,
     "BrandId": 24
@@ -1653,8 +1653,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5171155?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Ali The Alligator Plush Dog Toy with Squeaker",
-    "Description ": "Long alligator plush for tugging and squeaking.",
-    "Quantity ": 405,
+    "Description": "Long alligator plush for tugging and squeaking.",
+    "Quantity": 405,
     "Price": 719,
     "CategoryId": 4,
     "BrandId": 24
@@ -1662,8 +1662,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5159689?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Easy Treat™ Bacon & Cheese Paste",
-    "Description ": "Paste for stuffing toys, bacon and cheese flavor.",
-    "Quantity ": 160,
+    "Description": "Paste for stuffing toys, bacon and cheese flavor.",
+    "Quantity": 160,
     "Price": 699,
     "CategoryId": 4,
     "BrandId": 24
@@ -1671,8 +1671,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5299685?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Lamb Chop Plush Dog Toy with Squeaker",
-    "Description ": "Classic lamb plush toy with gentle squeaker.",
-    "Quantity ": 805,
+    "Description": "Classic lamb plush toy with gentle squeaker.",
+    "Quantity": 805,
     "Price": 49,
     "CategoryId": 4,
     "BrandId": 24
@@ -1680,8 +1680,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5123575?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Ziggies™Dog Treat",
-    "Description ": "Chewy dental treats for dogs.",
-    "Quantity ": 133,
+    "Description": "Chewy dental treats for dogs.",
+    "Quantity": 133,
     "Price": 99,
     "CategoryId": 4,
     "BrandId": 24
@@ -1689,8 +1689,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5189089?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Easy Treat™ Peanut Butter Paste",
-    "Description ": "Peanut butter-flavored paste for treat-dispensing toys.",
-    "Quantity ": 265,
+    "Description": "Peanut butter-flavored paste for treat-dispensing toys.",
+    "Quantity": 265,
     "Price": 139,
     "CategoryId": 4,
     "BrandId": 24
@@ -1698,8 +1698,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5350512?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Power Chew Donut Dog Toy, Bacon Glazed Flavor",
-    "Description ": "Durable donut-shaped chew toy with bacon flavor.",
-    "Quantity ": 16,
+    "Description": "Durable donut-shaped chew toy with bacon flavor.",
+    "Quantity": 16,
     "Price": 99,
     "CategoryId": 4,
     "BrandId": 24
@@ -1707,8 +1707,8 @@
   {
     "PictureUrl": "https://s7d2.scene7.com/is/image/PetSmart/5337457?$sclp-prd-main_large$&fmt=webp&qlt=80",
     "Name": "Wubba™ Octopus Dog Toy (COLOR VARIES)",
-    "Description ": "Octopus-shaped Wubba toy with multiple tentacles.",
-    "Quantity ": 86,
+    "Description": "Octopus-shaped Wubba toy with multiple tentacles.",
+    "Quantity": 86,
     "Price": 135,
     "CategoryId": 4,
     "BrandId": 24

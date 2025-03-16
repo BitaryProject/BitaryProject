@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController(IServiceManager ServiceManager) : ControllerBase
+    [ProducesResponseType(typeof(ProductResultDTO), (int)HttpStatusCode.OK)]
+
+    public class ProductsController(IServiceManager ServiceManager) : ApiController
     {
         [HttpGet]
         public async Task<ActionResult<PaginatedResult<ProductResultDTO>>> GetAllProducts([FromQuery]ProductSpecificationsParameters parameters)
@@ -39,11 +39,6 @@ namespace Presentation
         }
 
 
-
-        [ProducesResponseType(typeof(ErrorDetails), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(ErrorDetails), (int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ValidationErrorResponse), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(ProductResultDTO), (int)HttpStatusCode.OK)]
 
         [HttpGet("Product{id}")]
         public async Task<ActionResult<ProductResultDTO>> GetProductById(int id)

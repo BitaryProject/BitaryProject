@@ -52,21 +52,29 @@ namespace BitaryProject.Api.Middlewares
         {
 
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            var response = new ErrorDetails
+            {
+                ErrorMessage = ex.Message
+            };
 
             httpContext.Response.ContentType = "application/json";
 
             httpContext.Response.StatusCode = ex switch
             {
                 NotFoundException => (int)HttpStatusCode.NotFound,
+                UnAuthorizedException=>(int)HttpStatusCode.Unauthorized,
+                ValidationException validationException=>HandleValidationException(validationException,response),
                 _ => (int)HttpStatusCode.InternalServerError
             };
-            var response = new ErrorDetails
-            {
-                StatusCode = httpContext.Response.StatusCode,
-                ErrorMessage = ex.Message
-            }.ToString();
 
-            await httpContext.Response.WriteAsync(response);
+            response.StatusCode=httpContext.Response.StatusCode;
+            await httpContext.Response.WriteAsync(response.ToString());
+        }
+
+        private int HandleValidationException(ValidationException validationException, ErrorDetails response)
+        {
+            response.Errors=validationException.Errors;
+            return (int)HttpStatusCode.BadRequest;
         }
     }
 }
