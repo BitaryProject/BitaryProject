@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace Persistence.Data.Configurations
                 address => address.WithOwner());
 
             builder.HasMany(order => order.OrderItems)
-                .WithOne();
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(order => order.PaymentStatus)
                 .HasConversion(
