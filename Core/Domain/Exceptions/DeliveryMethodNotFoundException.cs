@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class DeliverMethodNotFoundException(int id)
+    public class DeliveryMethodNotFoundException(int id)
        : NotFoundException( $"No Delivery Method with Id {id} was found.");
 
 }

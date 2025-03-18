@@ -20,26 +20,26 @@ namespace Services
 
       
         
-                public async Task<BasketDTO?> GetBasketAsync(string id)
+                public async Task<CustomerBasketDTO?> GetBasketAsync(string id)
                 {
                     var basket = await basketRepository.GetBasketAsync(id);
                     return basket is null ? throw new BasketNotFoundException(id)
-                        : mapper.Map<BasketDTO>(basket);
+                        : mapper.Map<CustomerBasketDTO>(basket);
                 }
       
         
 
-        public async Task<BasketDTO?> UpdateBasketAsync(BasketItemDTO basket)
+        public async Task<CustomerBasketDTO?> UpdateBasketAsync(BasketItemDTO basket)
         {
             var customerBasket = mapper.Map<CustomerBasket>(basket);
             var updateBasket =await basketRepository.UpdateBasketAsync(customerBasket);
             return updateBasket is null ?
                 throw new Exception("can't update basket now!") :
-                mapper.Map<BasketDTO>(updateBasket);
+                mapper.Map<CustomerBasketDTO>(updateBasket);
 
         }
 
-        Task<BasketDTO?> IBasketService.DeleteBasketAsync(string id)
+        Task<CustomerBasketDTO?> IBasketService.DeleteBasketAsync(string id)
         {
             throw new NotImplementedException();
         }

@@ -14,7 +14,7 @@ namespace Presentation
     public class BasketController(IServiceManager ServiceManager) : ApiController
     {
         [HttpGet("{id}" )]
-        public async Task<ActionResult<BasketDTO>> Get(string id)
+        public async Task<ActionResult<CustomerBasketDTO>> Get(string id)
         {
             var basket = await ServiceManager.BasketService.GetBasketAsync(id);
 
@@ -23,7 +23,7 @@ namespace Presentation
 
 
         [HttpPost]
-        public async Task<ActionResult<BasketDTO>> Update(BasketItemDTO basketDTO)
+        public async Task<ActionResult<CustomerBasketDTO>> Update(BasketItemDTO basketDTO)
         {
             var basket = await ServiceManager.BasketService.UpdateBasketAsync(basketDTO);
 

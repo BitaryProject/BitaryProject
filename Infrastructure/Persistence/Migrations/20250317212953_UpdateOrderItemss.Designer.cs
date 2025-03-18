@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250317173711_UpdateOrderItem")]
-    partial class UpdateOrderItem
+    [Migration("20250317212953_UpdateOrderItemss")]
+    partial class UpdateOrderItemss
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -233,7 +233,8 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.OrderEntities.Order", null)
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.OwnsOne("Domain.Entities.OrderEntities.ProductInOrderItem", "Product", b1 =>
                         {

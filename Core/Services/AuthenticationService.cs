@@ -12,6 +12,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using UserAddress = Domain.Entities.SecurityEntities.Address;
+
 
 namespace Services
 {
@@ -106,7 +108,7 @@ namespace Services
             }
             else
             {
-                var userAddress=mapper.Map<Address>(address);
+                var userAddress=mapper.Map<UserAddress>(address);
                 user.Address = userAddress;
             }
 

@@ -8,23 +8,23 @@ namespace Domain.Entities.OrderEntities
 {
     public class Order: BaseEntity<Guid>
     {
-        private Address shippingAddress;
-        private List<OrderItem> orderItems;
-        private DeliveryMethod deliveryMethod;
+        //private Address shippingAddress;
+        //private List<OrderItem> orderItems;
+        //private DeliveryMethod deliveryMethod;
 
         public Order()
         {
             
         }
 
-        public Order(string userEmail, Address shippingAddress, List<OrderItem> orderItems, DeliveryMethod deliveryMethod, decimal subtotal)
-        {
-            UserEmail = userEmail;
-            this.shippingAddress = shippingAddress;
-            this.orderItems = orderItems;
-            this.deliveryMethod = deliveryMethod;
-            Subtotal = subtotal;
-        }
+        //public Order(string userEmail, Address shippingAddress, List<OrderItem> orderItems, DeliveryMethod deliveryMethod, decimal subtotal)
+        //{
+        //    UserEmail = userEmail;
+        //    this.shippingAddress = shippingAddress;
+        //    this.orderItems = orderItems;
+        //    this.deliveryMethod = deliveryMethod;
+        //    Subtotal = subtotal;
+        //}
 
         public Order(string userEmail,
             Address shippingAddress,
@@ -34,12 +34,13 @@ namespace Domain.Entities.OrderEntities
             string paymentIntentId
             )
         {
-
+            Id= Guid.NewGuid();
             UserEmail = userEmail;
             ShippingAddress = shippingAddress;
             OrderItems = orderItems;
             DeliveryMethod = deliveryMethod;
             Subtotal = subtotal;
+            PaymentIntentId = paymentIntentId;
         }
 
         public string UserEmail { get; set; } 
@@ -50,7 +51,7 @@ namespace Domain.Entities.OrderEntities
         public DeliveryMethod DeliveryMethod { get; set; }
         public int? DeliveryMethodId { get; set; }
         public decimal Subtotal { get; set; }
-        public string PaymentIntentId { get; set; } = string.Empty;
+        public string PaymentIntentId { get; set; } 
 
     }
 }

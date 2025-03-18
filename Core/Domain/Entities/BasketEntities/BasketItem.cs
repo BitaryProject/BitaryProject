@@ -14,8 +14,7 @@ namespace Domain.Entities.BasketEntities
         public string PictureUrl { get; set; }
         [Range(1, double.MaxValue)]
         public decimal Price { get; set; }
-        public string Category { get; set; }
-        public string Brand { get; set; }
+
         [Range(0, double.MaxValue)]
         public int Quantity { get; set; }
     }

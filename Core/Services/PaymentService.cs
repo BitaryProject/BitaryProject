@@ -1,5 +1,10 @@
 ﻿global using Stripe;
 global using Product = Domain.Entities.ProductEntities.Product;
+using Domain.Contracts;
+using Domain.Entities.OrderEntities;
+using Domain.Exceptions;
+using Microsoft.Extensions.Configuration;
+using Services.Specifications;
 using Shared.BasketModels;
 using System;
 using System.Collections.Generic;
@@ -9,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    class PaymentService(IBasketRepository basketRepository,
-     IUnitOfWork unitOfWork,
+    class PaymentService(IbasketRepository basketRepository,
+     IUnitOFWork unitOfWork,
      IMapper mapper,
      IConfiguration configuration)
      : IPaymentService
     {
-        public async Task<BasketDTO> CreateOrUpdatePaymentIntentAsync(string basketId)
+        public async Task<CustomerBasketDTO> CreateOrUpdatePaymentIntentAsync(string basketId)
         {
             StripeConfiguration.ApiKey = configuration.GetRequiredSection("StripeSettings")["SecretKey"];
 
@@ -31,12 +36,12 @@ namespace Services
                 item.Price = product.Price;
             }
 
-            if (!basket.DeliveryMethod.HasValue)
+            if (!basket.DeliveryMethodId.HasValue)
                 throw new Exception("No Delivery Method Is Selected");
 
             var method = await unitOfWork.GetRepository<DeliveryMethod, int>()
-                .GetAsync(basket.DeliveryMethod.Value)
-                ?? throw new DeliveryMethodNotFoundException(basket.DeliveryMethod.Value);
+                .GetAsync(basket.DeliveryMethodId.Value)
+                ?? throw new DeliveryMethodNotFoundException(basket.DeliveryMethodId.Value);
 
             basket.ShippingPrice = method.Price;
 
@@ -71,7 +76,55 @@ namespace Services
             }
 
             await basketRepository.UpdateBasketAsync(basket);
-            return mapper.Map<BasketDTO>(basket);
+            return mapper.Map<CustomerBasketDTO>(basket);
+
+        }
+
+        public async Task UpdateOrderPaymentStatus(string request, string stripeHeader)
+        {
+            var endPointSecret = configuration.GetRequiredSection("StripeSettings")["EndPointSecret"];
+
+            var stripeEvent = EventUtility.ConstructEvent(request, stripeHeader,
+                    endPointSecret);
+
+            var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
+
+
+            switch (stripeEvent.Type)
+            {
+                case EventTypes.PaymentIntentPaymentFailed
+                :
+                    await UpdatePaymentStatusFailed(paymentIntent.Id);
+                    break;
+                case EventTypes.PaymentIntentSucceeded
+                :
+                    await UpdatePaymentStatusReceived(paymentIntent.Id);
+                    break;
+                default:
+                    Console.WriteLine("UnHandled event type :{0}", stripeEvent.Type);
+                    break;
+            }
+        }
+        private async Task UpdatePaymentStatusFailed(string paymentIntentId)
+        {
+            var order = await unitOfWork.GetRepository<Order, Guid>().GetAsync(new OrderWithPaymentIntentIdSpecifications(paymentIntentId))
+                ?? throw new Exception();
+            order.PaymentStatus = OrderPaymentStatus.PaymentFailed;
+            unitOfWork.GetRepository<Order, Guid>().Update(order);
+
+            await unitOfWork.SaveChangesAsync();
+
+
+        }
+        private async Task UpdatePaymentStatusReceived(string paymentIntentId)
+        {
+            var order = await unitOfWork.GetRepository<Order, Guid>().GetAsync(new OrderWithPaymentIntentIdSpecifications(paymentIntentId))
+                ?? throw new Exception();
+            order.PaymentStatus = OrderPaymentStatus.PaymentReceived;
+            unitOfWork.GetRepository<Order, Guid>().Update(order);
+
+            await unitOfWork.SaveChangesAsync();
+
 
         }
     }

@@ -18,7 +18,21 @@ namespace BitaryProject.Extensions
                 options.InvalidModelStateResponseFactory = ApiResponseFactory.CustomValidationErrorResponse;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORSPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                    // AllowAnyMethod =>> ay method Get ,Post ,Delete ay 7aga 
+                    .AllowAnyMethod()
+                    .WithOrigins("https://localhost:3000");
 
+                    // WithOrigins =>> el Origins ely 3ayzhom yeklmoni bas 
+                    // lw 3ayz URL mo3yn yeklmni ha7oto ka string fe WithOrigins()
+                    //.AllowAnyOrigin()=> Ay Url yeklemni msh shart a7ded wa7ed mo3yn 
+
+                });
+            });
 
             return services;
         }

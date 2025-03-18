@@ -33,6 +33,8 @@ namespace BitaryProject
                 app.UseSwaggerUI();
             }
 
+            app.UseStaticFiles();
+            app.UseCors("CORSPolicy");
             app.UseHttpsRedirection();
 
             app.UseAuthentication();

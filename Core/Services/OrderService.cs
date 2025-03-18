@@ -2,6 +2,8 @@
 using Domain.Entities.BasketEntities;
 using Domain.Entities.OrderEntities;
 using Services.Specifications;
+using OrderAddress = Domain.Entities.OrderEntities.Address;
+
 using Shared.BasketModels;
 using Shared.OrderModels;
 using System;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Services
 {
     public class OrderService(IUnitOFWork unitOfWork ,
@@ -17,10 +20,10 @@ namespace Services
         IbasketRepository basketRepository)
         : IOrderService
     {
-        public async Task<OrderResult?> CreateOrUptateOrderAsync(OrderRequest request, string userEmail)
+        public async Task<OrderResult?> CreateOrUpdateOrderAsync(OrderRequest request, string userEmail)
         {
 
-            var address = mapper.Map<Address>(request.ShippingAddress);
+            var address = mapper.Map<OrderAddress>(request.ShippingAddress);
 
             var basket = await basketRepository.GetBasketAsync( request.BasketId)
                 ?? throw new BasketNotFoundException( request.BasketId);
@@ -35,22 +38,31 @@ namespace Services
 
             var deliveryMethod = await unitOfWork.GetRepository<DeliveryMethod, int>()
                 .GetAsync( request.DeliveryMethodId)
-                ?? throw new DeliverMethodNotFoundException( request.DeliveryMethodId);
+                ?? throw new DeliveryMethodNotFoundException( request.DeliveryMethodId);
 
 
             var orderRepo = unitOfWork.GetRepository<Order, Guid>();
-            var existingOrder = await orderRepo.GetAsync(new OrderWithPaymentIntentIdSpecifications(basket.PaymentIntentId!));
+
+            var existingOrder = await orderRepo.
+                GetAsync(new OrderWithPaymentIntentIdSpecifications(basket.PaymentIntentId));
+
             if (existingOrder is not null)
-            {
                 orderRepo.Delete(existingOrder);
-            }
-            var subtotal = orderItems.Sum( item => item.Price * item.Quantity);
-            var order = new Order(userEmail, shippingAddress: address, orderItems, deliveryMethod, subtotal ,basket.PaymentIntentId!);
+
+
+            // subtotal
+            var subTotal = orderItems.Sum(item => item.Price * item.Quantity);
+
+            // save to DB
+            var order = new Order(userEmail, address, orderItems, deliveryMethod, subTotal, basket.PaymentIntentId);
 
             await orderRepo.AddAsync(order);
-            await unitOfWork.SaveChangesAsync();
 
-            return mapper.Map<OrderResult>( order);
+
+            await unitOfWork.SaveChangesAsync();
+            // Map and Return
+
+            return mapper.Map<OrderResult>(order);
 
 
 

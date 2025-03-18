@@ -12,7 +12,7 @@ namespace Services.Abstractions
     {
         public Task<OrderResult?> GetOrderByIdAsync(Guid id);
         public Task<IEnumerable<OrderResult?>> GetOrderByEmailAsync(string email);
-        public Task<OrderResult?> CreateOrderAsync(OrderRequest request ,string userEmail);
+        public Task<OrderResult?> CreateOrUpdateOrderAsync(OrderRequest request ,string userEmail);
         public Task<IEnumerable<DeliveryMethodResult?>> GetDeliveryMethodResult();
 
     }
