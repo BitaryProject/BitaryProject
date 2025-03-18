@@ -1,5 +1,6 @@
 ﻿global using Domain.Entities;
 global using Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace Persistence.Repositories
     public class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         private readonly StoreContext _storeContext;
+        private readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(StoreContext storeContext)
         {
             _storeContext = storeContext;
+            _dbSet = _storeContext.Set<TEntity>();
         }
 
         public async Task AddAsync(TEntity entity) => await _storeContext.Set<TEntity>().AddAsync(entity);
@@ -49,6 +52,8 @@ namespace Persistence.Repositories
             => SpecificationEvaluator.GetQuery<TEntity>(_storeContext.Set<TEntity>(), specifications);
         public async Task<int> CountAsync(Specifications<TEntity> specifications)
                    => await ApplySpecifications(specifications).CountAsync();
+
+        public IQueryable<TEntity> GetAllAsQueryable() => _dbSet.AsQueryable();
 
     }
 }

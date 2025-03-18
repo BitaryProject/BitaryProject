@@ -21,6 +21,7 @@ namespace Domain.Contracts
 
         void Delete(TEntity entity);
         void Update(TEntity entity);
+        IQueryable<TEntity> GetAllAsQueryable();
 
     }
 }

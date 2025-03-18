@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Services
@@ -99,6 +100,27 @@ namespace Services
             return mapper.Map<IEnumerable<OrderResult>>( orders);
         }
 
-      
+        //GetAllOrders with filteration in db
+        public async Task<IEnumerable<OrderResult>> GetAllOrdersAsync(string? status = null, int pageNumber = 1, int pageSize = 10)
+        {
+            var orderRepo = unitOfWork.GetRepository<Order, Guid>();
+
+            var ordersQuery = orderRepo.GetAllAsQueryable(); 
+
+            if (!string.IsNullOrEmpty(status))
+                ordersQuery = ordersQuery.Where(o => o.PaymentStatus.ToString().Equals(status, StringComparison.OrdinalIgnoreCase));
+
+            var paginatedOrders = ordersQuery
+                .OrderByDescending(o => o.OrderDate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+
+            var orders = await paginatedOrders.ToListAsync(); 
+
+            return mapper.Map<IEnumerable<OrderResult>>(orders);
+        }
+
+
+
     }
 }
