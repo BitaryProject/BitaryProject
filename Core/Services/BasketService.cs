@@ -1,47 +1,77 @@
-
-global using Domain.Entities;
-global using Domain.Exceptions;
-global using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Entities.BasketEntities;
+using Domain.Exceptions;
 using Shared.BasketModels;
 
 namespace Services
 {
-    public class BasketServic(IbasketRepository basketRepository , IMapper mapper) : IBasketService
+    public class BasketService : IBasketService
     {
-        public async Task<bool?> DeleteBasketAsync(string id)
+        private readonly IbasketRepository basketRepository;
+        private readonly IMapper mapper;
 
-          => await basketRepository.DeleteBasketAsync(id);
-
-      
-        
-                public async Task<CustomerBasketDTO?> GetBasketAsync(string id)
-                {
-                    var basket = await basketRepository.GetBasketAsync(id);
-                    return basket is null ? throw new BasketNotFoundException(id)
-                        : mapper.Map<CustomerBasketDTO>(basket);
-                }
-      
-        
-
-        public async Task<CustomerBasketDTO?> UpdateBasketAsync(BasketItemDTO basket)
+        public BasketService(IbasketRepository basketRepository, IMapper mapper)
         {
-            var customerBasket = mapper.Map<CustomerBasket>(basket);
-            var updateBasket =await basketRepository.UpdateBasketAsync(customerBasket);
-            return updateBasket is null ?
-                throw new Exception("can't update basket now!") :
-                mapper.Map<CustomerBasketDTO>(updateBasket);
-
+            this.basketRepository = basketRepository;
+            this.mapper = mapper;
         }
 
-        Task<CustomerBasketDTO?> IBasketService.DeleteBasketAsync(string id)
+        public async Task<bool?> DeleteBasketAsync(string id)
         {
-            throw new NotImplementedException();
+            if (!Guid.TryParse(id, out var basketGuid))
+                throw new Exception($"Invalid basket Id format: {id}");
+
+            return await basketRepository.DeleteBasketAsync(basketGuid);
+        }
+
+        public async Task<CustomerBasketDTO?> GetBasketAsync(string id)
+        {
+            if (!Guid.TryParse(id, out var basketGuid))
+                throw new BasketNotFoundException(id);
+
+            var basket = await basketRepository.GetBasketAsync(basketGuid);
+            return basket is null
+                ? throw new BasketNotFoundException(id)
+                : mapper.Map<CustomerBasketDTO>(basket);
+        }
+
+       
+        public async Task<CustomerBasketDTO?> UpdateBasketAsync(string basketId, BasketItemDTO itemDto)
+        {
+            if (!Guid.TryParse(basketId, out var basketGuid))
+                throw new Exception($"Invalid basket Id format: {basketId}");
+
+            var newItem = mapper.Map<BasketItem>(itemDto);
+
+            var existingBasket = await basketRepository.GetBasketAsync(basketGuid);
+            if (existingBasket == null)
+            {
+                existingBasket = new CustomerBasket
+                {
+                    Id = basketGuid,
+                    BasketItems = new List<BasketItem>()
+                };
+            }
+
+            var existingItem = existingBasket.BasketItems
+                .FirstOrDefault(i => i.Product.ProductId == newItem.Product.ProductId);
+
+            if (existingItem == null)
+            {
+                existingBasket.BasketItems.Add(newItem);
+            }
+            else
+            {
+                existingItem.Quantity += newItem.Quantity;
+                existingItem.Price = newItem.Price;
+                existingItem.Product.PictureUrl = newItem.Product.PictureUrl;
+                existingItem.Product.ProductName = newItem.Product.ProductName;
+            }
+
+            var updatedBasket = await basketRepository.UpdateBasketAsync(existingBasket);
+            if (updatedBasket is null)
+                throw new Exception("Can't update basket now!");
+
+            return mapper.Map<CustomerBasketDTO>(updatedBasket);
         }
     }
 }

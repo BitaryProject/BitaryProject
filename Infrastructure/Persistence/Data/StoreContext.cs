@@ -1,4 +1,5 @@
-﻿using Domain.Entities.OrderEntities;
+﻿using Domain.Entities.BasketEntities;
+using Domain.Entities.OrderEntities;
 using Domain.Entities.ProductEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,5 +34,7 @@ namespace Persistence.Data
         public DbSet<Order?> Orders { get; set; }
         public DbSet<OrderItem?> OrderItems { get; set; }
         public DbSet<DeliveryMethod?> DeliveryMethods { get; set; }
+        public DbSet<CustomerBasket> CustomerBaskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
     }
 }

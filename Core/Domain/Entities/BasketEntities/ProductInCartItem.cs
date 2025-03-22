@@ -5,19 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace Domain.Entities.OrderEntities
+namespace Domain.Entities.BasketEntities
 {
-
-
-    public class ProductInOrderItem
+    [Owned]
+    public class ProductInCartItem
     {
 
-        public ProductInOrderItem()
+        public ProductInCartItem()
         {
-            
+
         }
-        public ProductInOrderItem(int productId, string productName, string pictureUrl)
+        public ProductInCartItem(int productId, string productName, string pictureUrl)
         {
             ProductId = productId;
             ProductName = productName;
@@ -29,3 +27,4 @@ namespace Domain.Entities.OrderEntities
         public string PictureUrl { get; set; }
     }
 }
+

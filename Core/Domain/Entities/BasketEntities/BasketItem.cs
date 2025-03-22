@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Entities.OrderEntities;
+using Domain.Entities.ProductEntities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,15 +9,27 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.BasketEntities
 {
-    public class BasketItem
+    public class BasketItem : BaseEntity<Guid>
     {
-        public int Id { get; set; }
-        public string ProductName { get; set; }
-        public string PictureUrl { get; set; }
-        [Range(1, double.MaxValue)]
-        public decimal Price { get; set; }
 
-        [Range(0, double.MaxValue)]
+        public BasketItem()
+        {
+
+        }
+        public BasketItem(ProductInCartItem product, int quantity, decimal price)
+        {
+            Product = product;
+            Quantity = quantity;
+            Price = price;
+        }
+
+
+
+
+       //public int Id { get; set; }
+
+        public ProductInCartItem Product { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
     }
 }

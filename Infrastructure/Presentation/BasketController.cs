@@ -22,10 +22,11 @@ namespace Presentation
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult<CustomerBasketDTO>> Update(BasketItemDTO basketDTO)
+        [HttpPost("{basketId}")]
+
+        public async Task<ActionResult<CustomerBasketDTO>> Update(string basketId, BasketItemDTO basketDTO)
         {
-            var basket = await ServiceManager.BasketService.UpdateBasketAsync(basketDTO);
+            var basket = await ServiceManager.BasketService.UpdateBasketAsync(basketId, basketDTO);
 
             return Ok(basket);
 
