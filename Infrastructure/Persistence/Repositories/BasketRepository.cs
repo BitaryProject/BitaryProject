@@ -1,35 +1,56 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
+using Domain.Contracts;
 using Domain.Entities.BasketEntities;
-using StackExchange.Redis;
+using Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories
 {
-    public class BasketRepository(IConnectionMultiplexer connectionMultiplexer) : IbasketRepository
+    public class BasketRepository : IbasketRepository
     {
-        private readonly IDatabase _database = connectionMultiplexer.GetDatabase();
-        public async Task<bool> DeleteBasketAsync(string id)
-         => await _database.KeyDeleteAsync(id); 
+        private readonly StoreContext _context;
 
-        public async Task<CustomerBasket?> GetBasketAsync(string id)
+        public BasketRepository(StoreContext context)
         {
-            var valu = await _database.StringGetAsync(id);
-            if (valu.IsNull) return null;
-            return JsonSerializer.Deserialize<CustomerBasket>(valu);
-
+            _context = context;
         }
 
-        public async Task<CustomerBasket?> UpdateBasketAsync(CustomerBasket basket, TimeSpan? timeToLive = null)
+        public async Task<CustomerBasket?> GetBasketAsync(Guid id)
         {
-            var jsonBsket = JsonSerializer.Serialize(basket);
-            var isCreatedOrUpdated = await _database
-                .StringSetAsync(basket.Id , jsonBsket , timeToLive?? TimeSpan.FromDays(30));
-            return isCreatedOrUpdated ? await GetBasketAsync(basket.Id) : null;
+            return await _context.CustomerBaskets
+                .Include(b => b.BasketItems)
+                .FirstOrDefaultAsync(b => b.Id == id);
         }
+
+        public async Task<CustomerBasket?> UpdateBasketAsync(CustomerBasket basket)
+        {
+            var existingBasket = await _context.CustomerBaskets
+                .Include(b => b.BasketItems)
+                .FirstOrDefaultAsync(b => b.Id == basket.Id);
+
+            if (existingBasket == null)
+            {
+                await _context.CustomerBaskets.AddAsync(basket);
+            }
+            else
+            {
+                _context.Entry(existingBasket).CurrentValues.SetValues(basket);
+                _context.RemoveRange(existingBasket.BasketItems);
+                existingBasket.BasketItems = basket.BasketItems;
+            }
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0 ? basket : null;
+        }
+
+        public async Task<bool> DeleteBasketAsync(Guid id)
+        {
+            var basket = await _context.CustomerBaskets.FirstOrDefaultAsync(b => b.Id == id);
+            if (basket == null) return false;
+
+            _context.CustomerBaskets.Remove(basket);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+       
     }
 }

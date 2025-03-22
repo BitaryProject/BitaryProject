@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Exceptions;
+
 
 namespace Services
 {
@@ -25,13 +27,17 @@ namespace Services
             StripeConfiguration.ApiKey = configuration.GetRequiredSection("StripeSettings")["SecretKey"];
 
             // Get Basket ⇒ SubTotal ⇒ Product
-            var basket = await basketRepository.GetBasketAsync(basketId)
-                ?? throw new BasketNotFoundException(basketId);
+            if (!Guid.TryParse(basketId, out var basketGuid))
+                throw new Exception($"Invalid basket Id format: {basketId}");
 
-            foreach (var item in basket.Items)
+            var basket = await basketRepository.GetBasketAsync(basketGuid)
+                ?? throw new BasketNotFoundException(basketId);
+           
+
+            foreach (var item in basket.BasketItems)
             {
                 var product = await unitOfWork.GetRepository<Product, int>()
-                    .GetAsync(item.Id) ?? throw new ProductNotFoundException(item.Id);
+                    .GetAsync(item.Product.ProductId) ?? throw new ProductNotFoundException(item.Product.ProductId);
 
                 item.Price = product.Price;
             }
@@ -45,7 +51,7 @@ namespace Services
 
             basket.ShippingPrice = method.Price;
 
-            var amount = (long)(basket.Items.Sum(item => item.Quantity * item.Price) + basket.ShippingPrice) * 100;
+            var amount = (long)(basket.BasketItems.Sum(item => item.Quantity * item.Price) + basket.ShippingPrice) * 100;
 
             var service = new PaymentIntentService();
 

@@ -22,6 +22,51 @@ namespace Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.BasketEntities.BasketItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CustomerBasketId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerBasketId");
+
+                    b.ToTable("BasketItems");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BasketEntities.CustomerBasket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ClientSecret")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DeliveryMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("ShippingPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerBaskets");
+                });
+
             modelBuilder.Entity("Domain.Entities.OrderEntities.DeliveryMethod", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +225,43 @@ namespace Persistence.Migrations
                     b.ToTable("ProductCategories");
                 });
 
+            modelBuilder.Entity("Domain.Entities.BasketEntities.BasketItem", b =>
+                {
+                    b.HasOne("Domain.Entities.BasketEntities.CustomerBasket", null)
+                        .WithMany("BasketItems")
+                        .HasForeignKey("CustomerBasketId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.OwnsOne("Domain.Entities.BasketEntities.ProductInCartItem", "Product", b1 =>
+                        {
+                            b1.Property<Guid>("BasketItemId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("PictureUrl")
+                                .IsRequired()
+                                .HasMaxLength(300)
+                                .HasColumnType("nvarchar(300)");
+
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ProductName")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
+
+                            b1.HasKey("BasketItemId");
+
+                            b1.ToTable("BasketItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BasketItemId");
+                        });
+
+                    b.Navigation("Product")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.OrderEntities.Order", b =>
                 {
                     b.HasOne("Domain.Entities.OrderEntities.DeliveryMethod", "DeliveryMethod")
@@ -278,6 +360,11 @@ namespace Persistence.Migrations
                     b.Navigation("ProductBrand");
 
                     b.Navigation("ProductCategory");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BasketEntities.CustomerBasket", b =>
+                {
+                    b.Navigation("BasketItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.OrderEntities.Order", b =>

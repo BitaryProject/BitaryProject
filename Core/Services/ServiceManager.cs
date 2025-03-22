@@ -26,7 +26,7 @@ namespace Services
         public ServiceManager(IUnitOFWork unitOFWork, IMapper mapper ,IbasketRepository basketRepository,UserManager<User> userManager,IOptions<JwtOptions> options,IConfiguration configuration)
         {
             _productService = new Lazy<IProductService>(() => new ProductService(unitOFWork, mapper));
-            _lazyBasketService = new Lazy<IBasketService>(() => new BasketServic(basketRepository, mapper));
+            _lazyBasketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper));
             _lazyOrderService = new Lazy<IOrderService>(() => new OrderService(unitOFWork, mapper, basketRepository));
 
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, options,mapper));

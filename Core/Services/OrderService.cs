@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Domain.Exceptions;
+
 
 
 namespace Services
@@ -23,17 +25,20 @@ namespace Services
     {
         public async Task<OrderResult?> CreateOrUpdateOrderAsync(OrderRequest request, string userEmail)
         {
-
+            if (!Guid.TryParse(request.BasketId, out var basketGuid))
+            {
+                throw new Exception($"Invalid basket Id format: {request.BasketId}");
+            }
             var address = mapper.Map<OrderAddress>(request.ShippingAddress);
 
-            var basket = await basketRepository.GetBasketAsync( request.BasketId)
+            var basket = await basketRepository.GetBasketAsync( basketGuid)
                 ?? throw new BasketNotFoundException( request.BasketId);
 
             var orderItems = new List<OrderItem>();
-            foreach (var item in basket.Items)
+            foreach (var item in basket.BasketItems)
             {
                 var product = await unitOfWork.GetRepository<Product, int>()
-                    .GetAsync( item.Id) ?? throw new ProductNotFoundException( item.Id);
+                    .GetAsync( item.Product.ProductId) ?? throw new ProductNotFoundException( item.Product.ProductId);
                 orderItems.Add(CreateOrderItem(item,product));
             }
 
