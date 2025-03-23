@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-    internal class PaymentsController(IServiceManager serviceManager):ApiController
+    public class PaymentsController(IServiceManager serviceManager):ApiController
     {
         [HttpPost("{basketId}")]
         public async Task<ActionResult<CustomerBasketDTO>> CreateOrUpdatePaymentIntent(string basketId)
