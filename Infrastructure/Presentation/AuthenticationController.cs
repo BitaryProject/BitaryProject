@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
-using Shared.OrderModels;
 using Shared.SecurityModels;
 using System;
 using System.Collections.Generic;
@@ -12,59 +11,65 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-    public class AuthenticationController(IServiceManager serviceManager):ApiController
+    public class AuthenticationController(IServiceManager serviceManager) : ApiController
     {
         [HttpPost("Login")]
         public async Task<ActionResult<UserResultDTO>> Login(LoginDTO loginDTO)
         {
-            var result=await serviceManager.AuthenticationService.LoginAsync(loginDTO);
-
+            var result = await serviceManager.AuthenticationService.LoginAsync(loginDTO);
             return Ok(result);
-        } 
+        }
         [HttpPost("Register")]
         public async Task<ActionResult<UserResultDTO>> Register(UserRegisterDTO registerDTO)
         {
-            var result=await serviceManager.AuthenticationService.RegisterAsync(registerDTO);
-
+            var result = await serviceManager.AuthenticationService.RegisterAsync(registerDTO);
             return Ok(result);
         }
-        [HttpGet("Check Email Exist")]
+        [HttpGet("CheckEmailExist")]
         public async Task<ActionResult<bool>> CheckEmailExist(string email)
         {
-            return Ok(await serviceManager.AuthenticationService.CheckEmailExist(email));
+            var result = await serviceManager.AuthenticationService.CheckEmailExist(email);
+            return Ok(result);
         }
-
+        [HttpGet("GetCurrentUser")]
         [Authorize]
-        [HttpGet]
         public async Task<ActionResult<UserResultDTO>> GetCurrentUser()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
-
             var result = await serviceManager.AuthenticationService.GetUserByEmail(email);
-
             return Ok(result);
         }
-
-        [Authorize]
-        [HttpGet("address")]
-        public async Task<ActionResult<AddressDTO>> GetAddress()
+        [HttpGet("VerifyEmail")]
+        public async Task<ActionResult<bool>> VerifyEmail([FromQuery] string email, [FromQuery] string otp)
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-
-            var result = await serviceManager.AuthenticationService.GetUserAddress(email);
-
-            return Ok(result);
+            var result = await serviceManager.AuthenticationService.VerifyEmailAsync(email, otp);
+            return result ? Ok(true) : BadRequest("Invalid or expired verification code.");
         }
 
-        [Authorize]
-        [HttpPut("Address")] // HttpPut => Like HttpPost but it is used for update
-        public async Task<ActionResult<AddressDTO>> UpdateAddress(AddressDTO address)
+        [HttpPost("SendVerificationCode")]
+        public async Task<ActionResult<bool>> ResendOTP(ResendOTPDTO otpDTO)
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
+            var result = await serviceManager.AuthenticationService.SendVerificationCodeAsync(otpDTO.Email);
+            return result ? Ok(true) : BadRequest("Failed to send verification code.");
+        }
 
-            var result = await serviceManager.AuthenticationService.UpdateUserAddress(address, email);
-
-            return Ok(result);
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(string email, string oldPassword, string newPassword)
+        {
+            await serviceManager.AuthenticationService.ChangePasswordAsync(email, oldPassword, newPassword);
+            return Ok(new { Message = "Password changed successfully." });
+        }
+        [HttpPost("SendResetPasswordEmail")]
+        public async Task<IActionResult> SendResetPasswordEmail(string email)
+        {
+            await serviceManager.AuthenticationService.SendResetPasswordEmailAsync(email);
+            return Ok(new { Message = "Password reset email sent successfully." });
+        }
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(string email, string token, string newPassword)
+        {
+            await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
+            return Ok(new { Message = "Password reset successfully." });
         }
     }
 }

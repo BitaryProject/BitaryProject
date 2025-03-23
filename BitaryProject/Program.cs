@@ -1,6 +1,8 @@
-
 using BitaryProject.Api.Extensions;
 using BitaryProject.Extensions;
+using BitaryProject.Mail;
+using Services;
+using Services.Abstractions;
 
 namespace BitaryProject
 {
@@ -13,7 +15,9 @@ namespace BitaryProject
             //sec
 
             #region Services
-
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<IMailingService , MailingService>();  
+            
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddPresentationServices();
             builder.Services.AddCoreServices(builder.Configuration);

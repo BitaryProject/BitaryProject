@@ -20,6 +20,19 @@ namespace Services.Abstractions
         public Task<AddressDTO> GetUserAddress(string email);
 
         public Task<AddressDTO> UpdateUserAddress(AddressDTO address,string email);
+        // OTP Verification
+        public Task<bool> VerifyEmailAsync(string email, string otp);
+
+        // Resend OTP
+        public Task<bool> SendVerificationCodeAsync(string email);
+        // Send Reset Password Email
+        public Task<bool> SendResetPasswordEmailAsync(string email);
+
+        // Change Password
+        public Task<bool> ChangePasswordAsync(string email, string oldPassword, string newPassword);
+
+        // Reset Password
+        public Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
 
 
     }

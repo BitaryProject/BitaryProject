@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.SecurityEntities;
+using MailKit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -19,7 +20,12 @@ using Domain.Exceptions;
 
 namespace Services
 {
-    public class AuthenticationService(UserManager<User> userManager,IOptions<JwtOptions> options,IMapper mapper) : IAuthenticationService
+    public class AuthenticationService(
+        UserManager<User> userManager,
+        IOptions<JwtOptions> options,
+        IOptions<DomainSettings> domainOptions
+        ,IMapper mapper,
+        IMailingService mailingService) : IAuthenticationService
     {
         public async Task<bool> CheckEmailExist(string email)
         {
@@ -68,30 +74,30 @@ namespace Services
 
         }
 
-        public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
-        {
-            var user = new User
-            {
+        //public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
+        //{
+        //    var user = new User
+        //    {
 
-                DisplayName = registerModel.DisplayName,
-                Email = registerModel.Email,
-                PhoneNumber = registerModel.PhoneNumber,
-                UserName = registerModel.UserName,
-            };
+        //        DisplayName = registerModel.DisplayName,
+        //        Email = registerModel.Email,
+        //        PhoneNumber = registerModel.PhoneNumber,
+        //        UserName = registerModel.UserName,
+        //    };
 
-            var result = await userManager.CreateAsync(user, registerModel.Password);
-            if (!result.Succeeded)
-            {
-                var errors=result.Errors.Select(e=>e.Description).ToList();
-                throw new ValidationException(errors);
-            }
-            return new UserResultDTO(
-                        user.DisplayName,
-                         user.Email,
-                       await  CreateTokenAsync(user));
+        //    var result = await userManager.CreateAsync(user, registerModel.Password);
+        //    if (!result.Succeeded)
+        //    {
+        //        var errors=result.Errors.Select(e=>e.Description).ToList();
+        //        throw new ValidationException(errors);
+        //    }
+        //    return new UserResultDTO(
+        //                user.DisplayName,
+        //                 user.Email,
+        //               await  CreateTokenAsync(user));
 
         
-        }
+        //}
 
         public async Task<AddressDTO> UpdateUserAddress(AddressDTO address,string email)
         {
@@ -150,5 +156,128 @@ namespace Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
+        {
+            if (await userManager.FindByEmailAsync(registerModel.Email) != null)
+                throw new ValidationException(new List<string> { "Email is already taken." });
+
+            if (await userManager.FindByNameAsync(registerModel.UserName) != null)
+                throw new ValidationException(new List<string> { "Username is already taken." });
+
+            var user = new User()
+            {
+                FirstName = registerModel.FirstName,
+                LastName = registerModel.LastName,
+                DisplayName = $"{registerModel.FirstName} {registerModel.LastName}",
+                Email = registerModel.Email,
+                PhoneNumber = registerModel.PhoneNumber,
+                UserName = registerModel.UserName,
+            };
+            var result = await userManager.CreateAsync(user, registerModel.Password);
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description).ToList();
+                throw new ValidationException(errors);
+            }
+            var DomainOptions = domainOptions.Value;
+            var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+
+            await mailingService.SendEmailAsync(user.Email!, "Verification Code", $"{DomainOptions.localUrl}api/Authentication/VerifyEmail?email={registerModel.Email}&otp={verificationCode}");
+
+
+
+            return new UserResultDTO(
+               user.DisplayName,
+               user.Email!,
+               await CreateTokenAsync(user));
+        }
+
+        public async Task<bool> VerifyEmailAsync(string email, string otp)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) throw new UnauthorizedAccessException("User not found");
+
+            var isValid = await userManager.VerifyUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation", otp);
+
+            //var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "EmailConfirmation");
+
+
+            if (!isValid) throw new Exception("Invalid or expired verification code");
+
+            user.EmailConfirmed = true;
+            await userManager.UpdateAsync(user);
+
+            return true;
+        }
+
+
+        public async Task<bool> SendVerificationCodeAsync(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) throw new UnauthorizedAccessException("User not found");
+
+            var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+
+            //var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "EmailConfirmation");
+
+            var DomainOptions = domainOptions.Value;
+
+            await mailingService.SendEmailAsync(user.Email!, "Verification Code", $"{DomainOptions.localUrl}api/Authentication/VerifyEmail?email={email}&otp={verificationCode}");
+
+            return true;
+        }
+
+        public async Task<bool> ChangePasswordAsync(string email, string oldPassword, string newPassword)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) throw new UserNotFoundException(email);
+
+            var changeResult = await userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+            if (!changeResult.Succeeded)
+                throw new Exception(string.Join(", ", changeResult.Errors.Select(e => e.Description)));
+
+            return true;
+        }
+
+        public async Task<bool> SendResetPasswordEmailAsync(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) throw new Exception("User not found");
+
+            // Update the security stamp to invalidate any previous tokens
+            await userManager.UpdateSecurityStampAsync(user);
+
+            // Generate a new password reset token after updating the security stamp
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var DomainOptions = domainOptions.Value;
+
+            var resetLink = $"{DomainOptions.localUrl}api/Authentication/ResetPassword?email={email}&token={token}";
+
+            // Send the reset password email with the generated link
+            await mailingService.SendEmailAsync(user.Email!, "Reset Password", $"Click the link to reset your password: {resetLink}");
+
+            return true;
+        }
+        public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) throw new UserNotFoundException(email);
+
+            var isValidToken = await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token);
+            if (!isValidToken) throw new Exception("Invalid or expired token");
+
+            var resetResult = await userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!resetResult.Succeeded)
+                throw new Exception(string.Join(", ", resetResult.Errors.Select(e => e.Description)));
+
+            return true;
+        }
+            
+    
+    
+    
     }
+
+
 }

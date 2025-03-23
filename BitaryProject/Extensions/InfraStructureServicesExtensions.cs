@@ -11,6 +11,7 @@ using Shared.SecurityModels;
 using StackExchange.Redis;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace BitaryProject.Extensions
 {
@@ -35,9 +36,11 @@ namespace BitaryProject.Extensions
                }
                );
 
+            services.Configure<DomainSettings>(configuration.GetSection("DomainUrls"));
 
             services.AddSingleton<IConnectionMultiplexer>
                   (_ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
+
 
             services.ConfigureIdentityService();
             services.ConfigureJwt(configuration);
@@ -56,8 +59,17 @@ namespace BitaryProject.Extensions
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequiredLength = 8;
                 options.User.RequireUniqueEmail = true;
+                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailTokenProvider";
 
-            }).AddEntityFrameworkStores<IdentityContext>();
+
+            }).AddEntityFrameworkStores<IdentityContext>()
+                                .AddDefaultTokenProviders()
+                        .AddTokenProvider<CustomEmailTokenProvider<User>>("CustomEmailTokenProvider"); 
+
+
+
+
+
 
             return services;
         }

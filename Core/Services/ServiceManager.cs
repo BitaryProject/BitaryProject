@@ -23,13 +23,14 @@ namespace Services
 
         private readonly Lazy<IPaymentService> _paymentService;
 
-        public ServiceManager(IUnitOFWork unitOFWork, IMapper mapper ,IbasketRepository basketRepository,UserManager<User> userManager,IOptions<JwtOptions> options,IConfiguration configuration)
+        public ServiceManager(IUnitOFWork unitOFWork, IMapper mapper ,IbasketRepository basketRepository,UserManager<User> userManager,IOptions<JwtOptions> options
+            ,IOptions<DomainSettings> options1,IConfiguration configuration,IMailingService mailingService)
         {
             _productService = new Lazy<IProductService>(() => new ProductService(unitOFWork, mapper));
             _lazyBasketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper));
             _lazyOrderService = new Lazy<IOrderService>(() => new OrderService(unitOFWork, mapper, basketRepository));
 
-            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, options,mapper));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, options, options1, mapper,mailingService));
             _paymentService = new Lazy<IPaymentService>(() => new PaymentService(basketRepository, unitOFWork, mapper, configuration));
 
         } 

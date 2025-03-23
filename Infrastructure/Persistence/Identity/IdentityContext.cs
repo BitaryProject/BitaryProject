@@ -19,5 +19,7 @@ namespace Persistence.Identity
             base.OnModelCreating(builder);
             builder.Entity<Address>().ToTable("Addresses");
         }
+
+       public DbSet<UserOTP?> UserOTPs { get; set; }
     }
 }
