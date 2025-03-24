@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
+using Shared.OrderModels;
 using Shared.SecurityModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.OrderModels;
+using Domain.Entities.OrderEntities;
+using UserAddress = Domain.Entities.SecurityEntities.Address;
+
 
 namespace Presentation
 {
@@ -31,14 +37,6 @@ namespace Presentation
             var result = await serviceManager.AuthenticationService.CheckEmailExist(email);
             return Ok(result);
         }
-        [HttpGet("GetCurrentUser")]
-        [Authorize]
-        public async Task<ActionResult<UserResultDTO>> GetCurrentUser()
-        {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var result = await serviceManager.AuthenticationService.GetUserByEmail(email);
-            return Ok(result);
-        }
         [HttpGet("VerifyEmail")]
         public async Task<ActionResult<bool>> VerifyEmail([FromQuery] string email, [FromQuery] string otp)
         {
@@ -54,22 +52,78 @@ namespace Presentation
         }
 
         [HttpPost("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(string email, string oldPassword, string newPassword)
+        public async Task<ActionResult> ChangePassword(string email, string oldPassword, string newPassword)
         {
             await serviceManager.AuthenticationService.ChangePasswordAsync(email, oldPassword, newPassword);
             return Ok(new { Message = "Password changed successfully." });
         }
         [HttpPost("SendResetPasswordEmail")]
-        public async Task<IActionResult> SendResetPasswordEmail(string email)
+        public async Task<ActionResult> SendResetPasswordEmail(string email)
         {
             await serviceManager.AuthenticationService.SendResetPasswordEmailAsync(email);
             return Ok(new { Message = "Password reset email sent successfully." });
         }
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword(string email, string token, string newPassword)
+        public async Task<ActionResult> ResetPassword(string email, string token, string newPassword)
         {
             await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
             return Ok(new { Message = "Password reset successfully." });
+        }
+        [HttpGet("GetCurrentUser")]
+        [Authorize]
+        public async Task<ActionResult<UserResultDTO>> GetCurrentUser()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var result = await serviceManager.AuthenticationService.GetUserByEmail(email);
+            return Ok(result);
+        }
+        [HttpGet("GetUserAddress")]
+        public async Task<ActionResult> GetUserAddress()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+
+            var result=  await serviceManager.AuthenticationService.GetUserAddress(email);
+
+            return Ok(result);
+        }
+        [HttpPut("UpdateUserAddress")]
+        public async Task<IActionResult> UpdateUserAddress(AddressDTO address)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+
+            if (email == null)
+                throw new UnAuthorizedException("Email Doesn't Exist");
+
+            var result=  await serviceManager.AuthenticationService.UpdateUserAddress(address, email);
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetUserInformation")]
+
+        public async Task<ActionResult<UserInformationDTO>> GetUserInfo(UserAddress address)
+        {
+            var email = User?.FindFirstValue(ClaimTypes.Email);
+
+            if (email == null)
+                throw new UnAuthorizedException("Email Doesn't Exist");
+
+            var user = await serviceManager.AuthenticationService.GetUserInfo(email,address);
+
+            return user;
+        }
+
+        [HttpPut("UpdateUserInformation")]
+        public async Task<ActionResult> UpdateUserInfo(UserInformationDTO userInfo,AddressDTO address)
+        {
+            var email = User?.FindFirstValue(ClaimTypes.Email);
+
+            if (email == null)
+                throw new UnAuthorizedException("Email Doesn't Exist");
+
+            await serviceManager.AuthenticationService.UpdateUserInfo(userInfo, email,address);
+
+            return RedirectToAction(nameof(GetUserInfo));
         }
     }
 }

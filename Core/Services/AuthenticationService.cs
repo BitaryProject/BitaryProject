@@ -173,6 +173,7 @@ namespace Services
                 Email = registerModel.Email,
                 PhoneNumber = registerModel.PhoneNumber,
                 UserName = registerModel.UserName,
+                Gender = registerModel.Gender,
             };
             var result = await userManager.CreateAsync(user, registerModel.Password);
             if (!result.Succeeded)
@@ -273,10 +274,37 @@ namespace Services
 
             return true;
         }
-            
-    
-    
-    
+
+        public async Task<UserInformationDTO> GetUserInfo(string email,UserAddress address)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null)
+                return null;
+
+            return new UserInformationDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                Address = mapper.Map<AddressDTO>(address)
+            };
+
+
+
+        }
+
+        public async Task UpdateUserInfo(UserInformationDTO userInfoDTO, string email, AddressDTO address)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return;
+
+            user.FirstName = userInfoDTO.FirstName;
+            user.LastName = userInfoDTO.LastName;
+            user.Gender = userInfoDTO.Gender;
+            user.Address = mapper.Map<UserAddress>(address);
+
+            await userManager.UpdateAsync(user);
+        }
     }
 
 

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Domain.Entities.SecurityEntities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +30,8 @@ namespace Shared.SecurityModels
 
         [Phone]
         public string PhoneNumber { get; init; }
+        [Required]
+        public Gender Gender { get; set; }
 
     }
 }

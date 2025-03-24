@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserAddress = Domain.Entities.SecurityEntities.Address;
+
 
 namespace Services.Abstractions
 {
@@ -33,6 +35,9 @@ namespace Services.Abstractions
 
         // Reset Password
         public Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
+        public Task<UserInformationDTO> GetUserInfo(string email, UserAddress userAddress);
+        public Task UpdateUserInfo(UserInformationDTO userInfoDTO, string email, AddressDTO address);
+
 
 
     }
