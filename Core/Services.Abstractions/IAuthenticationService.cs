@@ -12,31 +12,25 @@ namespace Services.Abstractions
 {
     public interface IAuthenticationService
     {
-        public Task<UserResultDTO> LoginAsync(LoginDTO loginModel);
-        public Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel);
+        Task<UserResultDTO> LoginAsync(LoginDTO loginModel);
+        Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel);
+        Task<UserResultDTO> GetUserByEmail(string email);
+        Task<bool> CheckEmailExist(string email);
+        Task<AddressDTO> GetUserAddress(string email);
+        Task<AddressDTO> UpdateUserAddress(AddressDTO address, string email);
 
-        public Task<UserResultDTO> GetUserByEmail(string email);
-
-        public Task<bool> CheckEmailExist(string email);
-
-        public Task<AddressDTO> GetUserAddress(string email);
-
-        public Task<AddressDTO> UpdateUserAddress(AddressDTO address,string email);
         // OTP Verification
-        public Task<bool> VerifyEmailAsync(string email, string otp);
+        Task<bool> VerifyEmailAsync(string email, string otp);
+        Task<bool> SendVerificationCodeAsync(string email);
 
-        // Resend OTP
-        public Task<bool> SendVerificationCodeAsync(string email);
-        // Send Reset Password Email
-        public Task<bool> SendResetPasswordEmailAsync(string email);
+        // Password Management
+        Task<bool> SendResetPasswordEmailAsync(string email);
+        Task<bool> ChangePasswordAsync(string email, string oldPassword, string newPassword);
+        Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
 
-        // Change Password
-        public Task<bool> ChangePasswordAsync(string email, string oldPassword, string newPassword);
-
-        // Reset Password
-        public Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
-        public Task<UserInformationDTO> GetUserInfo(string email, UserAddress userAddress);
-        public Task UpdateUserInfo(UserInformationDTO userInfoDTO, string email, AddressDTO address);
+        // User Information
+        Task<UserInformationDTO> GetUserInfo(string email);
+        Task UpdateUserInfo(UserInformationDTO userInfoDTO, string email, AddressDTO address);
 
 
 
