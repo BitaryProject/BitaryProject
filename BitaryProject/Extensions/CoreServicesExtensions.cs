@@ -1,4 +1,5 @@
 ﻿global using AutoMapper;
+using Core.Services.MappingProfiles;
 using Services;
 using Services.Abstractions;
 using Shared.SecurityModels;
@@ -12,6 +13,7 @@ namespace BitaryProject.Api.Extensions
             services.AddAutoMapper(typeof(Services.AssemblyReference).Assembly);
             services.AddScoped<IServiceManager, ServiceManager>();
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
+            services.AddAutoMapper(typeof(AddressProfile));
             return services;
         }
     }

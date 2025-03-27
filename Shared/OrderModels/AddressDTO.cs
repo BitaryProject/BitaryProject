@@ -8,10 +8,11 @@ namespace Shared.OrderModels
 {
     public record AddressDTO
     {
-        public string Name { get; init; }
-        public string Street { get; init; }
-        public string City { get; init; }
-        public string Country { get; init; }
+
+        public string Name { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
 
     }
 }

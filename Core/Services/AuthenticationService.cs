@@ -163,7 +163,7 @@ namespace Services
             }
             else
             {
-                user.Address.FirstName = address.Name;
+                user.Address.Name = address.Name;
                 user.Address.Street = address.Street;
                 user.Address.City = address.City;
                 user.Address.Country = address.Country;
@@ -252,7 +252,7 @@ namespace Services
             }
             else
             {
-                user.Address.FirstName = address.Name;
+                user.Address.Name = address.Name;
                 user.Address.Street = address.Street;
                 user.Address.City = address.City;
                 user.Address.Country = address.Country;
