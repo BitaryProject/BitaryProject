@@ -86,26 +86,28 @@ namespace Presentation
 
 
 
-            [HttpGet("GetUserAddress")]
-            [Authorize]
-            public async Task<ActionResult<AddressDTO>> GetUserAddress(string email)
-            {
-                
+        //   [HttpGet("GetUserAddress")]
+        //   [Authorize]
+        //   public async Task<ActionResult<AddressDTO>> GetUserAddress()
+        //   {
+        //       var email = User.FindFirstValue(ClaimTypes.Email);
+        //       if (string.IsNullOrEmpty(email)) return Unauthorized("Email not found in token.");
 
-                var result = await serviceManager.AuthenticationService.GetUserAddress(email);
-                return Ok(result);
-            }
+        //       var result = await serviceManager.AuthenticationService.GetUserAddress(email);
+        //       return Ok(result);
+        //   }
 
-            [HttpPut("UpdateUserAddress")]
-            [Authorize]
-            public async Task<IActionResult> UpdateUserAddress([FromBody] AddressDTO address)
-            {
-                var email = User.FindFirstValue(ClaimTypes.Email);
-                if (string.IsNullOrEmpty(email)) return Unauthorized("Email not found in token.");
-            
-                var result = await serviceManager.AuthenticationService.UpdateUserAddress(address, email);
-                return Ok(result);
-            }
+
+        //[HttpPut("UpdateUserAddress")]
+        //[Authorize]
+        //public async Task<IActionResult> UpdateUserAddress([FromBody] AddressDTO address)
+        //{
+        //    var email = User.FindFirstValue(ClaimTypes.Email);
+        //    if (string.IsNullOrEmpty(email)) return Unauthorized("Email not found in token.");
+
+        //    var result = await serviceManager.AuthenticationService.UpdateUserAddress(address, email);
+        //    return Ok(result);
+        //}
 
         //[HttpGet("GetUserInformation")]
         //[Authorize]
@@ -117,7 +119,7 @@ namespace Presentation
         //    var user = await serviceManager.AuthenticationService.GetUserInfo(email);
         //    return Ok(user);
         //}
-          [HttpGet("GetUserInformation")]
+        [HttpGet("GetUserInformation")]
            public async Task<IActionResult> GetUserInformation([FromQuery] string email)
            {
                if (string.IsNullOrEmpty(email))
