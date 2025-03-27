@@ -82,7 +82,7 @@ namespace Services
 
             var DomainOptions = domainOptions.Value;
 
-            await mailingService.SendEmailAsync(user.Email!, "Verification Code", $"{DomainOptions.localUrl}api/Authentication/VerifyEmail?email={email}&otp={verificationCode}");
+            await mailingService.SendEmailAsync(user.Email!, "Verification Code", $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={email}&otp={verificationCode}");
 
             return true;
         }
@@ -99,7 +99,7 @@ namespace Services
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
             var DomainOptions = domainOptions.Value;
 
-            var resetLink = $"{DomainOptions.localUrl}api/Authentication/ResetPassword?email={email}&token={token}";
+            var resetLink = $"{DomainOptions.bitaryUrl}api/Authentication/ResetPassword?email={email}&token={token}";
 
             // Send the reset password email with the generated link
             await mailingService.SendEmailAsync(user.Email!, "Reset Password", $"Click the link to reset your password: {resetLink}");
