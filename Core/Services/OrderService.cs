@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Domain.Exceptions;
+using Address = Domain.Entities.OrderEntities.Address;
 
 
 
@@ -25,13 +26,14 @@ namespace Services
     {
         public async Task<OrderResult?> CreateOrUpdateOrderAsync(OrderRequest request, string userEmail)
         {
-            if (!Guid.TryParse(request.BasketId, out var basketGuid))
+           
+            var address = mapper.Map<Address>(request.ShippingAddress);
+
+           /* if (!Guid.TryParse(request.BasketId, out var basketGuid))
             {
                 throw new Exception($"Invalid basket Id format: {request.BasketId}");
-            }
-            var address = mapper.Map<OrderAddress>(request.ShippingAddress);
-
-            var basket = await basketRepository.GetBasketAsync( basketGuid)
+            }*/
+            var basket = await basketRepository.GetBasketAsync(Guid.Parse(request.BasketId ))
                 ?? throw new BasketNotFoundException( request.BasketId);
 
             var orderItems = new List<OrderItem>();
@@ -61,8 +63,9 @@ namespace Services
 
             // save to DB
             var order = new Order(userEmail, address, orderItems, deliveryMethod, subTotal, basket.PaymentIntentId);
-
-            await orderRepo.AddAsync(order);
+            await unitOfWork.GetRepository<Order, Guid>()
+                .AddAsync(order);
+           // await orderRepo.AddAsync(order);
 
 
             await unitOfWork.SaveChangesAsync();

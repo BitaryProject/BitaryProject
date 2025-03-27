@@ -12,12 +12,17 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
+    [ApiController]
+    [Route("api/[controller]")]
+
     public class OrdersController(IServiceManager serviceManager) : ApiController
     {
-        [HttpPost] 
-        public async Task<ActionResult<OrderResult>> Create(OrderRequest request)
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult<OrderResult>> Create([FromBody] OrderRequest request)
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
+            Console.WriteLine("Request reached Create method");
+            var email = User.FindFirstValue(ClaimTypes.Email) ?? "test@example.com";
             var order = await serviceManager.OrderService.CreateOrUpdateOrderAsync(request,  email);
 
             return Ok(order);

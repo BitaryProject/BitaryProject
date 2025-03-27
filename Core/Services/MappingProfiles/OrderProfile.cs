@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Domain.Entities.Identity;
 using Domain.Entities.OrderEntities;
 using Shared.OrderModels;
-using OrderAddress=Domain.Entities.OrderEntities.Address;
+using OrderAddress = Domain.Entities.OrderEntities.Address;
 
 using UserAddress = Domain.Entities.Identity.Address;
 namespace Services.MappingProfiles
@@ -15,36 +15,20 @@ namespace Services.MappingProfiles
     {
         public OrderProfile()
         {
-            CreateMap<OrderAddress, AddressDTO>().ReverseMap();
+            CreateMap<OrderAddress, AddressDTO>();
+
             CreateMap<OrderItem, OrderItemDTO>()
+                .ForMember(d => d.ProductId, options => options.MapFrom(s => s.Product.ProductId))
+                .ForMember(d => d.PictureUrl, options => options.MapFrom(s => s.Product.PictureUrl))
+                .ForMember(d => d.ProductName, options => options.MapFrom(s => s.Product.ProductName));
 
-                .ForMember(d => d.ProductId,
-                options => options.MapFrom(s => s.Product.ProductId))
-
-                .ForMember(d => d.PictureUrl,
-                options => options.MapFrom(s => s.Product.PictureUrl))
-
-                .ForMember(d => d.ProductName,
-                options => options.MapFrom(s => s.Product.ProductName));
-
-
-
-             CreateMap<Order, OrderResult>()
-
-
-                .ForMember(order => order.PaymentStatus,
-                options => options.MapFrom(s => s.ToString()))
-
-                .ForMember(d => d.DeliveryMethod,
-                options => options.MapFrom(s => s.DeliveryMethod.ShortName))
-
-                .ForMember(t => t.Total,
-                options => options.MapFrom(s => s.Subtotal + s.DeliveryMethod.Price));
-
+            CreateMap<Order, OrderResult>()
+                .ForMember(d => d.PaymentStatus, options => options.MapFrom(s => s.PaymentStatus.ToString()))
+                .ForMember(d => d.DeliveryMethod, options => options.MapFrom(s => s.DeliveryMethod.ShortName))
+                .ForMember(d => d.Total, options => options.MapFrom(s => s.Subtotal + s.DeliveryMethod.Price));
 
             CreateMap<DeliveryMethod, DeliveryMethodResult>();
-
-            CreateMap<AddressDTO, UserAddress>().ReverseMap();
+            CreateMap<AddressDTO, OrderAddress>().ReverseMap();
         }
     }
 }

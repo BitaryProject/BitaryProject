@@ -12,6 +12,10 @@ namespace Services.Abstractions
         public Task<CustomerBasketDTO?> GetBasketAsync(string id);
         public Task<CustomerBasketDTO?> UpdateBasketAsync(string basketId, BasketItemDTO itemDto);
         public Task<bool?> DeleteBasketAsync(string id);
+        public Task<CustomerBasketDTO?> CreateBasketAsync();
+        Task<CustomerBasketDTO?> UpdateItemQuantityAsync(Guid basketId, Guid itemId, UpdateBasketItemModel model);
+        Task<CustomerBasketDTO?> RemoveItemAsync(Guid basketId, Guid itemId);
+
     }
 }
  

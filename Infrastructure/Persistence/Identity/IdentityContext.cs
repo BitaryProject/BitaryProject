@@ -1,4 +1,5 @@
-﻿using Domain.Entities.SecurityEntities;
+﻿global using UserAddress = Domain.Entities.Identity.Address;
+using Domain.Entities.SecurityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
