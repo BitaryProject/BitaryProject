@@ -30,6 +30,9 @@ namespace Services.Abstractions
 
         // User Information
         Task<UserInformationDTO> GetUserInfo(string email);
+
+
+        Task<AddressDTO> AddUserAddress(AddressDTO address, string email);
         Task UpdateUserInfo(UserInformationDTO userInfoDTO, string email, AddressDTO address);
 
 

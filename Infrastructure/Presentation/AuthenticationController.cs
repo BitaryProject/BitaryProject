@@ -35,7 +35,7 @@ namespace Presentation
             }
 
             [HttpGet("CheckEmailExist")]
-            public async Task<ActionResult<bool>> CheckEmailExist([FromQuery] string email)
+            public async Task<ActionResult<bool>> CheckEmailExist( string email)
             {
                 var result = await serviceManager.AuthenticationService.CheckEmailExist(email);
                 return Ok(result);
@@ -73,12 +73,22 @@ namespace Presentation
                 await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
                 return Ok(new { Message = "Password reset successfully." });
             }
+        [HttpPost("AddUserAddress")]
+        [Authorize]
+        public async Task<IActionResult> AddUserAddress([FromBody] AddressDTO address)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email)) return Unauthorized("Email not found in token.");
 
-         
+            var result = await serviceManager.AuthenticationService.AddUserAddress(address, email);
+            return Ok(result);
+        }
+
+
 
             [HttpGet("GetUserAddress")]
             [Authorize]
-            public async Task<ActionResult<AddressDTO>> GetUserAddress([FromBody] string email)
+            public async Task<ActionResult<AddressDTO>> GetUserAddress(string email)
             {
                 
 
@@ -118,7 +128,7 @@ namespace Presentation
                var userInfo = await serviceManager.AuthenticationService.GetUserInfo(email);
                return Ok(userInfo);
            }
-           [HttpPost("UpdateUserInformation")]
+            [HttpPost("UpdateUserInformation")]
             [Authorize]
             public async Task<ActionResult> UpdateUserInfo([FromQuery] UserInformationDTO userInfo, [FromQuery] AddressDTO address)
             {

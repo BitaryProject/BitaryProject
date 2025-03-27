@@ -12,6 +12,7 @@ using StackExchange.Redis;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 namespace BitaryProject.Extensions
 {
@@ -96,7 +97,9 @@ namespace BitaryProject.Extensions
 
                     ValidIssuer = jwtOptions.Issuer,
                     ValidAudience = jwtOptions.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                    NameClaimType = ClaimTypes.Email
+
                 };
             });
 

@@ -49,9 +49,27 @@ namespace Services
 
 
         }
+
         public async Task<bool> CheckEmailExist(string email)
         {
             return await userManager.FindByEmailAsync(email) != null;
+        }
+        public async Task<AddressDTO> AddUserAddress(AddressDTO address, string email)
+        {
+            var user = await userManager.Users
+                .Include(u => u.Address)
+                .FirstOrDefaultAsync(u => u.Email == email)
+                ?? throw new UserNotFoundException(email);
+
+            if (user.Address != null)
+            {
+                throw new Exception("User already has an address. Use update endpoint instead.");
+            }
+
+            user.Address = mapper.Map<UserAddress>(address);
+
+            await userManager.UpdateAsync(user);
+            return mapper.Map<AddressDTO>(user.Address);
         }
 
         public async Task<AddressDTO> GetUserAddress(string email)
