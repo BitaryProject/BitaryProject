@@ -29,11 +29,9 @@ namespace Services.MappingProfiles
 
             CreateMap<DeliveryMethod, DeliveryMethodResult>();
 
-
-
+            CreateMap<AddressDTO, UserAddress>().ReverseMap();
 
             CreateMap<AddressDTO, OrderAddress>().ReverseMap();
-
         }
     }
 }
