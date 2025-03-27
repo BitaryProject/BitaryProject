@@ -34,12 +34,34 @@ namespace Persistence.Repositories
             else
             {
                 _context.Entry(existingBasket).CurrentValues.SetValues(basket);
-                _context.RemoveRange(existingBasket.BasketItems);
-                existingBasket.BasketItems = basket.BasketItems;
+
+                if (existingBasket.BasketItems == null)
+                    existingBasket.BasketItems = new List<BasketItem>();
+
+                foreach (var newItem in basket.BasketItems)
+                {
+                  
+                    var existingItem = existingBasket.BasketItems
+                        .FirstOrDefault(i => i.Product.ProductId == newItem.Product.ProductId);
+
+                    if (existingItem != null)
+                    {
+   
+                        existingItem.Quantity += newItem.Quantity;
+
+                        existingItem.Price = newItem.Price;
+                        existingItem.Product.PictureUrl = newItem.Product.PictureUrl;
+                        existingItem.Product.ProductName = newItem.Product.ProductName;
+                    }
+                    else
+                    {                    
+                        existingBasket.BasketItems.Add(newItem);
+                    }
+                }
             }
 
             var result = await _context.SaveChangesAsync();
-            return result > 0 ? basket : null;
+            return result >= 0 ? basket : null;
         }
 
         public async Task<bool> DeleteBasketAsync(Guid id)
@@ -51,6 +73,36 @@ namespace Persistence.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-       
+
+
+
+
+        public async Task<CustomerBasket?> CreateBasketAsync(CustomerBasket basket)
+        {
+            await _context.CustomerBaskets.AddAsync(basket);
+            var result = await _context.SaveChangesAsync();
+            return result > 0 ? basket : null;
+        }
+
+
+        public async Task<bool> RemoveItemAsync(Guid basketId, Guid itemId)
+        {
+            var basket = await _context.CustomerBaskets
+                .Include(b => b.BasketItems)
+                .FirstOrDefaultAsync(b => b.Id == basketId);
+
+            if (basket == null)
+                return false;
+
+            var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            if (item == null)
+                return false;
+
+            basket.BasketItems.Remove(item);
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
     }
+
 }

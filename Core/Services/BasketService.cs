@@ -73,5 +73,68 @@ namespace Services
 
             return mapper.Map<CustomerBasketDTO>(updatedBasket);
         }
+
+
+
+
+
+
+        public async Task<CustomerBasketDTO> CreateBasketAsync()
+        {
+            
+            var newBasket = new CustomerBasket
+            {
+                Id = Guid.NewGuid(),
+                BasketItems = new List<BasketItem>()
+            };
+
+           
+            var createdBasket = await basketRepository.UpdateBasketAsync(newBasket);
+            if (createdBasket is null)
+                throw new Exception("Failed to create basket.");
+
+
+            return mapper.Map<CustomerBasketDTO>(createdBasket);
+        }
+
+
+
+        public async Task<CustomerBasketDTO?> UpdateItemQuantityAsync(Guid basketId, Guid itemId, UpdateBasketItemModel model)
+        {
+         
+            var basket = await basketRepository.GetBasketAsync(basketId);
+            if (basket == null) return null;
+
+            var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            if (item == null) return null;
+
+            item.Quantity = model.Quantity;
+
+            var updatedBasket = await basketRepository.UpdateBasketAsync(basket);
+            if (updatedBasket == null)
+                throw new Exception("Failed to update item quantity in basket.");
+
+            return mapper.Map<CustomerBasketDTO>(updatedBasket);
+        }
+
+
+        public async Task<CustomerBasketDTO?> RemoveItemAsync(Guid basketId, Guid itemId)
+        {
+            var basket = await basketRepository.GetBasketAsync(basketId);
+            if (basket == null) return null;
+
+            var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            if (item == null) return null;
+
+            basket.BasketItems.Remove(item);
+
+            var updated = await basketRepository.UpdateBasketAsync(basket);
+            if (updated == null)
+                throw new Exception("Failed to remove item from basket.");
+
+            return mapper.Map<CustomerBasketDTO>(updated);
+        }
+
+
     }
 }

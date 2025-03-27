@@ -51,6 +51,14 @@ namespace BitaryProject
             app.Run();
 
             #endregion
+
+
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine($"Incoming Request: {context.Request.Method} {context.Request.Path}");
+                await next.Invoke();
+            });
+
         }
     }
 }

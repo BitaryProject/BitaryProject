@@ -1,42 +1,35 @@
-﻿using Domain.Entities.OrderEntities;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OrderEntity=Domain.Entities.OrderEntities.Order;
+﻿global using OrderEntity = Domain.Entities.OrderEntities.Order;
+using Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Data.Configurations
 {
     internal class OrderConfigurations : IEntityTypeConfiguration<OrderEntity>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<OrderEntity> builder)
+        public void Configure(EntityTypeBuilder<OrderEntity> builder)
         {
-            
-
-            builder.OwnsOne(order => order.ShippingAddress,
-                address => address.WithOwner());
+            builder.OwnsOne(
+                order => order.ShippingAddress,
+                address => address.WithOwner()
+            );
 
             builder.HasMany(order => order.OrderItems)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                   .WithOne()
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(order => order.PaymentStatus)
-                .HasConversion(
-                s => s.ToString(),
-                s => Enum.Parse<OrderPaymentStatus>(s));
+                   .HasConversion(
+                       s => s.ToString(),
+                       s => Enum.Parse<OrderPaymentStatus>(s)
+                   );
 
             builder.HasOne(order => order.DeliveryMethod)
-                .WithMany()
-                .OnDelete(DeleteBehavior.SetNull);
+                   .WithMany()
+                   .OnDelete(DeleteBehavior.SetNull);
 
-
-            builder.Property(t => t.Subtotal)
-                    .HasColumnType("decimal(18,3)");
-                   
-                 
+            builder.Property(order => order.Subtotal)
+                   .HasColumnType("decimal(18,3)");
         }
+
     }
 }

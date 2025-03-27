@@ -11,7 +11,7 @@ namespace Domain.Entities.OrderEntities
 
         public Address()
         {
-            
+
         }
         public Address(string Name ,string street, string city, string country)
         {

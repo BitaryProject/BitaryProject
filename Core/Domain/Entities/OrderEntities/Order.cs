@@ -40,7 +40,7 @@ namespace Domain.Entities.OrderEntities
             OrderItems = orderItems;
             DeliveryMethod = deliveryMethod;
             Subtotal = subtotal;
-            PaymentIntentId = paymentIntentId;
+            PaymentIntentId = paymentIntentId?? "NoPaymentYet";
         }
 
         public string UserEmail { get; set; } 
@@ -51,7 +51,7 @@ namespace Domain.Entities.OrderEntities
         public DeliveryMethod DeliveryMethod { get; set; }
         public int? DeliveryMethodId { get; set; }
         public decimal Subtotal { get; set; }
-        public string PaymentIntentId { get; set; } 
+        public string PaymentIntentId { get; set; } = string.Empty;
 
     }
 }
