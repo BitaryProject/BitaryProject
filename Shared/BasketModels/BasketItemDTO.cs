@@ -8,6 +8,7 @@ namespace Shared.BasketModels
 {
     public record BasketItemDTO
     {
+        public Guid Id { get; init; }
         public int ProductId { get; init; }
         public string ProductName { get; init; }
         public string PictureUrl { get; init; }

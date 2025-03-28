@@ -19,10 +19,11 @@ namespace Presentation
     {
         [HttpPost]
         [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult<OrderResult>> Create([FromBody] OrderRequest request)
         {
             Console.WriteLine("Request reached Create method");
-            var email = User.FindFirstValue(ClaimTypes.Email) ?? "test@example.com";
+            var email = User.FindFirstValue(ClaimTypes.Email) ?? "test@example.com"; // ?? "test@example.com"
             var order = await serviceManager.OrderService.CreateOrUpdateOrderAsync(request,  email);
 
             return Ok(order);
