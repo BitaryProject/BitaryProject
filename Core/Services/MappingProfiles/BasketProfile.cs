@@ -14,11 +14,17 @@ namespace Services.MappingProfiles
         public BasketProfile()
         {
            
-            CreateMap<CustomerBasket, CustomerBasketDTO>().ReverseMap();
+            CreateMap<CustomerBasket, CustomerBasketDTO>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.BasketItems))
+                .ReverseMap();
 
-          
+
             CreateMap<BasketItem, BasketItemDTO>()
-               
+
+                .ForMember(dest => dest.Id,
+                           opt => opt.MapFrom(src => src.Id))
+
+
                 .ForMember(dest => dest.ProductId,
                            opt => opt.MapFrom(src => src.Product.ProductId))
                 .ForMember(dest => dest.ProductName,

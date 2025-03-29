@@ -19,6 +19,8 @@ namespace Presentation
     {
         [HttpPost]
         [Authorize]
+        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult<OrderResult>> Create([FromBody] OrderRequest request)
         {
             Console.WriteLine("Request reached Create method");
