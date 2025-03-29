@@ -18,11 +18,11 @@ namespace Presentation
     public class OrdersController(IServiceManager serviceManager) : ApiController
     {
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult<OrderResult>> Create([FromBody] OrderRequest request)
         {
             Console.WriteLine("Request reached Create method");
-            var email = User.FindFirstValue(ClaimTypes.Email) ?? "test@example.com";
+            var email = User.FindFirstValue(ClaimTypes.Email);
             var order = await serviceManager.OrderService.CreateOrUpdateOrderAsync(request,  email);
 
             return Ok(order);
