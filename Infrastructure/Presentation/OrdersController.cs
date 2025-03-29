@@ -28,7 +28,7 @@ namespace Presentation
             return Ok(order);
         }
 
-        [HttpGet]
+        [HttpGet]//a
         public async Task<ActionResult<IEnumerable<OrderResult>>> GetOrders()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
