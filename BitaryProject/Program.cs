@@ -39,6 +39,7 @@ namespace BitaryProject
 
             app.UseStaticFiles();
             app.UseCors("CORSPolicy");
+     
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
