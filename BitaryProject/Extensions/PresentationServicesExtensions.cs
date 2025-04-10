@@ -25,7 +25,8 @@ namespace BitaryProject.Extensions
                     builder.AllowAnyHeader()
                     // AllowAnyMethod =>> ay method Get ,Post ,Delete ay 7aga 
                     .AllowAnyMethod()
-                    .WithOrigins("https://localhost:3000");
+                    .WithOrigins("https://localhost:3000")
+                    .WithOrigins("http://localhost:3000");
 
                     // WithOrigins =>> el Origins ely 3ayzhom yeklmoni bas 
                     // lw 3ayz URL mo3yn yeklmni ha7oto ka string fe WithOrigins()
