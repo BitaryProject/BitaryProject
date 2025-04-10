@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Presentation
 {
-    [EnableCors("CORSPolicy")]
+//    [EnableCors("CORSPolicy")]
     public class AuthenticationController(IServiceManager serviceManager) : ApiController
     {
 
