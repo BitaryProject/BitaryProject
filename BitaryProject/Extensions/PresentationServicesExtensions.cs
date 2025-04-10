@@ -22,6 +22,7 @@ namespace BitaryProject.Extensions
             {
                 options.AddPolicy("CORSPolicy", builder =>
                 {
+
                     builder.AllowAnyHeader()
                     // AllowAnyMethod =>> ay method Get ,Post ,Delete ay 7aga 
                     .AllowAnyMethod()
