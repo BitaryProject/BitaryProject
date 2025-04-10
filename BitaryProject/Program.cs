@@ -58,18 +58,7 @@ namespace BitaryProject
                 Console.WriteLine($"Incoming Request: {context.Request.Method} {context.Request.Path}");
                 await next.Invoke();
             });
-            app.Use((context, next) =>
-            {
-                if (context.Request.Method == "OPTIONS")
-                {
-                    context.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000");
-                    context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-                    context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-                    context.Response.StatusCode = 200;
-                    return Task.CompletedTask;
-                }
-                return next();
-            });
+
         }
     }
 }
