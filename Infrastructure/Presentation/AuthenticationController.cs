@@ -13,10 +13,13 @@ using System.Threading.Tasks;
 using Shared.OrderModels;
 using Domain.Entities.OrderEntities;
 using UserAddress = Domain.Entities.SecurityEntities.Address;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 
 namespace Presentation
 {
+//    [EnableCors("CORSPolicy")]
     public class AuthenticationController(IServiceManager serviceManager) : ApiController
     {
 
