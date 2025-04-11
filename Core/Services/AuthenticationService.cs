@@ -36,7 +36,7 @@ namespace Services
                 Email = registerModel.Email,
                 PhoneNumber = registerModel.PhoneNumber,
                 UserName = registerModel.UserName,
-                Role = UserRole.Customer
+                Role = UserRole.PetOwner
             };
 
             var result = await userManager.CreateAsync(user, registerModel.Password);

@@ -334,8 +334,8 @@ namespace Persistence.Migrations.NewModule
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<byte>("Role")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
