@@ -24,15 +24,20 @@ namespace Persistence
 
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        private readonly NewModuleContext _newModuleContext;
+
+
 
 
         public DbInitializer(StoreContext storeContext,
-            RoleManager<IdentityRole> roleManager, 
+            RoleManager<IdentityRole> roleManager,
+            NewModuleContext newModuleContext,
             UserManager<User> userManager)   
         {
             _storeContext = storeContext;
             _roleManager = roleManager;
             _userManager = userManager;
+            _newModuleContext = newModuleContext;
         }
 
         public async Task InitializeAsync()

@@ -23,5 +23,8 @@ namespace Domain.Contracts
         void Update(TEntity entity);
         IQueryable<TEntity> GetAllAsQueryable();
 
-    }
+        Task<(IEnumerable<TEntity> Entities, int TotalCount)> GetPagedAsync(Specifications<TEntity> specifications, int pageIndex, int pageSize);
+    
+
+}
 }

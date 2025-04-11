@@ -27,6 +27,8 @@ namespace Services
     {
         public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
         {
+
+
             var user = new User
             {
 
@@ -34,6 +36,7 @@ namespace Services
                 Email = registerModel.Email,
                 PhoneNumber = registerModel.PhoneNumber,
                 UserName = registerModel.UserName,
+                Role = UserRole.Customer
             };
 
             var result = await userManager.CreateAsync(user, registerModel.Password);
@@ -179,7 +182,8 @@ namespace Services
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             var roles = await userManager.GetRolesAsync(user);
