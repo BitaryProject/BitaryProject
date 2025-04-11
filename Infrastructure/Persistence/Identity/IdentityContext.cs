@@ -18,7 +18,7 @@ namespace Persistence.Identity
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Address>().ToTable("Addresses");
+            builder.Entity<UserAddress>().ToTable("Addresses");
         }
 
        public DbSet<UserOTP?> UserOTPs { get; set; }

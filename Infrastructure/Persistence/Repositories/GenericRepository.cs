@@ -55,5 +55,17 @@ namespace Persistence.Repositories
 
         public IQueryable<TEntity> GetAllAsQueryable() => _dbSet.AsQueryable();
 
+        public async Task<(IEnumerable<TEntity> Entities, int TotalCount)> GetPagedAsync(Specifications<TEntity> specifications, int pageIndex, int pageSize)
+        {
+            var query = SpecificationEvaluator.GetQuery<TEntity>(_storeContext.Set<TEntity>(), specifications);
+
+            int totalCount = await query.CountAsync();
+            var pagedEntities = await query.Skip((pageIndex - 1) * pageSize)
+                                           .Take(pageSize)
+                                           .ToListAsync();
+
+            return (pagedEntities, totalCount);
+        }
+
     }
 }
