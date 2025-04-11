@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Identity;
+﻿using Domain.Entities.ClinicEntities;
+using Domain.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,13 @@ namespace Shared.ClinicModels
 {
     public record ClinicDTO
     {
-        public Guid Id { get; init; }
-        public string ClinicName { get; init; }
-        public Address Address { get; init; }
-        public decimal ExaminationFee { get; init; }
+        public Guid Id { get; set; }
+        public string ClinicName { get; set; }
+        public ClinicAddress Address { get; set; }
+
+        public decimal ExaminationFee { get; set; } // Ensure this is decimal
+
+        public double Rating { get; set; }
     }
+
 }

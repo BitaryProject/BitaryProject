@@ -13,11 +13,12 @@ namespace Services.MappingProfiles
         public ClinicProfile()
         {
             CreateMap<Clinic, ClinicDTO>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ClinicName, opt => opt.MapFrom(src => src.ClinicName))
-                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
-                .ForMember(dest => dest.ExaminationFee, opt => opt.MapFrom(src => src.ExaminationFee))
-                .ReverseMap();
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+               .ForMember(dest => dest.ClinicName, opt => opt.MapFrom(src => src.ClinicName))
+               .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
+               .ForMember(dest => dest.ExaminationFee, opt => opt.MapFrom(src => Math.Round(src.ExaminationFee, 2))) // Ensure 2 decimal places
+               .ReverseMap()
+               .ForMember(dest => dest.ExaminationFee, opt => opt.MapFrom(src => Math.Round(src.ExaminationFee, 2))); ;
 
         }
     }

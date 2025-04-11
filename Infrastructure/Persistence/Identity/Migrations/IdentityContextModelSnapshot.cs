@@ -60,7 +60,7 @@ namespace Persistence.Identity.Migrations
 
                     b.HasIndex("PetId");
 
-                    b.ToTable("Appointment");
+                    b.ToTable("Appointment", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ClinicEntities.Clinic", b =>
@@ -81,7 +81,7 @@ namespace Persistence.Identity.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clinic");
+                    b.ToTable("Clinic", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.DoctorEntites.Doctor", b =>
@@ -123,7 +123,7 @@ namespace Persistence.Identity.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Doctor");
+                    b.ToTable("Doctor", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.DoctorEntites.DoctorSchedule", b =>
@@ -148,7 +148,7 @@ namespace Persistence.Identity.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("DoctorSchedule");
+                    b.ToTable("DoctorSchedule", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Identity.Address", b =>
@@ -223,7 +223,7 @@ namespace Persistence.Identity.Migrations
 
                     b.HasIndex("PetId");
 
-                    b.ToTable("MedicalRecord");
+                    b.ToTable("MedicalRecord", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.PetEntities.Pet", b =>
@@ -259,7 +259,7 @@ namespace Persistence.Identity.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pet");
+                    b.ToTable("Pet", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.SecurityEntities.Address", b =>
@@ -295,7 +295,7 @@ namespace Persistence.Identity.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.SecurityEntities.UserOTP", b =>
@@ -321,7 +321,7 @@ namespace Persistence.Identity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserOTPs");
+                    b.ToTable("UserOTPs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -583,7 +583,7 @@ namespace Persistence.Identity.Migrations
 
             modelBuilder.Entity("Domain.Entities.ClinicEntities.Clinic", b =>
                 {
-                    b.OwnsOne("Domain.Entities.ClinicEntities.ClinicAddress", "Address", b1 =>
+                    b.OwnsOne("Domain.Entities.ClinicEntities.Clinic.Address#Domain.Entities.ClinicEntities.ClinicAddress", "Address", b1 =>
                         {
                             b1.Property<Guid>("ClinicId")
                                 .HasColumnType("uniqueidentifier");
@@ -606,7 +606,7 @@ namespace Persistence.Identity.Migrations
 
                             b1.HasKey("ClinicId");
 
-                            b1.ToTable("Clinic");
+                            b1.ToTable("Clinic", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ClinicId");
