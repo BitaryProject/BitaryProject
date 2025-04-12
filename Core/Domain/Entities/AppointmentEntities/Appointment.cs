@@ -1,4 +1,4 @@
-﻿using Domain.Entities.ClinicEntities;
+﻿/*using Domain.Entities.ClinicEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,3 +44,4 @@ namespace Domain.Entities.AppointmentEntities
 
     }
 }
+*/

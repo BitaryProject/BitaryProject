@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using Domain.Entities.ClinicEntities;
 using Domain.Contracts.NewModule; 
 using Domain.Exceptions;          
@@ -10,17 +10,11 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-  /*  public interface IClinicSearchService
-    {
-        Task<IEnumerable<ClinicDTO>> SearchClinicsAsync(string city, double? userLat, double? userLon, int radiusKm);
-        Task<IEnumerable<ClinicDTO>> GetTopRatedClinicsAsync(int count);
-    }
-  */
+  
     public class ClinicService : IClinicService
     {
         private readonly IClinicRepository clinicRepository;
         private readonly IMapper mapper;
-      //  private IClinicService clinicRepository1;
 
         public ClinicService(IClinicRepository clinicRepository, IMapper mapper)
         {
@@ -28,12 +22,7 @@ namespace Services
             this.mapper = mapper;
         }
 
-     /*   public ClinicService(IClinicService clinicRepository1, IMapper mapper)
-        {
-            this.clinicRepository1 = clinicRepository1;
-            this.mapper = mapper;
-        }
-     */
+    
 
         public async Task<ClinicDTO?> GetClinicByIdAsync(Guid clinicId)
         {
@@ -79,3 +68,4 @@ namespace Services
         }
     }
 }
+*/

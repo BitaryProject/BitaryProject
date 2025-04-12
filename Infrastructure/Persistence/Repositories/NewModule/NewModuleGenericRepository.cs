@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿/*using Domain.Entities;
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -65,3 +65,4 @@ namespace Persistence.Repositories.NewModule
         }
     }
 }
+*/

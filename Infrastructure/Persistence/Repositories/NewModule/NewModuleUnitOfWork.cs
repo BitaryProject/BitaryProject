@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.NewModule;
+﻿/*using Domain.Contracts.NewModule;
 using Persistence.Data;
 using System;
 using System.Collections.Concurrent;
@@ -40,3 +40,4 @@ namespace Persistence.Repositories.NewModule
         }
     }
 }
+*/

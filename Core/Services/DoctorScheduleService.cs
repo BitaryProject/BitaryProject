@@ -1,4 +1,4 @@
-﻿using Shared.DoctorModels;
+﻿/*using Shared.DoctorModels;
 using Domain.Entities.DoctorEntites;
 using Domain.Exceptions;
 using System;
@@ -48,4 +48,4 @@ namespace Services
             await _repository.SaveChangesAsync();
         }
     }
-}
+}*/

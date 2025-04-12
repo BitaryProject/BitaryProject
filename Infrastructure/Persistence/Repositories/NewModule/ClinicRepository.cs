@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.NewModule;
+﻿/*using Domain.Contracts.NewModule;
 using Domain.Entities.ClinicEntities;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -48,3 +48,4 @@ namespace Persistence.Repositories.NewModule
         }
     }
 }
+*/

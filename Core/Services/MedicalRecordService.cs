@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using Domain.Entities.MedicalRecordEntites;
 using Domain.Contracts.NewModule;
 using Domain.Exceptions;
@@ -23,12 +23,7 @@ namespace Services
             _mapper = mapper;
         }
 
-      /*  public MedicalRecordService(IMedicalRecordService medicalRecordRepository, IMapper mapper)
-        {
-            MedicalRecordRepository = medicalRecordRepository;
-            Mapper = mapper;
-        }
-      */
+     
 
         public async Task<MedicalRecordDTO?> GetMedicalRecordByIdAsync(Guid recordId)
         {
@@ -75,3 +70,4 @@ namespace Services
        
     }
 }
+*/

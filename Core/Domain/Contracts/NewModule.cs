@@ -1,4 +1,4 @@
-﻿using Domain.Entities.AppointmentEntities;
+﻿/*using Domain.Entities.AppointmentEntities;
 using Domain.Entities.ClinicEntities;
 using Domain.Entities.DoctorEntites;
 using Domain.Entities.MedicalRecordEntites;
@@ -68,3 +68,4 @@ namespace Domain.Contracts.NewModule
             IAppointmentRepository AppointmentRepository { get; }
         }
  }
+*/

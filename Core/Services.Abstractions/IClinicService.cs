@@ -1,4 +1,4 @@
-﻿using Shared.ClinicModels;
+﻿/*using Shared.ClinicModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,3 +14,4 @@ namespace Services.Abstractions
         Task<bool> DeleteClinicAsync(Guid clinicId);
     }
 }
+*/

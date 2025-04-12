@@ -1,4 +1,5 @@
-﻿using Domain.Entities.ClinicEntities;
+﻿/*using Domain.Entities.AppointmentEntities;
+using Domain.Entities.ClinicEntities;
 using Domain.Entities.MedicalRecordEntites;
 using Domain.Entities.SecurityEntities;
 using System;
@@ -42,7 +43,7 @@ namespace Domain.Entities.DoctorEntites
         public  Clinic Clinic { get; set; }
         public User User { get; set; }
         public string UserId { get; set; }
-
+        public Appointment appointment { get; set; }
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
         public ICollection<DoctorSchedule> Schedules { get; set; } = new List<DoctorSchedule>();
 
@@ -50,3 +51,4 @@ namespace Domain.Entities.DoctorEntites
     }
 
 }
+*/

@@ -1,4 +1,4 @@
-﻿using Domain.Entities.DoctorEntites;
+﻿/*using Domain.Entities.DoctorEntites;
 using Domain.Entities.PetEntities;
 using System;
 using System.Collections.Generic;
@@ -19,3 +19,4 @@ namespace Shared.DoctorModels
         public Guid ClinicId { get; init; }
     }
 }
+*/

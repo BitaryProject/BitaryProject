@@ -1,4 +1,4 @@
-﻿using Domain.Entities.AppointmentEntities;
+﻿/*using Domain.Entities.AppointmentEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,3 +26,4 @@ namespace Services.MappingProfiles
     }
 
 }
+*/

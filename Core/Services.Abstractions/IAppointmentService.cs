@@ -1,4 +1,4 @@
-﻿using Shared.AppointmentModels;
+﻿/*using Shared.AppointmentModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,3 +17,4 @@ namespace Services.Abstractions
         Task<bool> DeleteAppointmentAsync(Guid appointmentId);
     }
 }
+*/

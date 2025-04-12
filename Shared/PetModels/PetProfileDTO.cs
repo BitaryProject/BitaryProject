@@ -1,4 +1,4 @@
-﻿using Domain.Entities.PetEntities;
+﻿/*using Domain.Entities.PetEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,3 +21,4 @@ namespace Shared.PetModels
         public IEnumerable<MedicalRecordDTO> MedicalRecords { get; init; } = new List<MedicalRecordDTO>();
     }
 }
+*/

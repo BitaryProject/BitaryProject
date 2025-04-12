@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,13 +30,7 @@ namespace Services
                 this.mapper = mapper;
             }
 
-           /*
-            public PetService(IPetService petRepository1, IMapper mapper)
-            {
-                this.petRepository1 = petRepository1;
-                this.mapper = mapper;
-            }
-           */
+           
             public async Task<PetProfileDTO> CreatePetAsync(PetProfileDTO petDto)
             {
                 var pet = mapper.Map<Pet>(petDto);
@@ -103,3 +97,4 @@ namespace Services
     }
 
 }
+*/

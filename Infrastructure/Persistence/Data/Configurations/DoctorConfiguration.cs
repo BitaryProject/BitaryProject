@@ -1,4 +1,4 @@
-﻿using Domain.Entities.DoctorEntites;
+﻿/*using Domain.Entities.DoctorEntites;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -59,3 +59,4 @@ namespace Persistence.Data.Configurations
     }
 
 }
+*/

@@ -1,4 +1,4 @@
-﻿using Domain.Entities.MedicalRecordEntites;
+﻿/*using Domain.Entities.MedicalRecordEntites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,3 +26,4 @@ namespace Services.Specifications
         }
     }
 }
+*/

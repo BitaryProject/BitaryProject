@@ -1,4 +1,4 @@
-﻿using Shared.DoctorModels;
+﻿/*using Shared.DoctorModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,3 +14,4 @@ namespace Services.Abstractions
         Task<bool> DeleteDoctorAsync(Guid doctorId);
     }
 }
+*/

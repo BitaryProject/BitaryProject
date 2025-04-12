@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using Domain.Contracts.NewModule; 
 using Domain.Entities.DoctorEntites;
 using Domain.Exceptions;         
@@ -14,7 +14,6 @@ namespace Services
     {
         private readonly IDoctorRepository doctorRepository;
         private readonly IMapper mapper;
-      //  private IDoctorService doctorRepository1;
 
         public DoctorService(IDoctorRepository doctorRepository, IMapper mapper)
         {
@@ -22,12 +21,6 @@ namespace Services
             this.mapper = mapper;
         }
 
-      /*  public DoctorService(IDoctorService doctorRepository1, IMapper mapper)
-        {
-            this.doctorRepository1 = doctorRepository1;
-            this.mapper = mapper;
-        }
-      */
         public async Task<DoctorDTO?> GetDoctorByIdAsync(Guid doctorId)
         {
             var doctor = await doctorRepository.GetAsync(doctorId);
@@ -72,3 +65,4 @@ namespace Services
         }
     }
 }
+*/

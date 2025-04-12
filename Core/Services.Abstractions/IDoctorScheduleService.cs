@@ -1,4 +1,4 @@
-﻿using Shared.DoctorModels;
+﻿/*using Shared.DoctorModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,3 +13,4 @@ namespace Services.Abstractions
         Task<bool> IsDoctorAvailableAsync(Guid doctorId, DateTime date);
     }
 }
+*/

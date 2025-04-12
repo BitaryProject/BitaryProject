@@ -1,4 +1,4 @@
-﻿using Domain.Entities.ClinicEntities;
+﻿/*using Domain.Entities.ClinicEntities;
 using System;
 using System.Globalization;
 
@@ -21,3 +21,4 @@ namespace Services.Specifications
     }
 }
 
+*/

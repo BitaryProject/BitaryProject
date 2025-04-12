@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Identity;
+﻿/*using Domain.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,3 +15,4 @@ namespace Shared.ClinicModels
         public decimal ExaminationFee { get; init; }
     }
 }
+*/

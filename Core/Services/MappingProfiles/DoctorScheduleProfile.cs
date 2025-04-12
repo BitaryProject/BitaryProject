@@ -1,4 +1,4 @@
-﻿using Domain.Entities.DoctorEntites;
+﻿/*using Domain.Entities.DoctorEntites;
 using Shared.DoctorModels;
 using System;
 using System.Collections.Generic;
@@ -17,3 +17,4 @@ namespace Services.MappingProfiles
         }
     }
 }
+*/

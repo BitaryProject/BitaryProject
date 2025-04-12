@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.Abstractions;
 using Shared.ClinicModels;
@@ -69,3 +69,4 @@ namespace Presentation.Controllers
         }
     }
 }
+*/

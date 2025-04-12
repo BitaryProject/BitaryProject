@@ -1,4 +1,4 @@
-﻿using Domain.Entities.PetEntities;
+﻿/*using Domain.Entities.PetEntities;
 using Domain.Entities.MedicalRecordEntites;
 using Domain.Entities.DoctorEntites;
 using Domain.Entities.ClinicEntities;
@@ -39,12 +39,8 @@ namespace Persistence.Data
             modelBuilder.Entity<ClinicSearchCriteria>().HasNoKey();
             //modelBuilder.Entity<ClinicAddress>().HasNoKey();
 
-            /*
-                        modelBuilder.Entity<Clinic>(builder =>
-                        {
-                            builder.OwnsOne(c => c.Address); // Configure Address as an owned entity of Clinic
-                        });
-            */
+           
         }
     }
 }
+*/

@@ -1,4 +1,4 @@
-﻿using Domain.Entities.AppointmentEntities;
+﻿/*using Domain.Entities.AppointmentEntities;
 using Domain.Entities.MedicalRecordEntites;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -59,3 +59,4 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+*/

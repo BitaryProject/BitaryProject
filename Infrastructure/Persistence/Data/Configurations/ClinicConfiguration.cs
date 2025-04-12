@@ -1,4 +1,4 @@
-﻿using Domain.Entities.ClinicEntities;
+﻿/*using Domain.Entities.ClinicEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -55,3 +55,4 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+*/

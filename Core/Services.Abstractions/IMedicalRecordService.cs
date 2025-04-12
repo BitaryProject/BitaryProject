@@ -1,4 +1,4 @@
-﻿using Shared.MedicalRecordModels;
+﻿/*using Shared.MedicalRecordModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,3 +18,4 @@ namespace Services.Abstractions
         Task<bool> DeleteMedicalRecordAsync(Guid recordId);
     }
 }
+*/

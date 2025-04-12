@@ -1,4 +1,4 @@
-﻿using Domain.Entities.PetEntities;
+﻿/*using Domain.Entities.PetEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -46,3 +46,4 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+*/

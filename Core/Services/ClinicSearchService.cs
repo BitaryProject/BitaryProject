@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.NewModule;
+﻿/*using Domain.Contracts.NewModule;
 using Domain.Entities.ClinicEntities;
 using Shared.ClinicModels;
 using AutoMapper;
@@ -11,7 +11,7 @@ namespace Services
     {
         private readonly IClinicRepository _clinicRepository;
         private readonly IMapper _mapper;
-
+s
         public ClinicSearchService(
             IClinicRepository clinicRepository,
             IMapper mapper)
@@ -43,4 +43,4 @@ namespace Services
             throw new NotImplementedException();
         }
     }
-}
+}*/

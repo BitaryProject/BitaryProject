@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using Domain.Entities.AppointmentEntities;
 using Domain.Contracts.NewModule; 
 using Domain.Exceptions;     
@@ -15,7 +15,6 @@ namespace Services
     {
         private readonly IAppointmentRepository appointmentRepository;
         private readonly IMapper mapper;
-      //  private IAppointmentService appointmentRepository1;
 
         public AppointmentService(IAppointmentRepository appointmentRepository, IMapper mapper)
         {
@@ -23,12 +22,6 @@ namespace Services
             this.mapper = mapper;
         }
 
-      /*  public AppointmentService(IAppointmentService appointmentRepository1, IMapper mapper)
-        {
-            this.appointmentRepository1 = appointmentRepository1;
-            this.mapper = mapper;
-        }
-      */
 
         public async Task<AppointmentDTO?> GetAppointmentByIdAsync(Guid appointmentId)
         {
@@ -50,14 +43,7 @@ namespace Services
             return mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
         }
 
-      /*  public async Task<AppointmentDTO> CreateAppointmentAsync(AppointmentDTO model)
-        {
-            var appointment = mapper.Map<Appointment>(model);
-            appointment.Id = Guid.NewGuid();
-            await appointmentRepository.AddAsync(appointment);
-            return mapper.Map<AppointmentDTO>(appointment);
-        }
-        */
+     
 
         public async Task<AppointmentDTO?> UpdateAppointmentAsync(Guid appointmentId, AppointmentDTO model)
         {
@@ -92,20 +78,7 @@ namespace Services
             DateTime appointmentStart = model.AppointmentDate;
             DateTime appointmentEnd = model.AppointmentDate.Add(appointmentDuration);
 
-            /*
-                        var existingAppointments = await appointmentRepository.GetAllAsQueryable()
-                           .Where(a => a.DoctorId == model.DoctorId)
-                           .ToListAsync();
-                        foreach (var existing in existingAppointments)
-                        {
-                            DateTime existingStart = existing.AppointmentDate;
-                            DateTime existingEnd = existingStart.Add(appointmentDuration);
-
-                            // لو وقت البداية أو النهاية بيتداخلوا، نرفض الحجز
-                            if (appointmentStart < existingEnd && existingStart < appointmentEnd)
-                                throw new Exception(" another appointment scheduled at the same time with this doctor. Choose another time.");
-                        }
-            */
+           
 
             var conflictingAppointments = await appointmentRepository.GetAllAsQueryable()
                 .Where(a => a.DoctorId == model.DoctorId &&
@@ -126,3 +99,4 @@ namespace Services
 
     }
 }
+*/

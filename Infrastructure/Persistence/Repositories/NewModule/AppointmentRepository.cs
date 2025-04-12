@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.NewModule;
+﻿/*using Domain.Contracts.NewModule;
 using Domain.Entities.AppointmentEntities;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -35,3 +35,4 @@ namespace Persistence.Repositories.NewModule
         }
     }
 }
+*/
