@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Persistence.Migrations.NewModule
+namespace Persistence.Migrations.Identity
 {
     /// <inheritdoc />
-    public partial class Address : Migration
+    public partial class IdentityN : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

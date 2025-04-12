@@ -13,8 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
-using Domain.Contracts.NewModule;
-using Persistence.Repositories.NewModule;
+//using Domain.Contracts.NewModule;
+//using Persistence.Repositories.NewModule;
 using Services.Abstractions;
 using Services;
 namespace BitaryProject.Extensions
@@ -26,14 +26,14 @@ namespace BitaryProject.Extensions
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IUnitOFWork, UnitOfWork>();
             services.AddScoped<IbasketRepository, BasketRepository>();
-            services.AddScoped<INewModuleUnitOfWork, NewModuleUnitOfWork>();
-            services.AddScoped<IPetRepository, PetRepository>();
-            services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IClinicRepository, ClinicRepository>();
-            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-            services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
-            services.AddScoped<IDoctorScheduleRepository, DoctorScheduleRepository>();
-            services.AddScoped<IClinicSearchService, ClinicSearchService>();
+            //services.AddScoped<INewModuleUnitOfWork, NewModuleUnitOfWork>();
+            //services.AddScoped<IPetRepository, PetRepository>();
+            //services.AddScoped<IDoctorRepository, DoctorRepository>();
+            //services.AddScoped<IClinicRepository, ClinicRepository>();
+            //services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            //services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+            //services.AddScoped<IDoctorScheduleRepository, DoctorScheduleRepository>();
+            //services.AddScoped<IClinicSearchService, ClinicSearchService>();
 
             services.AddDbContext<StoreContext>(
                options =>
@@ -49,17 +49,17 @@ namespace BitaryProject.Extensions
                }
                );
 
-              services.AddDbContext<NewModuleContext>(
-               options =>
-               { 
-                options.UseSqlServer(configuration.GetConnectionString("NewModuleConnection"));
-               }
-               );
+              //services.AddDbContext<NewModuleContext>(
+              // options =>
+              // { 
+              //  options.UseSqlServer(configuration.GetConnectionString("NewModuleConnection"));
+              // }
+              // );
 
             services.Configure<DomainSettings>(configuration.GetSection("DomainUrls"));
 
-            services.AddSingleton<IConnectionMultiplexer>
-                  (_ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
+            //services.AddSingleton<IConnectionMultiplexer>
+            //      (_ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
 
 
             services.ConfigureIdentityService();

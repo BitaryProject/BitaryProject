@@ -27,10 +27,10 @@ namespace BitaryProject
             var app = builder.Build();
 
             #region Pipelines
-           
+
 
             await app.SeedDbAsync();
-
+            //app.UseExceptionHandler();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -38,14 +38,22 @@ namespace BitaryProject
             }
 
             app.UseStaticFiles();
-            app.UseCors("CORSPolicy");
 
-            app.UseCors(policy =>
+            app.UseExceptionHandler(errorApp =>
             {
-                policy.AllowAnyHeader().
-                AllowAnyOrigin().
-                AllowAnyMethod();
+                errorApp.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+                    await context.Response.WriteAsync("{\"error\": \"An unexpected error occurred.\"}");
+                });
             });
+            //     app.UseCors("CORSPolicy");
+
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -56,7 +64,6 @@ namespace BitaryProject
 
             app.MapControllers();
 
-            app.Run();
 
             #endregion
 
@@ -66,7 +73,16 @@ namespace BitaryProject
                 Console.WriteLine($"Incoming Request: {context.Request.Method} {context.Request.Path}");
                 await next.Invoke();
             });
-
+            try
+            {
+                await app.RunAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Application failed to start.");
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+            }
         }
     }
 }

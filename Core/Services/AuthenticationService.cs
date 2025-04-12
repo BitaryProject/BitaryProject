@@ -35,8 +35,8 @@ namespace Services
                 DisplayName = registerModel.DisplayName,
                 Email = registerModel.Email,
                 PhoneNumber = registerModel.PhoneNumber,
-                UserName = registerModel.UserName,
-                Role = UserRole.PetOwner
+                UserName = registerModel.UserName
+                //UserRole = UserRole.PetOwner
             };
 
             var result = await userManager.CreateAsync(user, registerModel.Password);
@@ -183,7 +183,7 @@ namespace Services
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+                //new Claim(ClaimTypes.Role, user.UserRole.ToString())
             };
 
             var roles = await userManager.GetRolesAsync(user);

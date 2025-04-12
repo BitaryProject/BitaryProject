@@ -1,20 +1,20 @@
-﻿using Shared.MedicalRecordModels;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿//using Shared.MedicalRecordModels;
+//using System;
+//using System.Collections.Generic;
+//using System.Threading.Tasks;
 
-namespace Services.Abstractions
-{
-    public interface IMedicalRecordService
-    {
-        Task<MedicalRecordDTO?> GetMedicalRecordByIdAsync(Guid recordId);
+//namespace Services.Abstractions
+//{
+//    public interface IMedicalRecordService
+//    {
+//        Task<MedicalRecordDTO?> GetMedicalRecordByIdAsync(int recordId);
 
-        Task<IEnumerable<MedicalRecordDTO>> GetRecordsByPetIdAsync(Guid petId);
+//        Task<IEnumerable<MedicalRecordDTO>> GetRecordsByPetIdAsync(int petId);
 
-        Task<MedicalRecordDTO> CreateMedicalRecordAsync(MedicalRecordDTO model);
+//        Task<MedicalRecordDTO> CreateMedicalRecordAsync(MedicalRecordDTO model);
 
-        Task<MedicalRecordDTO?> UpdateMedicalRecordAsync(Guid recordId, MedicalRecordDTO model);
+//        Task<MedicalRecordDTO?> UpdateMedicalRecordAsync(int recordId, MedicalRecordDTO model);
 
-        Task<bool> DeleteMedicalRecordAsync(Guid recordId);
-    }
-}
+//        Task<bool> DeleteMedicalRecordAsync(int recordId);
+//    }
+//}

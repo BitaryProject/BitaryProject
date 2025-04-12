@@ -1,5 +1,5 @@
 ﻿global using Microsoft.AspNetCore.Identity;
-using Domain.Entities.DoctorEntites;
+//using Domain.Entities.DoctorEntites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.SecurityEntities
 {
-    public enum UserRole :byte
-    {
-        PetOwner =1,
-        Doctor=2,
-    }
+    //public enum UserRole :byte
+    //{
+    //    PetOwner =1,
+    //    Doctor=2,
+    //}
     public enum Gender : byte
     {
         male = 1,
@@ -27,8 +27,8 @@ namespace Domain.Entities.SecurityEntities
         public string DisplayName { get; set; }
         public Address Address { get; set; }
         public Gender Gender { get; set; }
-        public UserRole Role { get; set; }
-        public Doctor DoctorProfile { get; set; }
+        //public UserRole UserRole { get; set; }
+        //public Doctor DoctorProfile { get; set; }
 
 
     }
