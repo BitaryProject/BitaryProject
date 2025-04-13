@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Persistence.Identity;
 using Persistence.Repositories;
 using Shared.SecurityModels;
-using StackExchange.Redis;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
@@ -38,15 +37,51 @@ namespace BitaryProject.Extensions
             services.AddDbContext<StoreContext>(
                options =>
                {
-                   options.UseSqlServer(configuration.GetConnectionString("DefaultSQLConnection"));
-               }
+                   options.UseSqlServer(configuration.GetConnectionString("DefaultSQLConnection"),
+                       sqlServerOptionsAction: sqlOptions =>
+                       {
+                           sqlOptions.EnableRetryOnFailure(
+                               maxRetryCount: 3,
+                               maxRetryDelay: TimeSpan.FromSeconds(15),
+                               errorNumbersToAdd: null);
+                           sqlOptions.CommandTimeout(60); // Reduce timeout to fail faster
+                       });
+                   
+                   // Disable change tracking for read operations to improve performance
+                   options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                   
+                   // Disable automatic migrations
+                   options.EnableDetailedErrors(false);
+                   options.EnableSensitiveDataLogging(false);
+               },
+               // Use a service lifetime that doesn't delay startup time
+               ServiceLifetime.Scoped,
+               ServiceLifetime.Scoped
                );
 
               services.AddDbContext<IdentityContext>(
                options =>
                {
-                   options.UseSqlServer(configuration.GetConnectionString("IdentitySQLConnection"));
-               }
+                   options.UseSqlServer(configuration.GetConnectionString("IdentitySQLConnection"),
+                       sqlServerOptionsAction: sqlOptions =>
+                       {
+                           sqlOptions.EnableRetryOnFailure(
+                               maxRetryCount: 3,
+                               maxRetryDelay: TimeSpan.FromSeconds(15),
+                               errorNumbersToAdd: null);
+                           sqlOptions.CommandTimeout(60); // Reduce timeout to fail faster
+                       });
+                   
+                   // Disable change tracking for read operations to improve performance
+                   options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                   
+                   // Disable automatic migrations
+                   options.EnableDetailedErrors(false);
+                   options.EnableSensitiveDataLogging(false);
+               },
+               // Use a service lifetime that doesn't delay startup time
+               ServiceLifetime.Scoped,
+               ServiceLifetime.Scoped
                );
 
               //services.AddDbContext<NewModuleContext>(

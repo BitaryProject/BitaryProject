@@ -8,7 +8,7 @@ namespace Shared.ProductModels
 {
     public class ProductSpecificationsParameters
     {
-        private const int MAXPAGESIZE = 15;
+        private const int MAXPAGESIZE = 188;
 
         private const int DefualtPageSize = 10;
         public int? BrandId { get; set; }

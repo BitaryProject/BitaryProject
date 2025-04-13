@@ -12,6 +12,7 @@ using Domain.Entities.OrderEntities;
 using Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Domain.Entities.SecurityEntities;
+using Microsoft.Data.SqlClient;
 
 
 namespace Persistence
@@ -44,25 +45,92 @@ namespace Persistence
         {
             try
             {
-                if (_storeContext.Database.GetPendingMigrations().Any())
-                    await _storeContext.Database.MigrateAsync();
-
-
-                if (!_storeContext.ProductCategories.Any())
-
-                {
-                    var typesData = await File.ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\Seeding\category.json");
-
-                    var types = JsonSerializer.Deserialize<List<ProductCategory>>(typesData);
-
-                    if (types is not null && types.Any())
-                    {
-                        await _storeContext.ProductCategories.AddRangeAsync(types);
-
-                        await _storeContext.SaveChangesAsync();
+                Console.WriteLine("Attempting to connect to database...");
+                bool hasConnection = false;
+                
+                try {
+                    // Test the connection before attempting any operations
+                    hasConnection = await _storeContext.Database.CanConnectAsync();
+                    Console.WriteLine($"Database connection test: {(hasConnection ? "Successful" : "Failed")}");
+                    
+                    if (!hasConnection) {
+                        Console.WriteLine("Cannot connect to database. Check connection string and network.");
+                        return;
                     }
                 }
+                catch (Exception connEx) {
+                    Console.WriteLine($"Connection test error: {connEx.Message}");
+                    Console.WriteLine($"Connection error type: {connEx.GetType().Name}");
+                    if (connEx.InnerException != null) {
+                        Console.WriteLine($"Inner exception: {connEx.InnerException.Message}");
+                    }
+                    return;
+                }
+                
+                if (_storeContext.Database.GetPendingMigrations().Any())
+                {
+                    Console.WriteLine("Applying pending migrations...");
+                    await _storeContext.Database.MigrateAsync();
+                    Console.WriteLine("Migrations completed successfully");
+                }
 
+                // Check if data already exists before trying to seed
+                if (!_storeContext.ProductCategories.Any())
+                {
+                    try
+                    {
+                        Console.WriteLine("Seeding product categories...");
+                        // Use a more robust path resolution for production environments
+                        string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                        string seedingPath = Path.Combine(basePath, "Persistence", "Data", "Seeding");
+                        
+                        // Fall back to relative path if the direct path doesn't exist
+                        if (!Directory.Exists(seedingPath))
+                        {
+                            seedingPath = @"..\Infrastructure\Persistence\Data\Seeding";
+                            if (!Directory.Exists(seedingPath))
+                            {
+                                Console.WriteLine($"Seeding directory not found at: {seedingPath}");
+                                // Try to find the seeding directory
+                                seedingPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Seeding");
+                                if (!Directory.Exists(seedingPath))
+                                {
+                                    seedingPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "Data", "Seeding");
+                                }
+                                Console.WriteLine($"Trying alternative path: {seedingPath}");
+                            }
+                        }
+                        
+                        string categoryPath = Path.Combine(seedingPath, "category.json");
+                        Console.WriteLine($"Looking for category.json at: {categoryPath}");
+                        
+                        if (File.Exists(categoryPath))
+                        {
+                            var typesData = await File.ReadAllTextAsync(categoryPath);
+                            var types = JsonSerializer.Deserialize<List<ProductCategory>>(typesData);
+
+                            if (types is not null && types.Any())
+                            {
+                                await _storeContext.ProductCategories.AddRangeAsync(types);
+                                await _storeContext.SaveChangesAsync();
+                                Console.WriteLine($"Added {types.Count} product categories");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("category.json file not found");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log but continue - seeding is not critical to app operation
+                        Console.WriteLine($"Error seeding product categories: {ex.Message}");
+                        if (ex.InnerException != null)
+                        {
+                            Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                        }
+                    }
+                }
 
                 if (!_storeContext.ProductBrands.Any())
                 {
@@ -75,11 +143,7 @@ namespace Persistence
                         await _storeContext.ProductBrands.AddRangeAsync(brands);
                         await _storeContext.SaveChangesAsync();
                     }
-
-
-
                 }
-
 
                 if (!_storeContext.Products.Any())
                 {
@@ -94,9 +158,7 @@ namespace Persistence
                     }
                 }
 
-
-            
-            if (!_storeContext.DeliveryMethods.Any())
+                if (!_storeContext.DeliveryMethods.Any())
                 {
                     var data = await File.ReadAllTextAsync(@"..\Infrastructure\Persistence\Data\Seeding\delivery.json");
 
@@ -108,14 +170,20 @@ namespace Persistence
                         await _storeContext.SaveChangesAsync();
                     }
                 }
-
-
             }
-
-
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Console.WriteLine($"Database initialization error: {ex.Message}");
+                Console.WriteLine($"Error type: {ex.GetType().Name}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                    Console.WriteLine($"Inner exception type: {ex.InnerException.GetType().Name}");
+                }
+                // Re-throw only critical exceptions that should stop the application
+                if (ex is DbUpdateException || ex is SqlException)
+                    throw;
             }
         }
 
