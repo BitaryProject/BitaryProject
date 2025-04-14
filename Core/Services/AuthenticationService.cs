@@ -343,7 +343,8 @@ namespace Services
                 FirstName = user.FirstName ?? string.Empty,
                 LastName = user.LastName ?? string.Empty,
                 Gender = user.Gender,
-                Address = address
+                Address = address,
+                PhoneNumber = user.PhoneNumber ?? string.Empty
             };
         }
 

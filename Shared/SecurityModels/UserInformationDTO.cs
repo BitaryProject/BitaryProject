@@ -17,17 +17,15 @@ namespace Shared.SecurityModels
 
         [MaxLength(10)]
         [Required]
-
         public string LastName { get; set; }
-        [Required]
 
+        [Required]
         public Gender Gender { get; set; }
-        [Required]
 
+        [Required]
         public AddressDTO Address { get; set; }
 
-
-        
+        public string PhoneNumber { get; set; }
     }
 }
 
