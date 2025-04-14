@@ -146,22 +146,41 @@ namespace Services
 
         public async Task<bool> SendResetPasswordEmailAsync(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email is required", nameof(email));
+
             var user = await userManager.FindByEmailAsync(email);
-            if (user == null) throw new Exception("User not found");
+            if (user == null) 
+                throw new UserNotFoundException(email);
 
-            // Update the security stamp to invalidate any previous tokens
-            await userManager.UpdateSecurityStampAsync(user);
+            try
+            {
+                // Update security stamp to invalidate any previous tokens
+                await userManager.UpdateSecurityStampAsync(user);
 
-            // Generate a new password reset token after updating the security stamp
-            var token = await userManager.GeneratePasswordResetTokenAsync(user);
-            var DomainOptions = domainOptions.Value;
+                // Generate a new password reset token
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                
+                // URL encode the token to ensure it's properly formatted in the URL
+                var encodedToken = Uri.EscapeDataString(token);
+                
+                var DomainOptions = domainOptions.Value;
+                var resetLink = $"{DomainOptions.bitaryUrl}api/Authentication/ResetPassword?email={Uri.EscapeDataString(email)}&token={encodedToken}";
 
-            var resetLink = $"{DomainOptions.bitaryUrl}api/Authentication/ResetPassword?email={email}&token={token}";
+                // Send the reset password email with the generated link
+                await mailingService.SendEmailAsync(
+                    user.Email!, 
+                    "Reset Password", 
+                    $"Click the link to reset your password: {resetLink}\n\n" +
+                    "This link will expire in 24 hours. If you did not request this password reset, please ignore this email."
+                );
 
-            // Send the reset password email with the generated link
-            await mailingService.SendEmailAsync(user.Email!, "Reset Password", $"Click the link to reset your password: {resetLink}");
-
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to send reset password email: {ex.Message}", ex);
+            }
         }
         public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
         {
@@ -180,6 +199,29 @@ namespace Services
 
             try
             {
+                // First verify the token is valid
+                var isValidToken = await userManager.VerifyUserTokenAsync(
+                    user, 
+                    TokenOptions.DefaultProvider, 
+                    "ResetPassword", 
+                    token
+                );
+
+                if (!isValidToken)
+                {
+                    // Try to generate a new token to check if the user's security stamp has changed
+                    await userManager.UpdateSecurityStampAsync(user);
+                    var newToken = await userManager.GeneratePasswordResetTokenAsync(user);
+                    
+                    // If we can generate a new token but the provided one is invalid, it's likely expired
+                    if (!string.IsNullOrEmpty(newToken))
+                    {
+                        throw new Exception("Password reset token has expired. Please request a new password reset link.");
+                    }
+                    
+                    throw new Exception("Invalid password reset token. Please request a new password reset link.");
+                }
+
                 var resetResult = await userManager.ResetPasswordAsync(user, token, newPassword);
                 if (!resetResult.Succeeded)
                 {
@@ -187,6 +229,8 @@ namespace Services
                     throw new Exception($"Password reset failed: {errorMessage}");
                 }
 
+                // Update security stamp after successful password reset
+                await userManager.UpdateSecurityStampAsync(user);
                 return true;
             }
             catch (Exception ex) when (ex is not UserNotFoundException)
