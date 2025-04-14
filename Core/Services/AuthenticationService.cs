@@ -327,12 +327,23 @@ namespace Services
                 .FirstOrDefaultAsync(u => u.Email == email)
                 ?? throw new UserNotFoundException(email);
 
+            // Initialize an empty address if user doesn't have one
+            var address = user.Address != null 
+                ? mapper.Map<AddressDTO>(user.Address) 
+                : new AddressDTO 
+                { 
+                    City = string.Empty,
+                    Country = string.Empty,
+                    Street = string.Empty,
+                    Name = string.Empty
+                };
+
             return new UserInformationDTO
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                FirstName = user.FirstName ?? string.Empty,
+                LastName = user.LastName ?? string.Empty,
                 Gender = user.Gender,
-                Address = user.Address != null ? mapper.Map<AddressDTO>(user.Address) : null
+                Address = address
             };
         }
 

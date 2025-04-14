@@ -153,16 +153,27 @@ namespace Presentation
         //    return Ok(user);
         //}
         [HttpGet("GetUserInformation")]
-           public async Task<IActionResult> GetUserInformation([FromQuery] string email)
-           {
-               if (string.IsNullOrEmpty(email))
-               {
-                   email = User.FindFirstValue(ClaimTypes.Email);
-            }
+        public async Task<IActionResult> GetUserInformation(string email)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    email = User.FindFirstValue(ClaimTypes.Email);
+                    if (string.IsNullOrEmpty(email))
+                    {
+                        return Unauthorized("Email not found in token and no email provided.");
+                    }
+                }
 
-               var userInfo = await serviceManager.AuthenticationService.GetUserInfo(email);
-               return Ok(userInfo);
-           }
+                var userInfo = await serviceManager.AuthenticationService.GetUserInfo(email);
+                return Ok(userInfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Error retrieving user information: {ex.Message}" });
+            }
+        }
             [HttpPost("UpdateUserInformation")]
             [Authorize]
             public async Task<ActionResult> UpdateUserInfo([FromQuery] UserInformationDTO userInfo, [FromQuery] AddressDTO address)
