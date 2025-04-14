@@ -27,16 +27,39 @@ namespace Services
     {
         public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
         {
-
+            // Validate input parameters
+            List<string> validationErrors = new();
+            
+            if (string.IsNullOrWhiteSpace(registerModel.Email))
+                validationErrors.Add("Email is required");
+            
+            if (string.IsNullOrWhiteSpace(registerModel.UserName))
+                validationErrors.Add("Username is required");
+            
+            if (string.IsNullOrWhiteSpace(registerModel.Password))
+                validationErrors.Add("Password is required");
+            
+            if (string.IsNullOrWhiteSpace(registerModel.FirstName) || string.IsNullOrWhiteSpace(registerModel.LastName))
+                validationErrors.Add("First name and last name are required");
+            
+            if (!string.IsNullOrWhiteSpace(registerModel.Email) && await userManager.FindByEmailAsync(registerModel.Email) != null)
+                validationErrors.Add("Email is already in use");
+            
+            if (!string.IsNullOrWhiteSpace(registerModel.UserName) && await userManager.FindByNameAsync(registerModel.UserName) != null) 
+                validationErrors.Add("Username is already in use");
+            
+            if (validationErrors.Any())
+                throw new ValidationException(validationErrors);
 
             var user = new User
             {
-
-                DisplayName = registerModel.DisplayName,
+                FirstName = registerModel.FirstName,
+                LastName = registerModel.LastName,
+                DisplayName = $"{registerModel.FirstName} {registerModel.LastName}",
                 Email = registerModel.Email,
                 PhoneNumber = registerModel.PhoneNumber,
-                UserName = registerModel.UserName
-                //UserRole = UserRole.PetOwner
+                UserName = registerModel.UserName,
+                Gender = registerModel.Gender
             };
 
             var result = await userManager.CreateAsync(user, registerModel.Password);
@@ -45,12 +68,25 @@ namespace Services
                 var errors = result.Errors.Select(e => e.Description).ToList();
                 throw new ValidationException(errors);
             }
+            
+            try
+            {
+                // Generate and send verification code if registration is successful
+                var DomainOptions = domainOptions.Value;
+                var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+
+                await mailingService.SendEmailAsync(user.Email!, "Verification Code", 
+                    $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={registerModel.Email}&otp={verificationCode}");
+            }
+            catch (Exception)
+            {
+                // Even if email sending fails, continue returning the user
+            }
+
             return new UserResultDTO(
-                        user.DisplayName,
-                         user.Email,
-                       await CreateTokenAsync(user));
-
-
+                user.DisplayName,
+                user.Email,
+                await CreateTokenAsync(user));
         }
 
         public async Task<bool> CheckEmailExist(string email)
@@ -129,17 +165,34 @@ namespace Services
         }
         public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
         {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email is required", nameof(email));
+            
+            if (string.IsNullOrWhiteSpace(token))
+                throw new ArgumentException("Reset token is required", nameof(token));
+            
+            if (string.IsNullOrWhiteSpace(newPassword))
+                throw new ArgumentException("New password is required", nameof(newPassword));
+
             var user = await userManager.FindByEmailAsync(email);
-            if (user == null) throw new UserNotFoundException(email);
+            if (user == null) 
+                throw new UserNotFoundException(email);
 
-            var isValidToken = await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token);
-            if (!isValidToken) throw new Exception("Invalid or expired token");
+            try
+            {
+                var resetResult = await userManager.ResetPasswordAsync(user, token, newPassword);
+                if (!resetResult.Succeeded)
+                {
+                    var errorMessage = string.Join(", ", resetResult.Errors.Select(e => e.Description));
+                    throw new Exception($"Password reset failed: {errorMessage}");
+                }
 
-            var resetResult = await userManager.ResetPasswordAsync(user, token, newPassword);
-            if (!resetResult.Succeeded)
-                throw new Exception(string.Join(", ", resetResult.Errors.Select(e => e.Description)));
-
-            return true;
+                return true;
+            }
+            catch (Exception ex) when (ex is not UserNotFoundException)
+            {
+                throw new Exception($"Error resetting password: {ex.Message}", ex);
+            }
         }
 
 

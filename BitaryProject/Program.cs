@@ -83,16 +83,8 @@ namespace BitaryProject
 
             app.UseStaticFiles();
 
-            // Simplified exception handler for faster initialization
-            app.UseExceptionHandler(errorApp =>
-            {
-                errorApp.Run(async context =>
-                {
-                    context.Response.StatusCode = 500;
-                    context.Response.ContentType = "application/json";
-                    await context.Response.WriteAsync("{\"error\": \"An unexpected error occurred. Please try again later.\"}");
-                });
-            });
+            // Remove the simplified exception handler and replace with custom middleware
+            app.UseCustomExceptionMiddleware();
             
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()

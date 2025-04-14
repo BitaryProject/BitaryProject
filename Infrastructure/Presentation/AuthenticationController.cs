@@ -33,8 +33,25 @@ namespace Presentation
             [HttpPost("Register")]
             public async Task<ActionResult<UserResultDTO>> Register([FromBody] UserRegisterDTO registerDTO)
             {
-                var result = await serviceManager.AuthenticationService.RegisterAsync(registerDTO);
-                return Ok(result);
+                try
+                {
+                    var result = await serviceManager.AuthenticationService.RegisterAsync(registerDTO);
+                    return Ok(result);
+                }
+                catch (ValidationException ex)
+                {
+                    // Return a properly formatted error response with validation errors
+                    return BadRequest(new
+                    {
+                        message = ex.Message,
+                        errors = ex.Errors
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // Log the unexpected error
+                    return StatusCode(500, new { message = "Registration failed: " + ex.Message });
+                }
             }
 
             [HttpGet("CheckEmailExist")]
@@ -73,8 +90,21 @@ namespace Presentation
             [HttpPost("ResetPassword")]
             public async Task<ActionResult> ResetPassword(string email, string token, string newPassword)
             {
-                await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
-                return Ok(new { Message = "Password reset successfully." });
+                try 
+                {
+                    await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
+                    return Ok(new { Message = "Password reset successfully." });
+                }
+                catch (UserNotFoundException ex)
+                {
+                    // Return a properly formatted 404 response
+                    return NotFound(new { message = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    // Log the unexpected error
+                    return StatusCode(500, new { message = "Password reset failed: " + ex.Message });
+                }
             }
         [HttpPost("AddUserAddress")]
         [Authorize]
