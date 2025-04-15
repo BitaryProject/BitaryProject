@@ -18,6 +18,7 @@ namespace Persistence.Repositories
         {
             return await _context.CustomerBaskets
                 .Include(b => b.BasketItems)
+                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
 
@@ -25,6 +26,7 @@ namespace Persistence.Repositories
         {
             var existingBasket = await _context.CustomerBaskets
                 .Include(b => b.BasketItems)
+                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(b => b.Id == basket.Id);
 
             if (existingBasket == null)
@@ -33,35 +35,39 @@ namespace Persistence.Repositories
             }
             else
             {
+                // Update scalar properties
                 _context.Entry(existingBasket).CurrentValues.SetValues(basket);
 
-                if (existingBasket.BasketItems == null)
-                    existingBasket.BasketItems = new List<BasketItem>();
-
+                // Handle items
                 foreach (var newItem in basket.BasketItems)
                 {
-                  
                     var existingItem = existingBasket.BasketItems
                         .FirstOrDefault(i => i.Product.ProductId == newItem.Product.ProductId);
 
                     if (existingItem != null)
                     {
-   
-                        existingItem.Quantity += newItem.Quantity;
-
-                        existingItem.Price = newItem.Price;
-                        existingItem.Product.PictureUrl = newItem.Product.PictureUrl;
-                        existingItem.Product.ProductName = newItem.Product.ProductName;
+                        // Update existing item
+                        _context.Entry(existingItem).CurrentValues.SetValues(newItem);
+                        existingItem.Product = newItem.Product;
                     }
                     else
-                    {                    
+                    {
                         existingBasket.BasketItems.Add(newItem);
+                    }
+                }
+
+                // Remove deleted items
+                foreach (var existingItem in existingBasket.BasketItems.ToList())
+                {
+                    if (!basket.BasketItems.Any(i => i.Product.ProductId == existingItem.Product.ProductId))
+                    {
+                        existingBasket.BasketItems.Remove(existingItem);
                     }
                 }
             }
 
-            var result = await _context.SaveChangesAsync();
-            return result >= 0 ? basket : null;
+            await _context.SaveChangesAsync();
+            return existingBasket ?? basket;
         }
 
         public async Task<bool> DeleteBasketAsync(Guid id)
@@ -83,6 +89,7 @@ namespace Persistence.Repositories
             var result = await _context.SaveChangesAsync();
             return result > 0 ? basket : null;
         }
+
 
 
         public async Task<bool> RemoveItemAsync(Guid basketId, Guid itemId)

@@ -240,15 +240,18 @@ namespace Persistence.Migrations
                             b1.Property<string>("PictureUrl")
                                 .IsRequired()
                                 .HasMaxLength(300)
-                                .HasColumnType("nvarchar(300)");
+                                .HasColumnType("nvarchar(300)")
+                                .HasColumnName("PictureUrl");
 
                             b1.Property<int>("ProductId")
-                                .HasColumnType("int");
+                                .HasColumnType("int")
+                                .HasColumnName("ProductId");
 
                             b1.Property<string>("ProductName")
                                 .IsRequired()
                                 .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("ProductName");
 
                             b1.HasKey("BasketItemId");
 

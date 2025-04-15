@@ -22,13 +22,16 @@ namespace Persistence.Data.Configurations
                 {
                    
                     product.Property(p => p.ProductId)
+                      .HasColumnName("ProductId")
                            .IsRequired();
 
                     product.Property(p => p.ProductName)
+                      .HasColumnName("ProductName")
                            .IsRequired()
                            .HasMaxLength(100);
 
                     product.Property(p => p.PictureUrl)
+                       .HasColumnName("PictureUrl")
                            .HasMaxLength(300);
 
                    

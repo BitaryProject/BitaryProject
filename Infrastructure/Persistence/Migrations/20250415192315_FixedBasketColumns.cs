@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class StoreNewDb : Migration
+    public partial class FixedBasketColumns : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,9 +73,9 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Product_ProductId = table.Column<int>(type: "int", nullable: false),
-                    Product_ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Product_PictureUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PictureUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     CustomerBasketId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)

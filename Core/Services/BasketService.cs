@@ -1,3 +1,4 @@
+using Domain.Contracts;
 using Domain.Entities.BasketEntities;
 using Domain.Exceptions;
 using Shared.BasketModels;
@@ -34,44 +35,48 @@ namespace Services
                 : mapper.Map<CustomerBasketDTO>(basket);
         }
 
-       
+
         public async Task<CustomerBasketDTO?> UpdateBasketAsync(string basketId, BasketItemDTO itemDto)
         {
             if (!Guid.TryParse(basketId, out var basketGuid))
-                throw new Exception($"Invalid basket Id format: {basketId}");
+                throw new ArgumentException("Invalid basket ID format.");
 
-            var newItem = mapper.Map<BasketItem>(itemDto);
+            var newItem = new BasketItem(
+                product: new ProductInCartItem(
+                    itemDto.ProductId,
+                    itemDto.ProductName,
+                    itemDto.PictureUrl
+                ),
+                quantity: itemDto.Quantity,
+                price: itemDto.Price
+            );
 
             var existingBasket = await basketRepository.GetBasketAsync(basketGuid);
+
             if (existingBasket == null)
             {
-                existingBasket = new CustomerBasket
-                {
-                    Id = basketGuid,
-                    BasketItems = new List<BasketItem>()
-                };
+                existingBasket = new CustomerBasket { Id = basketGuid };
+                await basketRepository.CreateBasketAsync(existingBasket); 
             }
 
             var existingItem = existingBasket.BasketItems
                 .FirstOrDefault(i => i.Product.ProductId == newItem.Product.ProductId);
 
-            if (existingItem == null)
+            if (existingItem != null)
             {
-                existingBasket.BasketItems.Add(newItem);
+                existingItem.Quantity += newItem.Quantity;
             }
             else
             {
-                existingItem.Quantity += newItem.Quantity;
-                existingItem.Price = newItem.Price;
-                existingItem.Product.PictureUrl = newItem.Product.PictureUrl;
-                existingItem.Product.ProductName = newItem.Product.ProductName;
+                existingBasket.BasketItems.Add(newItem);
             }
 
-            var updatedBasket = await basketRepository.UpdateBasketAsync(existingBasket);
-            if (updatedBasket is null)
-                throw new Exception("Can't update basket now!");
+            var updateResult = await basketRepository.UpdateBasketAsync(existingBasket);
 
-            return mapper.Map<CustomerBasketDTO>(updatedBasket);
+            if (updateResult == null)
+                throw new Exception("Failed to update basket.");
+
+            return mapper.Map<CustomerBasketDTO>(updateResult);
         }
 
 
@@ -81,23 +86,19 @@ namespace Services
 
         public async Task<CustomerBasketDTO> CreateBasketAsync()
         {
-            
             var newBasket = new CustomerBasket
             {
                 Id = Guid.NewGuid(),
                 BasketItems = new List<BasketItem>()
             };
 
-           
-            var createdBasket = await basketRepository.UpdateBasketAsync(newBasket);
-            if (createdBasket is null)
-                throw new Exception("Failed to create basket.");
+            var createdBasket = await basketRepository.CreateBasketAsync(newBasket);
 
+            if (createdBasket == null)
+                throw new Exception("Failed to create basket.");
 
             return mapper.Map<CustomerBasketDTO>(createdBasket);
         }
-
-
 
         public async Task<CustomerBasketDTO?> UpdateItemQuantityAsync(Guid basketId, Guid itemId, UpdateBasketItemModel model)
         {
