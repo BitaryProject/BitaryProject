@@ -68,5 +68,15 @@ namespace Presentation
 
             return Ok(updatedBasket);
         }
+
+        [HttpGet("{basketId}/items")]
+        public async Task<ActionResult<IEnumerable<BasketItemDTO>>> GetBasketItems(Guid basketId)
+        {
+            var basket = await ServiceManager.BasketService.GetBasketAsync(basketId.ToString());
+            if (basket == null)
+                return NotFound("Basket not found.");
+
+            return Ok(basket.Items);
+        }
     }
 }
