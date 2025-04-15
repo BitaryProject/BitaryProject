@@ -19,93 +19,93 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Presentation
 {
-//    [EnableCors("CORSPolicy")]
+    //    [EnableCors("CORSPolicy")]
     public class AuthenticationController(IServiceManager serviceManager) : ApiController
     {
 
-            [HttpPost("Login")]
-            public async Task<ActionResult<UserResultDTO>> Login([FromBody] LoginDTO loginDTO)
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserResultDTO>> Login([FromBody] LoginDTO loginDTO)
+        {
+            var result = await serviceManager.AuthenticationService.LoginAsync(loginDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("Register")]
+        public async Task<ActionResult<UserResultDTO>> Register([FromBody] UserRegisterDTO registerDTO)
+        {
+            try
             {
-                var result = await serviceManager.AuthenticationService.LoginAsync(loginDTO);
+                var result = await serviceManager.AuthenticationService.RegisterAsync(registerDTO);
                 return Ok(result);
             }
+            catch (ValidationException ex)
+            {
+                // Return a properly formatted error response with validation errors
+                return BadRequest(new
+                {
+                    message = ex.Message,
+                    errors = ex.Errors
+                });
+            }
+            catch (Exception ex)
+            {
+                // Log the unexpected error
+                return StatusCode(500, new { message = "Registration failed: " + ex.Message });
+            }
+        }
 
-            [HttpPost("Register")]
-            public async Task<ActionResult<UserResultDTO>> Register([FromBody] UserRegisterDTO registerDTO)
-            {
-                try
-                {
-                    var result = await serviceManager.AuthenticationService.RegisterAsync(registerDTO);
-                    return Ok(result);
-                }
-                catch (ValidationException ex)
-                {
-                    // Return a properly formatted error response with validation errors
-                    return BadRequest(new
-                    {
-                        message = ex.Message,
-                        errors = ex.Errors
-                    });
-                }
-                catch (Exception ex)
-                {
-                    // Log the unexpected error
-                    return StatusCode(500, new { message = "Registration failed: " + ex.Message });
-                }
-            }
+        [HttpGet("CheckEmailExist")]
+        public async Task<ActionResult<bool>> CheckEmailExist(string email)
+        {
+            var result = await serviceManager.AuthenticationService.CheckEmailExist(email);
+            return Ok(result);
+        }
 
-            [HttpGet("CheckEmailExist")]
-            public async Task<ActionResult<bool>> CheckEmailExist( string email)
-            {
-                var result = await serviceManager.AuthenticationService.CheckEmailExist(email);
-                return Ok(result);
-            }
+        [HttpGet("VerifyEmail")]
+        public async Task<ActionResult<bool>> VerifyEmail([FromQuery] string email, [FromQuery] string otp)
+        {
+            var result = await serviceManager.AuthenticationService.VerifyEmailAsync(email, otp);
+            return result ? Ok(true) : BadRequest("Invalid or expired verification code.");
+        }
 
-            [HttpGet("VerifyEmail")]
-            public async Task<ActionResult<bool>> VerifyEmail([FromQuery] string email, [FromQuery] string otp)
-            {
-                var result = await serviceManager.AuthenticationService.VerifyEmailAsync(email, otp);
-                return result ? Ok(true) : BadRequest("Invalid or expired verification code.");
-            }
+        [HttpPost("SendVerificationCode")]
+        public async Task<ActionResult<bool>> ResendOTP([FromBody] ResendOTPDTO otpDTO)
+        {
+            var result = await serviceManager.AuthenticationService.SendVerificationCodeAsync(otpDTO.Email);
+            return result ? Ok(true) : BadRequest("Failed to send verification code.");
+        }
 
-            [HttpPost("SendVerificationCode")]
-            public async Task<ActionResult<bool>> ResendOTP([FromBody] ResendOTPDTO otpDTO)
+        [HttpPost("ChangePassword")]
+        public async Task<ActionResult> ChangePassword(string email, string oldPassword, string newPassword)
+        {
+            await serviceManager.AuthenticationService.ChangePasswordAsync(email, oldPassword, newPassword);
+            return Ok(new { Message = "Password changed successfully." });
+        }
+        [HttpPost("SendResetPasswordEmail")]
+        public async Task<ActionResult> SendResetPasswordEmail(string email)
+        {
+            await serviceManager.AuthenticationService.SendResetPasswordEmailAsync(email);
+            return Ok(new { Message = "Password reset email sent successfully." });
+        }
+        [HttpPost("ResetPassword")]
+        public async Task<ActionResult> ResetPassword(string email, string token, string newPassword)
+        {
+            try
             {
-                var result = await serviceManager.AuthenticationService.SendVerificationCodeAsync(otpDTO.Email);
-                return result ? Ok(true) : BadRequest("Failed to send verification code.");
+                await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
+                return Ok(new { Message = "Password reset successfully." });
             }
-
-            [HttpPost("ChangePassword")]
-            public async Task<ActionResult> ChangePassword(string email, string oldPassword, string newPassword)
+            catch (UserNotFoundException ex)
             {
-                await serviceManager.AuthenticationService.ChangePasswordAsync(email, oldPassword, newPassword);
-                return Ok(new { Message = "Password changed successfully." });
+                // Return a properly formatted 404 response
+                return NotFound(new { message = ex.Message });
             }
-            [HttpPost("SendResetPasswordEmail")]
-            public async Task<ActionResult> SendResetPasswordEmail(string email)
+            catch (Exception ex)
             {
-                await serviceManager.AuthenticationService.SendResetPasswordEmailAsync(email);
-                return Ok(new { Message = "Password reset email sent successfully." });
+                // Log the unexpected error
+                return StatusCode(500, new { message = "Password reset failed: " + ex.Message });
             }
-            [HttpPost("ResetPassword")]
-            public async Task<ActionResult> ResetPassword(string email, string token, string newPassword)
-            {
-                try 
-                {
-                    await serviceManager.AuthenticationService.ResetPasswordAsync(email, token, newPassword);
-                    return Ok(new { Message = "Password reset successfully." });
-                }
-                catch (UserNotFoundException ex)
-                {
-                    // Return a properly formatted 404 response
-                    return NotFound(new { message = ex.Message });
-                }
-                catch (Exception ex)
-                {
-                    // Log the unexpected error
-                    return StatusCode(500, new { message = "Password reset failed: " + ex.Message });
-                }
-            }
+        }
         [HttpPost("AddUserAddress")]
         [Authorize]
         public async Task<IActionResult> AddUserAddress([FromBody] AddressDTO address)
@@ -174,18 +174,42 @@ namespace Presentation
                 return StatusCode(500, new { message = $"Error retrieving user information: {ex.Message}" });
             }
         }
-            [HttpPost("UpdateUserInformation")]
-            [Authorize]
-            public async Task<ActionResult> UpdateUserInfo([FromQuery] UserInformationDTO userInfo, [FromQuery] AddressDTO address)
+        [HttpPost("UpdateUserInformation")]
+        [Authorize]
+        public async Task<ActionResult> UpdateUserInfo([FromBody] UserInformationDTO userInfo)
+        {
+            try
             {
                 var email = User.FindFirstValue(ClaimTypes.Email);
                 if (email == null) return Unauthorized("Email not found in token.");
 
-                await serviceManager.AuthenticationService.UpdateUserInfo(userInfo, email, address);
+                await serviceManager.AuthenticationService.UpdateUserInfo(userInfo, email);
                 return Ok(new { Message = "User information updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = $"Failed to update user information: {ex.Message}" });
+            }
+        }
+        [HttpGet("GetUserAddressDebug")]
+        [Authorize]
+        public async Task<ActionResult> GetUserAddressDebug()
+        {
+            try
+            {
+                var email = User.FindFirstValue(ClaimTypes.Email);
+                if (email == null) return Unauthorized("Email not found in token.");
+
+                var user = await serviceManager.AuthenticationService.GetDebugInfo(email);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = $"Failed to get user address debug: {ex.Message}" });
             }
         }
     }
+}
 
         //    [HttpPost("Login")]
         //    public async Task<ActionResult<UserResultDTO>> Login(LoginDTO loginDTO)

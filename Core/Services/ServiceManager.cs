@@ -2,6 +2,7 @@
 //using Domain.Contracts.NewModule;
 using Domain.Entities.SecurityEntities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Services.Abstractions;
