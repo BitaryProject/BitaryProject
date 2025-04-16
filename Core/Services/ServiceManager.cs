@@ -4,6 +4,7 @@ using Domain.Entities.SecurityEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Services.Abstractions;
 //using Services.Services;
@@ -19,6 +20,7 @@ namespace Services
         private readonly Lazy<IOrderService> _orderService;
         private readonly Lazy<IAuthenticationService> _authenticationService;
         private readonly Lazy<IPaymentService> _paymentService;
+        private readonly Lazy<IPrescriptionService> _prescriptionService;
         //private readonly Lazy<IPetService> _petService;
         //private readonly Lazy<IDoctorService> _doctorService;
         //private readonly Lazy<IAppointmentService> _appointmentService;
@@ -32,10 +34,13 @@ namespace Services
             IMapper mapper,
             IbasketRepository basketRepository,
             UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
             IOptions<JwtOptions> jwtOptions,
             IOptions<DomainSettings> domainSettings,
             IConfiguration configuration,
-            IMailingService mailingService)
+            IMailingService mailingService,
+            IHealthcareUnitOfWork healthcareUnitOfWork,
+            ILoggerFactory loggerFactory)
             //IPetRepository petRepository,
             //IDoctorRepository doctorRepository,
             //IClinicRepository clinicRepository,
@@ -47,8 +52,21 @@ namespace Services
             _productService = new Lazy<IProductService>(() => new ProductService(unitOfWork, mapper));
             _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper));
             _orderService = new Lazy<IOrderService>(() => new OrderService(unitOfWork, mapper, basketRepository));
-            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, jwtOptions, domainSettings, mapper, mailingService));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(
+                userManager,
+                roleManager,
+                jwtOptions,
+                domainSettings,
+                mapper,
+                mailingService,
+                healthcareUnitOfWork,
+                loggerFactory.CreateLogger<AuthenticationService>()
+            ));
             _paymentService = new Lazy<IPaymentService>(() => new PaymentService(basketRepository, unitOfWork, mapper, configuration));
+            _prescriptionService = new Lazy<IPrescriptionService>(() => new PrescriptionService(
+                healthcareUnitOfWork,
+                mapper
+            ));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
@@ -65,6 +83,7 @@ namespace Services
         public IOrderService OrderService => _orderService.Value;
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
         public IPaymentService PaymentService => _paymentService.Value;
+        public IPrescriptionService PrescriptionService => _prescriptionService.Value;
         //public IPetService PetService => _petService.Value;
         //public IDoctorService DoctorService => _doctorService.Value;
         //public IAppointmentService AppointmentService => _appointmentService.Value;

@@ -1,45 +1,40 @@
-﻿//using Domain.Entities.MedicalRecordEntites;
-//using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Domain.Entities.HealthcareEntities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-//namespace Persistence.Data.Configurations
-//{
-//    public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord>
-//    {
-//        public void Configure(EntityTypeBuilder<MedicalRecord> builder)
-//        {
-//            builder.ToTable("MedicalRecords");
-//            builder.HasKey(mr => mr.Id);
-
-//            builder.Property(mr => mr.Diagnosis)
-//                .IsRequired()
-//                .HasMaxLength(500);
-
-//            builder.Property(mr => mr.Treatment)
-//                .HasMaxLength(500);
-
-//            builder.Property(mr => mr.RecordDate)
-//                .IsRequired()
-//                .HasColumnType("datetime2");
-
-//            builder.Property(mr => mr.Notes)
-//                .HasMaxLength(1000);
-
-//            // Fixed relationships
-//            builder.HasOne(mr => mr.Pet)
-//                .WithMany(p => p.MedicalRecords)
-//                .HasForeignKey(mr => mr.PetId)
-//                .OnDelete(DeleteBehavior.Restrict);
-
-//            builder.HasOne(mr => mr.Doctor)
-//                .WithMany(d => d.MedicalRecords)
-//                .HasForeignKey(mr => mr.DoctorId)
-//                .OnDelete(DeleteBehavior.Restrict);
-
-//            builder.HasOne(mr => mr.Appointment)
-//                .WithOne(a => a.MedicalRecord)
-//                .HasForeignKey<MedicalRecord>(mr => mr.AppointmentId)
-//                .OnDelete(DeleteBehavior.Restrict);
-//        }
-//    }
-//}
+namespace Persistence.Data.Configurations
+{
+    public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord>
+    {
+        public void Configure(EntityTypeBuilder<MedicalRecord> builder)
+        {
+            builder.HasKey(m => m.Id);
+            
+            builder.Property(m => m.RecordDate)
+                .IsRequired();
+                
+            builder.Property(m => m.Diagnosis)
+                .IsRequired()
+                .HasMaxLength(500);
+                
+            builder.Property(m => m.Treatment)
+                .IsRequired()
+                .HasMaxLength(500);
+                
+            builder.Property(m => m.AdditionalNotes)
+                .HasMaxLength(1000);
+                
+            // Many-to-one relationship with PetProfile
+            builder.HasOne(m => m.PetProfile)
+                .WithMany(p => p.MedicalRecords)
+                .HasForeignKey(m => m.PetProfileId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+            // Many-to-one relationship with Doctor
+            builder.HasOne(m => m.Doctor)
+                .WithMany(d => d.MedicalRecords)
+                .HasForeignKey(m => m.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+}

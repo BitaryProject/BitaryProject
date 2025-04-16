@@ -1,23 +1,46 @@
-﻿//using Domain.Entities.ClinicEntities;
-//using System;
-//using System.Globalization;
+﻿using Domain.Entities.HealthcareEntities;
+using Services.Specifications.Base;
+using System;
+using System.Linq.Expressions;
 
-//namespace Services.Specifications
-//{
-//    public class ClinicSpecification : Specifications<Clinic>
-//    {
-//        public ClinicSpecification(int id)
-//            : base(c => c.Id == id)
-//        {
-//        }
+namespace Services.Specifications
+{
+    public class ClinicSpecification : BaseSpecification<Clinic>
+    {
+        public ClinicSpecification(Guid id) 
+            : base(c => c.Id == id)
+        {
+            AddInclude(c => c.Doctors);
+        }
 
-//        public ClinicSpecification(string city, int pageIndex, int pageSize, string? clinicName = null)
-//            : base(c => c.Address.City.ToLowerInvariant().Contains(city.ToLowerInvariant()) &&
-//                        (string.IsNullOrWhiteSpace(clinicName) || c.ClinicName.ToLowerInvariant().Contains(clinicName.ToLowerInvariant())))
-//        {
-//            ApplyPagination(pageIndex, pageSize);
-//            setOrderBy(c => c.ClinicName);
-//        }
-//    }
-//}
+        public ClinicSpecification(string name, int pageIndex, int pageSize)
+            : base(c => string.IsNullOrEmpty(name) || c.Name.ToLower().Contains(name.ToLower()))
+        {
+            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
+            AddOrderBy(c => c.Name);
+            AddInclude(c => c.Doctors);
+        }
+
+        public ClinicSpecification(string address, bool searchByAddress, int pageIndex, int pageSize)
+            : base(c => c.Address.ToLower().Contains(address.ToLower()))
+        {
+            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
+            AddOrderBy(c => c.Name);
+            AddInclude(c => c.Doctors);
+        }
+
+        public ClinicSpecification(Expression<Func<Clinic, bool>> criteria)
+            : base(criteria)
+        {
+            AddInclude(c => c.Doctors);
+        }
+
+        public ClinicSpecification()
+            : base(null)
+        {
+            AddOrderBy(c => c.Name);
+            AddInclude(c => c.Doctors);
+        }
+    }
+}
 

@@ -193,6 +193,11 @@ namespace Persistence
             {
                 await _roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
                 await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                
+                // Healthcare-related roles
+                await _roleManager.CreateAsync(new IdentityRole("Doctor"));
+                await _roleManager.CreateAsync(new IdentityRole("PetOwner"));
+                await _roleManager.CreateAsync(new IdentityRole("Customer"));
             }
 
             if (!_userManager.Users.Any())

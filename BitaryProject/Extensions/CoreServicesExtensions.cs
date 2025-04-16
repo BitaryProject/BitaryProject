@@ -20,7 +20,7 @@ namespace BitaryProject.Api.Extensions
             //services.AddScoped<IAppointmentService, AppointmentService>();
             //services.AddScoped<IMedicalRecordService, MedicalRecordService>();
             //services.AddScoped<IDoctorScheduleService, DoctorScheduleService>();
-
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
 
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
             services.AddAutoMapper(typeof(AddressProfile));

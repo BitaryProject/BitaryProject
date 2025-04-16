@@ -1,19 +1,18 @@
-﻿//using Shared.PetModels;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using Shared.HealthcareModels;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-//namespace Services.Abstractions
-//{
-//    public interface IPetService
-//    {
-//        Task<PetProfileDTO> CreatePetAsync(PetProfileDTO petDto);
-//        Task<PetProfileDTO?> GetPetAsync(string id);
-//        Task<IEnumerable<PetProfileDTO>> GetPetsByUserIdAsync(string userId);
-//        Task<PetProfileDTO?> UpdatePetAsync(string petId, PetProfileDTO petDto);
-//        Task<bool> DeletePetAsync(string petId);
-//    }
-
-//}
+namespace Services.Abstractions
+{
+    public interface IPetService
+    {
+        Task<PetDTO> GetByIdAsync(Guid id);
+        Task<PagedResultDTO<PetDTO>> GetPetsByOwnerAsync(Guid ownerId, int pageIndex, int pageSize);
+        Task<PagedResultDTO<PetDTO>> GetPetsByNameAsync(string name, int pageIndex, int pageSize);
+        Task<PagedResultDTO<PetDTO>> GetPetsBySpeciesAndBreedAsync(string species, string breed, int pageIndex, int pageSize);
+        Task<PetDTO> CreatePetAsync(PetCreateDTO petCreateDto);
+        Task<PetDTO> UpdatePetAsync(Guid id, PetUpdateDTO petUpdateDto);
+        Task DeletePetAsync(Guid id);
+    }
+}

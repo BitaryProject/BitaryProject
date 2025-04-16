@@ -33,6 +33,9 @@ namespace Shared.SecurityModels
         [Required]
         public Gender Gender { get; set; }
 
+        // Property for role assignment
+        public string UserType { get; init; }
+
         //[Required]
         //public UserRole UserRole { get; set; }
 

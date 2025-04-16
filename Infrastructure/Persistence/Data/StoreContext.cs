@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.BasketEntities;
+using Domain.Entities.HealthcareEntities;
 using Domain.Entities.OrderEntities;
 using Domain.Entities.ProductEntities;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace Persistence.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); // de bet3ml execute l ay type bey3ml implement l IEntityTypeConfiguration 
         }
 
-
+        // E-commerce Entities
         public DbSet<Product?> Products { get; set; }
         public DbSet<ProductBrand?> ProductBrands { get; set; }
         public DbSet<ProductCategory?> ProductCategories { get; set; }
@@ -36,5 +37,14 @@ namespace Persistence.Data
         public DbSet<DeliveryMethod?> DeliveryMethods { get; set; }
         public DbSet<CustomerBasket> CustomerBaskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
+        
+        // Healthcare Entities
+        public DbSet<Clinic> Clinics { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<PetOwner> PetOwners { get; set; }
+        public DbSet<PetProfile> PetProfiles { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
     }
 }

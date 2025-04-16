@@ -16,29 +16,40 @@ using AutoMapper;
 using Shared.OrderModels;
 using UserAddress = Domain.Entities.SecurityEntities.Address;
 using Microsoft.Extensions.DependencyInjection;
+using Domain.Entities.HealthcareEntities;
+using Microsoft.Extensions.Logging;
 
 namespace Services
 {
     public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IOptions<JwtOptions> options;
         private readonly IOptions<DomainSettings> domainOptions;
         private readonly IMapper mapper;
         private readonly IMailingService mailingService;
+        private readonly IHealthcareUnitOfWork _healthcareUnitOfWork;
+        private readonly ILogger<AuthenticationService> _logger;
 
         public AuthenticationService(
-            UserManager<User> userManager, 
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
             IOptions<JwtOptions> options, 
             IOptions<DomainSettings> domainOptions, 
             IMapper mapper, 
-            IMailingService mailingService)
+            IMailingService mailingService,
+            IHealthcareUnitOfWork healthcareUnitOfWork,
+            ILogger<AuthenticationService> logger)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
             this.options = options;
             this.domainOptions = domainOptions;
             this.mapper = mapper;
             this.mailingService = mailingService;
+            this._healthcareUnitOfWork = healthcareUnitOfWork;
+            _logger = logger;
         }
 
         public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
@@ -67,22 +78,65 @@ namespace Services
             if (validationErrors.Any())
                 throw new ValidationException(validationErrors);
 
-            var user = new User
-            {
-                FirstName = registerModel.FirstName,
-                LastName = registerModel.LastName,
-                DisplayName = $"{registerModel.FirstName} {registerModel.LastName}",
-                Email = registerModel.Email,
-                PhoneNumber = registerModel.PhoneNumber,
-                UserName = registerModel.UserName,
-                Gender = registerModel.Gender
-            };
+            // Map the registration DTO to user entity
+            var user = mapper.Map<User>(registerModel);
 
             var result = await userManager.CreateAsync(user, registerModel.Password);
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(e => e.Description).ToList();
                 throw new ValidationException(errors);
+            }
+            
+            List<string> assignedRoles = new List<string>();
+            
+            // Assign a role based on the user type if specified
+            if (!string.IsNullOrEmpty(registerModel.UserType))
+            {
+                // Ensure the role exists
+                string role = registerModel.UserType.Trim();
+                
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    _logger.LogInformation("Creating new role: {Role}", role);
+                    // Create the role if it doesn't exist
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+                
+                _logger.LogInformation("Assigning role {Role} to user {UserId}", role, user.Id);
+                // Assign the role to the user
+                await userManager.AddToRoleAsync(user, role);
+                assignedRoles.Add(role);
+                
+                // Create specific profiles based on the role
+                try 
+                {
+                    switch (role)
+                    {
+                        case "Doctor":
+                            await CreateDoctorProfile(user);
+                            break;
+                        case "PetOwner":
+                            await CreatePetOwnerProfile(user);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the error but continue with user creation
+                    _logger.LogError(ex, "Failed to create {Role} profile for user {UserId}, but continuing with user creation", 
+                        role, user.Id);
+                }
+            }
+            else
+            {
+                // Default to a basic user role if no specific role is provided
+                if (!await roleManager.RoleExistsAsync("Customer"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole("Customer"));
+                }
+                await userManager.AddToRoleAsync(user, "Customer");
+                assignedRoles.Add("Customer");
             }
             
             try
@@ -94,15 +148,22 @@ namespace Services
                 await mailingService.SendEmailAsync(user.Email!, "Verification Code", 
                     $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={registerModel.Email}&otp={verificationCode}");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Even if email sending fails, continue returning the user
+                // Log email sending error but continue
+                _logger.LogError(ex, "Failed to send verification email to user {UserId} with email {Email}", 
+                    user.Id, user.Email);
             }
 
+            // Create token
+            var token = await CreateTokenAsync(user);
+            
+            // Return user result DTO
             return new UserResultDTO(
                 user.DisplayName,
                 user.Email,
-                await CreateTokenAsync(user));
+                token,
+                assignedRoles);
         }
 
         public async Task<bool> CheckEmailExist(string email)
@@ -260,10 +321,25 @@ namespace Services
         public async Task<UserResultDTO> LoginAsync(LoginDTO loginModel)
         {
             var user = await userManager.FindByEmailAsync(loginModel.Email) ?? throw new UnAuthorizedException("Email doesn't exist");
+            
             if (!await userManager.CheckPasswordAsync(user, loginModel.Password))
                 throw new UnAuthorizedException("Invalid password");
 
-            return new UserResultDTO(user.DisplayName, user.Email, await CreateTokenAsync(user));
+            _logger.LogInformation("User {UserId} with email {Email} logged in successfully", user.Id, user.Email);
+            
+            // Get user roles to include in the response
+            var roles = await userManager.GetRolesAsync(user);
+            _logger.LogDebug("User {UserId} has roles: {Roles}", user.Id, string.Join(", ", roles));
+            
+            // Create JWT token
+            var token = await CreateTokenAsync(user);
+            
+            // Create response using UserResultDTO constructor
+            return new UserResultDTO(
+                user.DisplayName, 
+                user.Email, 
+                token,
+                roles.ToList());
         }
 
         public async Task<AddressDTO> UpdateUserAddress(AddressDTO address, string email)
@@ -296,11 +372,20 @@ namespace Services
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
-                //new Claim(ClaimTypes.Role, user.UserRole.ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
+            // Map user to claims DTO to extract necessary claims
+            var claimsDTO = mapper.Map<JwtClaimsDTO>(user);
+            
+            // Add user ID claim
+            authClaims.Add(new Claim(ClaimTypes.NameIdentifier, claimsDTO.Id));
+
+            // Add role claims
             var roles = await userManager.GetRolesAsync(user);
             authClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+            _logger.LogDebug("Creating token for user {UserId} with {ClaimCount} claims", user.Id, authClaims.Count);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey));
             var signingCreds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -536,6 +621,82 @@ namespace Services
                 Address = addressData,
                 RawNavigation = userRaw.Address != null // Check if Address navigation property is loaded
             };
+        }
+
+        private async Task CreateDoctorProfile(User user)
+        {
+            try
+            {
+                _logger.LogInformation("Creating doctor profile for user {UserId}", user.Id);
+                
+                // Check if any clinic exists, if not create a default one
+                var clinics = await _healthcareUnitOfWork.ClinicRepository.GetAllAsync();
+                Guid clinicId;
+                
+                if (!clinics.Any())
+                {
+                    _logger.LogInformation("No clinics found. Creating default clinic");
+                    var defaultClinic = new Clinic
+                    {
+                        Name = "Default Clinic",
+                        Address = "Please update address",
+                        ContactDetails = "Please update contact details"
+                    };
+                    
+                    await _healthcareUnitOfWork.ClinicRepository.AddAsync(defaultClinic);
+                    await _healthcareUnitOfWork.SaveChangesAsync();
+                    clinicId = defaultClinic.Id;
+                }
+                else
+                {
+                    clinicId = clinics.First().Id;
+                }
+                
+                // Create doctor profile using mapping profile
+                var doctor = mapper.Map<Doctor>(user);
+                doctor.ClinicId = clinicId;
+                
+                await _healthcareUnitOfWork.DoctorRepository.AddAsync(doctor);
+                await _healthcareUnitOfWork.SaveChangesAsync();
+                
+                _logger.LogInformation("Doctor profile created for user {UserId} with doctor ID {DoctorId}", 
+                    user.Id, doctor.Id);
+            }
+            catch (Exception ex)
+            {
+                // Log the error but don't prevent user creation
+                _logger.LogError(ex, "Error creating doctor profile for user {UserId}: {ErrorMessage}", 
+                    user.Id, ex.Message);
+                
+                // We're intentionally not throwing here to allow user creation to succeed
+                // even if profile creation fails
+            }
+        }
+        
+        private async Task CreatePetOwnerProfile(User user)
+        {
+            try
+            {
+                _logger.LogInformation("Creating pet owner profile for user {UserId}", user.Id);
+                
+                // Create pet owner profile using mapping profile
+                var petOwner = mapper.Map<PetOwner>(user);
+                
+                await _healthcareUnitOfWork.PetOwnerRepository.AddAsync(petOwner);
+                await _healthcareUnitOfWork.SaveChangesAsync();
+                
+                _logger.LogInformation("Pet owner profile created for user {UserId} with pet owner ID {PetOwnerId}", 
+                    user.Id, petOwner.Id);
+            }
+            catch (Exception ex)
+            {
+                // Log the error but don't prevent user creation
+                _logger.LogError(ex, "Error creating pet owner profile for user {UserId}: {ErrorMessage}", 
+                    user.Id, ex.Message);
+                
+                // We're intentionally not throwing here to allow user creation to succeed
+                // even if profile creation fails
+            }
         }
     }
 }

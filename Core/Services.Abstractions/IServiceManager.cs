@@ -13,6 +13,7 @@ namespace Services.Abstractions
         public IOrderService OrderService { get; }
         public IAuthenticationService AuthenticationService { get; }
         public IPaymentService PaymentService { get; }
+        public IPrescriptionService PrescriptionService { get; }
         //public IPetService PetService { get; }
         //public IDoctorService DoctorService { get; }
         //public IClinicService ClinicService { get; }
