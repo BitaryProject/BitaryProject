@@ -9,7 +9,7 @@ namespace Shared.BasketModels
     public record CustomerBasketDTO
     {
         public string Id { get; init; }
-        public IEnumerable<BasketItemDTO> Items { get; init; }
+        public IEnumerable<BasketItemDTO> Items { get; init; } = Enumerable.Empty<BasketItemDTO>();
         public string? PaymentIntentId { get; set; }
         public string? ClientSecret { get; set; }
         public int? DeliveryMethodId { get; set; }
