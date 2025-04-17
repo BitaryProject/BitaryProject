@@ -45,7 +45,7 @@ namespace Services
             //IDoctorScheduleService doctorScheduleService)
         {
             _productService = new Lazy<IProductService>(() => new ProductService(unitOfWork, mapper));
-            _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper));
+            _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper, unitOfWork));
             _orderService = new Lazy<IOrderService>(() => new OrderService(unitOfWork, mapper, basketRepository));
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, jwtOptions, domainSettings, mapper, mailingService));
             _paymentService = new Lazy<IPaymentService>(() => new PaymentService(basketRepository, unitOfWork, mapper, configuration));

@@ -16,6 +16,7 @@ namespace Domain.Contracts
         public Task<CustomerBasket?> CreateBasketAsync(CustomerBasket basket);
 
 
-
+        // Add this debugging method
+        public Task<int> GetBasketItemCountAsync(Guid basketId);
     }
 }
