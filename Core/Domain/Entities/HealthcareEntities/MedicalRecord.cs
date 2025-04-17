@@ -1,24 +1,33 @@
 using System;
-using Domain.Entities;
+using System.Collections.Generic;
+using Core.Domain.Entities;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
     public class MedicalRecord : BaseEntity<Guid>
     {
-        public DateTime RecordDate { get; set; }
+        public MedicalRecord()
+        {
+            MedicalNotes = new List<MedicalNote>();
+        }
+        
+        public DateTime RecordDate { get; set; } = DateTime.UtcNow;
         public string Diagnosis { get; set; }
         public string Treatment { get; set; }
-        public string AdditionalNotes { get; set; }
         public string Notes { get; set; }
+        public string Symptoms { get; set; }
+        public string LabResults { get; set; }
+        public string Medications { get; set; }
         
         // Foreign keys
         public Guid PetProfileId { get; set; }
-        public Guid PetId { get; set; }
         public Guid DoctorId { get; set; }
         
         // Navigation properties
         public PetProfile PetProfile { get; set; }
-        public PetProfile Pet { get; set; }
         public Doctor Doctor { get; set; }
+        
+        // Collection navigation property
+        public ICollection<MedicalNote> MedicalNotes { get; set; }
     }
 } 

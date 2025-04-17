@@ -1,4 +1,4 @@
-﻿//using Domain.Contracts;
+//using Domain.Contracts;
 //using Domain.Entities.ClinicEntities;
 //using Shared.ClinicModels;
 //using System;
@@ -7,7 +7,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace Services.Abstractions
+//namespace Core.Services.Abstractions
 //{
 //    public interface IClinicSearchService
 //    {
@@ -15,3 +15,4 @@
 //        Task<IEnumerable<ClinicDTO>> GetTopRatedClinicsAsync(int count);
 //    }
 //}
+

@@ -54,28 +54,28 @@ namespace Shared.HealthcareModels
         /// Medication information
         /// </summary>
         [Required]
-        public string Medication { get; set; }
+        public string Medication { get; set; } = string.Empty;
         
         /// <summary>
         /// Dosage instructions
         /// </summary>
         [Required]
-        public string Dosage { get; set; }
+        public string Dosage { get; set; } = string.Empty;
         
         /// <summary>
         /// Usage instructions
         /// </summary>
-        public string Instructions { get; set; }
+        public string Instructions { get; set; } = string.Empty;
         
         /// <summary>
         /// Additional notes
         /// </summary>
-        public string Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
         
         /// <summary>
         /// Status of the prescription
         /// </summary>
-        public string Status { get; set; }
+        public string Status { get; set; } = string.Empty;
         
         /// <summary>
         /// List of medications in this prescription
@@ -97,29 +97,29 @@ namespace Shared.HealthcareModels
         /// Name of the medication
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         
         /// <summary>
         /// Dosage instructions
         /// </summary>
         [Required]
-        public string Dosage { get; set; }
+        public string Dosage { get; set; } = string.Empty;
         
         /// <summary>
         /// Frequency of medication (e.g., "twice daily")
         /// </summary>
         [Required]
-        public string Frequency { get; set; }
+        public string Frequency { get; set; } = string.Empty;
         
         /// <summary>
         /// Duration of medication course
         /// </summary>
-        public string Duration { get; set; }
+        public string Duration { get; set; } = string.Empty;
         
         /// <summary>
         /// Special instructions for taking the medication
         /// </summary>
-        public string Instructions { get; set; }
+        public string Instructions { get; set; } = string.Empty;
         
         /// <summary>
         /// Quantity of medication

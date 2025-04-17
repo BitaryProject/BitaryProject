@@ -4,7 +4,7 @@ using Domain.Contracts;
 using Domain.Entities.OrderEntities;
 using Domain.Exceptions;
 using Microsoft.Extensions.Configuration;
-using Services.Specifications;
+using Core.Services.Specifications;
 using Shared.BasketModels;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Exceptions;
+using Core.Domain.Contracts;
+using AutoMapper;
+using Core.Services.Abstractions;
+using Core.Domain.Entities.OrderEntities;
 
 
 namespace Services

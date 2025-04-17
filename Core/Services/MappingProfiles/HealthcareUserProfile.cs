@@ -1,7 +1,9 @@
 using AutoMapper;
+using Core.Domain.Entities.HealthcareEntities;
 using Domain.Entities.HealthcareEntities;
 using Domain.Entities.SecurityEntities;
 using Shared.HealthcareModels;
+using Shared.SecurityModels;
 
 namespace Services.MappingProfiles
 {
@@ -11,11 +13,19 @@ namespace Services.MappingProfiles
         {
             // User to Doctor mapping
             CreateMap<User, Doctor>()
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.DisplayName))
-                .ForMember(dest => dest.ContactDetails, opt => opt.MapFrom(src => src.PhoneNumber ?? "Please update contact details"))
-                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => "General Practitioner"))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.DisplayName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ClinicId, opt => opt.Ignore()); // Clinic ID needs to be set separately
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.ProfilePictureUrl, opt => opt.Ignore())
+                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => "General"))
+                .ForMember(dest => dest.LicenseNumber, opt => opt.Ignore())
+                .ForMember(dest => dest.Bio, opt => opt.Ignore())
+                .ForMember(dest => dest.Clinics, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointments, opt => opt.Ignore())
+                .ForMember(dest => dest.MedicalRecords, opt => opt.Ignore())
+                .ForMember(dest => dest.Prescriptions, opt => opt.Ignore())
+                .ForMember(dest => dest.Ratings, opt => opt.Ignore());
 
             // User to PetOwner mapping
             CreateMap<User, PetOwner>()
@@ -57,6 +67,26 @@ namespace Services.MappingProfiles
             // UserRole mapping
             CreateMap<string, UserRoleDTO>() // Mapping from role name string
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src));
+
+            // ClinicInfoDTO to ClinicInfo
+            CreateMap<ClinicInfoDTO, ClinicInfo>();
+            
+            // User registration to User with clinic info
+            CreateMap<UserRegisterDTO, User>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.DisplayName))
+                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
+                .ForMember(dest => dest.ClinicInfo, opt => opt.MapFrom(src => src.ClinicInfo))
+                .ForMember(dest => dest.Address, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+                .ForMember(dest => dest.SecurityStamp, opt => opt.Ignore())
+                .ForMember(dest => dest.EmailConfirmed, opt => opt.Ignore())
+                .ForMember(dest => dest.PhoneNumberConfirmed, opt => opt.Ignore());
         }
     }
 } 

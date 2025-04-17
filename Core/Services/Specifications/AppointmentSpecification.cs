@@ -1,19 +1,25 @@
-﻿using Domain.Entities.HealthcareEntities;
-using Services.Specifications.Base;
-using System;
+using Core.Domain.Entities.HealthcareEntities;
+ using Core.Services.Specifications.Base;
 using System.Linq.Expressions;
+using System;
+using Core.Domain.Entities.HealthcareEntities;
 
-namespace Services.Specifications
+namespace Core.Services.Specifications
 {
     public class AppointmentSpecification : BaseSpecification<Appointment>
     {
-        public AppointmentSpecification(Guid id) 
-            : base(a => a.Id == id)
+        private void AddStandardIncludes()
         {
             AddInclude(a => a.Doctor);
             AddInclude(a => a.PetProfile);
             AddInclude("PetProfile.Owner");
             AddInclude(a => a.Clinic);
+        }
+
+        public AppointmentSpecification(Guid id) 
+            : base(a => a.Id == id)
+        {
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification(Guid doctorId, int pageIndex, int pageSize)
@@ -21,10 +27,7 @@ namespace Services.Specifications
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
             AddOrderBy(a => a.AppointmentDateTime);
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification(Guid petId, bool forPet, int pageIndex, int pageSize)
@@ -32,20 +35,15 @@ namespace Services.Specifications
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
             AddOrderBy(a => a.AppointmentDateTime);
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification(string status, int pageIndex, int pageSize)
-            : base(a => a.Status.ToString() == status)
+            : base(a => string.Equals(a.Status.ToString(), status, StringComparison.OrdinalIgnoreCase))
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
             AddOrderBy(a => a.AppointmentDateTime);
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification(DateTime startDate, DateTime endDate, int pageIndex, int pageSize)
@@ -53,10 +51,7 @@ namespace Services.Specifications
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
             AddOrderBy(a => a.AppointmentDateTime);
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification(Guid clinicId, string byClinicParam, int pageIndex, int pageSize)
@@ -64,29 +59,20 @@ namespace Services.Specifications
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
             AddOrderBy(a => a.AppointmentDateTime);
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification(Expression<Func<Appointment, bool>> criteria)
             : base(criteria)
         {
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
 
         public AppointmentSpecification()
             : base(null)
         {
             AddOrderBy(a => a.AppointmentDateTime);
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            AddStandardIncludes();
         }
     }
 }

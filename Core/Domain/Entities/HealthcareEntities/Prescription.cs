@@ -1,35 +1,40 @@
 using System;
-using Domain.Entities;
 using System.Collections.Generic;
+using Core.Domain.Entities;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
+    public enum PrescriptionStatus
+    {
+        Draft,
+        Active,
+        Completed,
+        Cancelled
+    }
+
     public class Prescription : BaseEntity<Guid>
     {
+        public Prescription()
+        {
+            MedicationItems = new List<PrescriptionMedicationItem>();
+            // Generate a unique prescription number when created
+            PrescriptionNumber = $"RX-{DateTime.UtcNow:yyyyMMdd}-{Guid.NewGuid().ToString().Substring(0, 8).ToUpper()}";
+        }
+        
         public string PrescriptionNumber { get; set; }
-        public DateTime PrescriptionDate { get; set; }
-        public DateTime IssuedDate { get; set; }
-        public DateTime ExpiryDate { get; set; }
-        public string Status { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Medication { get; set; }
-        public string Dosage { get; set; }
+        public DateTime IssuedDate { get; set; } = DateTime.UtcNow;
         public string Instructions { get; set; }
-        public string Notes { get; set; }
+        public PrescriptionStatus Status { get; set; } = PrescriptionStatus.Draft;
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         
         // Foreign keys
         public Guid PetProfileId { get; set; }
-        public Guid PetId { get; set; }
         public Guid DoctorId { get; set; }
-        public Guid? MedicalRecordId { get; set; }
         
         // Navigation properties
         public PetProfile PetProfile { get; set; }
         public Doctor Doctor { get; set; }
-        public MedicalRecord MedicalRecord { get; set; }
-        
-        // Collection navigation properties
-        public ICollection<PrescriptionMedicationItem> MedicationItems { get; set; } = new List<PrescriptionMedicationItem>();
+        public ICollection<PrescriptionMedicationItem> MedicationItems { get; set; }
     }
 } 

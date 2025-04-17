@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.ProductEntities
+namespace Core.Domain.Entities.ProductEntities
 {
     public class ProductCategory:BaseEntity<int>
     {
@@ -12,3 +12,4 @@ namespace Domain.Entities.ProductEntities
 
     }
 }
+

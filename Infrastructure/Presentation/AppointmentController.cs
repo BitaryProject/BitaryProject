@@ -1,6 +1,6 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Services;
-//using Services.Abstractions;
+//using Microsoft.AspNetCore.Mvc;
+//using Core.Services;
+//using Core.Services.Abstractions;
 //using Shared.AppointmentModels;
 //using System;
 //using System.Collections.Generic;
@@ -71,3 +71,4 @@
 
 //    }
 //}
+

@@ -1,6 +1,6 @@
 
 using AutoMapper;
-using Domain.Entities.BasketEntities;
+using Core.Domain.Entities.BasketEntities;
 using Shared.BasketModels;
 using System;
 using System.Collections.Generic;

@@ -1,10 +1,10 @@
-﻿//using Domain.Entities.AppointmentEntities;
-//using Domain.Entities.ClinicEntities;
-//using Domain.Entities.MedicalRecordEntites;
-//using Domain.Entities.SecurityEntities;
+//using Core.Domain.Entities.AppointmentEntities;
+//using Core.Domain.Entities.ClinicEntities;
+//using Core.Domain.Entities.MedicalRecordEntites;
+//using Core.Domain.Entities.SecurityEntities;
 //using System.Collections.Generic;
 
-//namespace Domain.Entities.DoctorEntites
+//namespace Core.Domain.Entities.DoctorEntites
 //{
 //    public class Doctor : BaseEntity<int>
 //    {
@@ -37,3 +37,4 @@
 //        female = 2
 //    }
 //}
+

@@ -1,11 +1,16 @@
-using Domain.Entities;
+using Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
     public class Medication : BaseEntity<Guid>
     {
+        public Medication()
+        {
+            PrescriptionItems = new List<PrescriptionMedicationItem>();
+        }
+        
         public string Name { get; set; }
         public string Description { get; set; }
         public string DosageForm { get; set; }
@@ -15,6 +20,6 @@ namespace Domain.Entities.HealthcareEntities
         public bool RequiresPrescription { get; set; }
         
         // Navigation properties
-        public ICollection<PrescriptionMedicationItem> PrescriptionItems { get; set; } = new List<PrescriptionMedicationItem>();
+        public ICollection<PrescriptionMedicationItem> PrescriptionItems { get; set; }
     }
 } 

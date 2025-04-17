@@ -1,7 +1,7 @@
-﻿using Domain.Entities.HealthcareEntities;
+﻿global using Core.Domain.Entities.HealthcareEntities;
+using Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Persistence.Data.Configurations
 {
     public class ClinicConfiguration : IEntityTypeConfiguration<Clinic>

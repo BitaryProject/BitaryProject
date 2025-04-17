@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Core.Domain.Contracts
 {
     public abstract class Specifications<T> where T : class
     {

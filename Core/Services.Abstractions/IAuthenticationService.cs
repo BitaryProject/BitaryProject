@@ -1,14 +1,14 @@
-﻿using Shared.OrderModels;
+using Shared.OrderModels;
 using Shared.SecurityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserAddress = Domain.Entities.SecurityEntities.Address;
+using UserAddress = Core.Domain.Entities.SecurityEntities.Address;
 
 
-namespace Services.Abstractions
+namespace Core.Services.Abstractions
 {
     public interface IAuthenticationService
     {
@@ -39,3 +39,4 @@ namespace Services.Abstractions
         Task<object> GetDebugInfo(string email);
     }
 }
+

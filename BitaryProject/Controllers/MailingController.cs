@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Services.Abstractions;
+using Core.Services.Abstractions;
 using Shared.MailModels;
 
 namespace BitaryProject.Controllers

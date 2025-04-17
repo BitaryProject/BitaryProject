@@ -41,7 +41,7 @@ namespace Shared.HealthcareModels
         /// <summary>
         /// Notes about the prescription
         /// </summary>
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
         
         /// <summary>
         /// List of medications in this prescription
@@ -59,28 +59,28 @@ namespace Shared.HealthcareModels
         /// Name of the medication
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         
         /// <summary>
         /// Dosage instructions
         /// </summary>
         [Required]
-        public string Dosage { get; set; }
+        public string Dosage { get; set; } = string.Empty;
         
         /// <summary>
         /// Frequency of medication (e.g., "twice daily")
         /// </summary>
         [Required]
-        public string Frequency { get; set; }
+        public string Frequency { get; set; } = string.Empty;
         
         /// <summary>
         /// Duration of medication course
         /// </summary>
-        public string Duration { get; set; }
+        public string? Duration { get; set; }
         
         /// <summary>
         /// Special instructions for taking the medication
         /// </summary>
-        public string Instructions { get; set; }
+        public string? Instructions { get; set; }
     }
 } 

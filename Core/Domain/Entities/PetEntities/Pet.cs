@@ -1,10 +1,10 @@
-﻿//using System;
+//using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
-//using Domain.Entities.MedicalRecordEntites;
-//namespace Domain.Entities.PetEntities
+//using Core.Domain.Entities.MedicalRecordEntites;
+//namespace Core.Domain.Entities.PetEntities
 //{
 //        public enum PetGender : byte
 //        {
@@ -49,3 +49,4 @@
 //            public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
 //        }
 //    }
+

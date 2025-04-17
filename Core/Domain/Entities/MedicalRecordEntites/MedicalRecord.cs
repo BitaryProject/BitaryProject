@@ -1,13 +1,13 @@
-﻿//using System;
+//using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Numerics;
 //using System.Text;
 //using System.Threading.Tasks;
-//using Domain.Entities.PetEntities;
-//using Domain.Entities.DoctorEntites;
-//using Domain.Entities.AppointmentEntities;
-//namespace Domain.Entities.MedicalRecordEntites
+//using Core.Domain.Entities.PetEntities;
+//using Core.Domain.Entities.DoctorEntites;
+//using Core.Domain.Entities.AppointmentEntities;
+//namespace Core.Domain.Entities.MedicalRecordEntites
 //{
 //    public class MedicalRecord : BaseEntity<int>
 //    {
@@ -35,4 +35,5 @@
 //        public Appointment Appointment { get; set; }
 //    }
 //}
+
 

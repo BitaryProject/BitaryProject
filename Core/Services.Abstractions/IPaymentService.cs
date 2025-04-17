@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Shared;
 using Shared.BasketModels;
 
-namespace Services.Abstractions
+namespace Core.Services.Abstractions
 {
     public interface IPaymentService
     {
@@ -17,3 +17,4 @@ namespace Services.Abstractions
 
     }
 }
+

@@ -1,5 +1,5 @@
-﻿global using Domain.Contracts;
-global using Domain.Entities.ProductEntities;
+﻿global using Core.Domain.Contracts;
+global using Core.Domain.Entities.ProductEntities;
 global using Microsoft.EntityFrameworkCore;
 global using Persistence.Data;
 using System.Text.Json;
@@ -8,10 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities.OrderEntities;
+using Core.Domain.Entities.OrderEntities;
 using Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
-using Domain.Entities.SecurityEntities;
+using Core.Domain.Entities.SecurityEntities;
 using Microsoft.Data.SqlClient;
 
 

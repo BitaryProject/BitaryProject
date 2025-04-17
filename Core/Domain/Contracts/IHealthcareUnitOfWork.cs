@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Core.Domain.Contracts
 {
     public interface IHealthcareUnitOfWork : IDisposable
     {
@@ -9,10 +9,13 @@ namespace Domain.Contracts
         IPetProfileRepository PetProfileRepository { get; }
         IDoctorRepository DoctorRepository { get; }
         IMedicalRecordRepository MedicalRecordRepository { get; }
+        IMedicalNoteRepository MedicalNoteRepository { get; }
         IMedicationRepository MedicationRepository { get; }
         IAppointmentRepository AppointmentRepository { get; }
         IClinicRepository ClinicRepository { get; }
         IPetOwnerRepository PetOwnerRepository { get; }
+        IDoctorRatingRepository DoctorRatingRepository { get; }
+        IClinicRatingRepository ClinicRatingRepository { get; }
         
         // Aliases for backward compatibility
         IPetProfileRepository PetRepository { get => PetProfileRepository; }

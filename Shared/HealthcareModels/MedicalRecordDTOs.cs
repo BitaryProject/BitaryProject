@@ -1,10 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Shared.HealthcareModels
 {
-    /// <summary>
-    /// Data transfer object for medical record
-    /// </summary>
     public class MedicalRecordDTO
     {
         public Guid Id { get; set; }
@@ -12,46 +11,43 @@ namespace Shared.HealthcareModels
         public string Diagnosis { get; set; }
         public string Treatment { get; set; }
         public string Notes { get; set; }
-        
-        // Related entity information
-        public string DoctorName { get; set; }
         public Guid DoctorId { get; set; }
-        public string PetName { get; set; }
+        public string DoctorName { get; set; }
         public Guid PetId { get; set; }
-        public string PetOwnerName { get; set; }
+        public string PetName { get; set; }
     }
-    
-    /// <summary>
-    /// DTO for creating a medical record
-    /// </summary>
+
     public class MedicalRecordCreateDTO
     {
+        [Required]
         public DateTime RecordDate { get; set; } = DateTime.UtcNow;
+
+        [Required]
         public string Diagnosis { get; set; }
+
+        [Required]
         public string Treatment { get; set; }
+
         public string Notes { get; set; }
+
+        [Required]
         public Guid DoctorId { get; set; }
+
+        [Required]
         public Guid PetId { get; set; }
     }
-    
-    /// <summary>
-    /// DTO for updating a medical record
-    /// </summary>
+
     public class MedicalRecordUpdateDTO
     {
+        [Required]
         public DateTime RecordDate { get; set; }
+
+        [Required]
         public string Diagnosis { get; set; }
+
+        [Required]
         public string Treatment { get; set; }
+
         public string Notes { get; set; }
-    }
-    
-    /// <summary>
-    /// DTO for time slots
-    /// </summary>
-    public class TimeSlotDTO
-    {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public bool IsAvailable { get; set; }
     }
 } 

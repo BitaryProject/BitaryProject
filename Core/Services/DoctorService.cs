@@ -1,6 +1,6 @@
-﻿//using AutoMapper;
+//using AutoMapper;
 //using Domain.Contracts.NewModule; 
-//using Domain.Entities.DoctorEntites;
+//using Core.Domain.Entities.DoctorEntites;
 //using Domain.Exceptions;         
 //using Services.Abstractions;
 //using Shared.DoctorModels;

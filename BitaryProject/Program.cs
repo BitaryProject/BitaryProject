@@ -2,7 +2,7 @@ using BitaryProject.Api.Extensions;
 using BitaryProject.Extensions;
 using BitaryProject.Mail;
 using Services;
-using Services.Abstractions;
+using Core.Services.Abstractions;
 
 namespace BitaryProject
 {

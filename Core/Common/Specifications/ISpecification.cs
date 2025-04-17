@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Domain.Contracts
+namespace Core.Common.Specifications
 {
     /// <summary>
-    /// Interface for specification pattern implementation
+    /// Common interface for specification pattern implementation
     /// </summary>
     /// <typeparam name="T">Type of entity this specification applies to</typeparam>
     public interface ISpecification<T>
@@ -21,9 +21,10 @@ namespace Domain.Contracts
         int Skip { get; }
         bool IsPagingEnabled { get; }
         
-        /// <summary>
-        /// Adds a criteria to the specification
-        /// </summary>
         void AddCriteria(Expression<Func<T, bool>> criteria);
+        void AddInclude(Expression<Func<T, object>> includeExpression);
+        void AddOrderBy(Expression<Func<T, object>> orderByExpression);
+        void ApplyOrderByDescending(Expression<Func<T, object>> orderByDescExpression);
+        void ApplyPaging(int skip, int take);
     }
 } 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Services.Abstractions;
+using Core.Services.Abstractions;
 using Shared.HealthcareModels;
 using System;
 using System.Collections.Generic;
@@ -73,17 +73,17 @@ namespace BitaryProject.Controllers
             if (pageSize < 1 || pageSize > 100)
                 return BadRequest("Page size must be between 1 and 100.");
                 
-            var result = await _serviceManager.PrescriptionService.GetPagedPrescriptionsAsync(pageIndex, pageSize);
+            var result = await _serviceManager.PrescriptionService.GetPrescriptionsByStatusAsync("All", pageIndex, pageSize);
             
             Response.Headers.Add("X-Total-Count", result.TotalCount.ToString());
             
-            return Ok(result.Prescriptions);
+            return Ok(result.Items);
         }
 
         // POST: api/Prescription
         [HttpPost]
         [Authorize(Roles = "Doctor,Admin")]
-        public async Task<ActionResult<PrescriptionDTO>> CreatePrescription([FromBody] PrescriptionCreateUpdateDTO prescriptionDto)
+        public async Task<ActionResult<PrescriptionDTO>> CreatePrescription([FromBody] PrescriptionCreateDTO prescriptionDto)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace BitaryProject.Controllers
         // PUT: api/Prescription/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = "Doctor,Admin")]
-        public async Task<ActionResult<PrescriptionDTO>> UpdatePrescription(Guid id, [FromBody] PrescriptionCreateUpdateDTO prescriptionDto)
+        public async Task<ActionResult<PrescriptionDTO>> UpdatePrescription(Guid id, [FromBody] PrescriptionUpdateDTO prescriptionDto)
         {
             try
             {
@@ -121,11 +121,7 @@ namespace BitaryProject.Controllers
         [Authorize(Roles = "Doctor,Admin")]
         public async Task<ActionResult> DeletePrescription(Guid id)
         {
-            var result = await _serviceManager.PrescriptionService.DeletePrescriptionAsync(id);
-            
-            if (!result)
-                return NotFound();
-                
+            await _serviceManager.PrescriptionService.DeletePrescriptionAsync(id);
             return NoContent();
         }
     }

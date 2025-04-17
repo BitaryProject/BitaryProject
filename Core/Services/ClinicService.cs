@@ -1,5 +1,5 @@
-﻿//using AutoMapper;
-//using Domain.Entities.ClinicEntities;
+//using AutoMapper;
+//using Core.Domain.Entities.ClinicEntities;
 //using Domain.Contracts.NewModule; 
 //using Domain.Exceptions;          
 //using Services.Abstractions;

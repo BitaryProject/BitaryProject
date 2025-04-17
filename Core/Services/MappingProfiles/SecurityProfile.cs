@@ -1,6 +1,9 @@
 using AutoMapper;
-using Domain.Entities.SecurityEntities;
+using Core.Domain.Entities.SecurityEntities;
+using Domain.Exceptions;
+using Shared.OrderModels;
 using Shared.SecurityModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -71,10 +74,10 @@ namespace Services.MappingProfiles
             CreateMap<ApiResponse<AddressDTO>, ApiResponseDTO<AddressDTO>>();
 
             // Error mappings
-            CreateMap<ValidationException, ValidationErrorDTO>()
+            CreateMap<Domain.Exceptions.ValidationException, ValidationErrorDTO>()
                 .ForMember(dest => dest.Errors, opt => opt.MapFrom(src => src.Errors));
             CreateMap<UnauthorizedAccessException, ErrorDTO>();
-            CreateMap<UserNotFoundException, ErrorDTO>();
+            CreateMap<Domain.Exceptions.UserNotFoundException, ErrorDTO>();
         }
     }
 } 

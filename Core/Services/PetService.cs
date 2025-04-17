@@ -1,4 +1,4 @@
-﻿//using System;
+//using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
@@ -8,7 +8,7 @@
 //{
 //    using AutoMapper;
 //    using Domain.Contracts.NewModule;
-//    using Domain.Entities.PetEntities;
+//    using Core.Domain.Entities.PetEntities;
 //    using Domain.Exceptions;
 //    using Shared.PetModels;
 //    using System;

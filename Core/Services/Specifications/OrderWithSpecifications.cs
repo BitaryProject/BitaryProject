@@ -1,11 +1,13 @@
-﻿using Domain.Entities.OrderEntities;
+using Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities.OrderEntities;
-namespace Services.Specifications
+using Core.Domain.Contracts;
+using Core.Domain.Entities.OrderEntities;
+
+namespace Core.Services.Specifications
 {
     internal class OrderWithIncludeSpecifications : Specifications<Order>
     {

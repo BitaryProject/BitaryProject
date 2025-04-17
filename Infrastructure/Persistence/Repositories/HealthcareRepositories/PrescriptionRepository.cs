@@ -6,13 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Persistence.Repositories.HealthcareRepositories;
 
 namespace Persistence.Repositories.HealthcareRepositories
 {
     public class PrescriptionRepository : GenericRepository<Prescription, Guid>, IPrescriptionRepository
     {
+        private readonly StoreContext _context;
+        
         public PrescriptionRepository(StoreContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<IEnumerable<Prescription>> GetPrescriptionsByPetProfileIdAsync(Guid petProfileId)
@@ -61,9 +65,37 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .ToListAsync();
         }
 
-        public async Task<(IEnumerable<Prescription> Prescriptions, int TotalCount)> GetPagedPrescriptionsAsync(Specifications<Prescription> specifications, int pageIndex, int pageSize)
+        public async Task<(IEnumerable<Prescription> Prescriptions, int TotalCount)> GetPagedPrescriptionsAsync(
+            ISpecification<Prescription> specification, int pageIndex, int pageSize)
         {
-            return await GetPagedAsync(specifications, pageIndex, pageSize);
+            var spec = new SpecificationAdapter<Prescription>(specification);
+            var (Entities, TotalCount) = await GetPagedAsync(spec, pageIndex, pageSize);
+            return (Entities, TotalCount);
+        }
+        
+        // Implement IRepositoryBase<Prescription, Guid> interface methods
+        public async Task<IEnumerable<Prescription>> ListAsync(ISpecification<Prescription> spec)
+        {
+            var specification = new SpecificationAdapter<Prescription>(spec);
+            return await GetAllAsync(specification);
+        }
+        
+        public async Task<Prescription> FirstOrDefaultAsync(ISpecification<Prescription> spec)
+        {
+            var specification = new SpecificationAdapter<Prescription>(spec);
+            return await GetAsync(specification);
+        }
+        
+        public async Task<int> CountAsync(ISpecification<Prescription> spec)
+        {
+            var specification = new SpecificationAdapter<Prescription>(spec);
+            return await base.CountAsync(specification);
+        }
+        
+        // Override GetAllAsync for interface compatibility
+        public async Task<IEnumerable<Prescription>> GetAllAsync()
+        {
+            return await base.GetAllAsync();
         }
     }
 } 

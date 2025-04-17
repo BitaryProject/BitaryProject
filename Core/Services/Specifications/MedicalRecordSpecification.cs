@@ -1,74 +1,68 @@
-﻿using Domain.Entities.HealthcareEntities;
-using Services.Specifications.Base;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Services.Specifications.Base;
 using System;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
-namespace Services.Specifications
+namespace Core.Services.Specifications
 {
     public class MedicalRecordSpecification : BaseSpecification<MedicalRecord>
     {
-        public MedicalRecordSpecification(Guid id) 
+        public MedicalRecordSpecification()
+            : base(null)
+        {
+            AddIncludes();
+        }
+
+        public MedicalRecordSpecification(Guid id)
             : base(m => m.Id == id)
         {
-            AddInclude(m => m.PetProfile);
-            AddInclude(m => m.Doctor);
-            AddInclude("PetProfile.Owner");
+            AddIncludes();
         }
 
         public MedicalRecordSpecification(Guid petId, int pageIndex, int pageSize)
             : base(m => m.PetProfileId == petId)
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderByDescending(m => m.RecordDate);
-            AddInclude(m => m.PetProfile);
-            AddInclude(m => m.Doctor);
+            AddIncludes();
+            ApplyOrderByDescending(m => m.RecordDate);
         }
 
-        public MedicalRecordSpecification(Guid doctorId, bool byDoctor, int pageIndex, int pageSize)
+        public MedicalRecordSpecification(Guid doctorId, bool isDoctor, int pageIndex, int pageSize)
             : base(m => m.DoctorId == doctorId)
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderByDescending(m => m.RecordDate);
-            AddInclude(m => m.PetProfile);
-            AddInclude(m => m.Doctor);
-            AddInclude("PetProfile.Owner");
+            AddIncludes();
+            ApplyOrderByDescending(m => m.RecordDate);
         }
 
         public MedicalRecordSpecification(DateTime startDate, DateTime endDate, int pageIndex, int pageSize)
             : base(m => m.RecordDate >= startDate && m.RecordDate <= endDate)
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderByDescending(m => m.RecordDate);
-            AddInclude(m => m.PetProfile);
-            AddInclude(m => m.Doctor);
-            AddInclude("PetProfile.Owner");
+            AddIncludes();
+            ApplyOrderByDescending(m => m.RecordDate);
         }
 
         public MedicalRecordSpecification(string diagnosis, int pageIndex, int pageSize)
-            : base(m => m.Diagnosis.ToLower().Contains(diagnosis.ToLower()))
+            : base(m => m.Diagnosis.Contains(diagnosis))
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderByDescending(m => m.RecordDate);
-            AddInclude(m => m.PetProfile);
-            AddInclude(m => m.Doctor);
-            AddInclude("PetProfile.Owner");
+            AddIncludes();
+            ApplyOrderByDescending(m => m.RecordDate);
         }
 
-        public MedicalRecordSpecification(Expression<Func<MedicalRecord, bool>> criteria)
-            : base(criteria)
+        // Constructor for Expression<Func<MedicalRecord, bool>> predicate
+        public MedicalRecordSpecification(Expression<Func<MedicalRecord, bool>> predicate)
+            : base(predicate)
         {
-            AddInclude(m => m.PetProfile);
-            AddInclude(m => m.Doctor);
-            AddInclude("PetProfile.Owner");
+            AddIncludes();
         }
 
-        public MedicalRecordSpecification()
-            : base(null)
+        private void AddIncludes()
         {
-            AddOrderByDescending(m => m.RecordDate);
-            AddInclude(m => m.PetProfile);
             AddInclude(m => m.Doctor);
-            AddInclude("PetProfile.Owner");
+            AddInclude(m => m.PetProfile);
         }
-    }
+      }
 }

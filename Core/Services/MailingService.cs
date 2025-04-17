@@ -1,17 +1,18 @@
-﻿using BitaryProject.Mail;
-using  MailKit.Net.Smtp;
+using BitaryProject.Mail;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Services.Abstractions;
+using Core.Services.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services;
+namespace Core.Services;
 
 public class MailingService : IMailingService
 {
@@ -21,7 +22,7 @@ public class MailingService : IMailingService
     {
         _mailSettings = mailSettings.Value;
     }
-    public async Task SendEmailAsync(string mailTo, string subject, string body, IList<IFormFile> attachments = null)
+    public async Task SendEmailAsync(string mailTo, string subject, string body, IList<IFormFile>? attachments = null)
     {
         var email = new MimeMessage
         {

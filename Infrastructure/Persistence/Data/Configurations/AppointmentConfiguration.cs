@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Persistence.Data.Configurations
 {
@@ -8,31 +9,50 @@ namespace Persistence.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
+            builder.ToTable("Appointments");
             builder.HasKey(a => a.Id);
-            
+
+            // Basic properties
             builder.Property(a => a.AppointmentDateTime)
                 .IsRequired();
-                
+
+            builder.Property(a => a.Duration)
+                .IsRequired()
+                .HasConversion(
+                    v => v.Ticks,
+                    v => TimeSpan.FromTicks(v));
+
             builder.Property(a => a.Status)
                 .IsRequired()
                 .HasConversion<string>();
-            
-            // Many-to-one relationship with PetProfile
+
+            builder.Property(a => a.Reason)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            builder.Property(a => a.Notes)
+                .HasMaxLength(1000);
+
+            // Relationships
+            builder.HasOne(a => a.Doctor)
+                .WithMany(d => d.Appointments)
+                .HasForeignKey(a => a.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(a => a.PetProfile)
                 .WithMany(p => p.Appointments)
                 .HasForeignKey(a => a.PetProfileId)
                 .OnDelete(DeleteBehavior.Restrict);
-                
-            // Many-to-one relationship with Clinic
+
             builder.HasOne(a => a.Clinic)
-                .WithMany()
+                .WithMany(c => c.Appointments)
                 .HasForeignKey(a => a.ClinicId)
                 .OnDelete(DeleteBehavior.Restrict);
-                
-            // Many-to-one relationship with Doctor
-            builder.HasOne(a => a.Doctor)
-                .WithMany(d => d.Appointments)
-                .HasForeignKey(a => a.DoctorId)
+
+            // Follow-up appointment relationship (self-referencing)
+            builder.HasOne(a => a.FollowUpToAppointment)
+                .WithMany()
+                .HasForeignKey(a => a.FollowUpToAppointmentId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

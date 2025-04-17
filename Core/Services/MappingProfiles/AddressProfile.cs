@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Shared.OrderModels;
-using Domain.Entities.SecurityEntities;
+using Core.Domain.Entities.SecurityEntities;
 
 namespace Core.Services.MappingProfiles
 {
@@ -8,7 +8,7 @@ namespace Core.Services.MappingProfiles
     {
         public AddressProfile()
         {
-            CreateMap<AddressDTO, Domain.Entities.SecurityEntities.Address>().ReverseMap();
+            CreateMap<AddressDTO, Core.Domain.Entities.SecurityEntities.Address>().ReverseMap();
         }
     }
 }

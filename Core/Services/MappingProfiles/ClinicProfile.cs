@@ -1,4 +1,4 @@
-﻿//using Domain.Entities.ClinicEntities;
+//using Core.Domain.Entities.ClinicEntities;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;

@@ -9,21 +9,21 @@ namespace Shared.HealthcareModels
     public class PrescriptionDTO
     {
         public Guid Id { get; set; }
-        public string PrescriptionNumber { get; set; }
+        public string PrescriptionNumber { get; set; } = string.Empty;
         public DateTime IssuedDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public string Status { get; set; }
-        public string Instructions { get; set; }
+        public string Status { get; set; } = string.Empty;
+        public string Instructions { get; set; } = string.Empty;
         
         // Related entity information
-        public string DoctorName { get; set; }
+        public string DoctorName { get; set; } = string.Empty;
         public Guid DoctorId { get; set; }
-        public string PetName { get; set; }
+        public string PetName { get; set; } = string.Empty;
         public Guid PetId { get; set; }
-        public string PetOwnerName { get; set; }
+        public string PetOwnerName { get; set; } = string.Empty;
         
         // Medication items
-        public ICollection<PrescriptionMedicationItemDTO> MedicationItems { get; set; }
+        public ICollection<PrescriptionMedicationItemDTO> MedicationItems { get; set; } = new List<PrescriptionMedicationItemDTO>();
     }
     
     /// <summary>
@@ -33,12 +33,12 @@ namespace Shared.HealthcareModels
     {
         public Guid Id { get; set; }
         public Guid MedicationId { get; set; }
-        public string MedicationName { get; set; }
-        public string Dosage { get; set; }
-        public string Frequency { get; set; }
-        public string Duration { get; set; }
+        public string MedicationName { get; set; } = string.Empty;
+        public string Dosage { get; set; } = string.Empty;
+        public string Frequency { get; set; } = string.Empty;
+        public string Duration { get; set; } = string.Empty;
         public int Quantity { get; set; }
-        public string Instructions { get; set; }
+        public string Instructions { get; set; } = string.Empty;
     }
     
     // For creating or updating a prescription
@@ -46,10 +46,10 @@ namespace Shared.HealthcareModels
     {
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
-        public string Medication { get; init; }
-        public string Dosage { get; init; }
-        public string Instructions { get; init; }
-        public string Notes { get; init; }
+        public string Medication { get; init; } = string.Empty;
+        public string Dosage { get; init; } = string.Empty;
+        public string Instructions { get; init; } = string.Empty;
+        public string Notes { get; init; } = string.Empty;
         public Guid PetProfileId { get; init; }
         public Guid DoctorId { get; init; }
         public Guid? MedicalRecordId { get; init; }

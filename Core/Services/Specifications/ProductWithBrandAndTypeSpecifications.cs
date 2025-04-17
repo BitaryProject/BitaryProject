@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Domain.Contracts;
+using Shared.ProductModels;
 
-namespace Services.Specifications
+namespace Core.Services.Specifications
 {
     public class ProductWithBrandAndTypeSpecifications : Specifications<Product>
     {

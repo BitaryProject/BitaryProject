@@ -1,4 +1,4 @@
-﻿//using Domain.Entities.DoctorEntites;
+//using Core.Domain.Entities.DoctorEntites;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;

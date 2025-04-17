@@ -1,5 +1,5 @@
-﻿using Domain.Entities.OrderEntities;
-using Domain.Entities.ProductEntities;
+using Core.Domain.Entities.OrderEntities;
+using Core.Domain.Entities.ProductEntities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.BasketEntities
+namespace Core.Domain.Entities.BasketEntities
 {
     public class BasketItem : BaseEntity<Guid>
     {
@@ -33,3 +33,4 @@ namespace Domain.Entities.BasketEntities
         public int Quantity { get; set; }
     }
 }
+

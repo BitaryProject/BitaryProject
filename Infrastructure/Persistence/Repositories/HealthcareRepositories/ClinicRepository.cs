@@ -11,14 +11,17 @@ namespace Persistence.Repositories.HealthcareRepositories
 {
     public class ClinicRepository : GenericRepository<Clinic, Guid>, IClinicRepository
     {
+        private readonly StoreContext _storeContext;
+
         public ClinicRepository(StoreContext context) : base(context)
         {
+            _storeContext = context;
         }
 
         public async Task<IEnumerable<Clinic>> GetClinicsBySearchTermAsync(string searchTerm)
         {
             searchTerm = searchTerm.ToLower();
-            return await _context.Clinics
+            return await _storeContext.Clinics
                 .Include(c => c.Doctors)
                 .Where(c => c.Name.ToLower().Contains(searchTerm) || 
                             c.Address.ToLower().Contains(searchTerm))

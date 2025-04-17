@@ -1,8 +1,8 @@
-﻿//using Domain.Entities.AppointmentEntities;
-//using Domain.Entities.DoctorEntites;
+//using Core.Domain.Entities.AppointmentEntities;
+//using Core.Domain.Entities.DoctorEntites;
 //using System.Collections.Generic;
 
-//namespace Domain.Entities.ClinicEntities
+//namespace Core.Domain.Entities.ClinicEntities
 //{
 //    public class Clinic : BaseEntity<int>
 //    {
@@ -23,3 +23,4 @@
 
  
 //}
+

@@ -1,11 +1,13 @@
-﻿using Domain.Entities.BasketEntities;
+global using Core.Domain.Entities.BasketEntities;
+using Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Contracts;
 
-namespace Services.Specifications
+namespace Core.Services.Specifications
 {
     public class BasketSpecification : Specifications<CustomerBasket>
     {

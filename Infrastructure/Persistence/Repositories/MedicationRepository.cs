@@ -12,9 +12,9 @@ namespace Persistence.Repositories
 {
     public class MedicationRepository : IRepositoryBase<Medication, Guid>, IMedicationRepository
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly StoreContext _dbContext;
 
-        public MedicationRepository(ApplicationDbContext dbContext)
+        public MedicationRepository(StoreContext dbContext)
         {
             _dbContext = dbContext;
         }

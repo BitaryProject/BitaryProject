@@ -1,9 +1,10 @@
-using Domain.Entities.HealthcareEntities;
-using Services.Specifications.Base;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Services.Specifications.Base;
 using System;
 using System.Linq.Expressions;
+using Core.Domain.Entities.HealthcareEntities;
 
-namespace Services.Specifications
+namespace Core.Services.Specifications
 {
     public class MedicationSpecification : BaseSpecification<Medication>
     {

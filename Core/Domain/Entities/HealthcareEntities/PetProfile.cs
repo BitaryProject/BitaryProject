@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities;
+using Core.Domain.Entities;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
     public class PetProfile : BaseEntity<Guid>
     {

@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Common.Specifications;
 
-namespace Domain.Contracts
+namespace Core.Domain.Contracts
 {
-    public interface IRepositoryBase<T, TKey> where T : class where TKey : IEquatable<TKey>
+    public interface IRepositoryBase<T, TKey> where T : class
     {
         Task<T> GetAsync(TKey id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<IEnumerable<T>> ListAsync(ISpecification<T> spec);
-        Task<T> FirstOrDefaultAsync(ISpecification<T> spec);
+        Task<T> GetAsync(ISpecification<T> spec);
+        Task<IEnumerable<T>> FindAsync(ISpecification<T> spec);
         Task<int> CountAsync(ISpecification<T> spec);
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
     }

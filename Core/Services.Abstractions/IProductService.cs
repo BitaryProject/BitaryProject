@@ -1,4 +1,4 @@
-﻿global using Shared.ProductModels;
+global using Shared.ProductModels;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Abstractions
+namespace Core.Services.Abstractions
 {
     public interface IProductService
     {
@@ -20,3 +20,4 @@ namespace Services.Abstractions
 
     }
 }
+

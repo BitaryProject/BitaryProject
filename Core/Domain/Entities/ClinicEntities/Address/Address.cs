@@ -1,10 +1,10 @@
-﻿//using System;
+//using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace Domain.Entities.ClinicEntities
+//namespace Core.Domain.Entities.ClinicEntities
 //{
 //    public class Address
 //    {
@@ -27,3 +27,4 @@
 
 //    }
 //}
+

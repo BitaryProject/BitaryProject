@@ -1,19 +1,21 @@
 using Domain.Contracts;
-using Domain.Entities.BasketEntities;
+using Core.Domain.Entities.BasketEntities;
 using Domain.Exceptions;
 using Shared.BasketModels;
+using AutoMapper;
+using Core.Services.Abstractions;
 
-namespace Services
+namespace Core.Services
 {
     public class BasketService : IBasketService
     {
-        private readonly IbasketRepository basketRepository;
-        private readonly IMapper mapper;
+        private readonly IbasketRepository _basketRepository;
+        private readonly IMapper _mapper;
 
         public BasketService(IbasketRepository basketRepository, IMapper mapper)
         {
-            this.basketRepository = basketRepository;
-            this.mapper = mapper;
+            _basketRepository = basketRepository;
+            _mapper = mapper;
         }
 
         public async Task<bool?> DeleteBasketAsync(string id)
@@ -21,7 +23,7 @@ namespace Services
             if (!Guid.TryParse(id, out var basketGuid))
                 throw new Exception($"Invalid basket Id format: {id}");
 
-            return await basketRepository.DeleteBasketAsync(basketGuid);
+            return await _basketRepository.DeleteBasketAsync(basketGuid);
         }
 
         public async Task<CustomerBasketDTO?> GetBasketAsync(string id)
@@ -29,10 +31,10 @@ namespace Services
             if (!Guid.TryParse(id, out var basketGuid))
                 throw new BasketNotFoundException(id);
 
-            var basket = await basketRepository.GetBasketAsync(basketGuid);
+            var basket = await _basketRepository.GetBasketAsync(basketGuid);
             return basket is null
                 ? throw new BasketNotFoundException(id)
-                : mapper.Map<CustomerBasketDTO>(basket);
+                : _mapper.Map<CustomerBasketDTO>(basket);
         }
 
 
@@ -51,12 +53,12 @@ namespace Services
                 price: itemDto.Price
             );
 
-            var existingBasket = await basketRepository.GetBasketAsync(basketGuid);
+            var existingBasket = await _basketRepository.GetBasketAsync(basketGuid);
 
             if (existingBasket == null)
             {
                 existingBasket = new CustomerBasket { Id = basketGuid };
-                await basketRepository.CreateBasketAsync(existingBasket); 
+                await _basketRepository.CreateBasketAsync(existingBasket); 
             }
 
             var existingItem = existingBasket.BasketItems
@@ -71,20 +73,15 @@ namespace Services
                 existingBasket.BasketItems.Add(newItem);
             }
 
-            var updateResult = await basketRepository.UpdateBasketAsync(existingBasket);
+            var updateResult = await _basketRepository.UpdateBasketAsync(existingBasket);
 
             if (updateResult == null)
                 throw new Exception("Failed to update basket.");
 
-            return mapper.Map<CustomerBasketDTO>(updateResult);
+            return _mapper.Map<CustomerBasketDTO>(updateResult);
         }
 
-
-
-
-
-
-        public async Task<CustomerBasketDTO> CreateBasketAsync()
+        public async Task<CustomerBasketDTO?> CreateBasketAsync()
         {
             var newBasket = new CustomerBasket
             {
@@ -92,18 +89,17 @@ namespace Services
                 BasketItems = new List<BasketItem>()
             };
 
-            var createdBasket = await basketRepository.CreateBasketAsync(newBasket);
+            var createdBasket = await _basketRepository.CreateBasketAsync(newBasket);
 
             if (createdBasket == null)
                 throw new Exception("Failed to create basket.");
 
-            return mapper.Map<CustomerBasketDTO>(createdBasket);
+            return _mapper.Map<CustomerBasketDTO>(createdBasket);
         }
 
         public async Task<CustomerBasketDTO?> UpdateItemQuantityAsync(Guid basketId, Guid itemId, UpdateBasketItemModel model)
         {
-         
-            var basket = await basketRepository.GetBasketAsync(basketId);
+            var basket = await _basketRepository.GetBasketAsync(basketId);
             if (basket == null) return null;
 
             var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
@@ -111,17 +107,16 @@ namespace Services
 
             item.Quantity = model.Quantity;
 
-            var updatedBasket = await basketRepository.UpdateBasketAsync(basket);
+            var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
             if (updatedBasket == null)
                 throw new Exception("Failed to update item quantity in basket.");
 
-            return mapper.Map<CustomerBasketDTO>(updatedBasket);
+            return _mapper.Map<CustomerBasketDTO>(updatedBasket);
         }
-
 
         public async Task<CustomerBasketDTO?> RemoveItemAsync(Guid basketId, Guid itemId)
         {
-            var basket = await basketRepository.GetBasketAsync(basketId);
+            var basket = await _basketRepository.GetBasketAsync(basketId);
             if (basket == null) return null;
 
             var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
@@ -129,13 +124,11 @@ namespace Services
 
             basket.BasketItems.Remove(item);
 
-            var updated = await basketRepository.UpdateBasketAsync(basket);
+            var updated = await _basketRepository.UpdateBasketAsync(basket);
             if (updated == null)
                 throw new Exception("Failed to remove item from basket.");
 
-            return mapper.Map<CustomerBasketDTO>(updated);
+            return _mapper.Map<CustomerBasketDTO>(updated);
         }
-
-
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
     /// <summary>
     /// Entity representing a paginated result set
@@ -30,3 +30,4 @@ namespace Domain.Entities.HealthcareEntities
         }
     }
 } 
+

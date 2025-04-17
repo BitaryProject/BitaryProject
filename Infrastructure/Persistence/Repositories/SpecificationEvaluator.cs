@@ -1,33 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Core.Common.Specifications;
 
-namespace Persistence.Repositories
+namespace Infrastructure.Persistence.Repositories
 {
-    public static class SpecificationEvaluator
+    public static class SpecificationEvaluator<T> where T : class
     {
-        public static IQueryable<T> GetQuery<T>
-           (IQueryable<T> inputQuery, Specifications<T> specifications) where T : class
+        public static IQueryable<T> GetQuery(IQueryable<T> inputQuery, Core.Common.Specifications.ISpecification<T> specification)
         {
             var query = inputQuery;
 
-            if (specifications.Criteria is not null)
-                query = query.Where(specifications.Criteria);
+            // Apply criteria
+            if (specification.Criteria != null)
+            {
+                query = query.Where(specification.Criteria);
+            }
 
-            query = specifications.IncludeExpressions.Aggregate(
-                query,
-                (currentQuery, includeExpressions) => currentQuery.Include(includeExpressions));
+            // Apply includes
+            query = specification.Includes.Aggregate(query,
+                                    (current, include) => current.Include(include));
 
-            if (specifications.OrderBy is not null)
-                query = query.OrderBy(specifications.OrderBy);
+            // Apply include strings
+            query = specification.IncludeStrings.Aggregate(query,
+                                    (current, include) => current.Include(include));
 
-            else if (specifications.OrderByDescending is not null)
-                query = query.OrderByDescending(specifications.OrderByDescending);
+            // Apply ordering
+            if (specification.OrderBy != null)
+            {
+                query = query.OrderBy(specification.OrderBy);
+            }
+            else if (specification.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(specification.OrderByDescending);
+            }
 
-            if (specifications.IsPaginated)
-                query = query.Skip(specifications.Skip).Take(specifications.Take);
+            // Apply grouping
+            if (specification.GroupBy != null)
+            {
+                query = query.GroupBy(specification.GroupBy).SelectMany(x => x);
+            }
+
+            // Apply paging
+            if (specification.IsPagingEnabled)
+            {
+                query = query.Skip(specification.Skip)
+                             .Take(specification.Take);
+            }
+
             return query;
         }
     }

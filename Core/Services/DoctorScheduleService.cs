@@ -1,5 +1,5 @@
-﻿//using Shared.DoctorModels;
-//using Domain.Entities.DoctorEntites;
+//using Shared.DoctorModels;
+//using Core.Domain.Entities.DoctorEntites;
 //using Domain.Exceptions;
 //using System;
 //using System.Threading.Tasks;
@@ -36,13 +36,13 @@
 //        {
 //            var existing = await _repository.GetScheduleAsync(doctorId, dto.Day);
 //            if (existing != null)
-//                throw new ScheduleConflictException("جدول موجود بالفعل لهذا اليوم");
+//                throw new ScheduleConflictException("???? ????? ?????? ???? ?????");
 
 //            var schedule = _mapper.Map<DoctorSchedule>(dto);
 //            schedule.DoctorId = doctorId;
 
 //            if (schedule.StartTime >= schedule.EndTime)
-//                throw new InvalidScheduleException("وقت البدء يجب أن يكون قبل وقت الانتهاء");
+//                throw new InvalidScheduleException("??? ????? ??? ?? ???? ??? ??? ????????");
 
 //            await _repository.AddAsync(schedule);
 //            await _repository.SaveChangesAsync();

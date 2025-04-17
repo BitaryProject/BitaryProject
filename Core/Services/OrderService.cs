@@ -1,8 +1,8 @@
-﻿using Domain.Contracts;
-using Domain.Entities.BasketEntities;
-using Domain.Entities.OrderEntities;
-using Services.Specifications;
-using OrderAddress = Domain.Entities.OrderEntities.Address;
+using Domain.Contracts;
+using Core.Domain.Entities.BasketEntities;
+using Core.Domain.Entities.OrderEntities;
+using Core.Services.Specifications;
+using OrderAddress = Core.Domain.Entities.OrderEntities.Address;
 
 using Shared.BasketModels;
 using Shared.OrderModels;
@@ -13,9 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Domain.Exceptions;
-using Address = Domain.Entities.OrderEntities.Address;
-
-
+using Address = Core.Domain.Entities.OrderEntities.Address;
+using Core.Services.Abstractions;
+using AutoMapper;
 
 namespace Services
 {

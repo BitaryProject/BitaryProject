@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Services.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using Core.Services.Abstractions;
 using Shared.ProductModels;
 using System;
 using System.Collections.Generic;
@@ -70,3 +70,4 @@ namespace Presentation
         }
     }
 }
+

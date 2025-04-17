@@ -1,16 +1,20 @@
-﻿using Domain.Entities.BasketEntities;
-using Domain.Entities.HealthcareEntities;
-using Domain.Entities.OrderEntities;
-using Domain.Entities.ProductEntities;
+﻿using Core.Domain.Entities;
+using Core.Domain.Entities.BasketEntities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.OrderEntities;
+using Core.Domain.Entities.ProductEntities;
+using Core.Domain.Entities.SecurityEntities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Domain.Entities.HealthcareEntities;
 
-namespace Persistence.Data
+namespace Infrastructure.Persistence.Data
 {
     public class StoreContext : DbContext
     {
@@ -29,12 +33,12 @@ namespace Persistence.Data
         }
 
         // E-commerce Entities
-        public DbSet<Product?> Products { get; set; }
-        public DbSet<ProductBrand?> ProductBrands { get; set; }
-        public DbSet<ProductCategory?> ProductCategories { get; set; }
-        public DbSet<OrderEntity?> Orders { get; set; }
-        public DbSet<OrderItem?> OrderItems { get; set; }
-        public DbSet<DeliveryMethod?> DeliveryMethods { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductBrand> ProductBrands { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<CustomerBasket> CustomerBaskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         
@@ -45,6 +49,10 @@ namespace Persistence.Data
         public DbSet<PetProfile> PetProfiles { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<MedicalNote> MedicalNotes { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<Medication> Medications { get; set; }
+        public DbSet<DoctorRating> DoctorRatings { get; set; }
+        public DbSet<ClinicRating> ClinicRatings { get; set; }
     }
 }

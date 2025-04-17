@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.OrderEntities
+namespace Core.Domain.Entities.OrderEntities
 {
     public class DeliveryMethod:BaseEntity<int>
     {
@@ -27,3 +27,4 @@ namespace Domain.Entities.OrderEntities
         public decimal Price { get; set; }
     }
 }
+

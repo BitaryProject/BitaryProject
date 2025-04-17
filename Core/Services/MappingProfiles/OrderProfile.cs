@@ -1,14 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities.Identity;
-using Domain.Entities.OrderEntities;
+using Core.Domain.Entities.Identity;
+using Core.Domain.Entities.OrderEntities;
 using Shared.OrderModels;
-using OrderAddress = Domain.Entities.OrderEntities.Address;
+using AutoMapper;
+using OrderAddress = Core.Domain.Entities.OrderEntities.Address;
 
-using UserAddress = Domain.Entities.Identity.Address;
+using UserAddress = Core.Domain.Entities.Identity.Address;
 namespace Services.MappingProfiles
 {
     class OrderProfile : Profile

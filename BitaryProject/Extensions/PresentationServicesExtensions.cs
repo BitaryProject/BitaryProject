@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Talabat.Api.Factories;
+using BitaryProject.Api.Factories;
 
 namespace BitaryProject.Extensions
 {

@@ -1,4 +1,4 @@
-﻿using Shared.BasketModels;
+using Shared.BasketModels;
 using Shared.OrderModels;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Abstractions
+namespace Core.Services.Abstractions
 {
     public interface IOrderService
     {
@@ -17,3 +17,4 @@ namespace Services.Abstractions
 
     }
 }
+

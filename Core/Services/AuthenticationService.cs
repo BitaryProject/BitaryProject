@@ -1,4 +1,4 @@
-﻿using Domain.Entities.SecurityEntities;
+using Core.Domain.Entities.SecurityEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -11,44 +11,46 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Exceptions;
+using Core.Domain.Exceptions;
 using AutoMapper;
 using Shared.OrderModels;
-using UserAddress = Domain.Entities.SecurityEntities.Address;
+using UserAddress = Core.Domain.Entities.SecurityEntities.Address;
 using Microsoft.Extensions.DependencyInjection;
-using Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.Extensions.Logging;
+using Core.Domain.Contracts;
+using Core.Services.Abstractions;
 
-namespace Services
+namespace Core.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
-        private readonly IOptions<JwtOptions> options;
-        private readonly IOptions<DomainSettings> domainOptions;
-        private readonly IMapper mapper;
-        private readonly IMailingService mailingService;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IOptions<JwtOptions> _options;
+        private readonly IOptions<DomainSettings> _domainOptions;
+        private readonly IMapper _mapper;
+        private readonly IMailingService _mailingService;
         private readonly IHealthcareUnitOfWork _healthcareUnitOfWork;
         private readonly ILogger<AuthenticationService> _logger;
 
         public AuthenticationService(
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            IOptions<JwtOptions> options, 
-            IOptions<DomainSettings> domainOptions, 
-            IMapper mapper, 
+            IOptions<JwtOptions> options,
+            IOptions<DomainSettings> domainOptions,
+            IMapper mapper,
             IMailingService mailingService,
             IHealthcareUnitOfWork healthcareUnitOfWork,
             ILogger<AuthenticationService> logger)
         {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-            this.options = options;
-            this.domainOptions = domainOptions;
-            this.mapper = mapper;
-            this.mailingService = mailingService;
-            this._healthcareUnitOfWork = healthcareUnitOfWork;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _options = options;
+            _domainOptions = domainOptions;
+            _mapper = mapper;
+            _mailingService = mailingService;
+            _healthcareUnitOfWork = healthcareUnitOfWork;
             _logger = logger;
         }
 
@@ -69,19 +71,19 @@ namespace Services
             if (string.IsNullOrWhiteSpace(registerModel.FirstName) || string.IsNullOrWhiteSpace(registerModel.LastName))
                 validationErrors.Add("First name and last name are required");
             
-            if (!string.IsNullOrWhiteSpace(registerModel.Email) && await userManager.FindByEmailAsync(registerModel.Email) != null)
+            if (!string.IsNullOrWhiteSpace(registerModel.Email) && await _userManager.FindByEmailAsync(registerModel.Email) != null)
                 validationErrors.Add("Email is already in use");
             
-            if (!string.IsNullOrWhiteSpace(registerModel.UserName) && await userManager.FindByNameAsync(registerModel.UserName) != null) 
+            if (!string.IsNullOrWhiteSpace(registerModel.UserName) && await _userManager.FindByNameAsync(registerModel.UserName) != null) 
                 validationErrors.Add("Username is already in use");
             
             if (validationErrors.Any())
                 throw new ValidationException(validationErrors);
 
             // Map the registration DTO to user entity
-            var user = mapper.Map<User>(registerModel);
+            var user = _mapper.Map<User>(registerModel);
 
-            var result = await userManager.CreateAsync(user, registerModel.Password);
+            var result = await _userManager.CreateAsync(user, registerModel.Password);
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(e => e.Description).ToList();
@@ -96,16 +98,16 @@ namespace Services
                 // Ensure the role exists
                 string role = registerModel.UserType.Trim();
                 
-                if (!await roleManager.RoleExistsAsync(role))
+                if (!await _roleManager.RoleExistsAsync(role))
                 {
                     _logger.LogInformation("Creating new role: {Role}", role);
                     // Create the role if it doesn't exist
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                    await _roleManager.CreateAsync(new IdentityRole(role));
                 }
                 
                 _logger.LogInformation("Assigning role {Role} to user {UserId}", role, user.Id);
                 // Assign the role to the user
-                await userManager.AddToRoleAsync(user, role);
+                await _userManager.AddToRoleAsync(user, role);
                 assignedRoles.Add(role);
                 
                 // Create specific profiles based on the role
@@ -131,21 +133,21 @@ namespace Services
             else
             {
                 // Default to a basic user role if no specific role is provided
-                if (!await roleManager.RoleExistsAsync("Customer"))
+                if (!await _roleManager.RoleExistsAsync("Customer"))
                 {
-                    await roleManager.CreateAsync(new IdentityRole("Customer"));
+                    await _roleManager.CreateAsync(new IdentityRole("Customer"));
                 }
-                await userManager.AddToRoleAsync(user, "Customer");
+                await _userManager.AddToRoleAsync(user, "Customer");
                 assignedRoles.Add("Customer");
             }
             
             try
             {
                 // Generate and send verification code if registration is successful
-                var DomainOptions = domainOptions.Value;
-                var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+                var DomainOptions = _domainOptions.Value;
+                var verificationCode = await _userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
 
-                await mailingService.SendEmailAsync(user.Email!, "Verification Code", 
+                await _mailingService.SendEmailAsync(user.Email!, "Verification Code", 
                     $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={registerModel.Email}&otp={verificationCode}");
             }
             catch (Exception ex)
@@ -160,19 +162,19 @@ namespace Services
             
             // Return user result DTO
             return new UserResultDTO(
-                user.DisplayName,
-                user.Email,
+                        user.DisplayName,
+                         user.Email,
                 token,
                 assignedRoles);
         }
 
         public async Task<bool> CheckEmailExist(string email)
         {
-            return await userManager.FindByEmailAsync(email) != null;
+            return await _userManager.FindByEmailAsync(email) != null;
         }
         public async Task<AddressDTO> AddUserAddress(AddressDTO address, string email)
         {
-            var user = await userManager.Users
+            var user = await _userManager.Users
                 .Include(u => u.Address)
                 .FirstOrDefaultAsync(u => u.Email == email)
                 ?? throw new UserNotFoundException(email);
@@ -182,41 +184,41 @@ namespace Services
                 throw new Exception("User already has an address. Use update endpoint instead.");
             }
 
-            user.Address = mapper.Map<UserAddress>(address);
+            user.Address = _mapper.Map<UserAddress>(address);
 
-            await userManager.UpdateAsync(user);
-            return mapper.Map<AddressDTO>(user.Address);
+            await _userManager.UpdateAsync(user);
+            return _mapper.Map<AddressDTO>(user.Address);
         }
 
         public async Task<AddressDTO> GetUserAddress(string email)
         {
-            var user = await userManager.Users
+            var user = await _userManager.Users
                 .Include(u => u.Address)
                 .FirstOrDefaultAsync(u => u.Email == email)
                 ?? throw new UserNotFoundException(email);
 
-            return user.Address != null ? mapper.Map<AddressDTO>(user.Address) : throw new Exception("User address not found.");
+            return user.Address != null ? _mapper.Map<AddressDTO>(user.Address) : throw new Exception("User address not found.");
         }
 
         public async Task<UserResultDTO> GetUserByEmail(string email)
         {
-            var user = await userManager.FindByEmailAsync(email) ?? throw new UserNotFoundException(email);
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new UserNotFoundException(email);
 
             return new UserResultDTO(user.DisplayName, user.Email, await CreateTokenAsync(user));
         }
 
         public async Task<bool> SendVerificationCodeAsync(string email)
         {
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null) throw new UnauthorizedAccessException("User not found");
 
-            var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+            var verificationCode = await _userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
 
 
 
-            var DomainOptions = domainOptions.Value;
+            var DomainOptions = _domainOptions.Value;
 
-            await mailingService.SendEmailAsync(user.Email!, "Verification Code", $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={email}&otp={verificationCode}");
+            await _mailingService.SendEmailAsync(user.Email!, "Verification Code", $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={email}&otp={verificationCode}");
 
             return true;
         }
@@ -226,33 +228,33 @@ namespace Services
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Email is required", nameof(email));
 
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null) 
                 throw new UserNotFoundException(email);
 
             try
             {
                 // Update security stamp to invalidate any previous tokens
-                await userManager.UpdateSecurityStampAsync(user);
+            await _userManager.UpdateSecurityStampAsync(user);
 
                 // Generate a new password reset token
-                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 
                 // URL encode the token to ensure it's properly formatted in the URL
                 var encodedToken = Uri.EscapeDataString(token);
                 
-                var DomainOptions = domainOptions.Value;
+                var DomainOptions = _domainOptions.Value;
                 var resetLink = $"{DomainOptions.bitaryUrl}api/Authentication/ResetPassword?email={Uri.EscapeDataString(email)}&token={encodedToken}";
 
-                // Send the reset password email with the generated link
-                await mailingService.SendEmailAsync(
+            // Send the reset password email with the generated link
+                await _mailingService.SendEmailAsync(
                     user.Email!, 
                     "Reset Password", 
                     $"Click the link to reset your password: {resetLink}\n\n" +
                     "This link will expire in 24 hours. If you did not request this password reset, please ignore this email."
                 );
 
-                return true;
+            return true;
             }
             catch (Exception ex)
             {
@@ -270,14 +272,14 @@ namespace Services
             if (string.IsNullOrWhiteSpace(newPassword))
                 throw new ArgumentException("New password is required", nameof(newPassword));
 
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null) 
                 throw new UserNotFoundException(email);
 
             try
             {
                 // First verify the token is valid
-                var isValidToken = await userManager.VerifyUserTokenAsync(
+                var isValidToken = await _userManager.VerifyUserTokenAsync(
                     user, 
                     TokenOptions.DefaultProvider, 
                     "ResetPassword", 
@@ -287,8 +289,8 @@ namespace Services
                 if (!isValidToken)
                 {
                     // Try to generate a new token to check if the user's security stamp has changed
-                    await userManager.UpdateSecurityStampAsync(user);
-                    var newToken = await userManager.GeneratePasswordResetTokenAsync(user);
+                    await _userManager.UpdateSecurityStampAsync(user);
+                    var newToken = await _userManager.GeneratePasswordResetTokenAsync(user);
                     
                     // If we can generate a new token but the provided one is invalid, it's likely expired
                     if (!string.IsNullOrEmpty(newToken))
@@ -299,16 +301,16 @@ namespace Services
                     throw new Exception("Invalid password reset token. Please request a new password reset link.");
                 }
 
-                var resetResult = await userManager.ResetPasswordAsync(user, token, newPassword);
-                if (!resetResult.Succeeded)
+            var resetResult = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!resetResult.Succeeded)
                 {
                     var errorMessage = string.Join(", ", resetResult.Errors.Select(e => e.Description));
                     throw new Exception($"Password reset failed: {errorMessage}");
                 }
 
                 // Update security stamp after successful password reset
-                await userManager.UpdateSecurityStampAsync(user);
-                return true;
+                await _userManager.UpdateSecurityStampAsync(user);
+            return true;
             }
             catch (Exception ex) when (ex is not UserNotFoundException)
             {
@@ -320,15 +322,15 @@ namespace Services
 
         public async Task<UserResultDTO> LoginAsync(LoginDTO loginModel)
         {
-            var user = await userManager.FindByEmailAsync(loginModel.Email) ?? throw new UnAuthorizedException("Email doesn't exist");
+            var user = await _userManager.FindByEmailAsync(loginModel.Email) ?? throw new UnAuthorizedException("Email doesn't exist");
             
-            if (!await userManager.CheckPasswordAsync(user, loginModel.Password))
+            if (!await _userManager.CheckPasswordAsync(user, loginModel.Password))
                 throw new UnAuthorizedException("Invalid password");
 
             _logger.LogInformation("User {UserId} with email {Email} logged in successfully", user.Id, user.Email);
             
             // Get user roles to include in the response
-            var roles = await userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             _logger.LogDebug("User {UserId} has roles: {Roles}", user.Id, string.Join(", ", roles));
             
             // Create JWT token
@@ -344,14 +346,14 @@ namespace Services
 
         public async Task<AddressDTO> UpdateUserAddress(AddressDTO address, string email)
         {
-            var user = await userManager.Users
+            var user = await _userManager.Users
                 .Include(u => u.Address)
                 .FirstOrDefaultAsync(u => u.Email == email)
                 ?? throw new UserNotFoundException(email);
 
             if (user.Address == null)
             {
-                user.Address = mapper.Map<UserAddress>(address);
+                user.Address = _mapper.Map<UserAddress>(address);
             }
             else
             {
@@ -361,13 +363,13 @@ namespace Services
                 user.Address.Country = address.Country;
             }
 
-            await userManager.UpdateAsync(user);
-            return mapper.Map<AddressDTO>(user.Address);
+            await _userManager.UpdateAsync(user);
+            return _mapper.Map<AddressDTO>(user.Address);
         }
      
         private async Task<string> CreateTokenAsync(User user)
         {
-            var jwtOptions = options.Value;
+            var jwtOptions = _options.Value;
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
@@ -376,13 +378,13 @@ namespace Services
             };
 
             // Map user to claims DTO to extract necessary claims
-            var claimsDTO = mapper.Map<JwtClaimsDTO>(user);
+            var claimsDTO = _mapper.Map<JwtClaimsDTO>(user);
             
             // Add user ID claim
             authClaims.Add(new Claim(ClaimTypes.NameIdentifier, claimsDTO.Id));
 
             // Add role claims
-            var roles = await userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             authClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             _logger.LogDebug("Creating token for user {UserId} with {ClaimCount} claims", user.Id, authClaims.Count);
@@ -402,19 +404,19 @@ namespace Services
 
         public async Task<bool> VerifyEmailAsync(string email, string otp)
         {
-            var user = await userManager.FindByEmailAsync(email) ?? throw new UnauthorizedAccessException("User not found");
-            if (!await userManager.VerifyUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation", otp))
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new UnauthorizedAccessException("User not found");
+            if (!await _userManager.VerifyUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation", otp))
                 throw new Exception("Invalid or expired verification code");
 
             user.EmailConfirmed = true;
-            await userManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user);
             return true;
         }
 
         public async Task<bool> ChangePasswordAsync(string email, string oldPassword, string newPassword)
         {
-            var user = await userManager.FindByEmailAsync(email) ?? throw new UserNotFoundException(email);
-            var changeResult = await userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new UserNotFoundException(email);
+            var changeResult = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
             if (!changeResult.Succeeded)
                 throw new Exception(string.Join(", ", changeResult.Errors.Select(e => e.Description)));
 
@@ -423,7 +425,7 @@ namespace Services
 
         public async Task<UserInformationDTO> GetUserInfo(string email)
         {
-            var user = await userManager.Users
+            var user = await _userManager.Users
                 .Include(u => u.Address)
                 .AsNoTracking() // Ensure we get a fresh copy from the database
                 .FirstOrDefaultAsync(u => u.Email == email)
@@ -466,22 +468,22 @@ namespace Services
             try
             {
                 // Get the user - simply using FindByEmailAsync to avoid the tracking issue
-                var user = await userManager.FindByEmailAsync(email)
-                    ?? throw new UserNotFoundException(email);
+                var user = await _userManager.FindByEmailAsync(email)
+                ?? throw new UserNotFoundException(email);
 
                 Console.WriteLine($"Found user: ID={user.Id}, Email={user.Email}");
 
                 // Copy only the fields we want to update
                 user.FirstName = !string.IsNullOrWhiteSpace(userInfoDTO.FirstName) ? userInfoDTO.FirstName : user.FirstName;
                 user.LastName = !string.IsNullOrWhiteSpace(userInfoDTO.LastName) ? userInfoDTO.LastName : user.LastName;
-                user.Gender = userInfoDTO.Gender;
+            user.Gender = userInfoDTO.Gender;
                 user.PhoneNumber = !string.IsNullOrWhiteSpace(userInfoDTO.PhoneNumber) ? userInfoDTO.PhoneNumber : user.PhoneNumber;
                 user.DisplayName = $"{user.FirstName} {user.LastName}".Trim();
 
                 Console.WriteLine($"Updating user: FirstName={user.FirstName}, LastName={user.LastName}, Gender={user.Gender}, Phone={user.PhoneNumber}");
 
                 // First, update the user information
-                var result = await userManager.UpdateAsync(user);
+                var result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)
                 {
                     var errors = string.Join(", ", result.Errors.Select(e => e.Description));
@@ -512,7 +514,7 @@ namespace Services
             try
             {
                 // Create separate db context query to avoid tracking conflicts
-                var userWithAddress = await userManager.Users
+                var userWithAddress = await _userManager.Users
                     .AsNoTracking() // Important - don't track this entity
                     .Include(u => u.Address)
                     .FirstOrDefaultAsync(u => u.Email == email);
@@ -523,7 +525,7 @@ namespace Services
                 Console.WriteLine($"Address update: User has address: {userWithAddress.Address != null}");
 
                 // Get fresh User instance for update
-                var user = await userManager.FindByIdAsync(userWithAddress.Id);
+                var user = await _userManager.FindByIdAsync(userWithAddress.Id);
                 if (user == null)
                     throw new UserNotFoundException(email);
 
@@ -563,7 +565,7 @@ namespace Services
                 }
                 
                 // Update the user with the new/updated address
-                var result = await userManager.UpdateAsync(user);
+                var result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)
                 {
                     var errors = string.Join(", ", result.Errors.Select(e => e.Description));
@@ -585,7 +587,7 @@ namespace Services
 
         public async Task<object> GetDebugInfo(string email)
         {
-            var userWithAddress = await userManager.Users
+            var userWithAddress = await _userManager.Users
                 .Include(u => u.Address)
                 .FirstOrDefaultAsync(u => u.Email == email);
             
@@ -604,7 +606,7 @@ namespace Services
                 }
                 : null;
             
-            var userRaw = await userManager.Users
+            var userRaw = await _userManager.Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
             
@@ -629,31 +631,57 @@ namespace Services
             {
                 _logger.LogInformation("Creating doctor profile for user {UserId}", user.Id);
                 
-                // Check if any clinic exists, if not create a default one
-                var clinics = await _healthcareUnitOfWork.ClinicRepository.GetAllAsync();
+                // Create doctor profile using mapping profile
+                var doctor = _mapper.Map<Doctor>(user);
+                
+                // Create or associate with clinic
                 Guid clinicId;
                 
-                if (!clinics.Any())
+                // Check if clinic info was provided in registration
+                var clinicInfo = (user as User)?.ClinicInfo;
+                if (clinicInfo != null)
                 {
-                    _logger.LogInformation("No clinics found. Creating default clinic");
-                    var defaultClinic = new Clinic
+                    // Create new clinic with provided info
+                    _logger.LogInformation("Creating new clinic for doctor {UserId}", user.Id);
+                    var clinic = new Clinic
                     {
-                        Name = "Default Clinic",
-                        Address = "Please update address",
-                        ContactDetails = "Please update contact details"
+                        Name = clinicInfo.Name,
+                        Address = clinicInfo.Address,
+                        Phone = clinicInfo.Phone,
+                        Email = clinicInfo.Email,
+                        Description = clinicInfo.Description
                     };
                     
-                    await _healthcareUnitOfWork.ClinicRepository.AddAsync(defaultClinic);
+                    await _healthcareUnitOfWork.ClinicRepository.AddAsync(clinic);
                     await _healthcareUnitOfWork.SaveChangesAsync();
-                    clinicId = defaultClinic.Id;
+                    clinicId = clinic.Id;
                 }
                 else
                 {
-                    clinicId = clinics.First().Id;
+                    // Check if any clinic exists, if not create a default one
+                    var clinics = await _healthcareUnitOfWork.ClinicRepository.GetAllAsync();
+                    if (!clinics.Any())
+                    {
+                        _logger.LogInformation("No clinics found. Creating default clinic");
+                        var defaultClinic = new Clinic
+                        {
+                            Name = "Default Clinic",
+                            Address = "Please update address",
+                            Phone = "Please update phone",
+                            Email = "Please update email"
+                        };
+                        
+                        await _healthcareUnitOfWork.ClinicRepository.AddAsync(defaultClinic);
+                        await _healthcareUnitOfWork.SaveChangesAsync();
+                        clinicId = defaultClinic.Id;
+                    }
+                    else
+                    {
+                        clinicId = clinics.First().Id;
+                    }
                 }
                 
-                // Create doctor profile using mapping profile
-                var doctor = mapper.Map<Doctor>(user);
+                // Associate doctor with clinic
                 doctor.ClinicId = clinicId;
                 
                 await _healthcareUnitOfWork.DoctorRepository.AddAsync(doctor);
@@ -680,7 +708,7 @@ namespace Services
                 _logger.LogInformation("Creating pet owner profile for user {UserId}", user.Id);
                 
                 // Create pet owner profile using mapping profile
-                var petOwner = mapper.Map<PetOwner>(user);
+                var petOwner = _mapper.Map<PetOwner>(user);
                 
                 await _healthcareUnitOfWork.PetOwnerRepository.AddAsync(petOwner);
                 await _healthcareUnitOfWork.SaveChangesAsync();

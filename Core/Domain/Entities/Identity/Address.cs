@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.Identity
+namespace Core.Domain.Entities.Identity
 {
     public class Address
     {
@@ -17,4 +17,5 @@ namespace Domain.Entities.Identity
 
     }
 }
+
 

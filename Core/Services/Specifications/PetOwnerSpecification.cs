@@ -1,28 +1,28 @@
-using Domain.Entities.HealthcareEntities;
-using Services.Specifications.Base;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Services.Specifications.Base;
 using System;
 using System.Linq.Expressions;
 
-namespace Services.Specifications
+namespace Core.Services.Specifications
 {
     public class PetOwnerSpecification : BaseSpecification<PetOwner>
     {
         public PetOwnerSpecification(Guid id) 
             : base(p => p.Id == id)
         {
-            AddInclude(p => p.Pets);
+            AddIncludes();
         }
 
         public PetOwnerSpecification(string userId)
             : base(p => p.UserId == userId)
         {
-            AddInclude(p => p.Pets);
+            AddIncludes();
         }
 
         public PetOwnerSpecification(string email, bool exactMatch = false)
             : base(p => exactMatch ? p.Email == email : p.Email.ToLower().Contains(email.ToLower()))
         {
-            AddInclude(p => p.Pets);
+            AddIncludes();
         }
 
         public PetOwnerSpecification(int pageIndex, int pageSize)
@@ -30,19 +30,24 @@ namespace Services.Specifications
         {
             ApplyPaging((pageIndex - 1) * pageSize, pageSize);
             AddOrderBy(p => p.FullName);
-            AddInclude(p => p.Pets);
+            AddIncludes();
         }
 
         public PetOwnerSpecification(Expression<Func<PetOwner, bool>> criteria)
             : base(criteria)
         {
-            AddInclude(p => p.Pets);
+            AddIncludes();
         }
 
         public PetOwnerSpecification()
             : base(null)
         {
             AddOrderBy(p => p.FullName);
+            AddIncludes();
+        }
+
+        private void AddIncludes()
+        {
             AddInclude(p => p.Pets);
         }
     }

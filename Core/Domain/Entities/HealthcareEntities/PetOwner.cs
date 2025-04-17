@@ -1,28 +1,36 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities;
+using Core.Domain.Entities;
+using Core.Domain.Entities.SecurityEntities;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
     public class PetOwner : BaseEntity<Guid>
     {
         public PetOwner()
         {
-            PetProfiles = new List<PetProfile>();
+            Pets = new List<PetProfile>();
+            DoctorRatings = new List<DoctorRating>();
+            ClinicRatings = new List<ClinicRating>();
+            Appointments = new List<Appointment>();
         }
 
+        public string UserId { get; set; }
+        public User User { get; set; }
+        
+        public string Address { get; set; }
+        public string PreferredContactMethod { get; set; }
+        
+        // Properties for easier mapping
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
+        public string Phone { get; set; }
         
         // Navigation properties
-        public ICollection<PetProfile> PetProfiles { get; set; }
-        
-        // Alias for backward compatibility
-        public ICollection<PetProfile> Pets { get => PetProfiles; set => PetProfiles = value; }
-        
-        // User relationship
-        public string UserId { get; set; } // Reference to the application user
+        public ICollection<PetProfile> Pets { get; set; }
+        public ICollection<DoctorRating> DoctorRatings { get; set; }
+        public ICollection<ClinicRating> ClinicRatings { get; set; }
+        public ICollection<Appointment> Appointments { get; set; }
     }
 } 
+

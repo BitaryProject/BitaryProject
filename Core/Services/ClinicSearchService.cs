@@ -1,5 +1,5 @@
-﻿//using Domain.Contracts.NewModule;
-//using Domain.Entities.ClinicEntities;
+//using Domain.Contracts.NewModule;
+//using Core.Domain.Entities.ClinicEntities;
 //using Shared.ClinicModels;
 //using AutoMapper;
 //using System.Collections.Generic;

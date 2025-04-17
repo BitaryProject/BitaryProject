@@ -1,15 +1,15 @@
-﻿//using Domain.Entities.ClinicEntities;
+//using Core.Domain.Entities.ClinicEntities;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Numerics;
 //using System.Text;
 //using System.Threading.Tasks;
-//using Domain.Entities.PetEntities;
-//using Domain.Entities.DoctorEntites;
-//using Domain.Entities.MedicalRecordEntites;
+//using Core.Domain.Entities.PetEntities;
+//using Core.Domain.Entities.DoctorEntites;
+//using Core.Domain.Entities.MedicalRecordEntites;
 
-//namespace Domain.Entities.AppointmentEntities
+//namespace Core.Domain.Entities.AppointmentEntities
 //{
 //    public class Appointment : BaseEntity<int>
 //    {
@@ -43,3 +43,4 @@
 
 //    }
 //}
+

@@ -1,11 +1,11 @@
-﻿//using Domain.Entities.DoctorEntites;
+//using Domain.Entities.DoctorEntites;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace Domain.Contracts
+//namespace Core.Domain.Contracts
 //{
 //    public interface IDoctorScheduleRepository
 //    {
@@ -18,3 +18,4 @@
 //        Task SaveChangesAsync();
 //    }
 //}
+

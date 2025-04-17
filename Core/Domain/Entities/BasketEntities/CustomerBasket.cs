@@ -1,11 +1,11 @@
-﻿using Domain.Entities.OrderEntities;
+using Core.Domain.Entities.OrderEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.BasketEntities
+namespace Core.Domain.Entities.BasketEntities
 {
     public class CustomerBasket : BaseEntity<Guid>
     {
@@ -40,3 +40,4 @@ namespace Domain.Entities.BasketEntities
 
     }
 }
+

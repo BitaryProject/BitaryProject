@@ -2,7 +2,7 @@
 using Shared.ErrorModels;
 using System.Net;
 
-namespace Talabat.Api.Factories
+namespace BitaryProject.Api.Factories
 {
     public class ApiResponseFactory
     {

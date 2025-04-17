@@ -10,13 +10,13 @@ namespace Shared.SecurityModels
     public class ApiResponse<T>
     {
         public bool Success { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
         public T Data { get; set; }
         public List<string> Errors { get; set; } = new List<string>();
 
         public ApiResponse() { }
 
-        public ApiResponse(T data, bool success = true, string message = null)
+        public ApiResponse(T data, bool success = true, string? message = null)
         {
             Success = success;
             Message = message;
@@ -45,7 +45,7 @@ namespace Shared.SecurityModels
     public class ApiResponseDTO<T>
     {
         public bool Success { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
         public T Data { get; set; }
         public List<string> Errors { get; set; } = new List<string>();
     }

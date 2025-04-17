@@ -1,7 +1,7 @@
-﻿using Domain.Exceptions;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Services.Abstractions;
+using Core.Services.Abstractions;
 using Shared.OrderModels;
 using Shared.SecurityModels;
 using System;
@@ -11,8 +11,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Shared.OrderModels;
-using Domain.Entities.OrderEntities;
-using UserAddress = Domain.Entities.SecurityEntities.Address;
+using Core.Domain.Entities.OrderEntities;
+using UserAddress = Core.Domain.Entities.SecurityEntities.Address;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
@@ -318,3 +318,4 @@ namespace Presentation
         //        return RedirectToAction(nameof(GetUserInfo));
         //    }
         //}
+

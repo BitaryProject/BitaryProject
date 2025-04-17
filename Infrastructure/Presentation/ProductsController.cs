@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Services.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using Core.Services.Abstractions;
 using Shared;
 using Shared.ErrorModels;
 using Shared.ProductModels;
@@ -122,3 +122,4 @@ namespace Presentation
 
     }
 }
+

@@ -1,19 +1,19 @@
-using Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Common.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Core.Domain.Contracts
 {
     public interface IMedicalRecordRepository : IGenericRepository<MedicalRecord, Guid>
     {
-        Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByPetProfileIdAsync(Guid petProfileId);
+        Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByPetIdAsync(Guid petId);
         Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDoctorIdAsync(Guid doctorId);
-        Task<(IEnumerable<MedicalRecord> MedicalRecords, int TotalCount)> GetPagedMedicalRecordsAsync(Specifications<MedicalRecord> specifications, int pageIndex, int pageSize);
-        
-        // For backward compatibility
-        Task<MedicalRecord> GetByIdAsync(Guid id);
-        Task<MedicalRecord> GetEntityWithSpecAsync(ISpecification<MedicalRecord> specification);
-        Task<IEnumerable<MedicalRecord>> GetAllWithSpecAsync(ISpecification<MedicalRecord> specification);
+        Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDateRangeAsync(DateTime start, DateTime end);
+        Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDiagnosisAsync(string diagnosis);
+        Task<(IEnumerable<MedicalRecord> Records, int TotalCount)> GetPagedMedicalRecordsAsync(ISpecification<MedicalRecord> specification, int pageIndex, int pageSize);
+        Task<bool> AddNoteToMedicalRecordAsync(Guid id, string note);
     }
 } 
+

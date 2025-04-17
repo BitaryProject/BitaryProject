@@ -1,17 +1,18 @@
 using Domain.Contracts;
-using Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
-using Services.Abstractions;
-using Services.Specifications;
-using Services.Specifications.Base;
+using Core.Services.Abstractions;
+using Core.Services.Specifications;
+using Core.Services.Specifications.Base;
 using Shared.HealthcareModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domain.Exceptions;
 
-namespace Services
+namespace Core.Services
 {
     public class PrescriptionService : IPrescriptionService
     {
@@ -46,7 +47,7 @@ namespace Services
             return _mapper.Map<PrescriptionDTO>(prescription);
         }
 
-        public async Task<PagedResultDTO<PrescriptionDTO>> GetPrescriptionsByDoctorAsync(Guid doctorId, int pageIndex, int pageSize)
+        public async Task<HealthcarePagedResultDTO<PrescriptionDTO>> GetPrescriptionsByDoctorAsync(Guid doctorId, int pageIndex, int pageSize)
         {
             var specification = new PrescriptionSpecification(doctorId, pageIndex, pageSize);
             var prescriptions = await _unitOfWork.PrescriptionRepository.ListAsync(specification);
@@ -54,7 +55,7 @@ namespace Services
             
             var dtos = _mapper.Map<IEnumerable<PrescriptionDTO>>(prescriptions);
             
-            return new PagedResultDTO<PrescriptionDTO>
+            return new HealthcarePagedResultDTO<PrescriptionDTO>
             {
                 Items = dtos.ToList(),
                 TotalCount = count,
@@ -63,7 +64,7 @@ namespace Services
             };
         }
 
-        public async Task<PagedResultDTO<PrescriptionDTO>> GetPrescriptionsByPetAsync(Guid petId, int pageIndex, int pageSize)
+        public async Task<HealthcarePagedResultDTO<PrescriptionDTO>> GetPrescriptionsByPetAsync(Guid petId, int pageIndex, int pageSize)
         {
             var specification = new PrescriptionSpecification(petId, true, pageIndex, pageSize);
             var prescriptions = await _unitOfWork.PrescriptionRepository.ListAsync(specification);
@@ -71,7 +72,7 @@ namespace Services
             
             var dtos = _mapper.Map<IEnumerable<PrescriptionDTO>>(prescriptions);
             
-            return new PagedResultDTO<PrescriptionDTO>
+            return new HealthcarePagedResultDTO<PrescriptionDTO>
             {
                 Items = dtos.ToList(),
                 TotalCount = count,
@@ -80,7 +81,7 @@ namespace Services
             };
         }
 
-        public async Task<PagedResultDTO<PrescriptionDTO>> GetPrescriptionsByStatusAsync(string status, int pageIndex, int pageSize)
+        public async Task<HealthcarePagedResultDTO<PrescriptionDTO>> GetPrescriptionsByStatusAsync(string status, int pageIndex, int pageSize)
         {
             var specification = new PrescriptionSpecification(status, pageIndex, pageSize);
             var prescriptions = await _unitOfWork.PrescriptionRepository.ListAsync(specification);
@@ -88,7 +89,7 @@ namespace Services
             
             var dtos = _mapper.Map<IEnumerable<PrescriptionDTO>>(prescriptions);
             
-            return new PagedResultDTO<PrescriptionDTO>
+            return new HealthcarePagedResultDTO<PrescriptionDTO>
             {
                 Items = dtos.ToList(),
                 TotalCount = count,
@@ -97,7 +98,7 @@ namespace Services
             };
         }
 
-        public async Task<PagedResultDTO<PrescriptionDTO>> GetPrescriptionsByDateRangeAsync(DateTime startDate, DateTime endDate, int pageIndex, int pageSize)
+        public async Task<HealthcarePagedResultDTO<PrescriptionDTO>> GetPrescriptionsByDateRangeAsync(DateTime startDate, DateTime endDate, int pageIndex, int pageSize)
         {
             var specification = new PrescriptionSpecification(startDate, endDate, pageIndex, pageSize);
             var prescriptions = await _unitOfWork.PrescriptionRepository.ListAsync(specification);
@@ -105,7 +106,7 @@ namespace Services
             
             var dtos = _mapper.Map<IEnumerable<PrescriptionDTO>>(prescriptions);
             
-            return new PagedResultDTO<PrescriptionDTO>
+            return new HealthcarePagedResultDTO<PrescriptionDTO>
             {
                 Items = dtos.ToList(),
                 TotalCount = count,
@@ -334,16 +335,15 @@ namespace Services
 
         public async Task<IEnumerable<PrescriptionDTO>> GetPrescriptionsByMedicalRecordIdAsync(Guid medicalRecordId)
         {
-            var specification = new BaseSpecification<Prescription>(p => p.MedicalRecordId == medicalRecordId);
+            var specification = new PrescriptionFilterSpecification(medicalRecordId);
             var prescriptions = await _unitOfWork.PrescriptionRepository.ListAsync(specification);
             return _mapper.Map<IEnumerable<PrescriptionDTO>>(prescriptions);
         }
 
-        public async Task<PagedResultDTO<PrescriptionDTO>> GetPrescriptionsByMedicationAsync(string medicationName, int pageIndex, int pageSize)
+        public async Task<HealthcarePagedResultDTO<PrescriptionDTO>> GetPrescriptionsByMedicationAsync(string medicationName, int pageIndex, int pageSize)
         {
             // Create a specification to filter prescriptions containing the medication
-            var specification = new BaseSpecification<Prescription>(p => 
-                p.MedicationItems.Any(mi => mi.Medication.Name.Contains(medicationName)));
+            var specification = new PrescriptionFilterSpecification(medicationName);
             
             // Get prescriptions from repository
             var prescriptions = await _unitOfWork.PrescriptionRepository.ListAsync(specification);
@@ -358,7 +358,7 @@ namespace Services
             var prescriptionDtos = _mapper.Map<IEnumerable<PrescriptionDTO>>(pagedPrescriptions);
             
             // Return paged result
-            return new PagedResultDTO<PrescriptionDTO>
+            return new HealthcarePagedResultDTO<PrescriptionDTO>
             {
                 Items = prescriptionDtos.ToList(),
                 TotalCount = count,

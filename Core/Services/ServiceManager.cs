@@ -1,15 +1,15 @@
-﻿using Domain.Contracts;
-//using Domain.Contracts.NewModule;
-using Domain.Entities.SecurityEntities;
+using Core.Services;
+using Core.Services.Abstractions;
+using Core.Domain.Contracts;
+using Core.Domain.Entities.SecurityEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Services.Abstractions;
-//using Services.Services;
 using Shared.SecurityModels;
 using System;
+using AutoMapper;
 
 namespace Services
 {
@@ -21,13 +21,14 @@ namespace Services
         private readonly Lazy<IAuthenticationService> _authenticationService;
         private readonly Lazy<IPaymentService> _paymentService;
         private readonly Lazy<IPrescriptionService> _prescriptionService;
-        //private readonly Lazy<IPetService> _petService;
-        //private readonly Lazy<IDoctorService> _doctorService;
-        //private readonly Lazy<IAppointmentService> _appointmentService;
-        //private readonly Lazy<IClinicService> _clinicService;
-        //private readonly Lazy<IMedicalRecordService> _medicalRecordService;
-        //private readonly Lazy<IDoctorScheduleService> _doctorScheduleService;
-        //private readonly Lazy<IClinicSearchService> _clinicSearchService;
+        private readonly Lazy<IMedicalRecordService> _medicalRecordService;
+        private readonly Lazy<IMedicalNoteService> _medicalNoteService;
+        private readonly Lazy<IDoctorService> _doctorService;
+        private readonly Lazy<IClinicService> _clinicService;
+        private readonly Lazy<IPetProfileService> _petProfileService;
+        private readonly Lazy<IPetOwnerService> _petOwnerService;
+        private readonly Lazy<IAppointmentService> _appointmentService;
+        private readonly Lazy<IRatingService> _ratingService;
 
         public ServiceManager(
             IUnitOFWork unitOfWork,
@@ -41,13 +42,6 @@ namespace Services
             IMailingService mailingService,
             IHealthcareUnitOfWork healthcareUnitOfWork,
             ILoggerFactory loggerFactory)
-            //IPetRepository petRepository,
-            //IDoctorRepository doctorRepository,
-            //IClinicRepository clinicRepository,
-            //IAppointmentRepository appointmentRepository,
-            //IMedicalRecordRepository medicalRecordRepository,
-            //IClinicSearchService clinicSearchService,
-            //IDoctorScheduleService doctorScheduleService)
         {
             _productService = new Lazy<IProductService>(() => new ProductService(unitOfWork, mapper));
             _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper));
@@ -67,15 +61,18 @@ namespace Services
                 healthcareUnitOfWork,
                 mapper
             ));
-
-            //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
-            //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
-            //_appointmentService = new Lazy<IAppointmentService>(() => new AppointmentService(appointmentRepository, mapper));
-            //_clinicService = new Lazy<IClinicService>(() => new ClinicService(clinicRepository, mapper));
-            //_medicalRecordService = new Lazy<IMedicalRecordService>(() => new MedicalRecordService(medicalRecordRepository, mapper));
-
-            //_clinicSearchService = new Lazy<IClinicSearchService>(() => clinicSearchService);
-            //_doctorScheduleService = new Lazy<IDoctorScheduleService>(() => doctorScheduleService);
+            _medicalRecordService = new Lazy<IMedicalRecordService>(() => new MedicalRecordService(healthcareUnitOfWork, mapper));
+            _medicalNoteService = new Lazy<IMedicalNoteService>(() => new MedicalNoteService(
+                healthcareUnitOfWork, 
+                mapper, 
+                loggerFactory.CreateLogger<MedicalNoteService>()
+            ));
+            _doctorService = new Lazy<IDoctorService>(() => new DoctorService(healthcareUnitOfWork, mapper));
+            _clinicService = new Lazy<IClinicService>(() => new ClinicService(healthcareUnitOfWork, mapper));
+            _petProfileService = new Lazy<IPetProfileService>(() => new PetProfileService(healthcareUnitOfWork, mapper, loggerFactory.CreateLogger<PetProfileService>()));
+            _petOwnerService = new Lazy<IPetOwnerService>(() => new PetOwnerService(healthcareUnitOfWork, mapper, loggerFactory.CreateLogger<PetOwnerService>()));
+            _appointmentService = new Lazy<IAppointmentService>(() => new AppointmentService(healthcareUnitOfWork, mapper, loggerFactory.CreateLogger<AppointmentService>()));
+            _ratingService = new Lazy<IRatingService>(() => new RatingService(healthcareUnitOfWork, mapper, loggerFactory.CreateLogger<RatingService>()));
         }
 
         public IProductService ProductService => _productService.Value;
@@ -84,12 +81,13 @@ namespace Services
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
         public IPaymentService PaymentService => _paymentService.Value;
         public IPrescriptionService PrescriptionService => _prescriptionService.Value;
-        //public IPetService PetService => _petService.Value;
-        //public IDoctorService DoctorService => _doctorService.Value;
-        //public IAppointmentService AppointmentService => _appointmentService.Value;
-        //public IClinicService ClinicService => _clinicService.Value;
-        //public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
-        //public IClinicSearchService ClinicSearchService => _clinicSearchService.Value;
-        //public IDoctorScheduleService DoctorScheduleService => _doctorScheduleService.Value;
+        public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
+        public IMedicalNoteService MedicalNoteService => _medicalNoteService.Value;
+        public IDoctorService DoctorService => _doctorService.Value;
+        public IClinicService ClinicService => _clinicService.Value;
+        public IPetProfileService PetProfileService => _petProfileService.Value;
+        public IPetOwnerService PetOwnerService => _petOwnerService.Value;
+        public IAppointmentService AppointmentService => _appointmentService.Value;
+        public IRatingService RatingService => _ratingService.Value;
     }
 }

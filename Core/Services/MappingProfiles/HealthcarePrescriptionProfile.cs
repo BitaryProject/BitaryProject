@@ -1,4 +1,5 @@
 using AutoMapper;
+using Core.Domain.Entities.HealthcareEntities;
 using Domain.Entities.HealthcareEntities;
 using Shared.HealthcareModels;
 using System;
@@ -148,7 +149,7 @@ namespace Services.MappingProfiles
                 .ForMember(dest => dest.Medication, opt => opt.Ignore());
 
             // Pagination mappings
-            CreateMap<Domain.Entities.HealthcareEntities.PagedResult<Prescription>, Shared.HealthcareModels.PagedResultDTO<PrescriptionDTO>>()
+            CreateMap<Domain.Entities.HealthcareEntities.PagedResult<Prescription>, HealthcarePagedResultDTO<PrescriptionDTO>>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
                 .ForMember(dest => dest.TotalCount, opt => opt.MapFrom(src => src.TotalCount))
                 .ForMember(dest => dest.PageIndex, opt => opt.MapFrom(src => src.PageIndex))

@@ -11,8 +11,11 @@ namespace Persistence.Repositories.HealthcareRepositories
 {
     public class MedicalRecordRepository : GenericRepository<MedicalRecord, Guid>, IMedicalRecordRepository
     {
+        private readonly StoreContext _context;
+        
         public MedicalRecordRepository(StoreContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByPetProfileIdAsync(Guid petProfileId)
@@ -57,9 +60,28 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<(IEnumerable<MedicalRecord> Records, int TotalCount)> GetPagedMedicalRecordsAsync(Specifications<MedicalRecord> specifications, int pageIndex, int pageSize)
+        public async Task<(IEnumerable<MedicalRecord> MedicalRecords, int TotalCount)> GetPagedMedicalRecordsAsync(Specifications<MedicalRecord> specifications, int pageIndex, int pageSize)
         {
-            return await GetPagedAsync(specifications, pageIndex, pageSize);
+            var (Entities, TotalCount) = await GetPagedAsync(specifications, pageIndex, pageSize);
+            return (Entities, TotalCount);
+        }
+        
+        // For backward compatibility
+        public async Task<MedicalRecord> GetByIdAsync(Guid id)
+        {
+            return await GetAsync(id);
+        }
+
+        public async Task<MedicalRecord> GetEntityWithSpecAsync(ISpecification<MedicalRecord> specification)
+        {
+            var spec = new SpecificationAdapter<MedicalRecord>(specification);
+            return await GetAsync(spec);
+        }
+
+        public async Task<IEnumerable<MedicalRecord>> GetAllWithSpecAsync(ISpecification<MedicalRecord> specification)
+        {
+            var spec = new SpecificationAdapter<MedicalRecord>(specification);
+            return await GetAllAsync(spec);
         }
     }
 } 

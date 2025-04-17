@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Abstractions
+namespace Core.Services.Abstractions
 {
     public interface IServiceManager
     {
@@ -14,6 +14,7 @@ namespace Services.Abstractions
         public IAuthenticationService AuthenticationService { get; }
         public IPaymentService PaymentService { get; }
         public IPrescriptionService PrescriptionService { get; }
+        public IMedicalNoteService MedicalNoteService { get; }
         //public IPetService PetService { get; }
         //public IDoctorService DoctorService { get; }
         //public IClinicService ClinicService { get; }
@@ -24,3 +25,4 @@ namespace Services.Abstractions
 
     }
 }
+

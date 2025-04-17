@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 //using Domain.Contracts.NewModule;
 //using Persistence.Repositories.NewModule;
-using Services.Abstractions;
+using Core.Services.Abstractions;
 using Services;
 namespace BitaryProject.Extensions
 {

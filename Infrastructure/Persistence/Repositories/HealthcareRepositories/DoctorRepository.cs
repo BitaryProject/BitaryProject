@@ -1,18 +1,22 @@
-using Domain.Contracts;
-using Domain.Entities.HealthcareEntities;
+using Core.Domain.Contracts;
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Data;
+using Infrastructure.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Common.Specifications;
 
-namespace Persistence.Repositories.HealthcareRepositories
+namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
 {
     public class DoctorRepository : GenericRepository<Doctor, Guid>, IDoctorRepository
     {
+        private readonly StoreContext _context;
+        
         public DoctorRepository(StoreContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<Doctor> GetDoctorByUserIdAsync(string userId)
@@ -58,6 +62,12 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .AnyAsync();
                 
             return !conflictingAppointments;
+        }
+
+        // For backward compatibility
+        public async Task<Doctor> GetByIdAsync(Guid id)
+        {
+            return await GetAsync(id);
         }
     }
 } 

@@ -10,13 +10,16 @@ namespace Persistence.Repositories.HealthcareRepositories
 {
     public class PetOwnerRepository : GenericRepository<PetOwner, Guid>, IPetOwnerRepository
     {
+        private readonly StoreContext _storeContext;
+
         public PetOwnerRepository(StoreContext context) : base(context)
         {
+            _storeContext = context;
         }
 
         public async Task<PetOwner> GetPetOwnerByUserIdAsync(string userId)
         {
-            return await _context.PetOwners
+            return await _storeContext.PetOwners
                 .Include(p => p.PetProfiles)
                 .FirstOrDefaultAsync(p => p.UserId == userId);
         }

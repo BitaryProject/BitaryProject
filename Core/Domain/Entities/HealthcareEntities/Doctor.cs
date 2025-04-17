@@ -1,32 +1,48 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities;
+using Core.Domain.Entities;
+using Core.Domain.Entities.SecurityEntities;
 
-namespace Domain.Entities.HealthcareEntities
+namespace Core.Domain.Entities.HealthcareEntities
 {
     public class Doctor : BaseEntity<Guid>
     {
         public Doctor()
         {
+            Clinics = new List<Clinic>();
             Appointments = new List<Appointment>();
-            MedicalRecords = new List<MedicalRecord>();
+            Ratings = new List<DoctorRating>();
             Prescriptions = new List<Prescription>();
+            MedicalRecords = new List<MedicalRecord>();
         }
 
-        public string FullName { get; set; }
-        public string Specialization { get; set; }
-        public string ContactDetails { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }
         
-        // Foreign key
-        public Guid ClinicId { get; set; }
+        public string Specialization { get; set; }
+        public string Biography { get; set; }
+        public decimal ConsultationFee { get; set; }
+        public string ProfilePictureUrl { get; set; }
+        public bool IsVerified { get; set; }
+        public bool IsAvailable { get; set; }
+        
+        // Properties for easier mapping
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string LicenseNumber { get; set; }
+        public string Bio { get; set; }
+        
+        // Foreign keys
+        public Guid? ClinicId { get; set; }
         
         // Navigation properties
-        public Clinic Clinic { get; set; }
+        public ICollection<Clinic> Clinics { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
-        public ICollection<MedicalRecord> MedicalRecords { get; set; }
+        public ICollection<DoctorRating> Ratings { get; set; }
         public ICollection<Prescription> Prescriptions { get; set; }
-        
-        // User relationship
-        public string UserId { get; set; } // Reference to the application user
+        public ICollection<MedicalRecord> MedicalRecords { get; set; }
+        public Clinic Clinic { get; set; }
     }
 } 
+
