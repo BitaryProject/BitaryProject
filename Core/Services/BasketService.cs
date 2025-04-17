@@ -12,14 +12,16 @@ namespace Services
     {
         private readonly IbasketRepository _basketRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOFWork _unitOfWork;
 
-        public BasketService(IbasketRepository basketRepository, IMapper mapper)
+        public BasketService(IbasketRepository basketRepository, IMapper mapper, IUnitOFWork unitOfWork)
         {
             _basketRepository = basketRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool?> DeleteBasketAsync(string id)
+        public async Task<bool> DeleteBasketAsync(string id)
         {
             if (!Guid.TryParse(id, out var basketGuid))
                 throw new Exception($"Invalid basket Id format: {id}");
@@ -84,7 +86,7 @@ namespace Services
             return basketDto;
         }
 
-        public async Task<(bool Success, CustomerBasketDTO? Basket)> UpdateBasketAsync(string basketId, BasketItemDTO itemDto)
+        public async Task<bool> UpdateBasketAsync(string basketId, BasketItemDTO itemDto)
         {
             Console.WriteLine($"BasketService: Adding/updating item in basket {basketId}");
             Console.WriteLine($"Item details: {JsonSerializer.Serialize(itemDto)}");
@@ -101,13 +103,13 @@ namespace Services
                 if (itemDto == null)
                 {
                     Console.WriteLine("Item data is null");
-                    return (false, null);
+                    return false;
                 }
 
                 if (itemDto.ProductId <= 0)
                 {
                     Console.WriteLine("Invalid product ID");
-                    return (false, null);
+                    return false;
                 }
 
                 // First get the existing basket
@@ -181,53 +183,21 @@ namespace Services
                 if (updatedBasket == null)
                 {
                     Console.WriteLine("Failed to update basket in repository");
-                    return (false, null);
+                    return false;
                 }
 
-                // Verify the items after database update
-                Console.WriteLine($"Updated basket has {updatedBasket.BasketItems?.Count() ?? 0} items after repository update");
-                if (updatedBasket.BasketItems != null && updatedBasket.BasketItems.Any())
-                {
-                    foreach (var item in updatedBasket.BasketItems)
-                    {
-                        Console.WriteLine($"Basket item after update: ID={item.Id}, ProductID={item.Product?.ProductId}, Name={item.Product?.ProductName}, Quantity={item.Quantity}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("WARNING: Basket has no items after repository update");
-                }
-
-                // Map and return the updated basket
-                var basketDto = _mapper.Map<CustomerBasketDTO>(updatedBasket);
-                Console.WriteLine($"Successfully updated basket, now contains {basketDto.Items?.Count() ?? 0} items");
-
-                // Check if mapping was successful
-                if (basketDto.Items == null || !basketDto.Items.Any())
-                {
-                    Console.WriteLine("Warning: Mapped basket DTO has no items even though the repository returned items");
-                    Console.WriteLine($"Original basket items: {updatedBasket.BasketItems?.Count() ?? 0}, DTO items: {basketDto.Items?.Count() ?? 0}");
-                }
-                else
-                {
-                    Console.WriteLine("Successfully mapped basket items to DTO");
-                    foreach (var item in basketDto.Items)
-                    {
-                        Console.WriteLine($"DTO item: ID={item.Id}, ProductID={item.ProductId}, Name={item.ProductName}, Quantity={item.Quantity}");
-                    }
-                }
-
-                return (true, basketDto);
+                Console.WriteLine($"Successfully updated basket with {updatedBasket.BasketItems?.Count() ?? 0} items");
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating basket: {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                return (false, null);
+                return false;
             }
         }
 
-        public async Task<CustomerBasketDTO> CreateBasketAsync()
+        public async Task<(bool Success, string BasketId)> CreateBasketAsync()
         {
             Console.WriteLine("Creating new basket");
 
@@ -242,81 +212,94 @@ namespace Services
             if (createdBasket == null)
             {
                 Console.WriteLine("Failed to create basket");
-                throw new Exception("Failed to create basket.");
+                return (false, string.Empty);
             }
 
-            Console.WriteLine($"Successfully created basket with ID {createdBasket.Id}");
-            return _mapper.Map<CustomerBasketDTO>(createdBasket);
+            var basketId = createdBasket.Id.ToString();
+            Console.WriteLine($"Successfully created basket with ID {basketId}");
+            return (true, basketId);
         }
 
-        public async Task<CustomerBasketDTO?> UpdateItemQuantityAsync(Guid basketId, Guid itemId, UpdateBasketItemModel model)
+        public async Task<bool> UpdateItemQuantityAsync(string basketId, int productId, int quantity)
         {
-            Console.WriteLine($"Updating quantity for item {itemId} in basket {basketId}");
+            Console.WriteLine($"Updating quantity for product {productId} in basket {basketId}");
 
-            var basket = await _basketRepository.GetBasketAsync(basketId);
+            if (!Guid.TryParse(basketId, out var basketGuid))
+            {
+                Console.WriteLine("Invalid basket ID format");
+                return false;
+            }
+
+            var basket = await _basketRepository.GetBasketAsync(basketGuid);
 
             if (basket == null)
             {
                 Console.WriteLine($"Basket not found with ID {basketId}");
-                return null;
+                return false;
             }
 
             if (basket.BasketItems == null || !basket.BasketItems.Any())
             {
                 Console.WriteLine($"No items found in basket {basketId}");
-                return _mapper.Map<CustomerBasketDTO>(basket);
+                return false;
             }
 
-            var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            var item = basket.BasketItems.FirstOrDefault(i => i.Product.ProductId == productId);
 
             if (item == null)
             {
-                Console.WriteLine($"Item not found with ID {itemId} in basket {basketId}");
-                return null;
+                Console.WriteLine($"Item with product ID {productId} not found in basket {basketId}");
+                return false;
             }
 
-            Console.WriteLine($"Updating item quantity from {item.Quantity} to {model.Quantity}");
-            item.Quantity = model.Quantity;
+            Console.WriteLine($"Updating item quantity from {item.Quantity} to {quantity}");
+            item.Quantity = quantity;
 
             var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
 
             if (updatedBasket == null)
             {
                 Console.WriteLine("Failed to update item quantity");
-                throw new Exception("Failed to update item quantity in basket.");
+                return false;
             }
 
             Console.WriteLine("Successfully updated item quantity");
-            return _mapper.Map<CustomerBasketDTO>(updatedBasket);
+            return true;
         }
 
-        public async Task<CustomerBasketDTO?> RemoveItemAsync(Guid basketId, Guid itemId)
+        public async Task<bool> RemoveItemAsync(string basketId, int productId)
         {
-            Console.WriteLine($"Removing item {itemId} from basket {basketId}");
+            Console.WriteLine($"Removing product {productId} from basket {basketId}");
 
-            var basket = await _basketRepository.GetBasketAsync(basketId);
+            if (!Guid.TryParse(basketId, out var basketGuid))
+            {
+                Console.WriteLine("Invalid basket ID format");
+                return false;
+            }
+
+            var basket = await _basketRepository.GetBasketAsync(basketGuid);
 
             if (basket == null)
             {
                 Console.WriteLine($"Basket not found with ID {basketId}");
-                return null;
+                return false;
             }
 
             if (basket.BasketItems == null || !basket.BasketItems.Any())
             {
                 Console.WriteLine($"No items found in basket {basketId}");
-                return _mapper.Map<CustomerBasketDTO>(basket);
+                return false;
             }
 
-            var item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            var item = basket.BasketItems.FirstOrDefault(i => i.Product.ProductId == productId);
 
             if (item == null)
             {
-                Console.WriteLine($"Item not found with ID {itemId} in basket {basketId}");
-                return null;
+                Console.WriteLine($"Item with product ID {productId} not found in basket {basketId}");
+                return false;
             }
 
-            Console.WriteLine($"Removing item {itemId} from basket");
+            Console.WriteLine($"Removing item with product ID {productId} from basket");
             basket.BasketItems.Remove(item);
 
             var updated = await _basketRepository.UpdateBasketAsync(basket);
@@ -324,11 +307,11 @@ namespace Services
             if (updated == null)
             {
                 Console.WriteLine("Failed to remove item from basket");
-                throw new Exception("Failed to remove item from basket.");
+                return false;
             }
 
             Console.WriteLine("Successfully removed item from basket");
-            return _mapper.Map<CustomerBasketDTO>(updated);
+            return true;
         }
 
         public async Task<int> GetBasketItemCountAsync(Guid basketId)
@@ -394,6 +377,65 @@ namespace Services
                 Console.WriteLine($"[DEBUG] Error debugging basket: {ex.Message}");
                 Console.WriteLine($"[DEBUG] Stack trace: {ex.StackTrace}");
                 throw;
+            }
+        }
+
+        public async Task<bool> AddItemToBasketAsync(string basketId, int productId, int quantity)
+        {
+            Console.WriteLine($"BasketService: Adding item with productId {productId} to basket {basketId}");
+            
+            if (!Guid.TryParse(basketId, out var basketGuid))
+            {
+                Console.WriteLine("Invalid basket ID format");
+                throw new ArgumentException("Invalid basket ID format.");
+            }
+
+            try
+            {
+                // Validate input data
+                if (productId <= 0)
+                {
+                    Console.WriteLine("Invalid product ID");
+                    return false;
+                }
+
+                if (quantity <= 0)
+                {
+                    Console.WriteLine("Invalid quantity");
+                    return false;
+                }
+
+                // Fetch the product details from the product repository
+                var product = await _unitOfWork.GetRepository<Product, int>().GetAsync(productId);
+                
+                if (product == null)
+                {
+                    Console.WriteLine($"Product with ID {productId} not found");
+                    return false;
+                }
+                
+                Console.WriteLine($"Found product: {product.Name}, Price: {product.Price}");
+
+                // Create a BasketItemDTO with the product details
+                var basketItemDto = new BasketItemDTO
+                {
+                    Id = Guid.NewGuid(),
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    PictureUrl = product.PictureUrl,
+                    Price = product.Price,
+                    Quantity = quantity,
+                    Description = product.Description
+                };
+
+                // Use the existing method to update the basket
+                return await UpdateBasketAsync(basketId, basketItemDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding item to basket: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return false;
             }
         }
     }
