@@ -1,12 +1,19 @@
-﻿using System;
+using Core.Domain.Entities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities.OrderEntities;
+using Core.Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Data.Configurations
+namespace Infrastructure.Persistence.Data.Configurations
 {
     internal class DeliveryMethodConfigurations : IEntityTypeConfiguration<DeliveryMethod>
     {
@@ -17,3 +24,7 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+
+
+
+

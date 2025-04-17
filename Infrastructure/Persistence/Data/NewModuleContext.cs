@@ -1,13 +1,13 @@
-﻿//using Domain.Entities.PetEntities;
-//using Domain.Entities.MedicalRecordEntites;
-//using Domain.Entities.DoctorEntites;
-//using Domain.Entities.ClinicEntities;
-//using Domain.Entities.AppointmentEntities;
+//using Core.Domain.Entities.PetEntities;
+//using Core.Domain.Entities.MedicalRecordEntites;
+//using Core.Domain.Entities.DoctorEntites;
+//using Core.Domain.Entities.ClinicEntities;
+//using Core.Domain.Entities.AppointmentEntities;
 //using Microsoft.EntityFrameworkCore;
 //using Shared.ClinicModels;
-//using Persistence.Data.Configurations;
+//using Infrastructure.Persistence.Data.Configurations;
 
-//namespace Persistence.Data
+//namespace Infrastructure.Persistence.Data
 //{
 //    public class NewModuleContext : DbContext
 //    {
@@ -48,3 +48,4 @@
 //                            builder.OwnsOne(c => c.Address); // Configure Address as an owned entity of Clinic
 //                        });
 //            */
+

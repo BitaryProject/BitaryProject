@@ -1,13 +1,17 @@
-using Domain.Contracts;
-using Domain.Entities.HealthcareEntities;
+using Core.Common.Specifications;
+
+using Core.Domain.Contracts;
+
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Data;
+using Infrastructure.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
-namespace Persistence.Repositories.HealthcareRepositories
+namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
 {
     public class MedicalRecordRepository : GenericRepository<MedicalRecord, Guid>, IMedicalRecordRepository
     {
@@ -18,7 +22,7 @@ namespace Persistence.Repositories.HealthcareRepositories
             _context = context;
         }
 
-        public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByPetProfileIdAsync(Guid petProfileId)
+        public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByPetIdAsync(Guid petProfileId)
         {
             return await _context.MedicalRecords
                 .Include(mr => mr.PetProfile)
@@ -28,24 +32,23 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDoctorIdAsync(Guid doctorId)
+        public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             return await _context.MedicalRecords
                 .Include(mr => mr.PetProfile)
                 .Include(mr => mr.Doctor)
-                .Where(mr => mr.DoctorId == doctorId)
+                .Where(mr => mr.RecordDate >= startDate && 
+                       mr.RecordDate <= endDate)
                 .OrderByDescending(mr => mr.RecordDate)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDateRangeAsync(Guid petProfileId, DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<MedicalRecord>> GetMedicalRecordsByDiagnosisAsync(string diagnosis)
         {
             return await _context.MedicalRecords
                 .Include(mr => mr.PetProfile)
                 .Include(mr => mr.Doctor)
-                .Where(mr => mr.PetProfileId == petProfileId && 
-                       mr.RecordDate >= startDate && 
-                       mr.RecordDate <= endDate)
+                .Where(mr => mr.Diagnosis.Contains(diagnosis))
                 .OrderByDescending(mr => mr.RecordDate)
                 .ToListAsync();
         }
@@ -60,28 +63,38 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<(IEnumerable<MedicalRecord> MedicalRecords, int TotalCount)> GetPagedMedicalRecordsAsync(Specifications<MedicalRecord> specifications, int pageIndex, int pageSize)
+        public async Task<(IEnumerable<MedicalRecord> MedicalRecords, int TotalCount)> GetPagedMedicalRecordsAsync(Core.Common.Specifications.Core.Common.Specifications.Core.Common.Specifications.ISpecification<MedicalRecord> specification, int pageIndex, int pageSize)
         {
-            var (Entities, TotalCount) = await GetPagedAsync(specifications, pageIndex, pageSize);
-            return (Entities, TotalCount);
-        }
-        
-        // For backward compatibility
-        public async Task<MedicalRecord> GetByIdAsync(Guid id)
-        {
-            return await GetAsync(id);
+            return await GetPagedAsync(specification, pageIndex, pageSize);
         }
 
-        public async Task<MedicalRecord> GetEntityWithSpecAsync(ISpecification<MedicalRecord> specification)
+        public async Task<bool> AddNoteToMedicalRecordAsync(Guid medicalRecordId, string note)
         {
-            var spec = new SpecificationAdapter<MedicalRecord>(specification);
-            return await GetAsync(spec);
-        }
+            var medicalRecord = await _context.MedicalRecords.FindAsync(medicalRecordId);
+            if (medicalRecord == null)
+                return false;
 
-        public async Task<IEnumerable<MedicalRecord>> GetAllWithSpecAsync(ISpecification<MedicalRecord> specification)
-        {
-            var spec = new SpecificationAdapter<MedicalRecord>(specification);
-            return await GetAllAsync(spec);
+            medicalRecord.Notes = (medicalRecord.Notes ?? "") + "\n" + note;
+            _context.MedicalRecords.Update(medicalRecord);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
-} 
+    
+    // Implementations for ISpecification methods
+    
+
+    
+
+    
+
+    
+
+    } 
+
+
+
+
+
+
+
+

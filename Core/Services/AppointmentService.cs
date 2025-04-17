@@ -13,6 +13,7 @@ using Shared.HealthcareModels;
 using Core.Services.Specifications.Base;
 using System.Linq.Expressions;
 using Core.Common.Specifications;
+using Core.Services.Extensions;
 
 namespace Core.Services
 {
@@ -339,7 +340,7 @@ namespace Core.Services
                 {
                     if (!Enum.TryParse<AppointmentStatus>(appointmentUpdateDto.Status, out var status))
                         throw new ValidationException(new List<string> { $"Invalid appointment status: {appointmentUpdateDto.Status}" });
-                    appointment.Status = status;
+                    appointment.Status = status.ToDomainStatus();
                 }
                 
                 if (!string.IsNullOrEmpty(appointmentUpdateDto.Reason))
@@ -384,11 +385,11 @@ namespace Core.Services
                 throw new NotFoundException($"Appointment with ID {id} not found");
             
             // Check if status transition is valid
-            if (status.Equals(Core.Domain.Entities.HealthcareEntities.AppointmentStatus.Cancelled.ToString(), StringComparison.OrdinalIgnoreCase) || 
-                status.Equals(Core.Domain.Entities.HealthcareEntities.AppointmentStatus.Completed.ToString(), StringComparison.OrdinalIgnoreCase) || 
-                status.Equals(Core.Domain.Entities.HealthcareEntities.AppointmentStatus.NoShow.ToString(), StringComparison.OrdinalIgnoreCase))
+            if (status.ToUpper() == AppointmentStatus.Cancelled.ToString().ToUpper() || 
+                status.ToUpper() == AppointmentStatus.Completed.ToString().ToUpper() || 
+                status.ToUpper() == AppointmentStatus.NoShow.ToString().ToUpper())
             {
-                if (appointment.Status == Core.Domain.Entities.HealthcareEntities.AppointmentStatus.Cancelled)
+                if (appointment.Status == AppointmentStatus.Cancelled.ToDomainStatus())
                 {
                     throw new AppointmentOperationException($"Cannot change status of a cancelled appointment");
                 }
@@ -397,7 +398,7 @@ namespace Core.Services
             // Convert string status to enum
             if (Enum.TryParse<Core.Domain.Entities.HealthcareEntities.AppointmentStatus>(status, true, out var statusEnum))
             {
-                appointment.Status = statusEnum;
+                appointment.Status = statusEnum.ToDomainStatus();
             }
             else
             {
@@ -439,8 +440,8 @@ namespace Core.Services
                 throw new NotFoundException($"Appointment with ID {id} not found");
 
             // Only allow cancellation of scheduled or confirmed appointments
-            if (appointment.Status != AppointmentStatus.Scheduled && 
-                appointment.Status != AppointmentStatus.Confirmed)
+            if (appointment.Status != AppointmentStatus.Scheduled.ToDomainStatus() && 
+                appointment.Status != AppointmentStatus.Confirmed.ToDomainStatus())
             {
                 throw new ValidationException(new List<string> 
                 { 
@@ -448,7 +449,7 @@ namespace Core.Services
                 });
             }
 
-            appointment.Status = AppointmentStatus.Cancelled;
+            appointment.Status = AppointmentStatus.Cancelled.ToDomainStatus();
             appointment.Notes = (appointment.Notes ?? "") + 
                 $"\nCancelled on {DateTime.UtcNow:g} UTC\nReason: {cancellationReason}";
 
@@ -469,7 +470,7 @@ namespace Core.Services
                 a.DoctorId == doctorId && 
                 a.AppointmentDateTime >= startOfDay && 
                 a.AppointmentDateTime <= endOfDay &&
-                a.Status != AppointmentStatus.Cancelled);
+                a.Status != AppointmentStatus.Cancelled.ToDomainStatus());
                 
             var appointmentsOnDay = await _unitOfWork.AppointmentRepository.GetAllAsync(ConvertSpecification(spec));
             var appointmentEndTime = appointmentTime.Add(duration);
@@ -569,26 +570,8 @@ namespace Core.Services
         // Helper method to convert from AppointmentSpecification to BaseSpecification<Appointment>
         private Core.Common.Specifications.ISpecification<Appointment> ConvertSpecification(AppointmentSpecification spec)
         {
-            // Create a custom specification adapter that implements the service specification interface
-            var customSpec = new CustomAppointmentSpecification(spec.Criteria);
-            
-            // Copy over all the properties/settings
-            foreach (var include in spec.Includes)
-                customSpec.AddInclude(include);
-            
-            foreach (var includeString in spec.IncludeStrings)
-                customSpec.AddInclude(includeString);
-            
-            if (spec.OrderBy != null)
-                customSpec.ApplyOrderBy(spec.OrderBy);
-            
-            if (spec.OrderByDescending != null)
-                customSpec.ApplyOrderByDescending(spec.OrderByDescending);
-            
-            if (spec.IsPagingEnabled)
-                customSpec.ApplyPaging(spec.Skip, spec.Take);
-            
-            return customSpec;
+            // Use our extension method to create a BaseSpecification
+            return spec.ToBaseSpecification();
         }
     }
 
@@ -615,72 +598,6 @@ namespace Core.Services
         public DatabaseOperationException(string message, Exception innerException = null) 
             : base(message, innerException)
         {
-        }
-    }
-
-    // Custom specification implementation to bridge the gap between specs
-    public class CustomAppointmentSpecification : Core.Common.Specifications.ISpecification<Appointment>
-    {
-        private readonly Expression<Func<Appointment, bool>> _criteria;
-        private readonly List<Expression<Func<Appointment, object>>> _includes = new();
-        private readonly List<string> _includeStrings = new();
-        private Expression<Func<Appointment, object>> _orderBy;
-        private Expression<Func<Appointment, object>> _orderByDescending;
-        private Expression<Func<Appointment, object>> _groupBy;
-        private int _take;
-        private int _skip;
-        private bool _isPagingEnabled;
-
-        public CustomAppointmentSpecification(Expression<Func<Appointment, bool>> criteria)
-        {
-            _criteria = criteria;
-        }
-
-        public Expression<Func<Appointment, bool>> Criteria => _criteria;
-        public List<Expression<Func<Appointment, object>>> Includes => _includes;
-        public List<string> IncludeStrings => _includeStrings;
-        public Expression<Func<Appointment, object>> OrderBy => _orderBy;
-        public Expression<Func<Appointment, object>> OrderByDescending => _orderByDescending;
-        public Expression<Func<Appointment, object>> GroupBy => _groupBy;
-        public int Take => _take;
-        public int Skip => _skip;
-        public bool IsPagingEnabled => _isPagingEnabled;
-
-        public void AddCriteria(Expression<Func<Appointment, bool>> criteria)
-        {
-            // Not implemented in this context
-        }
-
-        public void AddInclude(Expression<Func<Appointment, object>> includeExpression)
-        {
-            _includes.Add(includeExpression);
-        }
-
-        public void AddInclude(string includeString)
-        {
-            _includeStrings.Add(includeString);
-        }
-
-        public void AddOrderBy(Expression<Func<Appointment, object>> orderByExpression)
-        {
-            _orderBy = orderByExpression;
-        }
-
-        public void ApplyOrderBy(Expression<Func<Appointment, object>> orderByExpression)
-        {
-            _orderBy = orderByExpression;
-        }
-
-        public void ApplyOrderByDescending(Expression<Func<Appointment, object>> orderByDescendingExpression)
-        {
-            _orderByDescending = orderByDescendingExpression;
-        }
-
-        public void ApplyPaging(int skip, int take)
-        {
-            _skip = skip;
-            _take = take;
-            _isPagingEnabled = true;
         }
     }
 }

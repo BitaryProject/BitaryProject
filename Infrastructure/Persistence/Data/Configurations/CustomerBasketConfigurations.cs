@@ -1,4 +1,11 @@
-﻿using Domain.Entities.BasketEntities;
+using Core.Domain.Entities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using Core.Domain.Entities.BasketEntities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -6,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Data.Configurations
+namespace Infrastructure.Persistence.Data.Configurations
 {
     public class CustomerBasketConfigurations : IEntityTypeConfiguration<CustomerBasket>
     {
@@ -30,4 +37,8 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+
+
+
+
 

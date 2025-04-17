@@ -1,5 +1,10 @@
-using Domain.Contracts;
-using Domain.Entities.HealthcareEntities;
+using Core.Common.Specifications;
+
+using Core.Domain.Contracts;
+
+using Core.Domain.Entities.HealthcareEntities;
+using Infrastructure.Persistence.Data;
+using Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -356,3 +361,13 @@ namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
         #endregion
     }
 } 
+
+
+
+
+
+
+
+
+
+

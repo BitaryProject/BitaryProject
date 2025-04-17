@@ -1,14 +1,17 @@
-using Domain.Contracts;
-using Domain.Entities.HealthcareEntities;
+using Core.Common.Specifications;
+
+using Core.Domain.Contracts;
+
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Data;
+using Infrastructure.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Persistence.Repositories.HealthcareRepositories;
 
-namespace Persistence.Repositories.HealthcareRepositories
+
+namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
 {
     public class PrescriptionRepository : GenericRepository<Prescription, Guid>, IPrescriptionRepository
     {
@@ -19,7 +22,16 @@ namespace Persistence.Repositories.HealthcareRepositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Prescription>> GetPrescriptionsByPetProfileIdAsync(Guid petProfileId)
+        public async Task<Prescription> GetPrescriptionByNumberAsync(string prescriptionNumber)
+        {
+            return await _context.Prescriptions
+                .Include(p => p.PetProfile)
+                .Include(p => p.Doctor)
+                .Include(p => p.MedicalRecord)
+                .FirstOrDefaultAsync(p => p.PrescriptionNumber == prescriptionNumber);
+        }
+
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByPetIdAsync(Guid petProfileId)
         {
             return await _context.Prescriptions
                 .Include(p => p.PetProfile)
@@ -30,66 +42,50 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Prescription>> GetPrescriptionsByDoctorIdAsync(Guid doctorId)
-        {
-            return await _context.Prescriptions
-                .Include(p => p.PetProfile)
-                .Include(p => p.Doctor)
-                .Include(p => p.MedicalRecord)
-                .Where(p => p.DoctorId == doctorId)
-                .OrderByDescending(p => p.PrescriptionDate)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Prescription>> GetActivePrescriptionsForPetAsync(Guid petProfileId)
+        public async Task<IEnumerable<Prescription>> GetActivePrescriptionsAsync()
         {
             var currentDate = DateTime.UtcNow;
             return await _context.Prescriptions
                 .Include(p => p.PetProfile)
                 .Include(p => p.Doctor)
                 .Include(p => p.MedicalRecord)
-                .Where(p => p.PetProfileId == petProfileId && 
-                       p.EndDate >= currentDate)
+                .Where(p => p.EndDate >= currentDate)
                 .OrderByDescending(p => p.PrescriptionDate)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Prescription>> GetPrescriptionsByMedicalRecordIdAsync(Guid medicalRecordId)
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByStatusAsync(PrescriptionStatus status)
         {
             return await _context.Prescriptions
                 .Include(p => p.PetProfile)
                 .Include(p => p.Doctor)
                 .Include(p => p.MedicalRecord)
-                .Where(p => p.MedicalRecordId == medicalRecordId)
+                .Where(p => p.Status == status.ToString())
                 .OrderByDescending(p => p.PrescriptionDate)
                 .ToListAsync();
         }
 
         public async Task<(IEnumerable<Prescription> Prescriptions, int TotalCount)> GetPagedPrescriptionsAsync(
-            ISpecification<Prescription> specification, int pageIndex, int pageSize)
+            Core.Common.Specifications.Core.Common.Specifications.Core.Common.Specifications.ISpecification<Prescription> specification, int pageIndex, int pageSize)
         {
-            var spec = new SpecificationAdapter<Prescription>(specification);
-            var (Entities, TotalCount) = await GetPagedAsync(spec, pageIndex, pageSize);
-            return (Entities, TotalCount);
+            return await GetPagedAsync(specification, pageIndex, pageSize);
         }
         
         // Implement IRepositoryBase<Prescription, Guid> interface methods
-        public async Task<IEnumerable<Prescription>> ListAsync(ISpecification<Prescription> spec)
+        public async Task<IEnumerable<Prescription>> ListAsync(Core.Common.Specifications.ISpecification<Prescription> spec)
         {
-            var specification = new SpecificationAdapter<Prescription>(spec);
-            return await GetAllAsync(specification);
+            return await SpecificationEvaluator<Prescription>.GetQuery(_context.Prescriptions.AsQueryable(), spec).ToListAsync();
         }
         
-        public async Task<Prescription> FirstOrDefaultAsync(ISpecification<Prescription> spec)
+        public async Task<Prescription> FirstOrDefaultAsync(Core.Common.Specifications.Core.Common.Specifications.Core.Common.Specifications.ISpecification<Prescription> spec)
         {
             var specification = new SpecificationAdapter<Prescription>(spec);
             return await GetAsync(specification);
         }
         
-        public async Task<int> CountAsync(ISpecification<Prescription> spec)
+        public async Task<int> CountAsync(Core.Common.Specifications.ISpecification<Prescription> spec)
         {
-            var specification = new SpecificationAdapter<Prescription>(spec);
-            return await base.CountAsync(specification);
+            return await SpecificationEvaluator<Prescription>.GetQuery(_context.Prescriptions.AsQueryable(), spec).CountAsync();
         }
         
         // Override GetAllAsync for interface compatibility
@@ -98,4 +94,22 @@ namespace Persistence.Repositories.HealthcareRepositories
             return await base.GetAllAsync();
         }
     }
-} 
+    
+    // Implementations for ISpecification methods
+    
+
+    
+
+    
+
+    
+
+    } 
+
+
+
+
+
+
+
+

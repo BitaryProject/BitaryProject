@@ -1,11 +1,13 @@
-﻿//using Domain.Entities.DoctorEntites;
+using Core.Common.Specifications;
+
+//using Core.Domain.Entities.DoctorEntites;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace Persistence.Repositories.NewModule
+//namespace Infrastructure.Persistence.Repositories.NewModule
 //{
 //    public class DoctorScheduleRepository : IDoctorScheduleRepository
 //    {
@@ -61,3 +63,11 @@
 //        }
 //    }
 //}
+
+
+
+
+
+
+
+

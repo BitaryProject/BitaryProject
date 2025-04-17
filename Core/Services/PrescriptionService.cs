@@ -1,4 +1,4 @@
-using Domain.Contracts;
+using Core.Domain.Contracts;
 using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
 using Core.Services.Abstractions;
@@ -266,7 +266,7 @@ namespace Core.Services
 
         public async Task<PrescriptionDTO> UpdatePrescriptionStatusAsync(Guid id, string status)
         {
-            var prescription = await _unitOfWork.PrescriptionRepository.GetAsync(id);
+            var prescription = await _unitOfWork.PrescriptionRepository.GetByIdAsync(id);
             if (prescription == null)
                 throw new NotFoundException($"Prescription with ID {id} not found");
             

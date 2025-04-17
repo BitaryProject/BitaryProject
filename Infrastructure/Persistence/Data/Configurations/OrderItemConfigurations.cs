@@ -1,4 +1,10 @@
-﻿using Core.Domain.Entities.OrderEntities;
+using Core.Domain.Entities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using Core.Domain.Entities.OrderEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,3 +26,7 @@ namespace Infrastructure.Persistence.Data.Configurations
         }
     }
 }
+
+
+
+

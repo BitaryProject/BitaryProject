@@ -1,8 +1,14 @@
-﻿global using Core.Domain.Entities.HealthcareEntities;
-using Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.OrderEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace Persistence.Data.Configurations
+using System;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.HealthcareEntities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+namespace Infrastructure.Persistence.Data.Configurations
 {
     public class ClinicConfiguration : IEntityTypeConfiguration<Clinic>
     {
@@ -29,3 +35,7 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+
+
+
+

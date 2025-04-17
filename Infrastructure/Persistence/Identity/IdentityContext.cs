@@ -1,13 +1,15 @@
-﻿global using UserAddress = Domain.Entities.Identity.Address;
-using Domain.Entities.SecurityEntities;
+global using UserAddress = Core.Domain.Entities.Identity.Address;
+using Core.Domain.Entities.IdentityEntities;
+using Core.Domain.Entities.SecurityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Identity
+namespace Infrastructure.Persistence.Identity
 {
     public class IdentityContext : IdentityDbContext
     {
@@ -21,6 +23,12 @@ namespace Persistence.Identity
             builder.Entity<UserAddress>().ToTable("Addresses");
         }
 
-       public DbSet<UserOTP?> UserOTPs { get; set; }
+       public DbSet<UserOTP> UserOTPs { get; set; }
     }
 }
+
+
+
+
+
+

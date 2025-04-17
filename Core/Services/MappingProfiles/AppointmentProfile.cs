@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.Domain.Entities.HealthcareEntities;
-using Domain.Entities.HealthcareEntities;
 using Shared.HealthcareModels;
 
 namespace Services.MappingProfiles
@@ -10,7 +9,7 @@ namespace Services.MappingProfiles
         public AppointmentProfile()
         {
             CreateMap<Appointment, AppointmentDTO>()
-                .ForMember(dest => dest.PetName, opt => opt.MapFrom(src => src.PetProfile.Name))
+                .ForMember(dest => dest.PetName, opt => opt.MapFrom(src => src.PetProfile.PetName))
                 .ForMember(dest => dest.ClinicName, opt => opt.MapFrom(src => src.Clinic.Name))
                 .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.User.FirstName + " " + src.Doctor.User.LastName));
 

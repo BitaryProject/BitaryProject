@@ -1,78 +1,76 @@
 using Core.Domain.Entities.HealthcareEntities;
- using Core.Services.Specifications.Base;
+using Core.Services.Specifications.Base;
 using System.Linq.Expressions;
 using System;
-using Core.Domain.Entities.HealthcareEntities;
+using System.Collections.Generic;
 
 namespace Core.Services.Specifications
 {
-    public class AppointmentSpecification : BaseSpecification<Appointment>
+    /// <summary>
+    /// Specification for Appointment entity queries
+    /// </summary>
+    public class AppointmentSpecification
     {
-        private void AddStandardIncludes()
+        public AppointmentSpecification(Expression<Func<Appointment, bool>> criteria = null)
         {
-            AddInclude(a => a.Doctor);
-            AddInclude(a => a.PetProfile);
-            AddInclude("PetProfile.Owner");
-            AddInclude(a => a.Clinic);
+            Criteria = criteria;
         }
 
-        public AppointmentSpecification(Guid id) 
-            : base(a => a.Id == id)
+        public Expression<Func<Appointment, bool>> Criteria { get; private set; }
+        public List<Expression<Func<Appointment, object>>> Includes { get; } = new();
+        public List<string> IncludeStrings { get; } = new();
+        public Expression<Func<Appointment, object>> OrderBy { get; private set; }
+        public Expression<Func<Appointment, object>> OrderByDescending { get; private set; }
+        public Expression<Func<Appointment, object>> GroupBy { get; private set; }
+        public int Take { get; private set; }
+        public int Skip { get; private set; }
+        public bool IsPagingEnabled { get; private set; }
+
+        /// <summary>
+        /// Adds an include expression to the specification
+        /// </summary>
+        public AppointmentSpecification AddInclude(Expression<Func<Appointment, object>> includeExpression)
         {
-            AddStandardIncludes();
+            Includes.Add(includeExpression);
+            return this;
         }
 
-        public AppointmentSpecification(Guid doctorId, int pageIndex, int pageSize)
-            : base(a => a.DoctorId == doctorId)
+        /// <summary>
+        /// Adds a string-based include to the specification
+        /// </summary>
+        public AppointmentSpecification AddInclude(string includeString)
         {
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderBy(a => a.AppointmentDateTime);
-            AddStandardIncludes();
+            IncludeStrings.Add(includeString);
+            return this;
         }
 
-        public AppointmentSpecification(Guid petId, bool forPet, int pageIndex, int pageSize)
-            : base(a => a.PetProfileId == petId)
+        /// <summary>
+        /// Adds an order by expression to the specification
+        /// </summary>
+        public AppointmentSpecification AddOrderBy(Expression<Func<Appointment, object>> orderByExpression)
         {
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderBy(a => a.AppointmentDateTime);
-            AddStandardIncludes();
+            OrderBy = orderByExpression;
+            return this;
         }
 
-        public AppointmentSpecification(string status, int pageIndex, int pageSize)
-            : base(a => string.Equals(a.Status.ToString(), status, StringComparison.OrdinalIgnoreCase))
+        /// <summary>
+        /// Adds a descending order by expression to the specification
+        /// </summary>
+        public AppointmentSpecification AddOrderByDescending(Expression<Func<Appointment, object>> orderByDescendingExpression)
         {
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderBy(a => a.AppointmentDateTime);
-            AddStandardIncludes();
+            OrderByDescending = orderByDescendingExpression;
+            return this;
         }
 
-        public AppointmentSpecification(DateTime startDate, DateTime endDate, int pageIndex, int pageSize)
-            : base(a => a.AppointmentDateTime >= startDate && a.AppointmentDateTime <= endDate)
+        /// <summary>
+        /// Applies paging to the specification
+        /// </summary>
+        public AppointmentSpecification ApplyPaging(int skip, int take)
         {
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderBy(a => a.AppointmentDateTime);
-            AddStandardIncludes();
-        }
-
-        public AppointmentSpecification(Guid clinicId, string byClinicParam, int pageIndex, int pageSize)
-            : base(a => a.ClinicId == clinicId)
-        {
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
-            AddOrderBy(a => a.AppointmentDateTime);
-            AddStandardIncludes();
-        }
-
-        public AppointmentSpecification(Expression<Func<Appointment, bool>> criteria)
-            : base(criteria)
-        {
-            AddStandardIncludes();
-        }
-
-        public AppointmentSpecification()
-            : base(null)
-        {
-            AddOrderBy(a => a.AppointmentDateTime);
-            AddStandardIncludes();
+            Skip = skip;
+            Take = take;
+            IsPagingEnabled = true;
+            return this;
         }
     }
 }

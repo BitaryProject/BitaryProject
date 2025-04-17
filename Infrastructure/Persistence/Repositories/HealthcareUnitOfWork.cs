@@ -1,4 +1,7 @@
+using Core.Common.Specifications;
+
 using Core.Domain.Contracts;
+
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -82,3 +85,11 @@ namespace Infrastructure.Persistence.Repositories
         }
     }
 } 
+
+
+
+
+
+
+
+

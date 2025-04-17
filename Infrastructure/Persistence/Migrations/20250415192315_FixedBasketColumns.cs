@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Persistence.Migrations
+namespace Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class FixedBasketColumns : Migration
@@ -227,3 +227,4 @@ namespace Persistence.Migrations
         }
     }
 }
+

@@ -1,6 +1,9 @@
-﻿using Core.Domain.Entities;
 using Core.Common.Specifications;
+
+using Core.Domain.Entities;
+
 using Core.Domain.Contracts;
+
 using Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -114,9 +117,17 @@ namespace Infrastructure.Persistence.Repositories
         protected IQueryable<T> ApplySpecification(Core.Common.Specifications.ISpecification<T> specification)
         {
             if (specification == null)
-                return _dbSet.AsQueryable();
+                return _dbSet;
 
             return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), specification);
         }
     }
 }
+
+
+
+
+
+
+
+

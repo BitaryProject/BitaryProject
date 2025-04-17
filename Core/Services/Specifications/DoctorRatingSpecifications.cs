@@ -4,14 +4,17 @@ using System;
 
 namespace Core.Services.Specifications
 {
-    public class DoctorRatingByDoctorIdSpecification1 : BaseSpecification<DoctorRating>
+    // Use the original implementations from DoctorRatingSpecification.cs
+    // These are just references to maintain backward compatibility
+    
+    // **************** DOCTOR RATING SPECIFICATIONS ****************
+    
+    public class DoctorRatingByDoctorIdSpecification1 : DoctorRatingByDoctorIdSpecification
     {
-        public DoctorRatingByDoctorIdSpecification1(Guid doctorId)
-            : base(r => r.DoctorId == doctorId)
+        public DoctorRatingByDoctorIdSpecification1(Guid doctorId) 
+            : base(doctorId)
         {
-            AddInclude(r => r.Doctor);
-            AddInclude(r => r.PetOwner);
-            ApplyOrderByDescending(r => r.CreatedDate);
+            // Use base implementation
         }
     }
     
@@ -25,36 +28,32 @@ namespace Core.Services.Specifications
         }
     }
     
-    public class DoctorRatingPaginatedSpecification1 : BaseSpecification<DoctorRating>
+    public class DoctorRatingPaginatedSpecification1 : DoctorRatingPaginatedSpecification
     {
         public DoctorRatingPaginatedSpecification1(int pageIndex, int pageSize)
-            : base(null)
+            : base(pageIndex, pageSize)
         {
-            AddInclude(r => r.Doctor);
-            AddInclude(r => r.PetOwner);
-            ApplyOrderByDescending(r => r.CreatedDate);
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
+            // Use base implementation
         }
     }
     
-    public class DoctorRatingByDoctorAndOwnerSpecification1 : BaseSpecification<DoctorRating>
+    public class DoctorRatingByDoctorAndOwnerSpecification1 : DoctorRatingByDoctorAndOwnerSpecification
     {
         public DoctorRatingByDoctorAndOwnerSpecification1(Guid doctorId, Guid petOwnerId)
-            : base(r => r.DoctorId == doctorId && r.PetOwnerId == petOwnerId)
+            : base(doctorId, petOwnerId)
         {
-            AddInclude(r => r.Doctor);
-            AddInclude(r => r.PetOwner);
+            // Use base implementation
         }
     }
     
-    public class ClinicRatingByClinicIdSpecification1 : BaseSpecification<ClinicRating>
+    // **************** CLINIC RATING SPECIFICATIONS ****************
+    
+    public class ClinicRatingByClinicIdSpecification1 : ClinicRatingByClinicIdSpecification
     {
         public ClinicRatingByClinicIdSpecification1(Guid clinicId)
-            : base(r => r.ClinicId == clinicId)
+            : base(clinicId)
         {
-            AddInclude(r => r.Clinic);
-            AddInclude(r => r.PetOwner);
-            ApplyOrderByDescending(r => r.CreatedDate);
+            // Use base implementation
         }
     }
     
@@ -68,25 +67,21 @@ namespace Core.Services.Specifications
         }
     }
     
-    public class ClinicRatingPaginatedSpecification1 : BaseSpecification<ClinicRating>
+    public class ClinicRatingPaginatedSpecification1 : ClinicRatingPaginatedSpecification
     {
         public ClinicRatingPaginatedSpecification1(int pageIndex, int pageSize)
-            : base(null)
+            : base(pageIndex, pageSize)
         {
-            AddInclude(r => r.Clinic);
-            AddInclude(r => r.PetOwner);
-            ApplyOrderByDescending(r => r.CreatedDate);
-            ApplyPaging((pageIndex - 1) * pageSize, pageSize);
+            // Use base implementation
         }
     }
     
-    public class ClinicRatingByClinicAndOwnerSpecification1 : BaseSpecification<ClinicRating>
+    public class ClinicRatingByClinicAndOwnerSpecification1 : ClinicRatingByClinicAndOwnerSpecification
     {
         public ClinicRatingByClinicAndOwnerSpecification1(Guid clinicId, Guid petOwnerId)
-            : base(r => r.ClinicId == clinicId && r.PetOwnerId == petOwnerId)
+            : base(clinicId, petOwnerId)
         {
-            AddInclude(r => r.Clinic);
-            AddInclude(r => r.PetOwner);
+            // Use base implementation
         }
     }
 } 

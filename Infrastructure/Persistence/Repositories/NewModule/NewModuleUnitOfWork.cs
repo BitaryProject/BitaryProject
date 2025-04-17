@@ -1,11 +1,13 @@
-﻿//using Domain.Contracts.NewModule;
-//using Persistence.Data;
+using Core.Common.Specifications;
+
+//using Core.Domain.Contracts.NewModule;
+//using Infrastructure.Persistence.Data;
 //using System;
 //using System.Collections.Concurrent;
 //using System.Threading.Tasks;
-//using Domain.Entities;
+//using Core.Domain.Entities;
 
-//namespace Persistence.Repositories.NewModule
+//namespace Infrastructure.Persistence.Repositories.NewModule
 //{
 //    public class NewModuleUnitOfWork : INewModuleUnitOfWork
 //    {
@@ -40,3 +42,11 @@
 //        }
 //    }
 //}
+
+
+
+
+
+
+
+

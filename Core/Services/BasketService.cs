@@ -1,4 +1,4 @@
-using Domain.Contracts;
+using Core.Domain.Contracts;
 using Core.Domain.Entities.BasketEntities;
 using Domain.Exceptions;
 using Shared.BasketModels;

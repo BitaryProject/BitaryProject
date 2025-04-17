@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Shared.HealthcareModels
 {
@@ -12,7 +13,7 @@ namespace Shared.HealthcareModels
         public int Rating { get; set; } // 1-5 stars
         public string Comment { get; set; } = string.Empty;
         public bool IsFlagged { get; set; }
-        public string FlagReason { get; set; }
+        public string FlagReason { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
     }
@@ -34,8 +35,8 @@ namespace Shared.HealthcareModels
     public class ClinicRatingSummaryDTO
     {
         public Guid ClinicId { get; set; }
-        public string ClinicName { get; set; }
-        public string ClinicLocation { get; set; }
+        public string ClinicName { get; set; } = string.Empty;
+        public string ClinicLocation { get; set; } = string.Empty;
         public double AverageRating { get; set; }
         public int TotalRatings { get; set; }
         public int FiveStarCount { get; set; }
@@ -44,5 +45,8 @@ namespace Shared.HealthcareModels
         public int TwoStarCount { get; set; }
         public int OneStarCount { get; set; }
         public DateTime LastRatingDate { get; set; }
+        
+        // Added to support RatingService
+        public Dictionary<int, int> RatingDistribution { get; set; } = new Dictionary<int, int>();
     }
 } 

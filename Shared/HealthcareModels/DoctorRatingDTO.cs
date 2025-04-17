@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Shared.HealthcareModels
 {
@@ -44,5 +45,8 @@ namespace Shared.HealthcareModels
         public int TwoStarCount { get; set; }
         public int OneStarCount { get; set; }
         public DateTime LastRatingDate { get; set; }
+        
+        // Added to support RatingService
+        public Dictionary<int, int> RatingDistribution { get; set; } = new Dictionary<int, int>();
     }
 } 

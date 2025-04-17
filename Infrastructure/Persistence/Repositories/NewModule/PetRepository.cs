@@ -1,13 +1,15 @@
-﻿//using Domain.Contracts.NewModule;
-//using Domain.Entities.PetEntities;
+using Core.Common.Specifications;
+
+//using Core.Domain.Contracts.NewModule;
+//using Core.Domain.Entities.PetEntities;
 //using Microsoft.EntityFrameworkCore;
-//using Persistence.Data;
+//using Infrastructure.Persistence.Data;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
 
-//namespace Persistence.Repositories.NewModule
+//namespace Infrastructure.Persistence.Repositories.NewModule
 //{
 //    public class PetRepository : NewModuleGenericRepository<Pet, int>, IPetRepository
 //    {
@@ -28,3 +30,11 @@
 //        }
 //    }
 //}
+
+
+
+
+
+
+
+

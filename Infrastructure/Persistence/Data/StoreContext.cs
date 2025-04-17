@@ -1,4 +1,5 @@
-﻿using Core.Domain.Entities;
+using Core.Domain.Entities.IdentityEntities;
+using Core.Domain.Entities;
 using Core.Domain.Entities.BasketEntities;
 using Core.Domain.Entities.HealthcareEntities;
 using Core.Domain.Entities.OrderEntities;
@@ -9,10 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Domain.Entities.HealthcareEntities;
 
 namespace Infrastructure.Persistence.Data
 {
@@ -36,7 +37,7 @@ namespace Infrastructure.Persistence.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
-        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<CustomerBasket> CustomerBaskets { get; set; }
@@ -56,3 +57,8 @@ namespace Infrastructure.Persistence.Data
         public DbSet<ClinicRating> ClinicRatings { get; set; }
     }
 }
+
+
+
+
+

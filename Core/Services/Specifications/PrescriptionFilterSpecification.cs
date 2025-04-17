@@ -15,7 +15,7 @@ namespace Core.Services.Specifications
         }
 
         public PrescriptionFilterSpecification(Guid medicalRecordId)
-            : base(p => p.MedicalRecordId == medicalRecordId)
+            : base(p => p.Id == medicalRecordId)
         {
             AddIncludes();
         }

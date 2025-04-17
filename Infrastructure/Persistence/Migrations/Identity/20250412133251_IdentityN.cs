@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Persistence.Migrations.Identity
+namespace Infrastructure.Persistence.Migrations.Identity
 {
     /// <inheritdoc />
     public partial class IdentityN : Migration
@@ -20,3 +20,4 @@ namespace Persistence.Migrations.Identity
         }
     }
 }
+

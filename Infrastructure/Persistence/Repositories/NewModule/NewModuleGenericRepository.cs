@@ -1,12 +1,15 @@
-﻿//using Domain.Entities;
-//using Domain.Contracts;
+using Core.Common.Specifications;
+
+//using Core.Domain.Entities;
+//using Core.Domain.Contracts;
+
 //using Microsoft.EntityFrameworkCore;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
 
-//namespace Persistence.Repositories.NewModule
+//namespace Infrastructure.Persistence.Repositories.NewModule
 //{
 //    public class NewModuleGenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
 //        where TEntity : BaseEntity<TKey>
@@ -65,3 +68,11 @@
 //        }
 //    }
 //}
+
+
+
+
+
+
+
+

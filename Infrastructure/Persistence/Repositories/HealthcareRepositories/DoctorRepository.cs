@@ -1,4 +1,7 @@
+using Core.Common.Specifications;
+
 using Core.Domain.Contracts;
+
 using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Persistence.Data;
@@ -6,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Common.Specifications;
+
 
 namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
 {
@@ -71,3 +74,11 @@ namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
         }
     }
 } 
+
+
+
+
+
+
+
+

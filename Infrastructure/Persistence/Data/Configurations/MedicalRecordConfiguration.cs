@@ -1,8 +1,14 @@
-﻿using Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities;
+using Core.Domain.Entities.HealthcareEntities;
+using Core.Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Data.Configurations
+namespace Infrastructure.Persistence.Data.Configurations
 {
     public class MedicalRecordConfiguration : IEntityTypeConfiguration<MedicalRecord>
     {
@@ -38,3 +44,7 @@ namespace Persistence.Data.Configurations
         }
     }
 }
+
+
+
+

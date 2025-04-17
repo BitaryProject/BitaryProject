@@ -1,13 +1,15 @@
-﻿//using Domain.Contracts.NewModule;
-//using Domain.Entities.DoctorEntites;
+using Core.Common.Specifications;
+
+//using Core.Domain.Contracts.NewModule;
+//using Core.Domain.Entities.DoctorEntites;
 //using Microsoft.EntityFrameworkCore;
-//using Persistence.Data;
+//using Infrastructure.Persistence.Data;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
 
-//namespace Persistence.Repositories.NewModule
+//namespace Infrastructure.Persistence.Repositories.NewModule
 //{
 //    public class DoctorRepository : NewModuleGenericRepository<Doctor, int>, IDoctorRepository
 //    {
@@ -28,3 +30,11 @@
 //        }
 //    }
 //}
+
+
+
+
+
+
+
+

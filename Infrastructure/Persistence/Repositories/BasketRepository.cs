@@ -1,9 +1,12 @@
-using Domain.Contracts;
-using Domain.Entities.BasketEntities;
-using Persistence.Data;
+using Core.Common.Specifications;
+
+using Core.Domain.Contracts;
+
+using Core.Domain.Entities.BasketEntities;
+using Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Repositories
+namespace Infrastructure.Persistence.Repositories
 {
     public class BasketRepository : IbasketRepository
     {
@@ -113,3 +116,11 @@ namespace Persistence.Repositories
     }
 
 }
+
+
+
+
+
+
+
+

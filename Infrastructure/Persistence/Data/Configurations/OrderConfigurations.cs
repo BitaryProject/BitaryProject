@@ -1,8 +1,10 @@
-﻿global using OrderEntity = Domain.Entities.OrderEntities.Order;
-using Domain.Entities.OrderEntities;
+using Core.Domain.Entities.OrderEntities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using OrderEntity = Core.Domain.Entities.OrderEntities.Order;
 
-namespace Persistence.Data.Configurations
+namespace Infrastructure.Persistence.Data.Configurations
 {
     internal class OrderConfigurations : IEntityTypeConfiguration<OrderEntity>
     {
@@ -30,6 +32,12 @@ namespace Persistence.Data.Configurations
             builder.Property(order => order.Subtotal)
                    .HasColumnType("decimal(18,3)");
         }
-
     }
 }
+
+
+
+
+
+
+

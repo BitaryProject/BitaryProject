@@ -1,7 +1,7 @@
-﻿global using Core.Domain.Contracts;
+global using Core.Domain.Contracts;
 global using Core.Domain.Entities.ProductEntities;
 global using Microsoft.EntityFrameworkCore;
-global using Persistence.Data;
+global using Infrastructure.Persistence.Data;
 using System.Text.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Domain.Entities.OrderEntities;
-using Persistence.Identity;
+using Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Core.Domain.Entities.SecurityEntities;
 using Microsoft.Data.SqlClient;
@@ -229,4 +229,5 @@ namespace Persistence
     }
 }
 //..\Infrastructure\Persistence\Data\Seeding\products.json
+
 

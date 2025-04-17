@@ -1,14 +1,18 @@
-using Domain.Contracts;
-using Domain.Entities.HealthcareEntities;
-using Core.Services.Specifications.Base;
+using Core.Common.Specifications;
+
+using Core.Domain.Contracts;
+
+using Core.Domain.Entities.HealthcareEntities;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Data;
+using Infrastructure.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
-namespace Persistence.Repositories.HealthcareRepositories
+
+namespace Infrastructure.Persistence.Repositories.HealthcareRepositories
 {
     public class AppointmentRepository : GenericRepository<Appointment, Guid>, IAppointmentRepository
     {
@@ -67,8 +71,48 @@ namespace Persistence.Repositories.HealthcareRepositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByPetOwnerIdAsync(Guid petOwnerId)
+        {
+            return await _storeContext.Appointments
+                .Include(a => a.PetProfile)
+                .Include(a => a.Doctor)
+                    .ThenInclude(d => d.User)
+                .Include(a => a.Clinic)
+                .Where(a => a.PetProfile.OwnerId == petOwnerId)
+                .OrderByDescending(a => a.AppointmentDateTime)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByStatusAsync(string status)
+        {
+            return await _storeContext.Appointments
+                .Include(a => a.PetProfile)
+                .Include(a => a.Doctor)
+                    .ThenInclude(d => d.User)
+                .Include(a => a.Clinic)
+                .Where(a => a.Status == status)
+                .OrderByDescending(a => a.AppointmentDateTime)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Appointment>> GetUpcomingAppointmentsForDoctorAsync(Guid doctorId)
+        {
+            var now = DateTime.UtcNow;
+            return await _storeContext.Appointments
+                .Include(a => a.PetProfile)
+                .Include(a => a.Doctor)
+                    .ThenInclude(d => d.User)
+                .Include(a => a.Clinic)
+                .Where(a => a.DoctorId == doctorId && 
+                       a.AppointmentDateTime > now &&
+                       a.Status != AppointmentStatus.Cancelled.ToString() &&
+                       a.Status != AppointmentStatus.NoShow.ToString())
+                .OrderBy(a => a.AppointmentDateTime)
+                .ToListAsync();
+        }
+
         public async Task<(IEnumerable<Appointment> Appointments, int TotalCount)> GetPagedAppointmentsAsync(
-            ISpecification<Appointment> specification, int pageIndex, int pageSize)
+            Core.Common.Specifications.Core.Common.Specifications.Core.Common.Specifications.ISpecification<Appointment> specification, int pageIndex, int pageSize)
         {
             var query = _storeContext.Appointments.AsQueryable();
 
@@ -99,19 +143,45 @@ namespace Persistence.Repositories.HealthcareRepositories
             return (appointments, totalCount);
         }
 
-        public async Task<bool> CheckForConflictingAppointmentsAsync(Guid doctorId, DateTime dateTime, TimeSpan duration)
+        public async Task<bool> CheckForConflictingAppointmentsAsync(DateTime startTime, DateTime endTime, Guid doctorId)
         {
-            var end = dateTime.Add(duration);
-            
             return await _storeContext.Appointments
                 .Where(a => a.DoctorId == doctorId && 
-                           a.Status != AppointmentStatus.Cancelled &&
-                           a.Status != AppointmentStatus.NoShow)
+                           a.Status != AppointmentStatus.Cancelled.ToString() &&
+                           a.Status != AppointmentStatus.NoShow.ToString())
                 .AnyAsync(a => 
-                    (a.AppointmentDateTime <= dateTime && dateTime < a.AppointmentDateTime.Add(a.Duration)) ||
-                    (a.AppointmentDateTime < end && end <= a.AppointmentDateTime.Add(a.Duration)) ||
-                    (dateTime <= a.AppointmentDateTime && a.AppointmentDateTime < end)
+                    (a.AppointmentDateTime <= startTime && startTime < a.AppointmentDateTime.Add(a.Duration)) ||
+                    (a.AppointmentDateTime < endTime && endTime <= a.AppointmentDateTime.Add(a.Duration)) ||
+                    (startTime <= a.AppointmentDateTime && a.AppointmentDateTime < endTime)
                 );
         }
+
+        public async Task<Appointment> GetAppointmentWithDetailsAsync(Guid id)
+        {
+            return await _storeContext.Appointments
+                .Include(a => a.PetProfile)
+                .Include(a => a.Doctor)
+                    .ThenInclude(d => d.User)
+                .Include(a => a.Clinic)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
     }
-}
+    
+    // Implementations for ISpecification methods
+    
+
+    
+
+    
+
+    
+
+    }
+
+
+
+
+
+
+
+
