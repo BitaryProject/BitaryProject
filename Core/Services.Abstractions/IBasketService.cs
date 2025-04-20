@@ -17,6 +17,9 @@ namespace Services.Abstractions
         Task<bool> UpdateItemQuantityAsync(string basketId, int productId, int quantity);
         Task<bool> RemoveItemAsync(string basketId, int productId);
         Task<int> GetBasketItemCountAsync(Guid basketId);
+        
+        // New method for updating delivery method
+        Task<bool> UpdateDeliveryMethodAsync(string basketId, int deliveryMethodId);
 
         // Debug method to get detailed information about a basket
         Task<(bool BasketExists, int ItemCount, object BasketItems, object BasketDtoItems)> GetDebugBasketInfoAsync(Guid basketId);

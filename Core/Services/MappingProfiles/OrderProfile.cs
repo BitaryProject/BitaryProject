@@ -24,14 +24,24 @@ namespace Services.MappingProfiles
 
             CreateMap<Order, OrderResult>()
                 .ForMember(d => d.PaymentStatus, options => options.MapFrom(s => s.PaymentStatus.ToString()))
-                .ForMember(d => d.DeliveryMethod, options => options.MapFrom(s => s.DeliveryMethod.ShortName))
-                .ForMember(d => d.Total, options => options.MapFrom(s => s.Subtotal + s.DeliveryMethod.Price));
+                .ForMember(d => d.DeliveryMethod, options => options.MapFrom(s => s.DeliveryMethod != null ? s.DeliveryMethod.ShortName : "None"))
+                .ForMember(d => d.Total, options => options.MapFrom(s => s.Subtotal + (s.DeliveryMethod != null ? s.DeliveryMethod.Price : 0)));
 
             CreateMap<DeliveryMethod, DeliveryMethodResult>();
 
             CreateMap<AddressDTO, UserAddress>().ReverseMap();
  
-            CreateMap<AddressDTO, OrderAddress>().ReverseMap();
+            CreateMap<AddressDTO, OrderAddress>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Street))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country));
+                
+            CreateMap<OrderAddress, AddressDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Street))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country));
         }
     }
 }
