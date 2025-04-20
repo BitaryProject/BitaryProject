@@ -290,5 +290,44 @@ namespace Presentation
                 return BadRequest($"Error debugging basket: {ex.Message}");
             }
         }
+
+        [HttpPut("{basketId}/delivery-method")]
+        public async Task<ActionResult<object>> UpdateDeliveryMethod(string basketId, [FromBody] UpdateDeliveryMethodRequest request)
+        {
+            Console.WriteLine($"Controller: Updating delivery method for basket {basketId}");
+
+            try
+            {
+                if (!Guid.TryParse(basketId, out var _))
+                {
+                    Console.WriteLine("Invalid basket ID format");
+                    return BadRequest(new { status = "failed", message = "Invalid basket ID format. Please provide a valid GUID." });
+                }
+
+                if (request == null || request.DeliveryMethodId <= 0)
+                {
+                    Console.WriteLine("Invalid delivery method ID");
+                    return BadRequest(new { status = "failed", message = "Invalid or missing delivery method ID." });
+                }
+
+                var success = await _serviceManager.BasketService.UpdateDeliveryMethodAsync(basketId, request.DeliveryMethodId);
+
+                if (success)
+                {
+                    Console.WriteLine("Successfully updated delivery method");
+                    return Ok(new { status = "success" });
+                }
+                else
+                {
+                    Console.WriteLine("Failed to update delivery method");
+                    return BadRequest(new { status = "failed", message = "Failed to update delivery method. Check server logs for details." });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating delivery method: {ex.Message}");
+                return BadRequest(new { status = "failed", message = $"Error updating delivery method: {ex.Message}" });
+            }
+        }
     }
 }

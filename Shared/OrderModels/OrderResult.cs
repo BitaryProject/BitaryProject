@@ -17,7 +17,12 @@ namespace Shared.OrderModels
         public string DeliveryMethod { get; set; }
         public decimal Subtotal { get; set; }
         public string PaymentIntentId { get; set; }
-
-        public decimal Total { get; set; }   
+        public decimal Total { get; set; }
+        
+        // Additional payment related fields
+        public string ClientSecret { get; set; } // For Stripe payments
+        public string StripeStatus { get; set; } // Current status from Stripe
+        public bool IsCashPayment => PaymentIntentId?.StartsWith("CASH_") ?? false;
+        public string PaymentMethod => IsCashPayment ? "Cash" : "Card";
     }
 }

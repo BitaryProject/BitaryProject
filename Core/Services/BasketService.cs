@@ -438,5 +438,52 @@ namespace Services
                 return false;
             }
         }
+
+        public async Task<bool> UpdateDeliveryMethodAsync(string basketId, int deliveryMethodId)
+        {
+            Console.WriteLine($"BasketService: Updating delivery method for basket {basketId} to {deliveryMethodId}");
+
+            try
+            {
+                if (!Guid.TryParse(basketId, out var basketGuid))
+                {
+                    Console.WriteLine("Invalid basket ID format");
+                    return false;
+                }
+
+                // Check if the delivery method exists
+                var deliveryMethod = await _unitOfWork.GetRepository<Domain.Entities.OrderEntities.DeliveryMethod, int>()
+                    .GetAsync(deliveryMethodId);
+
+                if (deliveryMethod == null)
+                {
+                    Console.WriteLine($"Delivery method with ID {deliveryMethodId} not found");
+                    return false;
+                }
+
+                // Get the existing basket
+                var basket = await _basketRepository.GetBasketAsync(basketGuid);
+
+                if (basket == null)
+                {
+                    Console.WriteLine($"Basket with ID {basketId} not found");
+                    return false;
+                }
+
+                // Update the delivery method
+                basket.DeliveryMethodId = deliveryMethodId;
+
+                // Save the changes
+                var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
+
+                return updatedBasket != null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating delivery method: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return false;
+            }
+        }
     }
 }

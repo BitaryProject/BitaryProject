@@ -17,6 +17,7 @@ namespace Domain.Contracts
         public Expression<Func<T, bool>>? Criteria { get; }
 
         public List<Expression<Func<T, object>>> IncludeExpressions { get; } = new();
+        public List<string> StringIncludes { get; } = new();
         public Expression<Func<T, object>> OrderBy { get; private set; }
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
 
@@ -33,6 +34,9 @@ namespace Domain.Contracts
 
         protected void AddInclude(Expression<Func<T, object>> expression)
             => IncludeExpressions.Add(expression);
+            
+        protected void AddInclude(string includePath)
+            => StringIncludes.Add(includePath);
 
         protected void ApplyPagination(int pageIndex, int pageSize)
         {
