@@ -33,8 +33,8 @@ namespace Shared.SecurityModels
         [Required]
         public Gender Gender { get; set; }
 
-        //[Required]
-        //public UserRole UserRole { get; set; }
+        [Required]
+        public Role UserRole { get; set; }
 
     }
 }

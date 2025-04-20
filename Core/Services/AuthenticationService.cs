@@ -75,7 +75,8 @@ namespace Services
                 Email = registerModel.Email,
                 PhoneNumber = registerModel.PhoneNumber,
                 UserName = registerModel.UserName,
-                Gender = registerModel.Gender
+                Gender = registerModel.Gender,
+                UserRole = registerModel.UserRole
             };
 
             var result = await userManager.CreateAsync(user, registerModel.Password);
@@ -296,7 +297,7 @@ namespace Services
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
-                //new Claim(ClaimTypes.Role, user.UserRole.ToString())
+                new Claim(ClaimTypes.Role, user.UserRole.ToString())
             };
 
             var roles = await userManager.GetRolesAsync(user);
@@ -371,6 +372,7 @@ namespace Services
                 FirstName = firstName,
                 LastName = lastName,
                 Gender = user.Gender,
+                UserRole = user.UserRole,
                 Address = address,
                 PhoneNumber = phoneNumber
             };
@@ -390,10 +392,11 @@ namespace Services
                 user.FirstName = !string.IsNullOrWhiteSpace(userInfoDTO.FirstName) ? userInfoDTO.FirstName : user.FirstName;
                 user.LastName = !string.IsNullOrWhiteSpace(userInfoDTO.LastName) ? userInfoDTO.LastName : user.LastName;
                 user.Gender = userInfoDTO.Gender;
+                user.UserRole = userInfoDTO.UserRole;
                 user.PhoneNumber = !string.IsNullOrWhiteSpace(userInfoDTO.PhoneNumber) ? userInfoDTO.PhoneNumber : user.PhoneNumber;
                 user.DisplayName = $"{user.FirstName} {user.LastName}".Trim();
 
-                Console.WriteLine($"Updating user: FirstName={user.FirstName}, LastName={user.LastName}, Gender={user.Gender}, Phone={user.PhoneNumber}");
+                Console.WriteLine($"Updating user: FirstName={user.FirstName}, LastName={user.LastName}, Gender={user.Gender}, Role={user.UserRole}, Phone={user.PhoneNumber}");
 
                 // First, update the user information
                 var result = await userManager.UpdateAsync(user);
