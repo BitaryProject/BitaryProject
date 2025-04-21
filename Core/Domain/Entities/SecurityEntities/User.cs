@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.SecurityEntities
 {
-    //public enum UserRole :byte
-    //{
-    //    PetOwner =1,
-    //    Doctor=2,
-    //}
+    public enum Role : byte
+    {
+        PetOwner = 1,
+        Doctor = 2,
+        Admin = 3
+    }
     public enum Gender : byte
     {
         male = 1,
@@ -27,7 +28,7 @@ namespace Domain.Entities.SecurityEntities
         public string DisplayName { get; set; }
         public Address Address { get; set; }
         public Gender Gender { get; set; }
-        //public UserRole UserRole { get; set; }
+        public Role UserRole { get; set; }
         //public Doctor DoctorProfile { get; set; }
 
 

@@ -23,6 +23,9 @@ namespace Shared.SecurityModels
         public Gender Gender { get; set; }
 
         [Required]
+        public Role UserRole { get; set; }
+
+        [Required]
         public AddressDTO Address { get; set; }
 
         public string PhoneNumber { get; set; }
