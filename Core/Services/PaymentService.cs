@@ -184,8 +184,14 @@ namespace Services
                 var service = new PaymentIntentService();
                 PaymentIntent intent;
                 
-                if (string.IsNullOrEmpty(order.PaymentIntentId))
+                // Check if the payment intent ID is valid - it should not be null, empty, "NoPaymentYet" or start with "default_"
+                bool isValidPaymentIntentId = !string.IsNullOrEmpty(order.PaymentIntentId) && 
+                                             order.PaymentIntentId != "NoPaymentYet" && 
+                                             !order.PaymentIntentId.StartsWith("default_");
+                
+                if (!isValidPaymentIntentId)
                 {
+                    // Create a new payment intent
                     var options = new PaymentIntentCreateOptions
                     {
                         Amount = amount,
@@ -205,14 +211,37 @@ namespace Services
                 }
                 else
                 {
-                    // Update existing payment intent
-                    var options = new PaymentIntentUpdateOptions
+                    try {
+                        // Try to update existing payment intent
+                        var options = new PaymentIntentUpdateOptions
+                        {
+                            Amount = amount
+                        };
+                        
+                        intent = await service.UpdateAsync(order.PaymentIntentId, options);
+                        Console.WriteLine($"Updated existing payment intent: {intent.Id}");
+                    }
+                    catch (StripeException ex) when (ex.Message.Contains("No such payment_intent"))
                     {
-                        Amount = amount
-                    };
-                    
-                    intent = await service.UpdateAsync(order.PaymentIntentId, options);
-                    Console.WriteLine($"Updated existing payment intent: {intent.Id}");
+                        // If the payment intent doesn't exist in Stripe, create a new one
+                        Console.WriteLine($"Payment intent {order.PaymentIntentId} not found in Stripe, creating a new one");
+                        var options = new PaymentIntentCreateOptions
+                        {
+                            Amount = amount,
+                            Currency = "usd",
+                            PaymentMethodTypes = new List<string> { "card" },
+                            Metadata = new Dictionary<string, string>
+                            {
+                                { "OrderId", order.Id.ToString() }
+                            }
+                        };
+                        
+                        intent = await service.CreateAsync(options);
+                        
+                        // Update the order with the new payment intent ID
+                        order.PaymentIntentId = intent.Id;
+                        Console.WriteLine($"Created new payment intent: {intent.Id}");
+                    }
                 }
                 
                 // Update order status and save changes
