@@ -46,4 +46,22 @@ namespace Domain.Contracts
             Skip = (pageIndex - 1) * pageSize;
         }
     }
+
+    // Concrete implementation of Specifications for ease of use
+    public class BaseSpecifications<T> : Specifications<T> where T : class
+    {
+        public BaseSpecifications() : base(null)
+        {
+        }
+
+        public BaseSpecifications(Expression<Func<T, bool>> criteria) : base(criteria)
+        {
+        }
+
+        public List<Expression<Func<T, object>>> Includes => IncludeExpressions;
+
+        public void AddOrderBy(Expression<Func<T, object>> expression) => setOrderBy(expression);
+        public void AddOrderByDescending(Expression<Func<T, object>> expression) => setOrderByDescending(expression);
+        public void AddPagination(int pageIndex, int pageSize) => ApplyPagination(pageIndex, pageSize);
+    }
 }

@@ -43,67 +43,104 @@ namespace Services
 
         public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
         {
-            // Validate input parameters
-            List<string> validationErrors = new();
-            
-            if (string.IsNullOrWhiteSpace(registerModel.Email))
-                validationErrors.Add("Email is required");
-            
-            if (string.IsNullOrWhiteSpace(registerModel.UserName))
-                validationErrors.Add("Username is required");
-            
-            if (string.IsNullOrWhiteSpace(registerModel.Password))
-                validationErrors.Add("Password is required");
-            
-            if (string.IsNullOrWhiteSpace(registerModel.FirstName) || string.IsNullOrWhiteSpace(registerModel.LastName))
-                validationErrors.Add("First name and last name are required");
-            
-            if (!string.IsNullOrWhiteSpace(registerModel.Email) && await userManager.FindByEmailAsync(registerModel.Email) != null)
-                validationErrors.Add("Email is already in use");
-            
-            if (!string.IsNullOrWhiteSpace(registerModel.UserName) && await userManager.FindByNameAsync(registerModel.UserName) != null) 
-                validationErrors.Add("Username is already in use");
-            
-            if (validationErrors.Any())
-                throw new ValidationException(validationErrors);
-
-            var user = new User
-            {
-                FirstName = registerModel.FirstName,
-                LastName = registerModel.LastName,
-                DisplayName = $"{registerModel.FirstName} {registerModel.LastName}",
-                Email = registerModel.Email,
-                PhoneNumber = registerModel.PhoneNumber,
-                UserName = registerModel.UserName,
-                Gender = registerModel.Gender,
-                UserRole = registerModel.UserRole
-            };
-
-            var result = await userManager.CreateAsync(user, registerModel.Password);
-            if (!result.Succeeded)
-            {
-                var errors = result.Errors.Select(e => e.Description).ToList();
-                throw new ValidationException(errors);
-            }
-            
             try
             {
-                // Generate and send verification code if registration is successful
-                var DomainOptions = domainOptions.Value;
-                var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+                // Validate input parameters
+                List<string> validationErrors = new();
+                
+                if (string.IsNullOrWhiteSpace(registerModel.Email))
+                    validationErrors.Add("Email is required");
+                
+                if (string.IsNullOrWhiteSpace(registerModel.UserName))
+                    validationErrors.Add("Username is required");
+                
+                if (string.IsNullOrWhiteSpace(registerModel.Password))
+                    validationErrors.Add("Password is required");
+                
+                if (string.IsNullOrWhiteSpace(registerModel.FirstName) || string.IsNullOrWhiteSpace(registerModel.LastName))
+                    validationErrors.Add("First name and last name are required");
+                
+                if (!string.IsNullOrWhiteSpace(registerModel.Email) && await userManager.FindByEmailAsync(registerModel.Email) != null)
+                    validationErrors.Add("Email is already in use");
+                
+                if (!string.IsNullOrWhiteSpace(registerModel.UserName) && await userManager.FindByNameAsync(registerModel.UserName) != null) 
+                    validationErrors.Add("Username is already in use");
+                
+                if (validationErrors.Any())
+                    throw new ValidationException(validationErrors);
 
-                await mailingService.SendEmailAsync(user.Email!, "Verification Code", 
-                    $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={registerModel.Email}&otp={verificationCode}");
+                var user = new User
+                {
+                    FirstName = registerModel.FirstName,
+                    LastName = registerModel.LastName,
+                    DisplayName = $"{registerModel.FirstName} {registerModel.LastName}",
+                    Email = registerModel.Email,
+                    PhoneNumber = registerModel.PhoneNumber,
+                    UserName = registerModel.UserName,
+                    Gender = registerModel.Gender,
+                    UserRole = registerModel.UserRole,
+                    EmailConfirmed = false // Explicitly set email confirmation status
+                };
+                
+                // Set default security values
+                user.SecurityStamp = Guid.NewGuid().ToString();
+                user.ConcurrencyStamp = Guid.NewGuid().ToString();
+                
+                // Include a direct database approach as a fallback if Identity fails
+                try
+                {
+                    var result = await userManager.CreateAsync(user, registerModel.Password);
+                    if (!result.Succeeded)
+                    {
+                        var errors = result.Errors.Select(e => e.Description).ToList();
+                        throw new ValidationException(errors);
+                    }
+                }
+                catch (DbUpdateException dbEx) when (dbEx.InnerException?.Message.Contains("Discriminator") == true)
+                {
+                    // Handle discriminator issue with direct intervention
+                    throw new Exception("User creation failed due to Discriminator issue. Please contact support.", dbEx);
+                }
+                
+                // Add the user to the appropriate role based on UserRole property
+                string roleName = user.UserRole.ToString();
+                var roleExists = await userManager.IsInRoleAsync(user, roleName);
+                if (!roleExists)
+                {
+                    await userManager.AddToRoleAsync(user, roleName);
+                }
+                
+                try
+                {
+                    // Generate and send verification code if registration is successful
+                    var DomainOptions = domainOptions.Value;
+                    var verificationCode = await userManager.GenerateUserTokenAsync(user, "CustomEmailTokenProvider", "email_confirmation");
+
+                    await mailingService.SendEmailAsync(user.Email!, "Verification Code", 
+                        $"{DomainOptions.bitaryUrl}api/Authentication/VerifyEmail?email={registerModel.Email}&otp={verificationCode}");
+                }
+                catch (Exception)
+                {
+                    // Even if email sending fails, continue returning the user
+                }
+
+                return new UserResultDTO(
+                    user.DisplayName,
+                    user.Email,
+                    await CreateTokenAsync(user));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Even if email sending fails, continue returning the user
+                // Log the exception
+                Console.WriteLine($"Error in RegisterAsync: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                
+                // Re-throw to be handled by the controller
+                throw;
             }
-
-            return new UserResultDTO(
-                user.DisplayName,
-                user.Email,
-                await CreateTokenAsync(user));
         }
 
         public async Task<bool> CheckEmailExist(string email)
@@ -297,7 +334,8 @@ namespace Services
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.UserRole.ToString())
+                new Claim(ClaimTypes.Role, user.UserRole.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
             var roles = await userManager.GetRolesAsync(user);

@@ -343,6 +343,10 @@ namespace Persistence.Migrations.Identity
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte>("UserRole")
+                        .HasColumnType("tinyint")
+                        .HasColumnName("UserRole");
+
                     b.HasDiscriminator().HasValue("User");
                 });
 

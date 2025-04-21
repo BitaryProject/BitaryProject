@@ -1,8 +1,22 @@
-using BitaryProject.Api.Extensions;
+global using AutoMapper;
+global using Microsoft.AspNetCore.Mvc;
+global using BitaryProject.Api.Extensions;
+global using Microsoft.OpenApi.Models;
+global using Microsoft.AspNetCore.Mvc.ApiExplorer;
+global using Services.Abstractions;
+global using Domain.Entities.SecurityEntities;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Tokens;
+global using Shared.SecurityModels;
+global using System.Text;
+global using System.Security.Claims;
+global using Persistence.Identity;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.Data.SqlClient;
 using BitaryProject.Extensions;
 using BitaryProject.Mail;
 using Services;
-using Services.Abstractions;
 
 namespace BitaryProject
 {

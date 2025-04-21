@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.BasketEntities;
 using Domain.Entities.OrderEntities;
+using Domain.Entities.PetEntities;
 using Domain.Entities.ProductEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,6 +26,20 @@ namespace Persistence.Data
             //modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreContext).Assembly);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); // de bet3ml execute l ay type bey3ml implement l IEntityTypeConfiguration 
+
+            // Explicitly configure Pet entity in case it wasn't captured by ApplyConfigurationsFromAssembly
+            modelBuilder.Entity<Pet>(entity =>
+            {
+                entity.ToTable("Pets");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.PetName).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.BirthDate).IsRequired();
+                entity.Property(e => e.Gender).IsRequired().HasConversion<byte>();
+                entity.Property(e => e.PetType).IsRequired().HasConversion<byte>();
+                entity.Property(e => e.Color).HasMaxLength(50);
+                entity.Property(e => e.Avatar).HasMaxLength(255);
+                entity.Property(e => e.UserId).IsRequired().HasMaxLength(450);
+            });
         }
 
 
@@ -36,5 +51,6 @@ namespace Persistence.Data
         public DbSet<DeliveryMethod?> DeliveryMethods { get; set; }
         public DbSet<CustomerBasket> CustomerBaskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Pet> Pets { get; set; }
     }
 }

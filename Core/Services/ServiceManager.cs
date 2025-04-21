@@ -9,6 +9,8 @@ using Services.Abstractions;
 //using Services.Services;
 using Shared.SecurityModels;
 using System;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Services
 {
@@ -19,7 +21,7 @@ namespace Services
         private readonly Lazy<IOrderService> _orderService;
         private readonly Lazy<IAuthenticationService> _authenticationService;
         private readonly Lazy<IPaymentService> _paymentService;
-        //private readonly Lazy<IPetService> _petService;
+        private readonly Lazy<IPetService> _petService;
         //private readonly Lazy<IDoctorService> _doctorService;
         //private readonly Lazy<IAppointmentService> _appointmentService;
         //private readonly Lazy<IClinicService> _clinicService;
@@ -35,7 +37,8 @@ namespace Services
             IOptions<JwtOptions> jwtOptions,
             IOptions<DomainSettings> domainSettings,
             IConfiguration configuration,
-            IMailingService mailingService)
+            IMailingService mailingService,
+            IServiceProvider serviceProvider)
             //IPetRepository petRepository,
             //IDoctorRepository doctorRepository,
             //IClinicRepository clinicRepository,
@@ -49,6 +52,10 @@ namespace Services
             _orderService = new Lazy<IOrderService>(() => new OrderService(unitOfWork, mapper, basketRepository));
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, jwtOptions, domainSettings, mapper, mailingService));
             _paymentService = new Lazy<IPaymentService>(() => new PaymentService(basketRepository, unitOfWork, mapper, configuration));
+            _petService = new Lazy<IPetService>(() => new PetService(
+                serviceProvider.GetRequiredService<IPetRepository>(), 
+                mapper,
+                LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<PetService>()));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
@@ -65,7 +72,7 @@ namespace Services
         public IOrderService OrderService => _orderService.Value;
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
         public IPaymentService PaymentService => _paymentService.Value;
-        //public IPetService PetService => _petService.Value;
+        public IPetService PetService => _petService.Value;
         //public IDoctorService DoctorService => _doctorService.Value;
         //public IAppointmentService AppointmentService => _appointmentService.Value;
         //public IClinicService ClinicService => _clinicService.Value;

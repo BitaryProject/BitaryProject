@@ -25,8 +25,8 @@ namespace BitaryProject.Extensions
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IUnitOFWork, UnitOfWork>();
             services.AddScoped<IbasketRepository, BasketRepository>();
+            services.AddScoped<IPetRepository, Persistence.Repositories.PetRepository>();
             //services.AddScoped<INewModuleUnitOfWork, NewModuleUnitOfWork>();
-            //services.AddScoped<IPetRepository, PetRepository>();
             //services.AddScoped<IDoctorRepository, DoctorRepository>();
             //services.AddScoped<IClinicRepository, ClinicRepository>();
             //services.AddScoped<IAppointmentRepository, AppointmentRepository>();

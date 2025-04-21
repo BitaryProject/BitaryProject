@@ -23,27 +23,25 @@ namespace Domain.Entities.PetEntities
     public class Pet : BaseEntity<int>
     {
         public Pet() { }
-        public Pet(string userId, string petName, DateTime birthDate, PetGender gender, string color, string avatar, PetType type)
+        public Pet(string petName, DateTime birthDate, PetGender gender, string color, string avatar, PetType type, string userId)
         {
-            UserId = userId;
             PetName = petName;
             BirthDate = birthDate;
             Gender = gender;
             Color = color;
             Avatar = avatar;
             PetType = type;
-
+            UserId = userId;
         }
 
-
         public string PetName { get; set; }
-
         public DateTime BirthDate { get; set; }
-
         public PetGender Gender { get; set; }
         public PetType PetType { get; set; }
         public string Color { get; set; }
         public string Avatar { get; set; }
+        
+        // Reference to the user that owns this pet
         public string UserId { get; set; }
 
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();

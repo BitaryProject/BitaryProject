@@ -49,7 +49,16 @@ namespace Presentation
             catch (Exception ex)
             {
                 // Log the unexpected error
-                return StatusCode(500, new { message = "Registration failed: " + ex.Message });
+                var errorMessage = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorMessage += $" Inner exception: {ex.InnerException.Message}";
+                }
+                
+                return StatusCode(500, new { 
+                    message = "Registration failed: " + errorMessage,
+                    errorType = ex.GetType().Name
+                });
             }
         }
 

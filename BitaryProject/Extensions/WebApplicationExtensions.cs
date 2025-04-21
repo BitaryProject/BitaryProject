@@ -1,4 +1,5 @@
 ﻿using BitaryProject.Api.Middlewares;
+using Persistence.Identity;
 
 namespace BitaryProject.Extensions
 {
@@ -29,6 +30,37 @@ namespace BitaryProject.Extensions
                     {
                         await dbInitializer.InitializeAsync();
                         await dbInitializer.InitializeIdentityAsync();
+
+                        // Apply Identity migrations
+                        var identityContext = scope.ServiceProvider.GetRequiredService<IdentityContext>();
+                        logger.LogInformation("Applying pending migrations to Identity database...");
+                        
+                        try 
+                        {
+                            await identityContext.Database.MigrateAsync();
+                            logger.LogInformation("Identity database migrations applied successfully");
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, "Error applying Identity migrations. Will continue with application startup.");
+                        }
+                        
+                        // Apply Store migrations
+                        var storeContext = scope.ServiceProvider.GetRequiredService<StoreContext>();
+                        logger.LogInformation("Applying pending migrations to Store database...");
+                        
+                        try 
+                        {
+                            await storeContext.Database.MigrateAsync();
+                            logger.LogInformation("Store database migrations applied successfully");
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, "Error applying Store migrations. Will continue with application startup.");
+                        }
+                        
+                        // Seed roles
+                        await IdentityDbInitializer.SeedRolesAsync(scope.ServiceProvider);
                     }
                     catch (OperationCanceledException)
                     {
