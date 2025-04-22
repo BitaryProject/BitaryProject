@@ -4,7 +4,10 @@ using Services.Abstractions;
 using Shared.PetModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities.PetEntities;
+
 namespace Presentation.Controllers
 {
     [ApiController]
@@ -19,11 +22,16 @@ namespace Presentation.Controllers
         }
 
         // GET: api/Pet/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PetProfileDTO>> Get(string id)
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<PetProfileDTO>> Get(int id)
         {
-            var pet = await _serviceManager.PetService.GetPetAsync(id);
-            return Ok(pet);
+            var pet = await _serviceManager.PetService.GetPetByIdAsync(id);
+            if (pet == null)
+                return NotFound();
+                
+            // Map Pet to PetProfileDTO (you'd typically use an automapper here)
+            var petDto = MapPetToDto(pet);
+            return Ok(petDto);
         }
 
         // GET: api/Pet/user/{userId}
@@ -31,31 +39,89 @@ namespace Presentation.Controllers
         public async Task<ActionResult<IEnumerable<PetProfileDTO>>> GetByUser(string userId)
         {
             var pets = await _serviceManager.PetService.GetPetsByUserIdAsync(userId);
-            return Ok(pets);
+            
+            // Map List<Pet> to List<PetProfileDTO>
+            var petDtos = pets.Select(MapPetToDto);
+            return Ok(petDtos);
         }
 
         // POST: api/Pet
         [HttpPost]
         public async Task<ActionResult<PetProfileDTO>> Create([FromBody] PetProfileDTO petDto)
         {
-            var createdPet = await _serviceManager.PetService.CreatePetAsync(petDto);
-            return CreatedAtAction(nameof(Get), new { id = createdPet.Id }, createdPet);
+            // Map DTO to entity
+            var pet = new Pet
+            {
+                PetName = petDto.PetName,
+                BirthDate = petDto.BirthDate,
+                Gender = petDto.Gender,
+                Type = petDto.type,
+                Color = petDto.Color,
+                Avatar = petDto.Avatar,
+                UserId = petDto.UserId
+            };
+            
+            var createdPet = await _serviceManager.PetService.AddPetAsync(pet);
+            
+            // Map back to DTO
+            var createdPetDto = MapPetToDto(createdPet);
+            return CreatedAtAction(nameof(Get), new { id = createdPetDto.Id }, createdPetDto);
         }
 
         // PUT: api/Pet/{id}
-        [HttpPut("{id}")]
-        public async Task<ActionResult<PetProfileDTO>> Update(string id, [FromBody] PetProfileDTO petDto)
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<PetProfileDTO>> Update(int id, [FromBody] PetProfileDTO petDto)
         {
-            var updatedPet = await _serviceManager.PetService.UpdatePetAsync(id, petDto);
-            return Ok(updatedPet);
+            if (id != petDto.Id)
+                return BadRequest("ID mismatch");
+                
+            // Map DTO to entity
+            var pet = new Pet
+            {
+                Id = petDto.Id,
+                PetName = petDto.PetName,
+                BirthDate = petDto.BirthDate,
+                Gender = petDto.Gender,
+                Type = petDto.type,
+                Color = petDto.Color,
+                Avatar = petDto.Avatar,
+                UserId = petDto.UserId
+            };
+            
+            var success = await _serviceManager.PetService.UpdatePetAsync(pet);
+            
+            if (!success)
+                return NotFound();
+                
+            return Ok(petDto);
         }
 
         // DELETE: api/Pet/{id}
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            await _serviceManager.PetService.DeletePetAsync(id);
+            var success = await _serviceManager.PetService.DeletePetAsync(id);
+            
+            if (!success)
+                return NotFound();
+                
             return NoContent();
+        }
+        
+        // Helper method to map Pet entity to PetProfileDTO
+        private PetProfileDTO MapPetToDto(Pet pet)
+        {
+            return new PetProfileDTO
+            {
+                Id = pet.Id,
+                PetName = pet.PetName,
+                BirthDate = pet.BirthDate,
+                Gender = pet.Gender,
+                type = pet.Type,
+                Color = pet.Color,
+                Avatar = pet.Avatar,
+                UserId = pet.UserId
+            };
         }
     }
 }
