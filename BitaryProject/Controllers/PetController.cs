@@ -1,3 +1,10 @@
+// COMMENTED OUT TO USE THE CONTROLLER IN Infrastructure/Presentation/PetController.cs
+// This controller is commented out to avoid conflict with the PetController in the Presentation layer.
+// The Presentation layer controller is now using the route "api/presentation/Pet" to avoid conflicts.
+// If you need the features from this controller (authentication, etc.), consider adding them to the 
+// Presentation controller instead.
+
+/*
 using AutoMapper;
 using Domain.Entities.PetEntities;
 using Microsoft.AspNetCore.Authorization;
@@ -184,4 +191,5 @@ namespace BitaryProject.Controllers
             }
         }
     }
-} 
+}
+*/ 
