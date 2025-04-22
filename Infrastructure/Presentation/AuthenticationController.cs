@@ -311,355 +311,355 @@ namespace Presentation
             }
         }
 
-        [HttpGet("direct-db-fix")]
-        [AllowAnonymous]
-        public async Task<IActionResult> DirectDatabaseFix(string email)
-        {
-            try
-            {
-                Console.WriteLine($"Starting direct database fix for: {email}");
+        //[HttpGet("direct-db-fix")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> DirectDatabaseFix(string email)
+        //{
+        //    try
+        //    {
+        //        Console.WriteLine($"Starting direct database fix for: {email}");
                 
-                if (string.IsNullOrEmpty(email))
-                {
-                    return BadRequest("Email parameter is required");
-                }
+        //        if (string.IsNullOrEmpty(email))
+        //        {
+        //            return BadRequest("Email parameter is required");
+        //        }
                 
-                // Get connection string directly from configuration and clean it
-                string rawConnectionString = configuration.GetConnectionString("IdentitySQLConnection");
-                Console.WriteLine($"Raw connection string found: {!string.IsNullOrEmpty(rawConnectionString)}");
+        //        // Get connection string directly from configuration and clean it
+        //        string rawConnectionString = configuration.GetConnectionString("IdentitySQLConnection");
+        //        Console.WriteLine($"Raw connection string found: {!string.IsNullOrEmpty(rawConnectionString)}");
                 
-                if (string.IsNullOrEmpty(rawConnectionString))
-                {
-                    return BadRequest("Identity database connection string not found in configuration");
-                }
+        //        if (string.IsNullOrEmpty(rawConnectionString))
+        //        {
+        //            return BadRequest("Identity database connection string not found in configuration");
+        //        }
                 
-                // Sanitize the connection string to remove unsupported parameters for System.Data.SqlClient
-                string identityConnectionString = CleanConnectionString(rawConnectionString);
+        //        // Sanitize the connection string to remove unsupported parameters for System.Data.SqlClient
+        //        string identityConnectionString = CleanConnectionString(rawConnectionString);
                 
-                // Normalize email for comparison
-                string normalizedEmail = email.ToUpperInvariant();
+        //        // Normalize email for comparison
+        //        string normalizedEmail = email.ToUpperInvariant();
                 
-                // Use direct ADO.NET to avoid EF Core issues
-                using (var connection = new SqlConnection(identityConnectionString))
-                {
-                    try
-                    {
-                        await connection.OpenAsync();
-                        Console.WriteLine("Database connection opened successfully");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Failed to open database connection: {ex.Message}");
-                        return StatusCode(500, new 
-                        { 
-                            message = "Failed to connect to the database",
-                            error = ex.Message,
-                            details = "There may be an issue with the connection string format"
-                        });
-                    }
+        //        // Use direct ADO.NET to avoid EF Core issues
+        //        using (var connection = new SqlConnection(identityConnectionString))
+        //        {
+        //            try
+        //            {
+        //                await connection.OpenAsync();
+        //                Console.WriteLine("Database connection opened successfully");
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Console.WriteLine($"Failed to open database connection: {ex.Message}");
+        //                return StatusCode(500, new 
+        //                { 
+        //                    message = "Failed to connect to the database",
+        //                    error = ex.Message,
+        //                    details = "There may be an issue with the connection string format"
+        //                });
+        //            }
                     
-                    // First create the user if they don't exist
-                    try
-                    {
-                        // Check if the user exists
-                        string checkUserSql = "SELECT Id FROM AspNetUsers WHERE Email = @Email OR NormalizedEmail = @NormalizedEmail";
-                        object userId = null;
+        //            // First create the user if they don't exist
+        //            try
+        //            {
+        //                // Check if the user exists
+        //                string checkUserSql = "SELECT Id FROM AspNetUsers WHERE Email = @Email OR NormalizedEmail = @NormalizedEmail";
+        //                object userId = null;
                         
-                        using (var checkCmd = new SqlCommand(checkUserSql, connection))
-                        {
-                            checkCmd.Parameters.AddWithValue("@Email", email);
-                            checkCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
+        //                using (var checkCmd = new SqlCommand(checkUserSql, connection))
+        //                {
+        //                    checkCmd.Parameters.AddWithValue("@Email", email);
+        //                    checkCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
                             
-                            userId = await checkCmd.ExecuteScalarAsync();
-                            Console.WriteLine($"User lookup result: {(userId != null ? "Found" : "Not found")}");
-                        }
+        //                    userId = await checkCmd.ExecuteScalarAsync();
+        //                    Console.WriteLine($"User lookup result: {(userId != null ? "Found" : "Not found")}");
+        //                }
                         
-                        // If user doesn't exist, create them
-                        if (userId == null)
-                        {
-                            Console.WriteLine($"User with email {email} not found. Creating new user.");
-                            string newUserId = Guid.NewGuid().ToString();
-                            string defaultUsername = $"user_{Guid.NewGuid().ToString("N")}";
+        //                // If user doesn't exist, create them
+        //                if (userId == null)
+        //                {
+        //                    Console.WriteLine($"User with email {email} not found. Creating new user.");
+        //                    string newUserId = Guid.NewGuid().ToString();
+        //                    string defaultUsername = $"user_{Guid.NewGuid().ToString("N")}";
                             
-                            string createUserSql = @"
-                                INSERT INTO AspNetUsers (
-                                    Id, UserName, NormalizedUserName, Email, NormalizedEmail, 
-                                    EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled,
-                                    AccessFailedCount, PhoneNumber, ConcurrencyStamp, SecurityStamp,
-                                    PasswordHash, FirstName, LastName, DisplayName, Discriminator, UserRole
-                                )
-                                VALUES (
-                                    @Id, @UserName, @NormalizedUserName, @Email, @NormalizedEmail,
-                                    1, 0, 0, 0, 0, '', @ConcurrencyStamp, @SecurityStamp,
-                                    @PasswordHash, '', '', '', 'User', 3
-                                )";
+        //                    string createUserSql = @"
+        //                        INSERT INTO AspNetUsers (
+        //                            Id, UserName, NormalizedUserName, Email, NormalizedEmail, 
+        //                            EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled,
+        //                            AccessFailedCount, PhoneNumber, ConcurrencyStamp, SecurityStamp,
+        //                            PasswordHash, FirstName, LastName, DisplayName, Discriminator, UserRole
+        //                        )
+        //                        VALUES (
+        //                            @Id, @UserName, @NormalizedUserName, @Email, @NormalizedEmail,
+        //                            1, 0, 0, 0, 0, '', @ConcurrencyStamp, @SecurityStamp,
+        //                            @PasswordHash, '', '', '', 'User', 3
+        //                        )";
                                 
-                            using (var createCmd = new SqlCommand(createUserSql, connection))
-                            {
-                                // Generate a simple password hash - this is just a placeholder
-                                string passwordHash = "AQAAAAIAAYagAAAAELEGwOvSxVNNYy5JyKlZ0+nGgzSDT5lJL8K3CEmHF4J1xP9RODx7V8wWJR7i7/PbGw=="; // Hashed value of "Admin123!"
+        //                    using (var createCmd = new SqlCommand(createUserSql, connection))
+        //                    {
+        //                        // Generate a simple password hash - this is just a placeholder
+        //                        string passwordHash = "AQAAAAIAAYagAAAAELEGwOvSxVNNYy5JyKlZ0+nGgzSDT5lJL8K3CEmHF4J1xP9RODx7V8wWJR7i7/PbGw=="; // Hashed value of "Admin123!"
                                 
-                                createCmd.Parameters.AddWithValue("@Id", newUserId);
-                                createCmd.Parameters.AddWithValue("@UserName", defaultUsername);
-                                createCmd.Parameters.AddWithValue("@NormalizedUserName", defaultUsername.ToUpperInvariant());
-                                createCmd.Parameters.AddWithValue("@Email", email);
-                                createCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
-                                createCmd.Parameters.AddWithValue("@ConcurrencyStamp", Guid.NewGuid().ToString());
-                                createCmd.Parameters.AddWithValue("@SecurityStamp", Guid.NewGuid().ToString());
-                                createCmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
+        //                        createCmd.Parameters.AddWithValue("@Id", newUserId);
+        //                        createCmd.Parameters.AddWithValue("@UserName", defaultUsername);
+        //                        createCmd.Parameters.AddWithValue("@NormalizedUserName", defaultUsername.ToUpperInvariant());
+        //                        createCmd.Parameters.AddWithValue("@Email", email);
+        //                        createCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
+        //                        createCmd.Parameters.AddWithValue("@ConcurrencyStamp", Guid.NewGuid().ToString());
+        //                        createCmd.Parameters.AddWithValue("@SecurityStamp", Guid.NewGuid().ToString());
+        //                        createCmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
                                 
-                                int rowsAffected = await createCmd.ExecuteNonQueryAsync();
-                                Console.WriteLine($"Created new user. Rows affected: {rowsAffected}");
+        //                        int rowsAffected = await createCmd.ExecuteNonQueryAsync();
+        //                        Console.WriteLine($"Created new user. Rows affected: {rowsAffected}");
                                 
-                                userId = newUserId;
-                            }
-                        }
+        //                        userId = newUserId;
+        //                    }
+        //                }
                         
-                        Console.WriteLine($"Found/Created user with ID: {userId}");
+        //                Console.WriteLine($"Found/Created user with ID: {userId}");
                         
-                        // Update user to fix NULL values
-                        string fixUserSql = @"
-                            UPDATE AspNetUsers
-                            SET 
-                                UserName = ISNULL(UserName, @DefaultUsername),
-                                NormalizedUserName = ISNULL(NormalizedUserName, @DefaultNormalizedUsername),
-                                Email = ISNULL(Email, @Email),
-                                NormalizedEmail = ISNULL(NormalizedEmail, @NormalizedEmail),
-                                PhoneNumber = ISNULL(PhoneNumber, ''),
-                                ConcurrencyStamp = ISNULL(ConcurrencyStamp, @NewGuid1),
-                                SecurityStamp = ISNULL(SecurityStamp, @NewGuid2),
-                                FirstName = ISNULL(FirstName, ''),
-                                LastName = ISNULL(LastName, ''),
-                                DisplayName = ISNULL(DisplayName, ''),
-                                Discriminator = ISNULL(Discriminator, 'User'),
-                                UserRole = 3, -- Directly set to Admin (3)
-                                EmailConfirmed = 1 -- Ensure email is confirmed
-                            WHERE Email = @Email OR NormalizedEmail = @NormalizedEmail";
+        //                // Update user to fix NULL values
+        //                string fixUserSql = @"
+        //                    UPDATE AspNetUsers
+        //                    SET 
+        //                        UserName = ISNULL(UserName, @DefaultUsername),
+        //                        NormalizedUserName = ISNULL(NormalizedUserName, @DefaultNormalizedUsername),
+        //                        Email = ISNULL(Email, @Email),
+        //                        NormalizedEmail = ISNULL(NormalizedEmail, @NormalizedEmail),
+        //                        PhoneNumber = ISNULL(PhoneNumber, ''),
+        //                        ConcurrencyStamp = ISNULL(ConcurrencyStamp, @NewGuid1),
+        //                        SecurityStamp = ISNULL(SecurityStamp, @NewGuid2),
+        //                        FirstName = ISNULL(FirstName, ''),
+        //                        LastName = ISNULL(LastName, ''),
+        //                        DisplayName = ISNULL(DisplayName, ''),
+        //                        Discriminator = ISNULL(Discriminator, 'User'),
+        //                        UserRole = 3, -- Directly set to Admin (3)
+        //                        EmailConfirmed = 1 -- Ensure email is confirmed
+        //                    WHERE Email = @Email OR NormalizedEmail = @NormalizedEmail";
                         
-                        // Use a different variable name for the second instance to avoid duplication
-                        string usernameForUpdate = $"user_{Guid.NewGuid().ToString("N")}";
+        //                // Use a different variable name for the second instance to avoid duplication
+        //                string usernameForUpdate = $"user_{Guid.NewGuid().ToString("N")}";
                         
-                        using (var updateCmd = new SqlCommand(fixUserSql, connection))
-                        {
-                            updateCmd.Parameters.AddWithValue("@Email", email);
-                            updateCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
-                            updateCmd.Parameters.AddWithValue("@DefaultUsername", usernameForUpdate);
-                            updateCmd.Parameters.AddWithValue("@DefaultNormalizedUsername", usernameForUpdate.ToUpperInvariant());
-                            updateCmd.Parameters.AddWithValue("@NewGuid1", Guid.NewGuid().ToString());
-                            updateCmd.Parameters.AddWithValue("@NewGuid2", Guid.NewGuid().ToString());
+        //                using (var updateCmd = new SqlCommand(fixUserSql, connection))
+        //                {
+        //                    updateCmd.Parameters.AddWithValue("@Email", email);
+        //                    updateCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
+        //                    updateCmd.Parameters.AddWithValue("@DefaultUsername", usernameForUpdate);
+        //                    updateCmd.Parameters.AddWithValue("@DefaultNormalizedUsername", usernameForUpdate.ToUpperInvariant());
+        //                    updateCmd.Parameters.AddWithValue("@NewGuid1", Guid.NewGuid().ToString());
+        //                    updateCmd.Parameters.AddWithValue("@NewGuid2", Guid.NewGuid().ToString());
                             
-                            int rowsAffected = await updateCmd.ExecuteNonQueryAsync();
-                            Console.WriteLine($"Updated user data. Rows affected: {rowsAffected}");
-                        }
+        //                    int rowsAffected = await updateCmd.ExecuteNonQueryAsync();
+        //                    Console.WriteLine($"Updated user data. Rows affected: {rowsAffected}");
+        //                }
                         
-                        // Check if Admin role exists and create if not
-                        string checkAdminRoleSql = "SELECT Id FROM AspNetRoles WHERE Name = 'Admin'";
-                        object roleIdObj = null;
-                        string adminRoleId;
+        //                // Check if Admin role exists and create if not
+        //                string checkAdminRoleSql = "SELECT Id FROM AspNetRoles WHERE Name = 'Admin'";
+        //                object roleIdObj = null;
+        //                string adminRoleId;
                         
-                        using (var checkRoleCmd = new SqlCommand(checkAdminRoleSql, connection))
-                        {
-                            roleIdObj = await checkRoleCmd.ExecuteScalarAsync();
-                            Console.WriteLine($"Admin role lookup result: {(roleIdObj != null ? "Found" : "Not found")}");
-                        }
+        //                using (var checkRoleCmd = new SqlCommand(checkAdminRoleSql, connection))
+        //                {
+        //                    roleIdObj = await checkRoleCmd.ExecuteScalarAsync();
+        //                    Console.WriteLine($"Admin role lookup result: {(roleIdObj != null ? "Found" : "Not found")}");
+        //                }
                         
-                        if (roleIdObj == null)
-                        {
-                            // Create Admin role
-                            adminRoleId = Guid.NewGuid().ToString();
-                            string createRoleSql = @"
-                                INSERT INTO AspNetRoles (Id, Name, NormalizedName, ConcurrencyStamp)
-                                VALUES (@Id, 'Admin', 'ADMIN', @ConcurrencyStamp)";
+        //                if (roleIdObj == null)
+        //                {
+        //                    // Create Admin role
+        //                    adminRoleId = Guid.NewGuid().ToString();
+        //                    string createRoleSql = @"
+        //                        INSERT INTO AspNetRoles (Id, Name, NormalizedName, ConcurrencyStamp)
+        //                        VALUES (@Id, 'Admin', 'ADMIN', @ConcurrencyStamp)";
                                 
-                            using (var createRoleCmd = new SqlCommand(createRoleSql, connection))
-                            {
-                                createRoleCmd.Parameters.AddWithValue("@Id", adminRoleId);
-                                createRoleCmd.Parameters.AddWithValue("@ConcurrencyStamp", Guid.NewGuid().ToString());
+        //                    using (var createRoleCmd = new SqlCommand(createRoleSql, connection))
+        //                    {
+        //                        createRoleCmd.Parameters.AddWithValue("@Id", adminRoleId);
+        //                        createRoleCmd.Parameters.AddWithValue("@ConcurrencyStamp", Guid.NewGuid().ToString());
                                 
-                                await createRoleCmd.ExecuteNonQueryAsync();
-                                Console.WriteLine("Created Admin role");
-                            }
-                        }
-                        else
-                        {
-                            adminRoleId = roleIdObj.ToString();
-                            Console.WriteLine("Admin role exists");
-                        }
+        //                        await createRoleCmd.ExecuteNonQueryAsync();
+        //                        Console.WriteLine("Created Admin role");
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    adminRoleId = roleIdObj.ToString();
+        //                    Console.WriteLine("Admin role exists");
+        //                }
                         
-                        // Get user ID one more time to be safe
-                        string getUserIdSql = "SELECT Id FROM AspNetUsers WHERE Email = @Email OR NormalizedEmail = @NormalizedEmail";
-                        string userIdFromDb = null;
+        //                // Get user ID one more time to be safe
+        //                string getUserIdSql = "SELECT Id FROM AspNetUsers WHERE Email = @Email OR NormalizedEmail = @NormalizedEmail";
+        //                string userIdFromDb = null;
                         
-                        using (var getUserIdCmd = new SqlCommand(getUserIdSql, connection))
-                        {
-                            getUserIdCmd.Parameters.AddWithValue("@Email", email);
-                            getUserIdCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
+        //                using (var getUserIdCmd = new SqlCommand(getUserIdSql, connection))
+        //                {
+        //                    getUserIdCmd.Parameters.AddWithValue("@Email", email);
+        //                    getUserIdCmd.Parameters.AddWithValue("@NormalizedEmail", normalizedEmail);
                             
-                            var userIdObj = await getUserIdCmd.ExecuteScalarAsync();
-                            if (userIdObj != null)
-                            {
-                                userIdFromDb = userIdObj.ToString();
-                                Console.WriteLine($"User ID retrieved: {userIdFromDb}");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Unable to retrieve user ID");
-                                return StatusCode(500, new { message = "User exists but ID cannot be retrieved" });
-                            }
-                        }
+        //                    var userIdObj = await getUserIdCmd.ExecuteScalarAsync();
+        //                    if (userIdObj != null)
+        //                    {
+        //                        userIdFromDb = userIdObj.ToString();
+        //                        Console.WriteLine($"User ID retrieved: {userIdFromDb}");
+        //                    }
+        //                    else
+        //                    {
+        //                        Console.WriteLine("Unable to retrieve user ID");
+        //                        return StatusCode(500, new { message = "User exists but ID cannot be retrieved" });
+        //                    }
+        //                }
                         
-                        // Check if user is already in Admin role
-                        string checkUserRoleSql = "SELECT 1 FROM AspNetUserRoles WHERE UserId = @UserId AND RoleId = @RoleId";
-                        bool userInAdminRole = false;
+        //                // Check if user is already in Admin role
+        //                string checkUserRoleSql = "SELECT 1 FROM AspNetUserRoles WHERE UserId = @UserId AND RoleId = @RoleId";
+        //                bool userInAdminRole = false;
                         
-                        using (var checkUserRoleCmd = new SqlCommand(checkUserRoleSql, connection))
-                        {
-                            checkUserRoleCmd.Parameters.AddWithValue("@UserId", userIdFromDb);
-                            checkUserRoleCmd.Parameters.AddWithValue("@RoleId", adminRoleId);
+        //                using (var checkUserRoleCmd = new SqlCommand(checkUserRoleSql, connection))
+        //                {
+        //                    checkUserRoleCmd.Parameters.AddWithValue("@UserId", userIdFromDb);
+        //                    checkUserRoleCmd.Parameters.AddWithValue("@RoleId", adminRoleId);
                             
-                            var result = await checkUserRoleCmd.ExecuteScalarAsync();
-                            userInAdminRole = (result != null);
-                            Console.WriteLine($"User in admin role check: {userInAdminRole}");
-                        }
+        //                    var result = await checkUserRoleCmd.ExecuteScalarAsync();
+        //                    userInAdminRole = (result != null);
+        //                    Console.WriteLine($"User in admin role check: {userInAdminRole}");
+        //                }
                         
-                        // Add user to Admin role if not already
-                        if (!userInAdminRole)
-                        {
-                            try
-                            {
-                                string addToRoleSql = "INSERT INTO AspNetUserRoles (UserId, RoleId) VALUES (@UserId, @RoleId)";
+        //                // Add user to Admin role if not already
+        //                if (!userInAdminRole)
+        //                {
+        //                    try
+        //                    {
+        //                        string addToRoleSql = "INSERT INTO AspNetUserRoles (UserId, RoleId) VALUES (@UserId, @RoleId)";
                                 
-                                using (var addToRoleCmd = new SqlCommand(addToRoleSql, connection))
-                                {
-                                    addToRoleCmd.Parameters.AddWithValue("@UserId", userIdFromDb);
-                                    addToRoleCmd.Parameters.AddWithValue("@RoleId", adminRoleId);
+        //                        using (var addToRoleCmd = new SqlCommand(addToRoleSql, connection))
+        //                        {
+        //                            addToRoleCmd.Parameters.AddWithValue("@UserId", userIdFromDb);
+        //                            addToRoleCmd.Parameters.AddWithValue("@RoleId", adminRoleId);
                                     
-                                    await addToRoleCmd.ExecuteNonQueryAsync();
-                                    Console.WriteLine("Added user to Admin role");
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Warning - Error adding user to role: {ex.Message}");
-                                // Continue anyway
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("User already in Admin role");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error during DB operations: {ex.Message}");
-                        if (ex.InnerException != null)
-                        {
-                            Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
-                        }
-                        throw; // Rethrow to be caught by outer try-catch
-                    }
-                }
+        //                            await addToRoleCmd.ExecuteNonQueryAsync();
+        //                            Console.WriteLine("Added user to Admin role");
+        //                        }
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        Console.WriteLine($"Warning - Error adding user to role: {ex.Message}");
+        //                        // Continue anyway
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    Console.WriteLine("User already in Admin role");
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Console.WriteLine($"Error during DB operations: {ex.Message}");
+        //                if (ex.InnerException != null)
+        //                {
+        //                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+        //                }
+        //                throw; // Rethrow to be caught by outer try-catch
+        //            }
+        //        }
                 
-                return Ok(new
-                {
-                    success = true,
-                    message = "Direct database fix completed successfully",
-                    nextStep = "Try logging in as admin now",
-                    password = "Admin123!" // Default password if user was created
-                });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in direct database fix: {ex.Message}");
-                if (ex.InnerException != null)
-                {
-                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
-                }
+        //        return Ok(new
+        //        {
+        //            success = true,
+        //            message = "Direct database fix completed successfully",
+        //            nextStep = "Try logging in as admin now",
+        //            password = "Admin123!" // Default password if user was created
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error in direct database fix: {ex.Message}");
+        //        if (ex.InnerException != null)
+        //        {
+        //            Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+        //        }
                 
-                return StatusCode(500, new
-                {
-                    message = $"Database fix failed: {ex.Message}",
-                    innerError = ex.InnerException?.Message,
-                    stackTrace = ex.StackTrace
-                });
-            }
-        }
+        //        return StatusCode(500, new
+        //        {
+        //            message = $"Database fix failed: {ex.Message}",
+        //            innerError = ex.InnerException?.Message,
+        //            stackTrace = ex.StackTrace
+        //        });
+        //    }
+        //}
         
-        // Helper method to clean connection string for System.Data.SqlClient compatibility
-        private string CleanConnectionString(string connectionString)
-        {
-            try 
-            {
-                // Create a SqlConnectionStringBuilder to properly parse the connection string
-                var builder = new System.Data.SqlClient.SqlConnectionStringBuilder();
+        //// Helper method to clean connection string for System.Data.SqlClient compatibility
+        //private string CleanConnectionString(string connectionString)
+        //{
+        //    try 
+        //    {
+        //        // Create a SqlConnectionStringBuilder to properly parse the connection string
+        //        var builder = new System.Data.SqlClient.SqlConnectionStringBuilder();
                 
-                // Set only the essential properties
-                foreach (var part in connectionString.Split(';'))
-                {
-                    if (string.IsNullOrWhiteSpace(part)) continue;
+        //        // Set only the essential properties
+        //        foreach (var part in connectionString.Split(';'))
+        //        {
+        //            if (string.IsNullOrWhiteSpace(part)) continue;
                     
-                    var keyValue = part.Split('=', 2);
-                    if (keyValue.Length != 2) continue;
+        //            var keyValue = part.Split('=', 2);
+        //            if (keyValue.Length != 2) continue;
                     
-                    string key = keyValue[0].Trim();
-                    string value = keyValue[1].Trim();
+        //            string key = keyValue[0].Trim();
+        //            string value = keyValue[1].Trim();
                     
-                    switch (key.ToLowerInvariant())
-                    {
-                        case "server":
-                        case "data source":
-                            builder.DataSource = value;
-                            break;
-                        case "database":
-                        case "initial catalog":
-                            builder.InitialCatalog = value;
-                            break;
-                        case "user id":
-                            builder.UserID = value;
-                            break;
-                        case "password":
-                            builder.Password = value;
-                            break;
-                        case "integrated security":
-                            builder.IntegratedSecurity = value.ToLowerInvariant() == "true" || value == "sspi";
-                            break;
-                        case "multipleactiveresultsets":
-                            builder.MultipleActiveResultSets = value.ToLowerInvariant() == "true";
-                            break;
-                        case "encrypt":
-                            builder.Encrypt = value.ToLowerInvariant() == "true";
-                            break;
-                        case "connection timeout":
-                            if (int.TryParse(value, out int timeout))
-                            {
-                                builder.ConnectTimeout = timeout;
-                            }
-                            break;
-                    }
-                }
+        //            switch (key.ToLowerInvariant())
+        //            {
+        //                case "server":
+        //                case "data source":
+        //                    builder.DataSource = value;
+        //                    break;
+        //                case "database":
+        //                case "initial catalog":
+        //                    builder.InitialCatalog = value;
+        //                    break;
+        //                case "user id":
+        //                    builder.UserID = value;
+        //                    break;
+        //                case "password":
+        //                    builder.Password = value;
+        //                    break;
+        //                case "integrated security":
+        //                    builder.IntegratedSecurity = value.ToLowerInvariant() == "true" || value == "sspi";
+        //                    break;
+        //                case "multipleactiveresultsets":
+        //                    builder.MultipleActiveResultSets = value.ToLowerInvariant() == "true";
+        //                    break;
+        //                case "encrypt":
+        //                    builder.Encrypt = value.ToLowerInvariant() == "true";
+        //                    break;
+        //                case "connection timeout":
+        //                    if (int.TryParse(value, out int timeout))
+        //                    {
+        //                        builder.ConnectTimeout = timeout;
+        //                    }
+        //                    break;
+        //            }
+        //        }
                 
-                return builder.ConnectionString;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error cleaning connection string: {ex.Message}");
+        //        return builder.ConnectionString;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error cleaning connection string: {ex.Message}");
                 
-                // Fallback: manually remove unsupported parameters
-                var parts = connectionString.Split(';')
-                    .Where(p => !string.IsNullOrWhiteSpace(p))
-                    .Select(p => p.Trim())
-                    .ToList();
+        //        // Fallback: manually remove unsupported parameters
+        //        var parts = connectionString.Split(';')
+        //            .Where(p => !string.IsNullOrWhiteSpace(p))
+        //            .Select(p => p.Trim())
+        //            .ToList();
                 
-                // Filter out known unsupported parameters
-                var filteredParts = parts.Where(p => 
-                    !p.StartsWith("Command Timeout=", StringComparison.OrdinalIgnoreCase) &&
-                    !p.StartsWith("ConnectRetryCount=", StringComparison.OrdinalIgnoreCase) &&
-                    !p.StartsWith("ConnectRetryInterval=", StringComparison.OrdinalIgnoreCase));
+        //        // Filter out known unsupported parameters
+        //        var filteredParts = parts.Where(p => 
+        //            !p.StartsWith("Command Timeout=", StringComparison.OrdinalIgnoreCase) &&
+        //            !p.StartsWith("ConnectRetryCount=", StringComparison.OrdinalIgnoreCase) &&
+        //            !p.StartsWith("ConnectRetryInterval=", StringComparison.OrdinalIgnoreCase));
                 
-                // Reassemble the connection string
-                return string.Join(";", filteredParts);
-            }
-        }
+        //        // Reassemble the connection string
+        //        return string.Join(";", filteredParts);
+        //    }
+        //}
     }
 }
 
