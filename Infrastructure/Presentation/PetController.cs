@@ -105,7 +105,7 @@ namespace Presentation.Controllers
         // POST: api/Pet
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<PetProfileDTO>> Create([FromBody] PetProfileDTO petDto)
+        public async Task<ActionResult<PetProfileDTO>> Create([FromBody] UpdatePetRequestDTO createDto)
         {
             try
             {
@@ -115,12 +115,12 @@ namespace Presentation.Controllers
                 // Map DTO to entity
                 var pet = new Pet
                 {
-                    PetName = petDto.PetName,
-                    BirthDate = petDto.BirthDate,
-                    Gender = petDto.Gender,
-                    PetType = petDto.type,
-                    Color = petDto.Color,
-                    Avatar = petDto.Avatar,
+                    PetName = createDto.PetName,
+                    BirthDate = createDto.BirthDate,
+                    Gender = createDto.Gender,
+                    PetType = createDto.type,
+                    Color = createDto.Color,
+                    Avatar = createDto.Avatar,
                     UserId = currentUserId // Always use the authenticated user's ID
                 };
                 
@@ -143,13 +143,10 @@ namespace Presentation.Controllers
         // PUT: api/Pet/{id}
         [Authorize]
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<PetProfileDTO>> Update(int id, [FromBody] PetProfileDTO petDto)
+        public async Task<ActionResult<PetProfileDTO>> Update(int id, [FromBody] UpdatePetRequestDTO updateDto)
         {
             try
             {
-                if (id != petDto.Id)
-                    return BadRequest("ID mismatch");
-                
                 // Get the current user ID from the token
                 var currentUserId = GetCurrentUserId();
                 
@@ -162,16 +159,16 @@ namespace Presentation.Controllers
                 if (existingPet.UserId != currentUserId)
                     return StatusCode(403, new { message = "You don't have permission to update this pet" });
                 
-                // Map DTO to entity
+                // Map DTO to entity, preserving the ID and UserID from the existing pet
                 var pet = new Pet
                 {
-                    Id = petDto.Id,
-                    PetName = petDto.PetName,
-                    BirthDate = petDto.BirthDate,
-                    Gender = petDto.Gender,
-                    PetType = petDto.type,
-                    Color = petDto.Color,
-                    Avatar = petDto.Avatar,
+                    Id = id, // Use the ID from the URL
+                    PetName = updateDto.PetName,
+                    BirthDate = updateDto.BirthDate,
+                    Gender = updateDto.Gender,
+                    PetType = updateDto.type,
+                    Color = updateDto.Color,
+                    Avatar = updateDto.Avatar,
                     UserId = currentUserId // Ensure we're using the authenticated user's ID
                 };
                 
@@ -180,7 +177,9 @@ namespace Presentation.Controllers
                 if (!success)
                     return StatusCode(500, new { message = "Failed to update pet" });
                 
-                return Ok(petDto);
+                // Map the updated pet to DTO for response
+                var updatedPetDto = MapPetToDto(pet);
+                return Ok(updatedPetDto);
             }
             catch (UnauthorizedAccessException)
             {
