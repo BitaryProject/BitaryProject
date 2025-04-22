@@ -44,16 +44,35 @@ namespace Presentation.Controllers
         }
 
         // GET: api/Pet/{id}
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PetProfileDTO>> Get(int id)
         {
-            var pet = await _serviceManager.PetService.GetPetByIdAsync(id);
-            if (pet == null)
-                return NotFound();
+            try
+            {
+                // Get the current user ID from the token
+                var currentUserId = GetCurrentUserId();
                 
-            // Map Pet to PetProfileDTO (you'd typically use an automapper here)
-            var petDto = MapPetToDto(pet);
-            return Ok(petDto);
+                var pet = await _serviceManager.PetService.GetPetByIdAsync(id);
+                if (pet == null)
+                    return NotFound();
+                
+                // Verify that the user owns this pet
+                if (pet.UserId != currentUserId)
+                    return Forbid(new { message = "You don't have permission to view this pet" });
+                    
+                // Map Pet to PetProfileDTO (you'd typically use an automapper here)
+                var petDto = MapPetToDto(pet);
+                return Ok(petDto);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(new { message = "You must be logged in to view pets" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"An error occurred: {ex.Message}" });
+            }
         }
 
         // GET: api/Pet/user
@@ -84,66 +103,129 @@ namespace Presentation.Controllers
         }
 
         // POST: api/Pet
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<PetProfileDTO>> Create([FromBody] PetProfileDTO petDto)
         {
-            // Map DTO to entity
-            var pet = new Pet
+            try
             {
-                PetName = petDto.PetName,
-                BirthDate = petDto.BirthDate,
-                Gender = petDto.Gender,
-                PetType = petDto.type,
-                Color = petDto.Color,
-                Avatar = petDto.Avatar,
-                UserId = petDto.UserId
-            };
-            
-            var createdPet = await _serviceManager.PetService.AddPetAsync(pet);
-            
-            // Map back to DTO
-            var createdPetDto = MapPetToDto(createdPet);
-            return CreatedAtAction(nameof(Get), new { id = createdPetDto.Id }, createdPetDto);
+                // Get the current user ID from the token
+                var currentUserId = GetCurrentUserId();
+                
+                // Map DTO to entity
+                var pet = new Pet
+                {
+                    PetName = petDto.PetName,
+                    BirthDate = petDto.BirthDate,
+                    Gender = petDto.Gender,
+                    PetType = petDto.type,
+                    Color = petDto.Color,
+                    Avatar = petDto.Avatar,
+                    UserId = currentUserId // Always use the authenticated user's ID
+                };
+                
+                var createdPet = await _serviceManager.PetService.AddPetAsync(pet);
+                
+                // Map back to DTO
+                var createdPetDto = MapPetToDto(createdPet);
+                return CreatedAtAction(nameof(Get), new { id = createdPetDto.Id }, createdPetDto);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(new { message = "You must be logged in to create pets" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"An error occurred: {ex.Message}" });
+            }
         }
 
         // PUT: api/Pet/{id}
+        [Authorize]
         [HttpPut("{id:int}")]
         public async Task<ActionResult<PetProfileDTO>> Update(int id, [FromBody] PetProfileDTO petDto)
         {
-            if (id != petDto.Id)
-                return BadRequest("ID mismatch");
-                
-            // Map DTO to entity
-            var pet = new Pet
+            try
             {
-                Id = petDto.Id,
-                PetName = petDto.PetName,
-                BirthDate = petDto.BirthDate,
-                Gender = petDto.Gender,
-                PetType = petDto.type,
-                Color = petDto.Color,
-                Avatar = petDto.Avatar,
-                UserId = petDto.UserId
-            };
-            
-            var success = await _serviceManager.PetService.UpdatePetAsync(pet);
-            
-            if (!success)
-                return NotFound();
+                if (id != petDto.Id)
+                    return BadRequest("ID mismatch");
                 
-            return Ok(petDto);
+                // Get the current user ID from the token
+                var currentUserId = GetCurrentUserId();
+                
+                // First check if the pet exists
+                var existingPet = await _serviceManager.PetService.GetPetByIdAsync(id);
+                if (existingPet == null)
+                    return NotFound();
+                
+                // Verify that the user owns this pet
+                if (existingPet.UserId != currentUserId)
+                    return Forbid(new { message = "You don't have permission to update this pet" });
+                
+                // Map DTO to entity
+                var pet = new Pet
+                {
+                    Id = petDto.Id,
+                    PetName = petDto.PetName,
+                    BirthDate = petDto.BirthDate,
+                    Gender = petDto.Gender,
+                    PetType = petDto.type,
+                    Color = petDto.Color,
+                    Avatar = petDto.Avatar,
+                    UserId = currentUserId // Ensure we're using the authenticated user's ID
+                };
+                
+                var success = await _serviceManager.PetService.UpdatePetAsync(pet);
+                
+                if (!success)
+                    return StatusCode(500, new { message = "Failed to update pet" });
+                
+                return Ok(petDto);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(new { message = "You must be logged in to update pets" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"An error occurred: {ex.Message}" });
+            }
         }
 
         // DELETE: api/Pet/{id}
+        [Authorize]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var success = await _serviceManager.PetService.DeletePetAsync(id);
-            
-            if (!success)
-                return NotFound();
+            try
+            {
+                // Get the current user ID from the token
+                var currentUserId = GetCurrentUserId();
                 
-            return NoContent();
+                // First check if the pet exists
+                var existingPet = await _serviceManager.PetService.GetPetByIdAsync(id);
+                if (existingPet == null)
+                    return NotFound();
+                
+                // Verify that the user owns this pet
+                if (existingPet.UserId != currentUserId)
+                    return Forbid(new { message = "You don't have permission to delete this pet" });
+                
+                var success = await _serviceManager.PetService.DeletePetAsync(id);
+                
+                if (!success)
+                    return StatusCode(500, new { message = "Failed to delete pet" });
+                
+                return NoContent();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(new { message = "You must be logged in to delete pets" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"An error occurred: {ex.Message}" });
+            }
         }
         
         // Helper method to map Pet entity to PetProfileDTO
