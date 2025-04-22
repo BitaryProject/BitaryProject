@@ -1,25 +1,63 @@
-﻿//using Domain.Entities.ClinicEntities;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Shared.ClinicModels;
-//using Shared.OrderModels;
-//namespace Services.MappingProfiles
-//{
-//    public class ClinicProfile : Profile
-//    {
-//        public ClinicProfile()
-//        {
-//            CreateMap<Clinic, ClinicDTO>()
-//               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-//               .ForMember(dest => dest.ClinicName, opt => opt.MapFrom(src => src.ClinicName))
-//               .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
-//               .ForMember(dest => dest.ExaminationFee, opt => opt.MapFrom(src => Math.Round(src.ExaminationFee, 2))) // Ensure 2 decimal places
-//               .ReverseMap()
-//               .ForMember(dest => dest.ExaminationFee, opt => opt.MapFrom(src => Math.Round(src.ExaminationFee, 2))); ;
+﻿using AutoMapper;
+using Domain.Entities.ClinicEntities;
+using Shared.ClinicModels;
 
-//        }
-//    }
-//}
+namespace Services.MappingProfiles
+{
+    public class ClinicProfile : Profile
+    {
+        public ClinicProfile()
+        {
+
+
+            /*
+            CreateMap<Clinic, ClinicDTO>()
+                .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src => 
+                    src.Owner != null ? $"{src.Owner.FirstName} {src.Owner.LastName}" : string.Empty));
+                
+            CreateMap<ClinicDTO, Clinic>()
+                .ForMember(dest => dest.Owner, opt => opt.Ignore())
+                .ForMember(dest => dest.Doctors, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointments, opt => opt.Ignore());
+                
+            CreateMap<ClinicRequestDTO, Clinic>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(_ => ClinicStatus.Pending))
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(_ => 0))
+                .ForMember(dest => dest.OwnerId, opt => opt.Ignore())
+                .ForMember(dest => dest.Owner, opt => opt.Ignore())
+                .ForMember(dest => dest.Doctors, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointments, opt => opt.Ignore());
+                
+            CreateMap<ClinicAddress, ClinicAddressDTO>().ReverseMap();
+
+            */
+
+
+            CreateMap<Clinic, ClinicDTO>()
+               .ForMember(dest => dest.OwnerName, opt => opt.Ignore()); // We'll set this manually
+
+            CreateMap<ClinicDTO, Clinic>()
+                .ForMember(dest => dest.Doctors, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointments, opt => opt.Ignore());
+
+            CreateMap<ClinicRequestDTO, Clinic>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(_ => ClinicStatus.Pending))
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(_ => 0))
+                .ForMember(dest => dest.Doctors, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointments, opt => opt.Ignore());
+
+            // New mapping for ClinicUpdateDTO
+            CreateMap<ClinicUpdateDTO, Clinic>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.Rating, opt => opt.Ignore())
+                .ForMember(dest => dest.OwnerId, opt => opt.Ignore())
+                .ForMember(dest => dest.Doctors, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointments, opt => opt.Ignore());
+
+            CreateMap<ClinicAddress, ClinicAddressDTO>().ReverseMap();
+        }
+    }
+}

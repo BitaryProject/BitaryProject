@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public sealed class UserNotFoundException(string email):
-        NotFoundException($"No user with Email {email} was found !! .")
+    public class UserNotFoundException : EntityNotFoundException
     {
+        public UserNotFoundException(string id)
+            : base($"The user with ID {id} was not found.")
+        {
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Services
         private readonly Lazy<IPetService> _petService;
         //private readonly Lazy<IDoctorService> _doctorService;
         //private readonly Lazy<IAppointmentService> _appointmentService;
-        //private readonly Lazy<IClinicService> _clinicService;
+        private readonly Lazy<IClinicService> _clinicService;
         //private readonly Lazy<IMedicalRecordService> _medicalRecordService;
         //private readonly Lazy<IDoctorScheduleService> _doctorScheduleService;
         //private readonly Lazy<IClinicSearchService> _clinicSearchService;
@@ -64,6 +64,8 @@ namespace Services
                 serviceProvider.GetRequiredService<IPetRepository>(), 
                 mapper,
                 LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<PetService>()));
+                
+            _clinicService = new Lazy<IClinicService>(() => new ClinicService(unitOfWork, mapper, userManager));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
@@ -83,7 +85,7 @@ namespace Services
         public IPetService PetService => _petService.Value;
         //public IDoctorService DoctorService => _doctorService.Value;
         //public IAppointmentService AppointmentService => _appointmentService.Value;
-        //public IClinicService ClinicService => _clinicService.Value;
+        public IClinicService ClinicService => _clinicService.Value;
         //public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
         //public IClinicSearchService ClinicSearchService => _clinicSearchService.Value;
         //public IDoctorScheduleService DoctorScheduleService => _doctorScheduleService.Value;

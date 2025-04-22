@@ -28,10 +28,23 @@ namespace BitaryProject.Api.Middlewares
 
             catch (Exception ex)
             {
-                _logger.LogError($"Something Went wrong {ex}");
+                _logger.LogError($"Something Went wrong: {ex.Message}");
+                
+                // Log inner exception details if present
+                if (ex.InnerException != null)
+                {
+                    _logger.LogError($"Inner Exception: {ex.InnerException.Message}");
+                    
+                    // Log any further nested exceptions
+                    var currentEx = ex.InnerException;
+                    while (currentEx.InnerException != null)
+                    {
+                        currentEx = currentEx.InnerException;
+                        _logger.LogError($"Nested Inner Exception: {currentEx.Message}");
+                    }
+                }
 
                 await HandleExceptionAsync(httpContext, ex);
-
             }
         }
 
@@ -56,6 +69,12 @@ namespace BitaryProject.Api.Middlewares
             {
                 ErrorMessage = ex.Message
             };
+            
+            // Include inner exception details in the error message
+            if (ex.InnerException != null)
+            {
+                response.ErrorMessage += $" Inner exception: {ex.InnerException.Message}";
+            }
 
             httpContext.Response.ContentType = "application/json";
 

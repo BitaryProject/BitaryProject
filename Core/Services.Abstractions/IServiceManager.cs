@@ -15,7 +15,7 @@ namespace Services.Abstractions
         public IPaymentService PaymentService { get; }
         public IPetService PetService { get; }
         //public IDoctorService DoctorService { get; }
-        //public IClinicService ClinicService { get; }
+        public IClinicService ClinicService { get; }
         //public IAppointmentService AppointmentService { get; }
         //public IMedicalRecordService MedicalRecordService { get; }
         //IClinicSearchService ClinicSearchService { get; }

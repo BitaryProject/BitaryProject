@@ -2,6 +2,8 @@
 using Domain.Entities.OrderEntities;
 using Domain.Entities.PetEntities;
 using Domain.Entities.ProductEntities;
+using Domain.Entities.ClinicEntities;
+using Domain.Entities.DoctorEntites;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Persistence.Data.Configurations;
 
 namespace Persistence.Data
 {
@@ -40,6 +43,33 @@ namespace Persistence.Data
                 entity.Property(e => e.Avatar).HasMaxLength(255);
                 entity.Property(e => e.UserId).IsRequired().HasMaxLength(450);
             });
+            
+            // Explicitly configure Clinic entity in case it wasn't captured by ApplyConfigurationsFromAssembly
+            modelBuilder.Entity<Clinic>(entity =>
+            {
+                entity.ToTable("Clinics");
+                entity.HasKey(c => c.Id);
+                entity.Property(c => c.ClinicName).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.Status).IsRequired().HasConversion<int>().HasDefaultValue(ClinicStatus.Pending);
+                entity.Property(c => c.Rating).HasDefaultValue(0);
+                entity.Property(c => c.OwnerId).IsRequired();
+                
+               /* // Configure relationship with Owner
+                entity.HasOne(c => c.Owner)
+                    .WithMany()
+                    .HasForeignKey(c => c.OwnerId)
+                    .OnDelete(DeleteBehavior.Restrict);
+               */
+                
+                // Configure ClinicAddress as owned entity
+                entity.OwnsOne(c => c.Address, addressBuilder => 
+                {
+                    addressBuilder.Property(a => a.Name).HasMaxLength(100).IsRequired(false);
+                    addressBuilder.Property(a => a.Street).HasMaxLength(200).IsRequired(false);
+                    addressBuilder.Property(a => a.City).HasMaxLength(100).IsRequired(false);
+                    addressBuilder.Property(a => a.Country).HasMaxLength(100).IsRequired(false);
+                });
+            });
         }
 
 
@@ -52,5 +82,7 @@ namespace Persistence.Data
         public DbSet<CustomerBasket> CustomerBaskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Pet> Pets { get; set; }
+        public DbSet<Clinic> Clinics { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
     }
 }
