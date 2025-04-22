@@ -28,10 +28,10 @@ namespace BitaryProject.Extensions
                 await Task.Run(async () => {
                     try
                     {
-                        await dbInitializer.InitializeAsync();
+                        // Initialize identity first
                         await dbInitializer.InitializeIdentityAsync();
-
-                        // Apply Identity migrations
+                        
+                        // Apply Identity migrations FIRST
                         var identityContext = scope.ServiceProvider.GetRequiredService<IdentityContext>();
                         logger.LogInformation("Applying pending migrations to Identity database...");
                         
@@ -44,6 +44,9 @@ namespace BitaryProject.Extensions
                         {
                             logger.LogError(ex, "Error applying Identity migrations. Will continue with application startup.");
                         }
+                        
+                        // THEN initialize store context and apply store migrations
+                        await dbInitializer.InitializeAsync();
                         
                         // Apply Store migrations
                         var storeContext = scope.ServiceProvider.GetRequiredService<StoreContext>();
