@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
 using Shared.OrderModels;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities.OrderEntities;
 
@@ -15,9 +13,15 @@ namespace Presentation
 {
     [ApiController]
     [Route("api/[controller]")]
-
-    public class OrdersController(IServiceManager serviceManager) : ApiController
+    public class OrdersController : ApiController
     {
+        private readonly IServiceManager serviceManager;
+
+        public OrdersController(IServiceManager serviceManager)
+        {
+            this.serviceManager = serviceManager;
+        }
+
         [HttpPost]
         [AllowAnonymous]  // Allow anonymous access for testing
         public async Task<ActionResult<OrderResult>> Create([FromBody] OrderRequest request)
@@ -44,7 +48,7 @@ namespace Presentation
             }
         }
 
-        [HttpGet]//a
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderResult>>> GetOrders()
         {
             var email = User.FindFirstValue(ClaimTypes.Email) ?? "guest@example.com";
@@ -138,22 +142,40 @@ namespace Presentation
                 
                 Console.WriteLine($"Getting orders for authenticated user with email: {email}");
                 
-                var orders = await serviceManager.OrderService.GetOrderByEmailAsync(email);
-                
-                Console.WriteLine($"Found {orders.Count()} orders for user {email}");
-                
-                // Add detailed information about order status distribution
-                var statusCounts = orders
-                    .GroupBy(o => o.PaymentStatus)
-                    .Select(g => new { Status = g.Key, Count = g.Count() })
-                    .ToList();
-                
-                foreach (var statusGroup in statusCounts)
+                // Log the claims to help diagnose authentication issues
+                Console.WriteLine("User claims:");
+                foreach (var claim in User.Claims)
                 {
-                    Console.WriteLine($"Status: {statusGroup.Status}, Count: {statusGroup.Count}");
+                    Console.WriteLine($"  {claim.Type}: {claim.Value}");
                 }
                 
-                return Ok(orders);
+                var orders = await serviceManager.OrderService.GetOrderByEmailAsync(email);
+                
+                Console.WriteLine($"Initial order count: {orders.Count()}");
+                
+                // Format the orders for better display
+                var formattedOrders = orders.Select(o => new {
+                    id = o.Id,
+                    orderDate = o.OrderDate.ToString("yyyy-MM-dd HH:mm"),
+                    status = o.PaymentStatus,
+                    deliveryMethod = o.DeliveryMethod,
+                    subtotal = o.Subtotal,
+                    total = o.Total,
+                    orderItems = o.OrderItems.Select(item => new {
+                        productName = item.ProductName,
+                        quantity = item.Quantity,
+                        price = item.Price,
+                        pictureUrl = item.PictureUrl
+                    }).ToList(),
+                    shippingAddress = o.ShippingAddress != null ? new {
+                        name = o.ShippingAddress.Name,
+                        street = o.ShippingAddress.Street,
+                        city = o.ShippingAddress.City,
+                        country = o.ShippingAddress.Country
+                    } : null
+                }).ToList();
+                
+                return Ok(formattedOrders);
             }
             catch (Exception ex)
             {
@@ -167,94 +189,56 @@ namespace Presentation
         }
         
         /// <summary>
-        /// Retrieves all orders with optional filtering and pagination
+        /// Admin endpoint to get all orders with filtering and pagination
         /// </summary>
-        /// <param name="status">Optional filter by payment status: "Pending", "PaymentReceived", or "PaymentFailed"</param>
-        /// <param name="pageNumber">Page number, starting at 1 (default: 1)</param>
-        /// <param name="pageSize">Number of orders per page (default: 10)</param>
-        /// <returns>A collection of orders matching the specified criteria</returns>
-        /// <remarks>
-        /// Sample request:
-        /// GET /api/Orders/all?status=PaymentReceived&amp;pageNumber=1&amp;pageSize=10
-        /// 
-        /// Pagination metadata is included in the X-Pagination response header.
-        /// </remarks>
-        [HttpGet("all")]
-        [AllowAnonymous] // Changed from [Authorize(Roles = "Admin")] for debugging purposes
-        public async Task<ActionResult<IEnumerable<OrderResult>>> GetAllOrders(
+        [HttpGet("admin/all-orders")]
+        [Authorize(Roles = "Admin")] // Restrict to admin role
+        public async Task<ActionResult<IEnumerable<OrderResult>>> GetAllOrdersAdmin(
+            [FromQuery] string email = null,
             [FromQuery] string status = null,
             [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 10)
         {
-            // Validate input parameters
-            if (pageNumber < 1)
-            {
-                return BadRequest(new { error = "Page number must be greater than or equal to 1" });
-            }
-            
-            if (pageSize < 1 || pageSize > 50)
-            {
-                return BadRequest(new { error = "Page size must be between 1 and 50" });
-            }
-            
-            // Validate status parameter if provided
-            if (!string.IsNullOrEmpty(status))
-            {
-                // Check if status is a valid OrderPaymentStatus enum value
-                if (!Enum.TryParse<Domain.Entities.OrderEntities.OrderPaymentStatus>(status, true, out _))
-                {
-                    return BadRequest(new { 
-                        error = "Invalid status value. Valid values are: Pending, PaymentReceived, PaymentFailed" 
-                    });
-                }
-            }
-            
-            Console.WriteLine($"Getting all orders with status filter: {status ?? "None"}, page: {pageNumber}, size: {pageSize}");
-            
             try
             {
-                // First, try to get orders for a specific email (for testing/debugging)
-                var email = User.FindFirstValue(ClaimTypes.Email);
+                Console.WriteLine($"Admin request for orders - Email filter: {email ?? "None"}, Status: {status ?? "None"}");
+                
+                IEnumerable<OrderResult> orders;
+                
+                // If email is provided, get orders for that specific user
                 if (!string.IsNullOrEmpty(email))
                 {
-                    Console.WriteLine($"Authenticated user with email: {email}");
-                    
-                    // Get the user's orders first to check if we can retrieve any orders at all
-                    var userOrders = await serviceManager.OrderService.GetOrderByEmailAsync(email);
-                    Console.WriteLine($"User {email} has {userOrders.Count()} orders");
+                    orders = await serviceManager.OrderService.GetOrderByEmailAsync(email);
+                    Console.WriteLine($"Found {orders.Count()} orders for email {email}");
                 }
-                
-                // Fall back to getting all orders regardless of email
-                var orders = await serviceManager.OrderService.GetAllOrdersAsync(status, pageNumber, pageSize);
-                
-                // Check if orders are empty and log more details
-                if (orders == null || !orders.Any())
+                else
                 {
-                    Console.WriteLine("WARNING: GetAllOrdersAsync returned null or empty result");
-                    
-                    // As a fallback, try to get any orders in the system
-                    var guestOrders = await serviceManager.OrderService.GetOrderByEmailAsync("guest@example.com");
-                    Console.WriteLine($"Fallback: Found {guestOrders.Count()} orders for guest@example.com");
-                    
-                    if (guestOrders.Any())
-                    {
-                        Console.WriteLine("Returning guest orders as fallback");
-                        
-                        // Use guest orders as fallback
-                        orders = guestOrders;
-                    }
-                    else
-                    {
-                        Console.WriteLine("No orders found in the system at all. Check database connection.");
-                    }
+                    // Otherwise get all orders with optional status filter
+                    orders = await serviceManager.OrderService.GetAllOrdersAsync(status, pageNumber, pageSize);
+                    Console.WriteLine($"Found {orders.Count()} orders with status filter: {status ?? "None"}");
                 }
                 
-                // Get total count for pagination metadata
-                var totalCount = orders.Count();
-                
-                Console.WriteLine($"Found {totalCount} orders matching criteria");
+                // Format orders for better display
+                var formattedOrders = orders.Select(o => new {
+                    id = o.Id,
+                    userEmail = o.UserEmail,
+                    orderDate = o.OrderDate.ToString("yyyy-MM-dd HH:mm"),
+                    status = o.PaymentStatus,
+                    deliveryMethod = o.DeliveryMethod,
+                    subtotal = o.Subtotal,
+                    total = o.Total,
+                    itemCount = o.OrderItems?.Count() ?? 0,
+                    paymentMethod = o.PaymentMethod,
+                    shippingAddress = o.ShippingAddress != null ? new {
+                        name = o.ShippingAddress.Name,
+                        street = o.ShippingAddress.Street,
+                        city = o.ShippingAddress.City,
+                        country = o.ShippingAddress.Country
+                    } : null
+                }).ToList();
                 
                 // Create pagination metadata
+                var totalCount = formattedOrders.Count;
                 var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
                 var paginationMetadata = new
                 {
@@ -269,11 +253,14 @@ namespace Presentation
                 // Add pagination metadata to response headers
                 Response.Headers.Add("X-Pagination", System.Text.Json.JsonSerializer.Serialize(paginationMetadata));
                 
-                return Ok(orders);
+                return Ok(new {
+                    orders = formattedOrders,
+                    pagination = paginationMetadata
+                });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error getting all orders: {ex.Message}");
+                Console.WriteLine($"Error in GetAllOrdersAdmin: {ex.Message}");
                 if (ex.InnerException != null)
                 {
                     Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
@@ -282,5 +269,4 @@ namespace Presentation
             }
         }
     }
-
-}
+} 

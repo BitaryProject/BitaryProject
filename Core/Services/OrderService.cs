@@ -345,6 +345,27 @@ namespace Services
                 
                 Console.WriteLine($"Retrieved {orders.Count()} orders");
                 
+                // If no orders found and this is not a guest user, try getting orders for guest user
+                if (!orders.Any() && !string.Equals(email, "guest@example.com", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine($"No orders found for {email}, checking if any orders exist in the system");
+                    
+                    // Check if any orders exist in the system
+                    var allOrders = await unitOfWork.GetRepository<Order, Guid>().GetAllAsync();
+                    if (!allOrders.Any())
+                    {
+                        Console.WriteLine("No orders exist in the system at all");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Found {allOrders.Count()} orders in the system, but none for {email}");
+                        
+                        // Log the emails that have orders
+                        var emailsWithOrders = allOrders.Select(o => o.UserEmail).Distinct().ToList();
+                        Console.WriteLine($"Emails with orders: {string.Join(", ", emailsWithOrders)}");
+                    }
+                }
+                
                 // Log the first few orders for diagnostic purposes
                 foreach (var order in orders.Take(2))
                 {
@@ -556,6 +577,57 @@ namespace Services
                 
                 // Return empty list instead of throwing to avoid crashing the API
                 return new List<OrderResult>();
+            }
+        }
+
+        public async Task<int> UpdateOrderEmailAsync(string sourceEmail, string targetEmail)
+        {
+            Console.WriteLine($"OrderService.UpdateOrderEmailAsync - Transferring orders from {sourceEmail} to {targetEmail}");
+            
+            try
+            {
+                // Get the orders for the source email
+                Console.WriteLine("Creating specification to find orders by source email");
+                var specification = new OrderWithIncludeSpecifications(sourceEmail);
+                
+                Console.WriteLine("Getting orders repository");
+                var orderRepo = unitOfWork.GetRepository<Order, Guid>();
+                
+                Console.WriteLine("Fetching orders from repository");
+                var orders = await orderRepo.GetAllAsync(specification);
+                
+                Console.WriteLine($"Found {orders.Count()} orders for source email {sourceEmail}");
+                
+                if (!orders.Any())
+                {
+                    return 0;
+                }
+                
+                // Update each order with the new email
+                int count = 0;
+                foreach (var order in orders)
+                {
+                    Console.WriteLine($"Updating order {order.Id} from {order.UserEmail} to {targetEmail}");
+                    order.UserEmail = targetEmail;
+                    orderRepo.Update(order);
+                    count++;
+                }
+                
+                // Save the changes
+                Console.WriteLine($"Saving {count} updated orders");
+                await unitOfWork.SaveChangesAsync();
+                
+                Console.WriteLine($"Successfully updated {count} orders");
+                return count;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR in UpdateOrderEmailAsync: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                throw;
             }
         }
     }

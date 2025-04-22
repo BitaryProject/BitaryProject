@@ -11,6 +11,7 @@ using Shared.SecurityModels;
 using System;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace Services
 {
@@ -50,7 +51,14 @@ namespace Services
             _productService = new Lazy<IProductService>(() => new ProductService(unitOfWork, mapper));
             _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper, unitOfWork));
             _orderService = new Lazy<IOrderService>(() => new OrderService(unitOfWork, mapper, basketRepository));
-            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(userManager, jwtOptions, domainSettings, mapper, mailingService));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(
+                userManager, 
+                jwtOptions, 
+                domainSettings, 
+                mapper, 
+                mailingService,
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole>>()
+            ));
             _paymentService = new Lazy<IPaymentService>(() => new PaymentService(basketRepository, unitOfWork, mapper, configuration));
             _petService = new Lazy<IPetService>(() => new PetService(
                 serviceProvider.GetRequiredService<IPetRepository>(), 

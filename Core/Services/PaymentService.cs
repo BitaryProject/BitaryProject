@@ -184,7 +184,7 @@ namespace Services
                 var service = new PaymentIntentService();
                 PaymentIntent intent;
                 
-                if (string.IsNullOrEmpty(order.PaymentIntentId))
+                if (string.IsNullOrEmpty(order.PaymentIntentId) || order.PaymentIntentId.StartsWith("default_"))
                 {
                     var options = new PaymentIntentCreateOptions
                     {
