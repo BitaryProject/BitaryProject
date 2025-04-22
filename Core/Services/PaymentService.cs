@@ -188,7 +188,7 @@ namespace Services
                 bool isValidPaymentIntentId = !string.IsNullOrEmpty(order.PaymentIntentId) && 
                                              order.PaymentIntentId != "NoPaymentYet" && 
                                              !order.PaymentIntentId.StartsWith("default_");
-                
+
                 if (!isValidPaymentIntentId)
                 {
                     // Create a new payment intent

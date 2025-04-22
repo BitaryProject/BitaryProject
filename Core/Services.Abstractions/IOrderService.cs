@@ -17,5 +17,8 @@ namespace Services.Abstractions
         
         // Get all orders with optional filtering
         public Task<IEnumerable<OrderResult>> GetAllOrdersAsync(string? status = null, int pageNumber = 1, int pageSize = 10);
+        
+        // Update the email address for orders
+        public Task<int> UpdateOrderEmailAsync(string sourceEmail, string targetEmail);
     }
 }

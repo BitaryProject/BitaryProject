@@ -21,7 +21,7 @@ namespace Services.Specifications
         }
 
         public OrderWithIncludeSpecifications(string email)
-            : base( order => order.UserEmail == email)
+            : base( order => order.UserEmail.ToLower() == email.ToLower())
         {
             AddInclude(order => order.DeliveryMethod);
             AddInclude(order => order.OrderItems);

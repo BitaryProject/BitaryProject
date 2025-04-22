@@ -37,5 +37,8 @@ namespace Services.Abstractions
 
         // Debug helper
         Task<object> GetDebugInfo(string email);
+        
+        // Admin role management
+        Task<bool> FixAdminRoles(string email);
     }
 }

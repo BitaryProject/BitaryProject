@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.Identity
 {
-    public class IdentityContext : IdentityDbContext
+    public class IdentityContext : IdentityDbContext<User>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
@@ -18,7 +18,20 @@ namespace Persistence.Identity
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            
             builder.Entity<UserAddress>().ToTable("Addresses");
+            
+            // Configure the User entity with TPH inheritance
+            builder.Entity<User>()
+                .HasDiscriminator<string>("Discriminator")
+                .HasValue<User>("User");
+                
+            // Configure the UserRole property
+            builder.Entity<User>()
+                .Property(u => u.UserRole)
+                .HasColumnName("UserRole")
+                .HasDefaultValue(Domain.Entities.SecurityEntities.Role.PetOwner)
+                .HasConversion<byte>();
         }
 
        public DbSet<UserOTP?> UserOTPs { get; set; }

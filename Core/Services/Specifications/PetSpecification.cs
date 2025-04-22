@@ -1,28 +1,26 @@
-﻿//using Domain.Entities.PetEntities;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using Domain.Contracts;
+using Domain.Entities.PetEntities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace Services.Specifications
-//{
-//    public class PetSpecification : Specifications<Pet>
-//    {
-       
-//        public PetSpecification(int id)
-//            : base(p => p.Id == id)
-//        {
-          
-//            AddInclude(p => p.MedicalRecords);
-//        }
+namespace Services.Specifications
+{
+    public class PetSpecification : BaseSpecifications<Pet>
+    {
+        public PetSpecification(string userId)
+            : base(p => p.UserId == userId)
+        {
+            // Add any includes if needed
+            // e.g., AddInclude(p => p.SomeRelatedEntity);
+        }
 
-//        public PetSpecification(string userId, int pageIndex, int pageSize, string? petName = null)
-//            : base(p => p.UserId == userId &&
-//                        (string.IsNullOrWhiteSpace(petName) || p.PetName.ToLower().Contains(petName.ToLower())))
-//        {
-//            ApplyPagination(pageIndex, pageSize);
-//            setOrderBy(p => p.PetName);
-//        }
-//    }
-//}
+        public PetSpecification(int petId)
+            : base(p => p.Id == petId)
+        {
+            // Add any includes if needed
+        }
+    }
+}
