@@ -55,7 +55,7 @@ namespace Presentation.Controllers
                 PetName = petDto.PetName,
                 BirthDate = petDto.BirthDate,
                 Gender = petDto.Gender,
-                Type = petDto.type,
+                PetType = petDto.type,
                 Color = petDto.Color,
                 Avatar = petDto.Avatar,
                 UserId = petDto.UserId
@@ -82,7 +82,7 @@ namespace Presentation.Controllers
                 PetName = petDto.PetName,
                 BirthDate = petDto.BirthDate,
                 Gender = petDto.Gender,
-                Type = petDto.type,
+                PetType = petDto.type,
                 Color = petDto.Color,
                 Avatar = petDto.Avatar,
                 UserId = petDto.UserId
@@ -117,7 +117,7 @@ namespace Presentation.Controllers
                 PetName = pet.PetName,
                 BirthDate = pet.BirthDate,
                 Gender = pet.Gender,
-                type = pet.Type,
+                type = pet.PetType,
                 Color = pet.Color,
                 Avatar = pet.Avatar,
                 UserId = pet.UserId
