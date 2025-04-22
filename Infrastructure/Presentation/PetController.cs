@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities.PetEntities;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
     [ApiController]
-    [Route("api/presentation/[controller]")]  // Changed route to avoid conflict
+    [Route("api/[controller]")]  // Changed route to avoid conflict
     public class PetController : ApiController
     {
         private readonly IServiceManager _serviceManager;
@@ -21,7 +23,27 @@ namespace Presentation.Controllers
             _serviceManager = serviceManager;
         }
 
-        // GET: api/presentation/Pet/{id}
+        // Helper method to get current user ID from claims
+        private string GetCurrentUserId()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            // If user ID is not available, try to get the email
+            if (string.IsNullOrEmpty(userId))
+            {
+                userId = User.FindFirstValue(ClaimTypes.Email);
+                
+                // If email is also not available
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new UnauthorizedAccessException("User information not found in token");
+                }
+            }
+            
+            return userId;
+        }
+
+        // GET: api/Pet/{id}
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PetProfileDTO>> Get(int id)
         {
@@ -34,18 +56,34 @@ namespace Presentation.Controllers
             return Ok(petDto);
         }
 
-        // GET: api/presentation/Pet/user/{userId}
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<PetProfileDTO>>> GetByUser(string userId)
+        // GET: api/Pet/user
+        [Authorize]
+        [HttpGet("user")]
+        public async Task<ActionResult<IEnumerable<PetProfileDTO>>> GetUserPets()
         {
-            var pets = await _serviceManager.PetService.GetPetsByUserIdAsync(userId);
-            
-            // Map List<Pet> to List<PetProfileDTO>
-            var petDtos = pets.Select(MapPetToDto);
-            return Ok(petDtos);
+            try
+            {
+                // Get the current user's ID from the token
+                var userId = GetCurrentUserId();
+                
+                // Get all pets for the authenticated user
+                var pets = await _serviceManager.PetService.GetPetsByUserIdAsync(userId);
+                
+                // Map List<Pet> to List<PetProfileDTO>
+                var petDtos = pets.Select(MapPetToDto);
+                return Ok(petDtos);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(new { message = "You must be logged in to view your pets" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"An error occurred: {ex.Message}" });
+            }
         }
 
-        // POST: api/presentation/Pet
+        // POST: api/Pet
         [HttpPost]
         public async Task<ActionResult<PetProfileDTO>> Create([FromBody] PetProfileDTO petDto)
         {
@@ -68,7 +106,7 @@ namespace Presentation.Controllers
             return CreatedAtAction(nameof(Get), new { id = createdPetDto.Id }, createdPetDto);
         }
 
-        // PUT: api/presentation/Pet/{id}
+        // PUT: api/Pet/{id}
         [HttpPut("{id:int}")]
         public async Task<ActionResult<PetProfileDTO>> Update(int id, [FromBody] PetProfileDTO petDto)
         {
@@ -96,7 +134,7 @@ namespace Presentation.Controllers
             return Ok(petDto);
         }
 
-        // DELETE: api/presentation/Pet/{id}
+        // DELETE: api/Pet/{id}
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
