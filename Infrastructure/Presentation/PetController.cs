@@ -59,7 +59,7 @@ namespace Presentation.Controllers
                 
                 // Verify that the user owns this pet
                 if (pet.UserId != currentUserId)
-                    return Forbid(new { message = "You don't have permission to view this pet" });
+                    return StatusCode(403, new { message = "You don't have permission to view this pet" });
                     
                 // Map Pet to PetProfileDTO (you'd typically use an automapper here)
                 var petDto = MapPetToDto(pet);
@@ -160,7 +160,7 @@ namespace Presentation.Controllers
                 
                 // Verify that the user owns this pet
                 if (existingPet.UserId != currentUserId)
-                    return Forbid(new { message = "You don't have permission to update this pet" });
+                    return StatusCode(403, new { message = "You don't have permission to update this pet" });
                 
                 // Map DTO to entity
                 var pet = new Pet
@@ -209,7 +209,7 @@ namespace Presentation.Controllers
                 
                 // Verify that the user owns this pet
                 if (existingPet.UserId != currentUserId)
-                    return Forbid(new { message = "You don't have permission to delete this pet" });
+                    return StatusCode(403, new { message = "You don't have permission to delete this pet" });
                 
                 var success = await _serviceManager.PetService.DeletePetAsync(id);
                 
