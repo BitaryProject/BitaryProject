@@ -141,7 +141,7 @@ namespace Presentation
             await _serviceManager.DoctorService.DeleteDoctorAsync(id);
             return NoContent();
         }
-//asas
+
         // POST: api/Doctor/{doctorId}/schedules
         [HttpPost("{doctorId}/schedules")]
         [Authorize]
