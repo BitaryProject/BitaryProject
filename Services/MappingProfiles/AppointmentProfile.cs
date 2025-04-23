@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domain.Entities.AppointmentEntities;
 using Shared.AppointmentModels;
 using System;
@@ -27,4 +27,4 @@ namespace Services.MappingProfiles
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt == default ? DateTime.UtcNow : src.CreatedAt));
         }
     }
-}
+} 

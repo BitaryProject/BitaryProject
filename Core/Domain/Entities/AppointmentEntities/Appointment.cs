@@ -15,7 +15,7 @@ namespace Domain.Entities.AppointmentEntities
     {
         public Appointment() { }
 
-        public Appointment(string userId, int petId, int clinicId, int doctorId, DateTime appointmentDate, string status, string notes)
+        public Appointment(string userId, int petId, int clinicId, int doctorId, DateTime appointmentDate, AppointmentStatus status, string notes)
         {
             UserId = userId;
             PetId = petId;
@@ -24,6 +24,7 @@ namespace Domain.Entities.AppointmentEntities
             AppointmentDate = appointmentDate;
             Status = status;
             Notes = notes;
+            CreatedAt = DateTime.UtcNow;
         }
         public string UserId { get; set; }
 
@@ -36,10 +37,10 @@ namespace Domain.Entities.AppointmentEntities
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public string Status { get; set; }
+        public AppointmentStatus Status { get; set; }
         public string Notes { get; set; }
-        // public Guid? MedicalRecordId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int? MedicalRecordId { get; set; }
         public MedicalRecord MedicalRecord { get; set; }
-
     }
 }

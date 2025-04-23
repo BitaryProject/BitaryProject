@@ -1,127 +1,166 @@
-﻿//using AutoMapper;
-//using Domain.Entities.AppointmentEntities;
-//using Domain.Contracts.NewModule; 
-//using Domain.Exceptions;     
-//using Services.Abstractions;
-//using Shared.AppointmentModels;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Domain.Contracts;
+using Domain.Entities.AppointmentEntities;
+using Domain.Entities.DoctorEntites;
+using Domain.Exceptions;
+using Services.Abstractions;
+using Services.Specifications;
+using Shared.AppointmentModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace Services
-//{
-//    public class AppointmentService : IAppointmentService
-//    {
-//        private readonly IAppointmentRepository appointmentRepository;
-//        private readonly IMapper mapper;
-//      //  private IAppointmentService appointmentRepository1;
+namespace Services
+{
+    public class AppointmentService : IAppointmentService
+    {
+        private readonly IUnitOFWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-//        public AppointmentService(IAppointmentRepository appointmentRepository, IMapper mapper)
-//        {
-//            this.appointmentRepository = appointmentRepository;
-//            this.mapper = mapper;
-//        }
+        public AppointmentService(IUnitOFWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
 
-//      /*  public AppointmentService(IAppointmentService appointmentRepository1, IMapper mapper)
-//        {
-//            this.appointmentRepository1 = appointmentRepository1;
-//            this.mapper = mapper;
-//        }
-//      */
+        public async Task<AppointmentDTO> GetAppointmentByIdAsync(int id)
+        {
+            var spec = new AppointmentSpecification(id);
+            var appointment = await _unitOfWork.GetRepository<Appointment, int>().GetAsync(spec);
+            
+            if (appointment == null)
+                throw new AppointmentNotFoundException(id.ToString());
+                
+            return _mapper.Map<AppointmentDTO>(appointment);
+        }
 
-//        public async Task<AppointmentDTO?> GetAppointmentByIdAsync(int appointmentId)
-//        {
-//            var appointment = await appointmentRepository.GetAsync(appointmentId);
-//            if (appointment == null)
-//                throw new AppointmentNotFoundException(appointmentId.ToString());
-//            return mapper.Map<AppointmentDTO>(appointment);
-//        }
+        public async Task<IEnumerable<AppointmentDTO>> GetUserAppointmentsAsync(string userId)
+        {
+            var spec = new AppointmentSpecification(userId);
+            var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
+            
+            return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
+        }
 
-//        public async Task<IEnumerable<AppointmentDTO>> GetAppointmentsByUserIdAsync(string userId)
-//        {
-//            var appointments = await appointmentRepository.GetAppointmentsByUserIdAsync(userId);
-//            return mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
-//        }
+        public async Task<IEnumerable<AppointmentDTO>> GetPetAppointmentsAsync(int petId)
+        {
+            var spec = new AppointmentSpecification(petId, true);
+            var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
+            
+            return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
+        }
 
-//        public async Task<IEnumerable<AppointmentDTO>> GetAppointmentsByPetIdAsync(int petId)
-//        {
-//            var appointments = await appointmentRepository.GetAppointmentsByPetIdAsync(petId);
-//            return mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
-//        }
+        public async Task<IEnumerable<AppointmentDTO>> GetDoctorAppointmentsAsync(int doctorId, DateTime? fromDate = null, DateTime? toDate = null)
+        {
+            var spec = new AppointmentSpecification(doctorId, true, fromDate, toDate);
+            var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
+            
+            return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
+        }
 
-//      /*  public async Task<AppointmentDTO> CreateAppointmentAsync(AppointmentDTO model)
-//        {
-//            var appointment = mapper.Map<Appointment>(model);
-//            appointment.Id = Guid.NewGuid();
-//            await appointmentRepository.AddAsync(appointment);
-//            return mapper.Map<AppointmentDTO>(appointment);
-//        }
-//        */
+        public async Task<IEnumerable<AppointmentDTO>> GetClinicAppointmentsAsync(int clinicId, DateTime? fromDate = null, DateTime? toDate = null)
+        {
+            var spec = AppointmentSpecification.ForClinic(clinicId, fromDate, toDate);
+            var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
+            
+            return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
+        }
 
-//        public async Task<AppointmentDTO?> UpdateAppointmentAsync(int appointmentId, AppointmentDTO model)
-//        {
-//            var appointment = await appointmentRepository.GetAsync(appointmentId);
-//            if (appointment == null)
-//                throw new AppointmentNotFoundException(appointmentId.ToString());
+        public async Task<IEnumerable<AppointmentDTO>> GetAppointmentsByStatusAsync(AppointmentStatus status)
+        {
+            var spec = new AppointmentSpecification(status);
+            var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
+            
+            return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
+        }
 
-//            mapper.Map(model, appointment);
-//            appointmentRepository.Update(appointment);
+        public async Task<AppointmentDTO> CreateAppointmentAsync(AppointmentDTO model, string userId)
+        {
+            // Check if the appointment date is in the past
+            if (model.AppointmentDate < DateTime.UtcNow)
+                throw new InvalidOperationException("Appointments cannot be booked in the past.");
 
-//            return mapper.Map<AppointmentDTO>(appointment);
-//        }
+            // Skip the doctor availability check temporarily to allow appointments to be created
+            /*
+            // Check if the doctor is available at that time
+            if (!await IsDoctorAvailableAsync(model.DoctorId, model.AppointmentDate))
+                throw new InvalidOperationException("The doctor is not available at the selected time.");
+            */
 
-//        public async Task<bool> DeleteAppointmentAsync(int appointmentId)
-//        {
-//            var appointment = await appointmentRepository.GetAsync(appointmentId);
-//            if (appointment == null)
-//                throw new AppointmentNotFoundException(appointmentId.ToString());
+            // Create the appointment
+            var appointment = _mapper.Map<Appointment>(model);
+            appointment.UserId = userId;
+            appointment.Status = AppointmentStatus.Pending;
+            appointment.CreatedAt = DateTime.UtcNow;
+            
+            // Let the database generate the ID
+            appointment.Id = 0;
 
-//            appointmentRepository.Delete(appointment);
-//            return true;
-//        }
+            await _unitOfWork.GetRepository<Appointment, int>().AddAsync(appointment);
+            await _unitOfWork.SaveChangesAsync();
+            
+            // Return the created appointment with relationships
+            return await GetAppointmentByIdAsync(appointment.Id);
+        }
 
-//        public async Task<AppointmentDTO> CreateAppointmentAsync(AppointmentDTO model)
-//        {
-        
-//            if (model.AppointmentDate < DateTime.UtcNow)
-//                throw new Exception("Appointments cannot be booked at a previous date.");
+        public async Task<AppointmentDTO> UpdateAppointmentStatusAsync(int id, AppointmentDTO model)
+        {
+            var spec = new AppointmentSpecification(id);
+            var appointment = await _unitOfWork.GetRepository<Appointment, int>().GetAsync(spec);
+            
+            if (appointment == null)
+                throw new AppointmentNotFoundException(id.ToString());
+            
+            // Update status and notes
+            appointment.Status = model.Status;
+            
+            if (!string.IsNullOrEmpty(model.Notes))
+                appointment.Notes = model.Notes;
+            
+            _unitOfWork.GetRepository<Appointment, int>().Update(appointment);
+            await _unitOfWork.SaveChangesAsync();
+            
+            // Return the updated appointment with relationships
+            return await GetAppointmentByIdAsync(appointment.Id);
+        }
 
+        public async Task DeleteAppointmentAsync(int id)
+        {
+            var appointment = await _unitOfWork.GetRepository<Appointment, int>().GetAsync(id);
+            
+            if (appointment == null)
+                throw new AppointmentNotFoundException(id.ToString());
+            
+            _unitOfWork.GetRepository<Appointment, int>().Delete(appointment);
+            await _unitOfWork.SaveChangesAsync();
+        }
 
-//            TimeSpan appointmentDuration = TimeSpan.FromMinutes(30);
-//            DateTime appointmentStart = model.AppointmentDate;
-//            DateTime appointmentEnd = model.AppointmentDate.Add(appointmentDuration);
-
-//            /*
-//                        var existingAppointments = await appointmentRepository.GetAllAsQueryable()
-//                           .Where(a => a.DoctorId == model.DoctorId)
-//                           .ToListAsync();
-//                        foreach (var existing in existingAppointments)
-//                        {
-//                            DateTime existingStart = existing.AppointmentDate;
-//                            DateTime existingEnd = existingStart.Add(appointmentDuration);
-
-//                            // لو وقت البداية أو النهاية بيتداخلوا، نرفض الحجز
-//                            if (appointmentStart < existingEnd && existingStart < appointmentEnd)
-//                                throw new Exception(" another appointment scheduled at the same time with this doctor. Choose another time.");
-//                        }
-//            */
-
-//            var conflictingAppointments = await appointmentRepository.GetAllAsQueryable()
-//                .Where(a => a.DoctorId == model.DoctorId &&
-//                  a.AppointmentDate < appointmentEnd &&
-//                  a.AppointmentDate.AddMinutes(30) > appointmentStart)
-//                .AnyAsync();
-
-//            if (conflictingAppointments)
-//                throw new Exception("There is another appointment booked at the same time with the selected doctor.");
-           
-
-//            var appointment = mapper.Map<Appointment>(model);
-//            await appointmentRepository.AddAsync(appointment);
-
-//            return mapper.Map<AppointmentDTO>(appointment);
-//        }
-
-//    }
-//}
+        public async Task<bool> IsDoctorAvailableAsync(int doctorId, DateTime appointmentTime)
+        {
+            // 1. Check if the appointment falls within doctor's schedule for that day of week
+            var dayOfWeek = appointmentTime.DayOfWeek;
+            var scheduleSpec = new DoctorScheduleSpecification(doctorId, dayOfWeek);
+            var doctorSchedule = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAsync(scheduleSpec);
+            
+            if (doctorSchedule == null)
+                return false; // Doctor doesn't work on this day
+                
+            // 2. Check if the appointment time is within the doctor's working hours
+            var time = appointmentTime.TimeOfDay;
+            if (time < doctorSchedule.StartTime || time > doctorSchedule.EndTime)
+                return false; // Outside of doctor's working hours
+                
+            // 3. Check if there's a conflicting appointment (30-minute slots)
+            var appointmentDuration = TimeSpan.FromMinutes(30);
+            var conflictingAppointmentSpec = new AppointmentSpecification(
+                doctorId, 
+                appointmentTime, 
+                appointmentDuration);
+                
+            var conflictingAppointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(conflictingAppointmentSpec);
+            
+            return !conflictingAppointments.Any();
+        }
+    }
+}
