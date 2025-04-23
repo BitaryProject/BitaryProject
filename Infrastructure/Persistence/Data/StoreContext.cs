@@ -4,6 +4,7 @@ using Domain.Entities.PetEntities;
 using Domain.Entities.ProductEntities;
 using Domain.Entities.ClinicEntities;
 using Domain.Entities.DoctorEntites;
+using Domain.Entities.AppointmentEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,34 @@ namespace Persistence.Data
                     addressBuilder.Property(a => a.Country).HasMaxLength(100).IsRequired(false);
                 });
             });
+            
+            // Explicitly configure Appointment entity
+            modelBuilder.Entity<Appointment>(entity =>
+            {
+                entity.ToTable("Appointments");
+                entity.HasKey(a => a.Id);
+                entity.Property(a => a.UserId).IsRequired().HasMaxLength(450);
+                entity.Property(a => a.AppointmentDate).IsRequired();
+                entity.Property(a => a.Status).IsRequired().HasConversion<byte>();
+                entity.Property(a => a.Notes).HasMaxLength(500);
+                entity.Property(a => a.CreatedAt).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+                
+                // Relationships
+                entity.HasOne(a => a.PetProfile)
+                    .WithMany()
+                    .HasForeignKey(a => a.PetId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Clinic)
+                    .WithMany(c => c.Appointments)
+                    .HasForeignKey(a => a.ClinicId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(a => a.Doctor)
+                    .WithMany(d => d.Appointments)
+                    .HasForeignKey(a => a.DoctorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
         }
 
 
@@ -85,5 +114,6 @@ namespace Persistence.Data
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
     }
 }
