@@ -84,5 +84,6 @@ namespace Persistence.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
     }
 }

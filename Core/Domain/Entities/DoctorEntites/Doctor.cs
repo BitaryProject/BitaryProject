@@ -12,6 +12,7 @@ namespace Domain.Entities.DoctorEntites
         {
             MedicalRecords = new List<MedicalRecord>();
             Schedules = new List<DoctorSchedule>();
+            Appointments = new List<Appointment>();
         }
 
         public string Name { get; set; }
