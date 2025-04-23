@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.Specifications
 {
-    public class PetSpecification : BaseSpecifications<Pet>
+    public class PetSpecification : Specifications<Pet>
     {
         public PetSpecification(string userId)
             : base(p => p.UserId == userId)

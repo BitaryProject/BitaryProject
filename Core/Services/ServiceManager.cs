@@ -29,7 +29,7 @@ namespace Services
         private readonly Lazy<IDoctorScheduleService> _doctorScheduleService;
         private readonly Lazy<IAppointmentService> _appointmentService;
         private readonly AutoMapper.IMapper _mapper;
-        //private readonly Lazy<IMedicalRecordService> _medicalRecordService;
+        private readonly Lazy<IMedicalRecordService> _medicalRecordService;
         //private readonly Lazy<IClinicSearchService> _clinicSearchService;
 
         public ServiceManager(
@@ -67,6 +67,9 @@ namespace Services
             
             // Use the AppointmentService from Core/Services
             _appointmentService = new Lazy<IAppointmentService>(() => new AppointmentService(unitOfWork, mapper));
+            
+            // Use the MedicalRecordService from Core/Services
+            _medicalRecordService = new Lazy<IMedicalRecordService>(() => new MedicalRecordService(unitOfWork, mapper));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
@@ -88,7 +91,7 @@ namespace Services
         public IClinicService ClinicService => _clinicService.Value;
         public IDoctorScheduleService DoctorScheduleService => _doctorScheduleService.Value;
         public IAppointmentService AppointmentService => _appointmentService.Value;
-        //public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
+        public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
         //public IClinicSearchService ClinicSearchService => _clinicSearchService.Value;
     }
 }
