@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
 using Shared.DoctorModels;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Domain.Entities.SecurityEntities;
+using Domain.Entities.DoctorEntites;
 
 namespace Presentation
 {
@@ -15,10 +17,14 @@ namespace Presentation
     public class DoctorController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
+        private readonly UserManager<User> _userManager;
 
-        public DoctorController(IServiceManager serviceManager)
+        public DoctorController(
+            IServiceManager serviceManager,
+            UserManager<User> userManager)
         {
             _serviceManager = serviceManager;
+            _userManager = userManager;
         }
 
         // GET: api/Doctor/{id}
@@ -53,20 +59,46 @@ namespace Presentation
         // POST: api/Doctor
         [HttpPost]
         [Authorize(Roles = "Doctor")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<DoctorDTO>> Create([FromBody] DoctorDTO model)
+        public async Task<ActionResult<DoctorDTO>> Create([FromBody] DoctorCreateModel createModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            
+            if (user == null)
+                return BadRequest("User not found. Please log in again.");
             
             try
             {
-                var createdDoctor = await _serviceManager.DoctorService.CreateDoctorAsync(model, userId);
+                // Create a full doctor DTO with user information from token
+                var doctorDto = new DoctorDTO
+                {
+                    // User only needs to provide these fields
+                    Specialty = createModel.Specialty,
+                    ClinicId = createModel.ClinicId,
+                    
+                    // Auto-populate these fields from the user's account
+                    Name = user.FirstName + " " + user.LastName,
+                    Email = user.Email,
+                    Phone = user.PhoneNumber,
+                    Gender = MapUserGenderToDoctorGender(user.Gender),
+                    UserId = userId
+                };
+                
+                var createdDoctor = await _serviceManager.DoctorService.CreateDoctorAsync(doctorDto, userId);
                 return CreatedAtAction(nameof(Get), new { id = createdDoctor.Id }, createdDoctor);
             }
             catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        // Helper method to map Gender to DocGender
+        private DocGender MapUserGenderToDoctorGender(Gender userGender)
+        {
+            return userGender == Gender.male || userGender == Gender.m 
+                ? DocGender.male 
+                : DocGender.female;
         }
 
         // PUT: api/Doctor/{id}
@@ -94,10 +126,16 @@ namespace Presentation
 
         // DELETE: api/Doctor/{id}
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
         [Authorize(Roles = "Doctor")]
         public async Task<ActionResult> Delete(int id)
         {
+            // Check if user is the doctor owner
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var doctor = await _serviceManager.DoctorService.GetDoctorByIdAsync(id);
+            
+            if (doctor.UserId != userId)
+                return Forbid();
+                
             await _serviceManager.DoctorService.DeleteDoctorAsync(id);
             return NoContent();
         }
