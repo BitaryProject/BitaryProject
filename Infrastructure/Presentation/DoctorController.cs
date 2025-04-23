@@ -59,6 +59,7 @@ namespace Presentation
         // POST: api/Doctor
         [HttpPost]
         [Authorize(Roles = "Doctor")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<DoctorDTO>> Create([FromBody] DoctorCreateModel createModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -127,6 +128,7 @@ namespace Presentation
         // DELETE: api/Doctor/{id}
         [HttpDelete("{id}")]
         [Authorize(Roles = "Doctor")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             // Check if user is the doctor owner
