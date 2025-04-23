@@ -32,11 +32,13 @@ namespace BitaryProject.Api.Extensions
 
             // Services are now managed by ServiceManager
             
+            // Individual service registration is not needed since we're using ServiceManager,
+            // but can be useful for direct injection in specific scenarios
             //services.AddScoped<IDoctorService, DoctorService>();
             //services.AddScoped<IClinicService, ClinicService>();
+            //services.AddScoped<IDoctorScheduleService, DoctorScheduleService>();
             //services.AddScoped<IAppointmentService, AppointmentService>();
             //services.AddScoped<IMedicalRecordService, MedicalRecordService>();
-            //services.AddScoped<IDoctorScheduleService, DoctorScheduleService>();
 
 
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
