@@ -110,6 +110,27 @@ namespace Services
 
             return true;
         }
+
+        public async Task<MedicalRecordDTO> UpdateMedicalRecordPartialAsync(int recordId, MedicalRecordUpdateDTO model)
+        {
+            var spec = new MedicalRecordSpecification(recordId);
+            var record = await _unitOfWork.GetRepository<MedicalRecord, int>().GetAsync(spec);
+
+            if (record == null)
+                throw new MedicalRecordNotFoundException(recordId.ToString());
+
+            // Only update the fields from the UpdateDTO
+            record.Diagnosis = model.Diagnosis;
+            record.Treatment = model.Treatment;
+            record.Notes = model.Notes;
+
+            _unitOfWork.GetRepository<MedicalRecord, int>().Update(record);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Return the updated record with relationships
+            return await GetMedicalRecordByIdAsync(recordId);
+        }
+
         public async Task<MedicalRecordDTO> CreateMedicalRecordForAppointmentAsync(int appointmentId, MedicalRecordCreateDTO model, int doctorId)
         {
             // Get the appointment

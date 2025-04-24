@@ -109,6 +109,9 @@ namespace Services
             await _unitOfWork.GetRepository<Doctor, int>().AddAsync(doctor);
             await _unitOfWork.SaveChangesAsync();
             
+            // Log the created doctor's ID
+            Console.WriteLine($"Created doctor with ID: {doctor.Id}");
+
             return await GetDoctorByIdAsync(doctor.Id);
         }
 
