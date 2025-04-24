@@ -16,6 +16,9 @@ using AutoMapper;
 using Shared.OrderModels;
 using UserAddress = Domain.Entities.SecurityEntities.Address;
 using Microsoft.Extensions.DependencyInjection;
+using Domain.Contracts;
+using Domain.Entities.DoctorEntites;
+using Services.Abstractions;
 
 namespace Services
 {
@@ -27,6 +30,7 @@ namespace Services
         private readonly IMapper mapper;
         private readonly IMailingService mailingService;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IDoctorService _doctorService;
 
         public AuthenticationService(
             UserManager<User> userManager, 
@@ -34,7 +38,8 @@ namespace Services
             IOptions<DomainSettings> domainOptions, 
             IMapper mapper, 
             IMailingService mailingService,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IDoctorService doctorService)
         {
             this.userManager = userManager;
             this.options = options;
@@ -42,6 +47,7 @@ namespace Services
             this.mapper = mapper;
             this.mailingService = mailingService;
             this.roleManager = roleManager;
+            _doctorService = doctorService;
         }
 
         public async Task<UserResultDTO> RegisterAsync(UserRegisterDTO registerModel)
@@ -542,6 +548,25 @@ namespace Services
                     
                     // Add UserRole as claim
                     authClaims.Add(new Claim(ClaimTypes.Role, userRoleString));
+                    
+                    // Check if user is a doctor and add DoctorId claim if so
+                    if (user.UserRole == Role.Doctor)
+                    {
+                        Console.WriteLine("User is a doctor, attempting to add DoctorId claim");
+                        
+                        // Use the doctor service to find the doctor
+                        var doctor = await _doctorService.GetDoctorByUserIdAsync(user.Id);
+                        
+                        if (doctor != null)
+                        {
+                            Console.WriteLine($"Found doctor with ID: {doctor.Id}");
+                            authClaims.Add(new Claim("DoctorId", doctor.Id.ToString()));
+                        }
+                        else
+                        {
+                            Console.WriteLine("No doctor profile found for this user");
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -551,8 +576,8 @@ namespace Services
                     user.UserRole = Role.PetOwner;
                     await userManager.UpdateAsync(user);
                     
-                    // Add default role claim
-                    authClaims.Add(new Claim(ClaimTypes.Role, "PetOwner"));
+                    // Still add the role claim
+                    authClaims.Add(new Claim(ClaimTypes.Role, Role.PetOwner.ToString()));
                 }
 
                 // Get ASP.NET Identity roles

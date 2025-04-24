@@ -18,6 +18,8 @@ namespace Services.Abstractions
         Task<MedicalRecordDTO> CreateMedicalRecordAsync(MedicalRecordDTO model);
         
         Task<MedicalRecordDTO> UpdateMedicalRecordAsync(int recordId, MedicalRecordDTO model);
+
+        Task<MedicalRecordDTO> UpdateMedicalRecordPartialAsync(int recordId, MedicalRecordUpdateDTO model);
         
         Task<bool> DeleteMedicalRecordAsync(int recordId);
         Task<MedicalRecordDTO> CreateMedicalRecordForAppointmentAsync(int appointmentId, MedicalRecordCreateDTO model, int doctorId);

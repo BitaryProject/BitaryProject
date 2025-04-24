@@ -90,11 +90,28 @@ namespace Presentation
 
             try
             {
-                // Get the doctor ID from the claims
+                // First try to get the doctor ID from the claims
                 var doctorIdClaim = User.FindFirstValue("DoctorId");
-                if (string.IsNullOrEmpty(doctorIdClaim) || !int.TryParse(doctorIdClaim, out int doctorId))
+                int doctorId;
+                
+                if (string.IsNullOrEmpty(doctorIdClaim) || !int.TryParse(doctorIdClaim, out doctorId))
                 {
-                    return BadRequest("Doctor ID not found in your token. Please ensure your doctor profile is created.");
+                    // If not found in claims, try to find the doctor by user ID
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        return BadRequest("User ID not found in token. Please log in again.");
+                    }
+                    
+                    // Try to get the doctor profile
+                    var doctorDto = await _serviceManager.DoctorService.GetDoctorByUserIdAsync(userId);
+                    if (doctorDto == null)
+                    {
+                        return BadRequest("Doctor profile not found. Please create a doctor profile first.");
+                    }
+                    
+                    doctorId = doctorDto.Id;
+                    Console.WriteLine($"Found doctor ID {doctorId} for user {userId}");
                 }
 
                 // Verify the appointment exists and is for this doctor
@@ -193,10 +210,36 @@ namespace Presentation
                 return BadRequest(ModelState);
             }
             
-            // Verify the doctor is creating a record for their own appointment
+            // First try to get the doctor ID from claims
             var doctorIdClaim = User.FindFirstValue("DoctorId");
-            if (!string.IsNullOrEmpty(doctorIdClaim) && model.DoctorId.ToString() != doctorIdClaim)
+            int doctorId;
+            
+            // If DoctorId claim is not found, try to find the doctor by user ID
+            if (string.IsNullOrEmpty(doctorIdClaim) || !int.TryParse(doctorIdClaim, out doctorId))
             {
+                // Try to find the doctor by user ID
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return BadRequest("User ID not found in token. Please log in again.");
+                }
+                
+                // Try to get the doctor profile
+                var doctorDto = await _serviceManager.DoctorService.GetDoctorByUserIdAsync(userId);
+                if (doctorDto == null)
+                {
+                    return BadRequest("Doctor profile not found. Please create a doctor profile first.");
+                }
+                
+                doctorId = doctorDto.Id;
+                Console.WriteLine($"Found doctor ID {doctorId} for user {userId}");
+                
+                // Set the doctor ID in the model
+                model = model with { DoctorId = doctorId };
+            }
+            else if (model.DoctorId != doctorId)
+            {
+                // If doctor ID is found in claims but doesn't match model, return error
                 return BadRequest("You can only create medical records for your own appointments.");
             }
             
@@ -230,7 +273,7 @@ namespace Presentation
         // PUT: api/MedicalRecord/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = "Doctor")]
-        public async Task<ActionResult<MedicalRecordDTO>> UpdateMedicalRecord(int id, [FromBody] MedicalRecordDTO model)
+        public async Task<ActionResult<MedicalRecordDTO>> UpdateMedicalRecord(int id, [FromBody] MedicalRecordUpdateDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -249,7 +292,7 @@ namespace Presentation
                     return Forbid();
                 }
                 
-                var updatedRecord = await _serviceManager.MedicalRecordService.UpdateMedicalRecordAsync(id, model);
+                var updatedRecord = await _serviceManager.MedicalRecordService.UpdateMedicalRecordPartialAsync(id, model);
                 return Ok(updatedRecord);
             }
             catch (MedicalRecordNotFoundException)

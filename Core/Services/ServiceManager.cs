@@ -48,13 +48,17 @@ namespace Services
             _productService = new Lazy<IProductService>(() => new ProductService(unitOfWork, mapper));
             _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper, unitOfWork));
             _orderService = new Lazy<IOrderService>(() => new OrderService(unitOfWork, mapper, basketRepository));
+            _doctorService = new Lazy<IDoctorService>(() => new DoctorService(unitOfWork, mapper, userManager));
+            
+            // Initialize authenticationService after doctorService
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(
                 userManager, 
                 jwtOptions, 
                 domainSettings, 
                 mapper, 
                 mailingService,
-                serviceProvider.GetRequiredService<RoleManager<IdentityRole>>()
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(),
+                _doctorService.Value
             ));
             _paymentService = new Lazy<IPaymentService>(() => new PaymentService(basketRepository, unitOfWork, mapper, configuration));
             _petService = new Lazy<IPetService>(() => new PetService(
@@ -63,7 +67,6 @@ namespace Services
                 LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<PetService>()));
                 
             _clinicService = new Lazy<IClinicService>(() => new ClinicService(unitOfWork, mapper, userManager));
-            _doctorService = new Lazy<IDoctorService>(() => new DoctorService(unitOfWork, mapper, userManager));
             _doctorScheduleService = new Lazy<IDoctorScheduleService>(() => new DoctorScheduleService(unitOfWork, mapper));
             
             // Use the AppointmentService from Core/Services
