@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities.SecurityEntities;
 using System.Security.Claims;
+using Domain.Entities.AppointmentEntities;
 
 namespace Presentation
 {
@@ -77,7 +78,48 @@ namespace Presentation
             var records = await _serviceManager.MedicalRecordService.GetRecordsByPetIdAsync(petId);
             return Ok(records);
         }
-        
+        // POST: api/MedicalRecord/{appointmentId}
+        [HttpPost("{appointmentId}")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult<MedicalRecordDTO>> CreateMedicalRecord(int appointmentId, [FromBody] MedicalRecordCreateDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                // Get the doctor ID from the claims
+                var doctorIdClaim = User.FindFirstValue("DoctorId");
+                if (string.IsNullOrEmpty(doctorIdClaim) || !int.TryParse(doctorIdClaim, out int doctorId))
+                {
+                    return BadRequest("Doctor ID not found in your token. Please ensure your doctor profile is created.");
+                }
+
+                // Verify the appointment exists and is for this doctor
+                var appointment = await _serviceManager.AppointmentService.GetAppointmentByIdAsync(appointmentId);
+                if (appointment.DoctorId != doctorId)
+                {
+                    return BadRequest("You can only create medical records for your own appointments.");
+                }
+
+                // Check if the appointment status is Completed or can be marked as Completed
+                if (appointment.Status != AppointmentStatus.Approved &&
+                    appointment.Status != AppointmentStatus.Completed)
+                {
+                    return BadRequest("You can only create medical records for approved or completed appointments.");
+                }
+                var createdRecord = await _serviceManager.MedicalRecordService.CreateMedicalRecordForAppointmentAsync(
+                    appointmentId, model, doctorId);
+
+                return CreatedAtAction(nameof(GetMedicalRecord), new { id = createdRecord.Id }, createdRecord);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         // GET: api/MedicalRecord/doctor/{doctorId}
         [HttpGet("doctor/{doctorId}")]
         [Authorize(Roles = "Doctor,Admin")]

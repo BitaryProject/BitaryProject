@@ -18,6 +18,15 @@ namespace Services.MappingProfiles
                 .ForMember(dest => dest.Pet, opt => opt.Ignore())
                 .ForMember(dest => dest.Doctor, opt => opt.Ignore())
                 .ForMember(dest => dest.Appointment, opt => opt.Ignore());
+            // CreateDTO to Entity mapping
+            CreateMap<MedicalRecordCreateDTO, MedicalRecord>()
+                .ForMember(dest => dest.Pet, opt => opt.Ignore())
+                .ForMember(dest => dest.Doctor, opt => opt.Ignore())
+                .ForMember(dest => dest.Appointment, opt => opt.Ignore())
+                .ForMember(dest => dest.PetId, opt => opt.Ignore())
+                .ForMember(dest => dest.DoctorId, opt => opt.Ignore())
+                .ForMember(dest => dest.AppointmentId, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
 }
