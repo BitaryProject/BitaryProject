@@ -24,6 +24,9 @@ namespace Persistence.Data.Configurations
                 
             builder.Property(c => c.Rating)
                 .HasDefaultValue(0);
+            
+            builder.Property(c => c.RatingCount)
+                .HasDefaultValue(0);
                 
             builder.Property(c => c.OwnerId)
                 .IsRequired()
@@ -47,7 +50,12 @@ namespace Persistence.Data.Configurations
                 .WithOne(a => a.Clinic)
                 .HasForeignKey(a => a.ClinicId)
                 .OnDelete(DeleteBehavior.Restrict);
-          
+            
+            // Configure relationship with Ratings
+            builder.HasMany(c => c.Ratings)
+                .WithOne(r => r.Clinic)
+                .HasForeignKey(r => r.ClinicId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the owned Address entity
             builder.OwnsOne(c => c.Address, addressBuilder =>
