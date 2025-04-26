@@ -30,6 +30,7 @@ namespace Services
         private readonly Lazy<IAppointmentService> _appointmentService;
         private readonly AutoMapper.IMapper _mapper;
         private readonly Lazy<IMedicalRecordService> _medicalRecordService;
+        private readonly Lazy<IRatingService> _ratingService;
 
         //private readonly Lazy<IClinicSearchService> _clinicSearchService;
 
@@ -77,6 +78,12 @@ namespace Services
                 unitOfWork, 
                 mapper, 
                 _appointmentService.Value));
+                
+            // Initialize the RatingService
+            _ratingService = new Lazy<IRatingService>(() => new RatingService(
+                unitOfWork,
+                mapper,
+                _clinicService.Value));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
@@ -99,6 +106,7 @@ namespace Services
         public IDoctorScheduleService DoctorScheduleService => _doctorScheduleService.Value;
         public IAppointmentService AppointmentService => _appointmentService.Value;
         public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
+        public IRatingService RatingService => _ratingService.Value;
         //public IClinicSearchService ClinicSearchService => _clinicSearchService.Value;
     }
 }

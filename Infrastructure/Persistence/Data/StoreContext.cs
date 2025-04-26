@@ -99,6 +99,24 @@ namespace Persistence.Data
                     .HasForeignKey(a => a.DoctorId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
+            
+            // Explicitly configure Rating entity
+            modelBuilder.Entity<Rating>(entity =>
+            {
+                entity.ToTable("Ratings");
+                entity.HasKey(r => r.Id);
+                entity.Property(r => r.RatingValue).IsRequired();
+                entity.Property(r => r.Comment).HasMaxLength(500);
+                entity.Property(r => r.CreatedAt).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+                entity.Property(r => r.UserId).IsRequired().HasMaxLength(450);
+                entity.Property(r => r.ClinicId).IsRequired();
+                
+                // Configure relationship with Clinic
+                entity.HasOne(r => r.Clinic)
+                    .WithMany(c => c.Ratings)
+                    .HasForeignKey(r => r.ClinicId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
         }
 
 
@@ -115,5 +133,6 @@ namespace Persistence.Data
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }
