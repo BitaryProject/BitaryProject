@@ -14,9 +14,15 @@ namespace Services.Specifications
             AddInclude(ds => ds.Doctor);
         }
         
-        // Constructor for finding by doctor ID and day
-        public DoctorScheduleSpecification(int doctorId, DayOfWeek day)
-            : base(ds => ds.DoctorId == doctorId && ds.Day == day)
+        // Constructor for finding by doctor ID and date
+        public DoctorScheduleSpecification(int doctorId, DateTime date)
+            : base(ds => ds.DoctorId == doctorId && ds.ScheduleDate.Date == date.Date)
+        {
+        }
+        
+        // Constructor for finding by doctor ID for a date range
+        public DoctorScheduleSpecification(int doctorId, DateTime startDate, DateTime endDate)
+            : base(ds => ds.DoctorId == doctorId && ds.ScheduleDate.Date >= startDate.Date && ds.ScheduleDate.Date <= endDate.Date)
         {
         }
         
@@ -30,6 +36,13 @@ namespace Services.Specifications
         public static DoctorScheduleSpecification GetByDoctorId(int doctorId)
         {
             return new DoctorScheduleSpecification(ds => ds.DoctorId == doctorId);
+        }
+        
+        // Method to create a specification for schedules by doctor ID for current date and future
+        public static DoctorScheduleSpecification GetFutureSchedulesByDoctorId(int doctorId)
+        {
+            var today = DateTime.Today;
+            return new DoctorScheduleSpecification(ds => ds.DoctorId == doctorId && ds.ScheduleDate.Date >= today);
         }
     }
 } 

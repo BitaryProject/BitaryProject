@@ -15,7 +15,7 @@ namespace Persistence.Data.Configurations
             builder.Property(ds => ds.DoctorId)
                 .IsRequired();
 
-            builder.Property(ds => ds.Day)
+            builder.Property(ds => ds.ScheduleDate)
                 .IsRequired();
 
             builder.Property(ds => ds.StartTime)
@@ -28,9 +28,12 @@ namespace Persistence.Data.Configurations
                 .WithMany(d => d.Schedules)
                 .HasForeignKey(ds => ds.DoctorId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasIndex(ds => new { ds.DoctorId, ds.Day })
-                .IsUnique();
+                
+            // Create index on DoctorId for faster lookups
+            builder.HasIndex(ds => ds.DoctorId);
+            
+            // Create index on ScheduleDate for date-based lookups
+            builder.HasIndex(ds => ds.ScheduleDate);
         }
     }
 }

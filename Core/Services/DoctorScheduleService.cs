@@ -30,14 +30,16 @@ namespace Services
         {
             var utcDate = date.ToUniversalTime();
             
-            var specs = new DoctorScheduleSpecification(doctorId, utcDate.DayOfWeek);
-            var schedule = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAsync(specs);
+            var specs = new DoctorScheduleSpecification(doctorId, utcDate.Date);
+            var schedules = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAllAsync(specs);
 
-            if (schedule == null)
+            if (!schedules.Any())
                 return false;
 
             var time = utcDate.TimeOfDay;
-            return time >= schedule.StartTime && time <= schedule.EndTime;
+            
+            // Check if the requested time falls within any of the doctor's schedules for that day
+            return schedules.Any(schedule => time >= schedule.StartTime && time <= schedule.EndTime);
         }
 
         public async Task<DoctorScheduleDTO> AddScheduleAsync(int doctorId, DoctorScheduleDTO dto)
@@ -47,12 +49,21 @@ namespace Services
             if (doctor == null)
                 throw new DoctorNotFoundException(doctorId.ToString());
                 
-            // Check for existing schedule on same day
-            var specs = new DoctorScheduleSpecification(doctorId, dto.Day);
-            var existing = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAsync(specs);
+            // Check for overlapping schedules on the same day
+            var specs = new DoctorScheduleSpecification(doctorId, dto.ScheduleDate.Date);
+            var existingSchedules = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAllAsync(specs);
             
-            if (existing != null)
-                throw new InvalidOperationException("Schedule already exists for this day");
+            // Check for time conflicts with existing schedules
+            foreach (var existing in existingSchedules)
+            {
+                bool overlaps = (dto.StartTime <= existing.EndTime && dto.EndTime >= existing.StartTime);
+                
+                if (overlaps)
+                {
+                    throw new InvalidOperationException(
+                        $"Schedule conflicts with existing schedule from {existing.StartTime:hh\\:mm} to {existing.EndTime:hh\\:mm}");
+                }
+            }
 
             var schedule = _mapper.Map<DoctorSchedule>(dto);
             
@@ -91,7 +102,8 @@ namespace Services
                 scheduleDtos[i] = scheduleDtos[i] with { DoctorName = doctor.Name };
             }
             
-            return scheduleDtos;
+            // Order by date and time
+            return scheduleDtos.OrderBy(s => s.ScheduleDate.Date).ThenBy(s => s.StartTime).ToList();
         }
         
         public async Task<bool> DeleteScheduleAsync(int scheduleId)

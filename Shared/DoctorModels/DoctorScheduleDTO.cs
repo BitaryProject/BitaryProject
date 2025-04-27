@@ -14,7 +14,7 @@ namespace Shared.DoctorModels
         public int DoctorId { get; init; }
         
         [Required]
-        public DayOfWeek Day { get; init; }
+        public DateTime ScheduleDate { get; init; }
         
         [Required]
         [RegularExpression(@"^([01]?[0-9]|2[0-3]):[0-5][0-9]$", ErrorMessage = "Start time must be in format HH:MM (24-hour format)")]
