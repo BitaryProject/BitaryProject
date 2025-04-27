@@ -101,7 +101,7 @@ namespace Presentation
         
         // GET: api/Appointment/clinic/{clinicId}
         [HttpGet("clinic/{clinicId}")]
-        [Authorize(Roles = "Doctor,Admin")]
+        [Authorize(Roles = "Doctor,Admin,PetOwner")]
         public async Task<ActionResult<IEnumerable<AppointmentDTO>>> GetClinicAppointments(
             int clinicId, 
             [FromQuery] DateTime? fromDate = null, 
