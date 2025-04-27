@@ -82,7 +82,7 @@ namespace Presentation
         
         // GET: api/Appointment/doctor/{doctorId}
         [HttpGet("doctor/{doctorId}")]
-        [Authorize(Roles = "Doctor,Admin")]
+        [Authorize(Roles = "Doctor,Admin,PetOwner")]
         public async Task<ActionResult<IEnumerable<AppointmentDTO>>> GetDoctorAppointments(
             int doctorId, 
             [FromQuery] DateTime? fromDate = null, 
