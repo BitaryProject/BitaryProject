@@ -139,16 +139,15 @@ namespace Services
         public async Task<bool> IsDoctorAvailableAsync(int doctorId, DateTime appointmentTime)
         {
             // 1. Check if the appointment falls within doctor's schedule for that day of week
-            var dayOfWeek = appointmentTime.DayOfWeek;
-            var scheduleSpec = new DoctorScheduleSpecification(doctorId, dayOfWeek);
-            var doctorSchedule = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAsync(scheduleSpec);
+            var scheduleSpec = new DoctorScheduleSpecification(doctorId, appointmentTime.Date);
+            var doctorSchedules = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAllAsync(scheduleSpec);
             
-            if (doctorSchedule == null)
+            if (doctorSchedules == null || !doctorSchedules.Any())
                 return false; // Doctor doesn't work on this day
                 
-            // 2. Check if the appointment time is within the doctor's working hours
+            // 2. Check if the appointment time is within any of the doctor's working hours for that day
             var time = appointmentTime.TimeOfDay;
-            if (time < doctorSchedule.StartTime || time > doctorSchedule.EndTime)
+            if (!doctorSchedules.Any(schedule => time >= schedule.StartTime && time <= schedule.EndTime))
                 return false; // Outside of doctor's working hours
                 
             // 3. Check if there's a conflicting appointment (30-minute slots)
