@@ -14,6 +14,8 @@ namespace Services.Abstractions
         
         Task<bool> RemoveItemFromWishListAsync(string userId, int itemId);
         
+        Task<bool> RemoveProductFromWishListAsync(string userId, int productId);
+        
         Task<bool> ClearWishListAsync(string userId);
         
         Task<bool> IsProductInWishListAsync(string userId, int productId);
