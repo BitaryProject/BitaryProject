@@ -43,7 +43,7 @@ namespace Services
             foreach (var item in basket.BasketItems)
             {
                 var product = await unitOfWork.GetRepository<Product, int>()
-                    .GetAsync(item.Product.ProductId) ?? throw new ProductNotFoundException(item.Product.ProductId);
+                    .GetAsync(item.Product.ProductId) ?? throw new ProductNotFoundException(item.Product.ProductId.ToString());
 
                 item.Price = product.Price;
             }

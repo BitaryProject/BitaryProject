@@ -117,6 +117,34 @@ namespace Persistence.Data
                     .HasForeignKey(r => r.ClinicId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
+            
+            // Explicitly configure WishList entity
+            modelBuilder.Entity<WishList>(entity =>
+            {
+                entity.ToTable("WishLists");
+                entity.HasKey(w => w.Id);
+                entity.Property(w => w.UserId).IsRequired().HasMaxLength(450);
+                entity.Property(w => w.CreatedAt).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+            });
+            
+            // Explicitly configure WishListItem entity
+            modelBuilder.Entity<WishListItem>(entity =>
+            {
+                entity.ToTable("WishListItems");
+                entity.HasKey(wi => wi.Id);
+                entity.Property(wi => wi.AddedAt).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+                
+                // Configure relationships
+                entity.HasOne(wi => wi.WishList)
+                    .WithMany(w => w.WishListItems)
+                    .HasForeignKey(wi => wi.WishListId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                
+                entity.HasOne(wi => wi.Product)
+                    .WithMany()
+                    .HasForeignKey(wi => wi.ProductId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
         }
 
 
@@ -134,5 +162,7 @@ namespace Persistence.Data
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
+        public DbSet<WishListItem> WishListItems { get; set; }
     }
 }
