@@ -69,7 +69,7 @@ namespace Services
                     }
                     
                     var product = await unitOfWork.GetRepository<Product, int>()
-                        .GetAsync(item.Product.ProductId) ?? throw new ProductNotFoundException(item.Product.ProductId);
+                        .GetAsync(item.Product.ProductId) ?? throw new ProductNotFoundException(item.Product.ProductId.ToString());
                     
                     Console.WriteLine($"Found product: Id={product.Id}, Name={product.Name}, Price={product.Price}");
                     orderItems.Add(CreateOrderItem(item, product));

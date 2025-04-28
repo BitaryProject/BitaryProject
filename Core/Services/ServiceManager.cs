@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using AutoMapper;
+using Domain.Contracts;
+using Persistence.Data;
 
 namespace Services
 {
@@ -31,6 +33,7 @@ namespace Services
         private readonly AutoMapper.IMapper _mapper;
         private readonly Lazy<IMedicalRecordService> _medicalRecordService;
         private readonly Lazy<IRatingService> _ratingService;
+        private readonly Lazy<IWishListService> _wishListService;
 
         //private readonly Lazy<IClinicSearchService> _clinicSearchService;
 
@@ -84,6 +87,13 @@ namespace Services
                 unitOfWork,
                 mapper,
                 _clinicService.Value));
+                
+            // Initialize the WishListService
+            _wishListService = new Lazy<IWishListService>(() => new WishListService(
+                unitOfWork,
+                mapper,
+                _productService.Value,
+                serviceProvider.GetRequiredService<StoreContext>()));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));
@@ -107,6 +117,7 @@ namespace Services
         public IAppointmentService AppointmentService => _appointmentService.Value;
         public IMedicalRecordService MedicalRecordService => _medicalRecordService.Value;
         public IRatingService RatingService => _ratingService.Value;
+        public IWishListService WishListService => _wishListService.Value;
         //public IClinicSearchService ClinicSearchService => _clinicSearchService.Value;
     }
 }

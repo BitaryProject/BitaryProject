@@ -20,6 +20,7 @@ namespace Services.Abstractions
         public IAppointmentService AppointmentService { get; }
         public IMedicalRecordService MedicalRecordService { get; }
         public IRatingService RatingService { get; }
+        public IWishListService WishListService { get; }
         //IClinicSearchService ClinicSearchService { get; }
     }
 }
