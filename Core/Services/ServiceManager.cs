@@ -92,8 +92,7 @@ namespace Services
             _wishListService = new Lazy<IWishListService>(() => new WishListService(
                 unitOfWork,
                 mapper,
-                _productService.Value,
-                serviceProvider.GetRequiredService<StoreContext>()));
+                _productService.Value));
 
             //_petService = new Lazy<IPetService>(() => new PetService(petRepository, mapper));
             //_doctorService = new Lazy<IDoctorService>(() => new DoctorService(doctorRepository, mapper));

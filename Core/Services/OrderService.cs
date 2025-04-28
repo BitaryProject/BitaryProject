@@ -118,7 +118,7 @@ namespace Services
                     Id = Guid.NewGuid(),
                     UserEmail = userEmail,
                     ShippingAddress = address,
-                    OrderItems = orderItems.ToList(),
+                    OrderItems = orderItems,
                     DeliveryMethodId = deliveryMethodId, // Use ID instead of the entity
                     Subtotal = subTotal,
                     PaymentIntentId = paymentIntentId,

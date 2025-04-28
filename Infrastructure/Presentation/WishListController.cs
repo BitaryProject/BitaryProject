@@ -76,15 +76,15 @@ namespace Presentation
             }
         }
 
-        // DELETE: api/WishList/items/{id}
-        [HttpDelete("items/{id}")]
+        // DELETE: api/WishList/items/{productId}
+        [HttpDelete("items/{productId}")]
         [Authorize]
-        public async Task<ActionResult> RemoveItemFromWishList(int id)
+        public async Task<ActionResult> RemoveItemFromWishList(int productId)
         {
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                await _serviceManager.WishListService.RemoveItemFromWishListAsync(userId, id);
+                await _serviceManager.WishListService.RemoveProductFromWishListAsync(userId, productId);
                 return NoContent();
             }
             catch (Exception ex)
@@ -121,6 +121,27 @@ namespace Presentation
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var isInWishList = await _serviceManager.WishListService.IsProductInWishListAsync(userId, productId);
             return Ok(isInWishList);
+        }
+
+        // For backward compatibility, but will be deprecated
+        // DELETE: api/WishList/products/{productId}
+        [HttpDelete("products/{productId}")]
+        [Authorize]
+        public async Task<ActionResult> RemoveProductFromWishList(int productId)
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _serviceManager.WishListService.RemoveProductFromWishListAsync(userId, productId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("not found"))
+                    return NotFound(ex.Message);
+                
+                return BadRequest(ex.Message);
+            }
         }
     }
 } 
