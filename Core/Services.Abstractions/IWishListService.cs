@@ -19,5 +19,7 @@ namespace Services.Abstractions
         Task<bool> ClearWishListAsync(string userId);
         
         Task<bool> IsProductInWishListAsync(string userId, int productId);
+        
+        Task<IEnumerable<MostWishlistedProductDTO>> GetMostWishlistedProductsAsync(int count = 10);
     }
 } 

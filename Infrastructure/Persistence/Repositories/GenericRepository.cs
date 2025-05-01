@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Contracts;
 
 namespace Persistence.Repositories
 {
@@ -67,5 +69,13 @@ namespace Persistence.Repositories
             return (pagedEntities, totalCount);
         }
 
+        public async Task<IEnumerable<TKey>> GetAllIdsAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _storeContext.Set<TEntity>()
+                .AsNoTracking()
+                .Where(predicate)
+                .Select(e => e.Id)
+                .ToListAsync();
+        }
     }
 }

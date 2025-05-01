@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Services.Abstractions;
 using Services.Specifications;
 using Shared.WishListModels;
+using Shared.ProductModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -191,13 +193,14 @@ namespace Services
                 if (wishList == null)
                     return true; // Nothing to clear
 
-                // Get all items in the wishlist
-                var itemsSpec = new WishListItemSpecification(wishList.Id, true);
-                var items = await _unitOfWork.GetRepository<WishListItem, int>().GetAllAsync(itemsSpec);
+                // Create a specification that only retrieves the IDs to avoid tracking conflicts
+                var itemIds = await _unitOfWork.GetRepository<WishListItem, int>()
+                    .GetAllIdsAsync(w => w.WishListId == wishList.Id);
 
-                // Remove each item
-                foreach (var item in items)
+                // Remove each item by ID
+                foreach (var itemId in itemIds)
                 {
+                    var item = new WishListItem { Id = itemId };
                     _unitOfWork.GetRepository<WishListItem, int>().Delete(item);
                 }
 
@@ -285,6 +288,57 @@ namespace Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error removing product from wishlist: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<MostWishlistedProductDTO>> GetMostWishlistedProductsAsync(int count = 10)
+        {
+            try
+            {
+                var mostWishlistedProducts = await _unitOfWork.GetRepository<WishListItem, int>()
+                    .GetAllAsQueryable()
+                    .AsNoTracking()
+                    .GroupBy(item => item.ProductId)
+                    .Select(group => new 
+                    {
+                        ProductId = group.Key,
+                        Count = group.Count()
+                    })
+                    .OrderByDescending(x => x.Count)
+                    .Take(count)
+                    .ToListAsync();
+
+                var productIds = mostWishlistedProducts.Select(x => x.ProductId).ToList();
+                
+                // Get full product details for the most wishlisted products
+                var products = await _productService.GetProductsByIdsAsync(productIds);
+                
+                // Map to DTOs with wishlist count
+                var result = products.Select(product => 
+                {
+                    var wishlistCount = mostWishlistedProducts
+                        .First(x => x.ProductId == product.Id)
+                        .Count;
+                        
+                    return new MostWishlistedProductDTO
+                    {
+                        Product = product,
+                        WishlistCount = wishlistCount
+                    };
+                })
+                .OrderByDescending(x => x.WishlistCount)
+                .ToList();
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting most wishlisted products: {ex.Message}");
                 if (ex.InnerException != null)
                 {
                     Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
