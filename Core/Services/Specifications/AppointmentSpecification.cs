@@ -44,6 +44,18 @@ namespace Services.Specifications
             setOrderByDescending(a => a.AppointmentDate);
         }
 
+        public AppointmentSpecification(int doctorId, AppointmentStatus status, DateTime? fromDate = null, DateTime? toDate = null)
+            : base(a => a.DoctorId == doctorId && 
+                         a.Status == status &&
+                         (!fromDate.HasValue || a.AppointmentDate >= fromDate.Value) &&
+                         (!toDate.HasValue || a.AppointmentDate <= toDate.Value))
+        {
+            AddInclude(a => a.PetProfile);
+            AddInclude(a => a.Clinic);
+            AddInclude(a => a.Doctor);
+            setOrderByDescending(a => a.AppointmentDate);
+        }
+
         public AppointmentSpecification(int clinicId, string clinicParam, DateTime? fromDate = null, DateTime? toDate = null)
             : base(a => a.ClinicId == clinicId && 
                          (!fromDate.HasValue || a.AppointmentDate >= fromDate.Value) &&
