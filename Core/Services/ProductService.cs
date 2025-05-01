@@ -65,5 +65,13 @@ namespace Services
 
             return product is null ? throw new ProductNotFoundException(id.ToString()) : Mapper.Map<ProductResultDTO>(product);
         }
+
+        public async Task<IEnumerable<ProductResultDTO>> GetProductsByIdsAsync(IEnumerable<int> ids)
+        {
+            var spec = new ProductsWithBrandAndTypeByIdsSpecifications(ids);
+            var products = await UnitOFWork.GetRepository<Product, int>().GetAllAsync(spec);
+            
+            return Mapper.Map<IEnumerable<ProductResultDTO>>(products);
+        }
     }
 }

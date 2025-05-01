@@ -14,9 +14,6 @@ namespace Services.Abstractions
         public Task<IEnumerable<BrandResultDTO>> GetAllBrandsAsync();
         public Task<IEnumerable<CategoryResultDTO>> GetAllCategoriesAsync();
         public Task<ProductResultDTO?> GetProductByIdAsync(int id);
-
-
-
-
+        public Task<IEnumerable<ProductResultDTO>> GetProductsByIdsAsync(IEnumerable<int> ids);
     }
 }

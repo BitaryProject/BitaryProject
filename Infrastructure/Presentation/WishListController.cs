@@ -123,6 +123,22 @@ namespace Presentation
             return Ok(isInWishList);
         }
 
+        // GET: api/WishList/most-wishlisted
+        [HttpGet("most-wishlisted")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<MostWishlistedProductDTO>>> GetMostWishlistedProducts([FromQuery] int count = 10)
+        {
+            try
+            {
+                var products = await _serviceManager.WishListService.GetMostWishlistedProductsAsync(count);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // For backward compatibility, but will be deprecated
         // DELETE: api/WishList/products/{productId}
         [HttpDelete("products/{productId}")]
