@@ -53,9 +53,8 @@ namespace Services
 
         public async Task<IEnumerable<AppointmentDTO>> GetDoctorAppointmentsAsync(int doctorId, DateTime? fromDate = null, DateTime? toDate = null)
         {
-            var spec = new AppointmentSpecification(doctorId, true, fromDate, toDate);
+            var spec = new AppointmentSpecification(doctorId, AppointmentStatus.Approved, fromDate, toDate);
             var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
-            
             return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
         }
 
@@ -81,12 +80,16 @@ namespace Services
             if (model.AppointmentDate < DateTime.UtcNow)
                 throw new InvalidOperationException("Appointments cannot be booked in the past.");
 
-            // Skip the doctor availability check temporarily to allow appointments to be created
-            /*
+            // Check if the doctor has a schedule set up for this date
+            var scheduleSpec = new DoctorScheduleSpecification(model.DoctorId, model.AppointmentDate.Date);
+            var doctorSchedules = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAllAsync(scheduleSpec);
+            
+            if (!doctorSchedules.Any())
+                throw new InvalidOperationException("The doctor has no schedule set up for this date.");
+
             // Check if the doctor is available at that time
             if (!await IsDoctorAvailableAsync(model.DoctorId, model.AppointmentDate))
                 throw new InvalidOperationException("The doctor is not available at the selected time.");
-            */
 
             // Create the appointment
             var appointment = _mapper.Map<Appointment>(model);
@@ -138,24 +141,30 @@ namespace Services
 
         public async Task<bool> IsDoctorAvailableAsync(int doctorId, DateTime appointmentTime)
         {
-            // 1. Check if the appointment falls within doctor's schedule for that day of week
-            var scheduleSpec = new DoctorScheduleSpecification(doctorId, appointmentTime.Date);
+            // Convert to UTC for consistency
+            var utcAppointmentTime = appointmentTime.Kind == DateTimeKind.Utc 
+                ? appointmentTime 
+                : DateTime.SpecifyKind(appointmentTime, DateTimeKind.Utc);
+
+            // 1. Check if the appointment falls within doctor's schedule for that day
+            var scheduleSpec = new DoctorScheduleSpecification(doctorId, utcAppointmentTime.Date);
             var doctorSchedules = await _unitOfWork.GetRepository<DoctorSchedule, int>().GetAllAsync(scheduleSpec);
             
             if (doctorSchedules == null || !doctorSchedules.Any())
                 return false; // Doctor doesn't work on this day
                 
             // 2. Check if the appointment time is within any of the doctor's working hours for that day
-            var time = appointmentTime.TimeOfDay;
+            var time = utcAppointmentTime.TimeOfDay;
             if (!doctorSchedules.Any(schedule => time >= schedule.StartTime && time <= schedule.EndTime))
                 return false; // Outside of doctor's working hours
                 
             // 3. Check if there's a conflicting appointment (30-minute slots)
             var appointmentDuration = TimeSpan.FromMinutes(30);
-            var conflictingAppointmentSpec = new AppointmentSpecification(
-                doctorId, 
-                appointmentTime, 
-                appointmentDuration);
+            var conflictingAppointmentSpec = new AppointmentSpecification(a => 
+                a.DoctorId == doctorId &&
+                a.Status == AppointmentStatus.Approved &&
+                a.AppointmentDate < utcAppointmentTime.Add(appointmentDuration) &&
+                a.AppointmentDate.AddMinutes(30) > utcAppointmentTime);
                 
             var conflictingAppointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(conflictingAppointmentSpec);
             
