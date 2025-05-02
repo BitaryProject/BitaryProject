@@ -3,6 +3,7 @@ using Domain.Contracts;
 using Domain.Entities.ClinicEntities;
 using Domain.Entities.DoctorEntites;
 using Domain.Entities.SecurityEntities;
+using Domain.Entities.AppointmentEntities;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Services.Abstractions;
@@ -138,6 +139,20 @@ namespace Services
             if (doctor == null)
                 throw new DoctorNotFoundException(doctorId.ToString());
 
+            // Check for appointments
+            var appointmentSpec = new AppointmentSpecification(a => a.DoctorId == doctorId);
+            var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(appointmentSpec);
+
+            if (appointments.Any())
+            {
+                // Delete all appointments for this doctor
+                foreach (var appointment in appointments)
+                {
+                    _unitOfWork.GetRepository<Appointment, int>().Delete(appointment);
+                }
+            }
+
+            // Now safe to delete the doctor
             _unitOfWork.GetRepository<Doctor, int>().Delete(doctor);
             await _unitOfWork.SaveChangesAsync();
             return true;
