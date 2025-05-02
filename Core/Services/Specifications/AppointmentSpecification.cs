@@ -7,6 +7,11 @@ namespace Services.Specifications
 {
     public class AppointmentSpecification : Specifications<Appointment>
     {
+        public AppointmentSpecification(Expression<Func<Appointment, bool>> criteria)
+            : base(criteria)
+        {
+        }
+
         public AppointmentSpecification(int id)
             : base(a => a.Id == id)
         {
@@ -80,11 +85,6 @@ namespace Services.Specifications
             : base(a => a.DoctorId == doctorId &&
                          a.AppointmentDate < date.Add(duration) &&
                          a.AppointmentDate.AddMinutes(30) > date)
-        {
-        }
-
-        public AppointmentSpecification(Expression<Func<Appointment, bool>> criteria)
-            : base(criteria)
         {
         }
 
