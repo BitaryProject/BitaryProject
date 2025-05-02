@@ -1,23 +1,23 @@
-﻿//using Domain.Entities.ClinicEntities;
-//using System;
-//using System.Globalization;
+﻿using Domain.Contracts;
+using Domain.Entities.ClinicEntities;
+using System;
+using System.Linq.Expressions;
 
-//namespace Services.Specifications
-//{
-//    public class ClinicSpecification : Specifications<Clinic>
-//    {
-//        public ClinicSpecification(int id)
-//            : base(c => c.Id == id)
-//        {
-//        }
+namespace Services.Specifications
+{
+    public class ClinicSpecification : Specifications<Clinic>
+    {
+        public ClinicSpecification(int id)
+            : base(c => c.Id == id)
+        {
+            AddInclude(c => c.Doctors);
+        }
 
-//        public ClinicSpecification(string city, int pageIndex, int pageSize, string? clinicName = null)
-//            : base(c => c.Address.City.ToLowerInvariant().Contains(city.ToLowerInvariant()) &&
-//                        (string.IsNullOrWhiteSpace(clinicName) || c.ClinicName.ToLowerInvariant().Contains(clinicName.ToLowerInvariant())))
-//        {
-//            ApplyPagination(pageIndex, pageSize);
-//            setOrderBy(c => c.ClinicName);
-//        }
-//    }
-//}
+        public ClinicSpecification(Expression<Func<Clinic, bool>> criteria)
+            : base(criteria)
+        {
+            AddInclude(c => c.Doctors);
+        }
+    }
+}
 

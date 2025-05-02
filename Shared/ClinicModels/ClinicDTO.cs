@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.ClinicEntities;
+using Shared.DoctorModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace Shared.ClinicModels
         public ClinicStatus Status { get; set; }
         public string OwnerId { get; set; }
         public string OwnerName { get; set; }
+        public List<DoctorDTO> Doctors { get; set; } = new List<DoctorDTO>();
     }
 }
