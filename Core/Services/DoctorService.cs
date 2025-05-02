@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Identity;
 using Services.Abstractions;
 using Services.Specifications;
 using Shared.DoctorModels;
+using Shared.ClinicModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Persistence.Repositories;
 
 namespace Services
 {
@@ -167,6 +169,29 @@ namespace Services
                 return null;
                 
             return await GetDoctorByIdAsync(doctor.Id);
+        }
+
+        public async Task<IEnumerable<ClinicDTO>> GetDoctorClinicsAsync(int doctorId)
+        {
+            var doctor = await _unitOfWork.GetRepository<Doctor, int>().GetAsync(doctorId);
+            if (doctor == null)
+                throw new DoctorNotFoundException(doctorId.ToString());
+
+            // Get current clinic
+            var currentClinic = doctor.ClinicId > 0 ? 
+                await _unitOfWork.GetRepository<Clinic, int>().GetAsync(doctor.ClinicId) : null;
+
+            var clinics = new List<ClinicDTO>();
+
+            // Add current clinic if exists
+            if (currentClinic != null)
+            {
+                var clinicDto = _mapper.Map<ClinicDTO>(currentClinic);
+                clinicDto.Doctors = new List<DoctorDTO> { _mapper.Map<DoctorDTO>(doctor) };
+                clinics.Add(clinicDto);
+            }
+
+            return clinics;
         }
     }
 }

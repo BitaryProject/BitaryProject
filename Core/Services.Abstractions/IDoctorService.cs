@@ -1,4 +1,5 @@
 ﻿using Shared.DoctorModels;
+using Shared.ClinicModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace Services.Abstractions
         Task<DoctorDTO?> UpdateDoctorAsync(int doctorId, DoctorDTO model);
         Task<bool> DeleteDoctorAsync(int doctorId);
         Task<DoctorDTO?> GetDoctorByUserIdAsync(string userId);
+        Task<IEnumerable<ClinicDTO>> GetDoctorClinicsAsync(int doctorId);
     }
 }

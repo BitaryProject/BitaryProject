@@ -6,7 +6,9 @@ using Domain.Entities.SecurityEntities;
 using Domain.Entities.DoctorEntites;
 using Microsoft.AspNetCore.Identity;
 using Services.Abstractions;
+using Services.Specifications;
 using Shared.ClinicModels;
+using Shared.DoctorModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,17 +34,27 @@ namespace Services
 
         public async Task<ClinicDTO?> GetClinicByIdAsync(int clinicId)
         {
-            var clinic = await _unitOfWork.GetRepository<Clinic, int>().GetAsync(clinicId);
+            var spec = new ClinicSpecification(clinicId);
+            var clinic = await _unitOfWork.GetRepository<Clinic, int>().GetAsync(spec);
+            
             if (clinic == null)
                 throw new ClinicNotFoundException(clinicId.ToString());
-            
-            var owner = await _userManager.FindByIdAsync(clinic.OwnerId);
+                
             var clinicDto = _mapper.Map<ClinicDTO>(clinic);
             
-            if (owner != null)
+            // Get all active doctors for this clinic
+            var doctorSpec = new DoctorSpecification(d => d.ClinicId == clinicId);
+            var doctors = await _unitOfWork.GetRepository<Doctor, int>().GetAllAsync(doctorSpec);
+            
+            // Map doctors to DTOs and include their schedules
+            var doctorDtos = new List<DoctorDTO>();
+            foreach (var doctor in doctors)
             {
-                clinicDto.OwnerName = $"{owner.FirstName} {owner.LastName}";
+                var doctorDto = _mapper.Map<DoctorDTO>(doctor) with { ClinicName = clinic.ClinicName };
+                doctorDtos.Add(doctorDto);
             }
+            
+            clinicDto.Doctors = doctorDtos;
             
             return clinicDto;
         }

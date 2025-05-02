@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Services.Abstractions;
 using Shared.DoctorModels;
+using Shared.ClinicModels;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -262,6 +264,23 @@ namespace Presentation
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        // GET: api/Doctor/{id}/clinicss
+        [HttpGet("{id}/clinics")]
+        [ProducesResponseType(typeof(IEnumerable<ClinicDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDoctorClinics(int id)
+        {
+            try
+            {
+                var clinics = await _serviceManager.DoctorService.GetDoctorClinicsAsync(id);
+                return Ok(clinics);
+            }
+            catch (DoctorNotFoundException)
+            {
+                return NotFound();
             }
         }
 
