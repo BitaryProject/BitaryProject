@@ -12,7 +12,7 @@ namespace Services.MappingProfiles
             // Entity to DTO mapping
             CreateMap<Rating, RatingDTO>()
                 .ForMember(dest => dest.ClinicName, opt => opt.MapFrom(src => src.Clinic != null ? src.Clinic.ClinicName : null))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => "User")); // Note: We'll need to fetch username from a service
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => string.Empty)); // Will be populated in the service
 
             // DTO to Entity mapping (for creation)
             CreateMap<RatingCreateDTO, Rating>()

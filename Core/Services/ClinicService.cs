@@ -42,6 +42,13 @@ namespace Services
                 
             var clinicDto = _mapper.Map<ClinicDTO>(clinic);
             
+            // Set the owner name
+            var owner = await _userManager.FindByIdAsync(clinic.OwnerId);
+            if (owner != null)
+            {
+                clinicDto.OwnerName = $"{owner.FirstName} {owner.LastName}".Trim();
+            }
+            
             // Get all active doctors for this clinic
             var doctorSpec = new DoctorSpecification(d => d.ClinicId == clinicId);
             var doctors = await _unitOfWork.GetRepository<Doctor, int>().GetAllAsync(doctorSpec);
