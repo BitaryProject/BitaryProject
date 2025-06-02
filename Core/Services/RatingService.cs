@@ -1,7 +1,10 @@
 using AutoMapper;
 using Domain.Contracts;
 using Domain.Entities.ClinicEntities;
+using Domain.Entities.SecurityEntities;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Services.Abstractions;
 using Services.Specifications;
 using Shared.RatingModels;
@@ -17,12 +20,18 @@ namespace Services
         private readonly IUnitOFWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IClinicService _clinicService;
+        private readonly UserManager<User> _userManager;
 
-        public RatingService(IUnitOFWork unitOfWork, IMapper mapper, IClinicService clinicService)
+        public RatingService(
+            IUnitOFWork unitOfWork, 
+            IMapper mapper, 
+            IClinicService clinicService,
+            UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _clinicService = clinicService;
+            _userManager = userManager;
         }
 
         public async Task<RatingDTO> GetRatingByIdAsync(int id)
@@ -33,7 +42,16 @@ namespace Services
             if (rating == null)
                 throw new RatingNotFoundException(id.ToString());
                 
-            return _mapper.Map<RatingDTO>(rating);
+            var ratingDto = _mapper.Map<RatingDTO>(rating);
+            
+            // Get user's name
+            var user = await _userManager.FindByIdAsync(rating.UserId);
+            if (user != null)
+            {
+                ratingDto = ratingDto with { UserName = $"{user.FirstName} {user.LastName}".Trim() };
+            }
+            
+            return ratingDto;
         }
 
         public async Task<IEnumerable<RatingDTO>> GetRatingsByClinicIdAsync(int clinicId)
@@ -41,7 +59,20 @@ namespace Services
             var spec = new RatingSpecification(clinicId, true);
             var ratings = await _unitOfWork.GetRepository<Rating, int>().GetAllAsync(spec);
             
-            return _mapper.Map<IEnumerable<RatingDTO>>(ratings);
+            var ratingDtos = _mapper.Map<IEnumerable<RatingDTO>>(ratings).ToList();
+            
+            // Get user names for all ratings
+            for (int i = 0; i < ratingDtos.Count; i++)
+            {
+                var userId = ratingDtos[i].UserId;
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    ratingDtos[i] = ratingDtos[i] with { UserName = $"{user.FirstName} {user.LastName}".Trim() };
+                }
+            }
+            
+            return ratingDtos;
         }
 
         public async Task<IEnumerable<RatingDTO>> GetRatingsByUserIdAsync(string userId)
@@ -49,7 +80,22 @@ namespace Services
             var spec = new RatingSpecification(userId);
             var ratings = await _unitOfWork.GetRepository<Rating, int>().GetAllAsync(spec);
             
-            return _mapper.Map<IEnumerable<RatingDTO>>(ratings);
+            var ratingDtos = _mapper.Map<IEnumerable<RatingDTO>>(ratings).ToList();
+            
+            // Get user name once since all ratings are from the same user
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                string userName = $"{user.FirstName} {user.LastName}".Trim();
+                
+                // Update all DTOs with the user name
+                for (int i = 0; i < ratingDtos.Count; i++)
+                {
+                    ratingDtos[i] = ratingDtos[i] with { UserName = userName };
+                }
+            }
+            
+            return ratingDtos;
         }
 
         public async Task<bool> HasUserRatedClinicAsync(string userId, int clinicId)
@@ -139,7 +185,20 @@ namespace Services
             var spec = RatingSpecification.GetTopRatings(limit);
             var ratings = await _unitOfWork.GetRepository<Rating, int>().GetAllAsync(spec);
             
-            return _mapper.Map<IEnumerable<RatingDTO>>(ratings);
+            var ratingDtos = _mapper.Map<IEnumerable<RatingDTO>>(ratings).ToList();
+            
+            // Get user names for all ratings
+            for (int i = 0; i < ratingDtos.Count; i++)
+            {
+                var userId = ratingDtos[i].UserId;
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    ratingDtos[i] = ratingDtos[i] with { UserName = $"{user.FirstName} {user.LastName}".Trim() };
+                }
+            }
+            
+            return ratingDtos;
         }
 
         public async Task<IEnumerable<RatingDTO>> GetLatestRatingsAsync(int limit = 10)
@@ -147,7 +206,20 @@ namespace Services
             var spec = RatingSpecification.GetLatestRatings(limit);
             var ratings = await _unitOfWork.GetRepository<Rating, int>().GetAllAsync(spec);
             
-            return _mapper.Map<IEnumerable<RatingDTO>>(ratings);
+            var ratingDtos = _mapper.Map<IEnumerable<RatingDTO>>(ratings).ToList();
+            
+            // Get user names for all ratings
+            for (int i = 0; i < ratingDtos.Count; i++)
+            {
+                var userId = ratingDtos[i].UserId;
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    ratingDtos[i] = ratingDtos[i] with { UserName = $"{user.FirstName} {user.LastName}".Trim() };
+                }
+            }
+            
+            return ratingDtos;
         }
 
         public async Task<double> CalculateAverageRatingAsync(int clinicId)

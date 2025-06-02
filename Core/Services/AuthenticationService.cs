@@ -78,6 +78,12 @@ namespace Services
                 if (validationErrors.Any())
                     throw new ValidationException(validationErrors);
 
+                // Fix for UserRole=0: Ensure it's mapped to PetOwner (1)
+                if ((byte)registerModel.UserRole == 0)
+                {
+                    registerModel = registerModel with { UserRole = Role.PetOwner };
+                }
+
                 var user = new User
                 {
                     FirstName = registerModel.FirstName,
@@ -665,12 +671,19 @@ namespace Services
                     Country = string.Empty
                 };
 
+            // Ensure user role is valid (default to PetOwner if it's 0 or invalid)
+            var userRole = user.UserRole;
+            if ((byte)userRole == 0 || !Enum.IsDefined(typeof(Role), userRole))
+            {
+                userRole = Role.PetOwner;
+            }
+
             return new UserInformationDTO
             {
                 FirstName = firstName,
                 LastName = lastName,
                 Gender = user.Gender,
-                UserRole = user.UserRole,
+                UserRole = userRole,
                 Address = address,
                 PhoneNumber = phoneNumber
             };
@@ -685,6 +698,12 @@ namespace Services
                     ?? throw new UserNotFoundException(email);
 
                 Console.WriteLine($"Found user: ID={user.Id}, Email={user.Email}");
+
+                // Fix for UserRole=0: Ensure it's mapped to PetOwner (1)
+                if ((byte)userInfoDTO.UserRole == 0 || !Enum.IsDefined(typeof(Role), userInfoDTO.UserRole))
+                {
+                    userInfoDTO.UserRole = Role.PetOwner;
+                }
 
                 // Copy only the fields we want to update
                 user.FirstName = !string.IsNullOrWhiteSpace(userInfoDTO.FirstName) ? userInfoDTO.FirstName : user.FirstName;

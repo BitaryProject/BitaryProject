@@ -86,7 +86,8 @@ namespace Services
             _ratingService = new Lazy<IRatingService>(() => new RatingService(
                 unitOfWork,
                 mapper,
-                _clinicService.Value));
+                _clinicService.Value,
+                userManager));
                 
             // Initialize the WishListService
             _wishListService = new Lazy<IWishListService>(() => new WishListService(
