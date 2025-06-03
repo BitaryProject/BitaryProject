@@ -53,7 +53,7 @@ namespace Services
 
         public async Task<IEnumerable<AppointmentDTO>> GetDoctorAppointmentsAsync(int doctorId, DateTime? fromDate = null, DateTime? toDate = null)
         {
-            var spec = new AppointmentSpecification(doctorId, AppointmentStatus.Approved, fromDate, toDate);
+            var spec = new AppointmentSpecification(doctorId, true, fromDate, toDate);
             var appointments = await _unitOfWork.GetRepository<Appointment, int>().GetAllAsync(spec);
             return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
         }
